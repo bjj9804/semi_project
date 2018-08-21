@@ -10,7 +10,8 @@
   min-height: 100%;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 5px 1px rgba(0, 0, 0, .7), 0 -5px 1px rgba(0, 0, 0, .7);
+  border-top:1px solid #fff;
+  background-color:#e7e7e7;
 }
 
 .text {
@@ -38,37 +39,27 @@
 
 .footer {
   text-align: center;
-  font-size: 175%;
   color: #fff;
   text-shadow: 0 2px 2px #000;
 }
 
-#title {
-  background-image: url("http://i.imgur.com/kLEnZ9o.jpg");
-  background-attachment: fixed;
-}
+#title {}
 #title video{position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover;}
+#title .main_tit{position:absolute; top:50%; font-size:50px; line-height:50px; margin-top:-25px; left:0; width:100%; text-align:center; color:#fff}
 
 #section1 {
-  background-image: url("http://i.imgur.com/k1hqL67.jpg");
-  transform: translateZ(-1px) scale(2);
-  z-index: -1;
+  z-index: 1;
+  margin-top:65px;
 }
+#section1 .main_content{text-align:center;}
 
-#section2 {
-  background-image: url("http://i.imgur.com/SYAARx7.jpg");
-  background-attachment: fixed;
-}
+#section2 {z-index:2;}
 
 #section3 {
-  background-image: url("http://i.imgur.com/jo4HX13.jpg");
-  transform: translateZ(-1px) scale(2);
-  z-index: -1;
+  z-index: 1;
 }
 
-#section4 { background: #111; }
-
-
+#section4 { background: #111; min-height:30%;}
 
 #header{
     color: #fff;
@@ -106,3 +97,6 @@
 
 #content{min-height:1000px; padding-top:110px;}
 #content .inner{width:1000px; margin:30px auto 0;}
+
+
+.section .main_content{width:1000px; margin:0 auto;}
