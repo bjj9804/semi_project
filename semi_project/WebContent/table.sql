@@ -54,7 +54,7 @@ CREATE TABLE demand
 	method varchar2(20),
 	totalPrice number(10,0),
 	payMoney number(10,0),
-	PRIMARY KEY (bagNum)
+	PRIMARY KEY (orderNum)
 );
 
 
@@ -105,7 +105,7 @@ CREATE TABLE noticeBoard
 	title varchar2(30),
 	content varchar2(60),
 	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
+	PRIMARY KEY (num)
 );
 
 
@@ -118,7 +118,7 @@ CREATE TABLE qnaboard
 	lev number(3,0),
 	step number(3,0),
 	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
+	PRIMARY KEY (num)
 );
 
 
@@ -130,7 +130,7 @@ CREATE TABLE reviewboard
 	height number(4,0),
 	weight number(3,0),
 	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
+	PRIMARY KEY (num)
 );
 
 
