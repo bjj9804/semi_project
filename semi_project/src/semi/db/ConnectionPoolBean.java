@@ -1,17 +1,11 @@
-package test.db;
+package semi.db;
 
 import java.sql.*;
 import java.util.*;
-/*
- * [[ 컨넥션 풀 ]]
- * - DBMS와 접속된 컨넥션들을 여러개 만들어 놓고(컨넥션풀) DB와 접속할때 
- *   사용중이지 않은  컨넥션객체를 얻어와 사용하고 작업이 끝나면
- *   컨넥션객체를 다시 반환한다.
- * - 성능향상을 위해 사용한다.
- */
+
 public class ConnectionPoolBean{
 	String url, usr, pwd;
-	HashMap<Connection,Boolean> h; //pool장 너무 가고싶어
+	HashMap<Connection,Boolean> h;
 	int increment = 3;
 	
 	public ConnectionPoolBean() throws ClassNotFoundException, SQLException{
@@ -27,14 +21,11 @@ public class ConnectionPoolBean{
 		h = new HashMap<Connection,Boolean>();
 		for(int i=0; i<5; i++)
 		{
-			//컨넥션 객체 얻어오기
 			con = DriverManager.getConnection(url, usr, pwd);
-			//컨넥션객체를 Map에 담기(사용중이 아닌 상태라는 표시로 false저장)
 			h.put(con,false);
 		}
-		System.out.println("ConnectionPoolBean created ...");
 	}
-	//사용중인 아닌 컨넥션 반환
+	
 	public synchronized Connection getConnection()
 		throws SQLException{
 		Connection con = null;
@@ -42,18 +33,13 @@ public class ConnectionPoolBean{
 		Set<Connection> e = h.keySet();
 		Iterator<Connection> it=e.iterator();
 		while(it.hasNext()){
-			//Map에서 컨넥션 얻어오기
 			con = it.next();
-			//상태 얻어오기(사용중:true,사용중이 아님:false)
             b = h.get(con);
-			if(!b){//사용중이지 않으면
-				//사용중인 상태(true)로 바꾸고
+			if(!b){
 				h.put(con,true);
-				//컨넥션 리턴
 				return con;
 			}
 		}
-		//컨넥션이 모두 사용중일때 새로운 컨넥션을 3개 얻어와 Map에 저장
 		for(int i=0; i<increment; i++) {
             h.put(DriverManager.getConnection(url,usr,pwd), false);
 		}
@@ -73,7 +59,6 @@ public class ConnectionPoolBean{
 		}
         keepConSu(5);
 	}
-	//사용중이지 않은 컨넥션 객체를 su만큼 유지하는 메소드
 	public void keepConSu(int su) throws SQLException{
         Connection con = null;
 		Boolean b = null;

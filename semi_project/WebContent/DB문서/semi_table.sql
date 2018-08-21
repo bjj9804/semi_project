@@ -1,10 +1,10 @@
 
 /* Drop Tables */
 
-DROP TABLE bag CASCADE CONSTRAINTS;
 DROP TABLE coupon CASCADE CONSTRAINTS;
 DROP TABLE demand CASCADE CONSTRAINTS;
 DROP TABLE itemImg CASCADE CONSTRAINTS;
+DROP TABLE orderNum CASCADE CONSTRAINTS;
 DROP TABLE itemsize CASCADE CONSTRAINTS;
 DROP TABLE Look CASCADE CONSTRAINTS;
 DROP TABLE item CASCADE CONSTRAINTS;
@@ -17,18 +17,6 @@ DROP TABLE Users CASCADE CONSTRAINTS;
 
 
 /* Create Tables */
-
-CREATE TABLE bag
-(
-	bagNum number(10,0) NOT NULL,
-	orderAmount number(3,0),
-	code varchar2(20) NOT NULL,
-	totalPrice number(10,0),
-	num number(3,0) NOT NULL,
-	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
-);
-
 
 CREATE TABLE coupon
 (
@@ -43,18 +31,18 @@ CREATE TABLE coupon
 
 CREATE TABLE demand
 (
-	bagNum number(10,0) NOT NULL,
+	orderNum number(10,0) NOT NULL,
 	orderDate date,
 	orderAmount number(3,0),
 	state varchar2(15),
 	email varchar2(30) NOT NULL,
 	code varchar2(20) NOT NULL,
-	num number(3,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	addr varchar2(30),
 	method varchar2(20),
 	totalPrice number(10,0),
 	payMoney number(10,0),
-	PRIMARY KEY (bagNum)
+	PRIMARY KEY (orderNum)
 );
 
 
@@ -80,7 +68,7 @@ CREATE TABLE itemImg
 
 CREATE TABLE itemsize
 (
-	num number(3,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	isize varchar2(15),
 	code varchar2(20) NOT NULL,
 	amount number(3,0),
@@ -90,7 +78,7 @@ CREATE TABLE itemsize
 
 CREATE TABLE Look
 (
-	num number(2,0) NOT NULL,
+	num number(3,0) NOT NULL,
 	lookCode varchar2(20) NOT NULL,
 	code varchar2(20) NOT NULL,
 	lookFront varchar2(20),
@@ -101,36 +89,51 @@ CREATE TABLE Look
 
 CREATE TABLE noticeBoard
 (
-	bagNum number(10,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
+	hit number(3,0),
+	PRIMARY KEY (num)
+);
+
+
+CREATE TABLE orderNum
+(
+	num number(7,0) NOT NULL,
+	email varchar2(30) NOT NULL,
+	orderNum number(5,0) NOT NULL,
+	code varchar2(20),
+	orderAmount number(3,0),
+	totalPrice number(10,0),
+	PRIMARY KEY (orderNum)
 );
 
 
 CREATE TABLE qnaboard
 (
-	bagNum number(10,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	grp number(4,0),
 	lev number(3,0),
 	step number(3,0),
 	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
+	hit number(3,0),
+	PRIMARY KEY (num)
 );
 
 
 CREATE TABLE reviewboard
 (
-	bagNum number(10,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	height number(4,0),
 	weight number(3,0),
 	email varchar2(30) NOT NULL,
-	PRIMARY KEY (bagNum)
+	hit number(3,0),
+	PRIMARY KEY (num)
 );
 
 
@@ -170,21 +173,15 @@ ALTER TABLE Look
 ;
 
 
-ALTER TABLE bag
-	ADD FOREIGN KEY (num)
-	REFERENCES itemsize (num)
-;
-
-
 ALTER TABLE demand
 	ADD FOREIGN KEY (num)
 	REFERENCES itemsize (num)
 ;
 
 
-ALTER TABLE bag
-	ADD FOREIGN KEY (email)
-	REFERENCES Users (email)
+ALTER TABLE orderNum
+	ADD FOREIGN KEY (num)
+	REFERENCES itemsize (num)
 ;
 
 
@@ -206,6 +203,12 @@ ALTER TABLE noticeBoard
 ;
 
 
+ALTER TABLE orderNum
+	ADD FOREIGN KEY (email)
+	REFERENCES Users (email)
+;
+
+
 ALTER TABLE qnaboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
@@ -216,4 +219,6 @@ ALTER TABLE reviewboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
 ;
+
+
 
