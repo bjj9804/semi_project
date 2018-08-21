@@ -22,7 +22,7 @@ public class noticeController extends HttpServlet{
 		
 	}
 	private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("?");
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
