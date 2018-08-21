@@ -13,10 +13,10 @@ public class NoticeBoardDao {
 	ConnectionPoolBean cp;
 	private static NoticeBoardDao instance=new NoticeBoardDao();
 	private NoticeBoardDao() {}
-
 	public static NoticeBoardDao getInstance() {
 		return instance;
 	}
+	
 	public int getMaxNum() {
 		Connection con=null;
 		PreparedStatement pstmt=null;

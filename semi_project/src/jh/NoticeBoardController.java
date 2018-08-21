@@ -50,7 +50,7 @@ public class NoticeBoardController extends HttpServlet{
 				bool=false;
 			}
 		}
-		if(bool==false) {//뭔가삭제에 실패했다.......
+		if(bool==false) {//뭔가삭제에 실패했다......
 			System.out.println("삭제 실패");
 			return;
 		}

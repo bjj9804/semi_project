@@ -14,9 +14,6 @@ public class NoticeBoardVo {
 	
 	public NoticeBoardVo() {}
 	
-	
-
-
 	public NoticeBoardVo(int num, String name, String email, String title, String content, int hit, Date regdate) {
 		super();
 		this.num = num;

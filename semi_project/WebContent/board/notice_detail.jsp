@@ -17,6 +17,7 @@
 				<tr><th>제목</th><td>${vo.title }</td></tr>
 				<tr><th>내용</th><td>${vo.content }</td></tr>
 				<tr><th>조회수</th><td>${vo.hit }</td></tr>
+				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
 			</table>
 		</div>
 	</div>
