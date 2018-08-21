@@ -61,8 +61,7 @@ CREATE TABLE itemImg
 	imgType varchar2(15) NOT NULL,
 	code varchar2(20) NOT NULL,
 	imgSrc varchar2(20),
-	PRIMARY KEY (imgType, code),
-	UNIQUE (imgType, code)
+	PRIMARY KEY (imgType, code)
 );
 
 
