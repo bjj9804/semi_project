@@ -12,8 +12,9 @@
 		<div class="inner">
 			<h2>NOTICE BOARD</h2>
 			<!-- 관리자가 들어왔을때 -->
-			<c:if test="${param.flag==1}">
+			<c:if test="${param.flag!=1}">
 				<input type="button" value="삭제" onclick="delete1()">
+				<input type="button" value="글작성" onclick="location.href='../board/notice_insert.jsp'">
 				<table border="1" width="800">
 					<tr><th><input type="checkbox" name="check" onclick="checkAll()"></th><th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
 					<c:forEach var="vo" items="${list }">
@@ -31,7 +32,7 @@
 			</c:if>
 			
 			<!-- 일반인이 들어왔을때 -->
-			<c:if test="${param.flag!=1}">
+			<c:if test="${param.flag==1}">
 			<table border="1" width="800">
 				<tr><th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
 				<c:forEach var="vo" items="${list }">
@@ -89,7 +90,6 @@
 		if(confirm("삭제하시겠습니까?")){
 			location.href="jh/notice.do?checkList="+checkList+"&cmd='delete'";
 		}
-		
 	}
 	</script>
 </html>
