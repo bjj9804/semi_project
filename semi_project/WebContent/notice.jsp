@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>NOTICE BOARDing</h2>
+<h2>NOTICE BOARD</h2>
 <table border="1" width="800">
 	<tr><th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
 	<c:forEach var="vo" items="${list }">
