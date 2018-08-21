@@ -9,8 +9,8 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<form action="join.do" method="post">
 			<div id="joinWrap">
+			<form action="../join.do" method="post">
 				<!-- flag:1 (관리자) flag:0 (유저) -->
 				<input type="hidden" value="0" name="flag">
 				<!-- coupon:1 (한장) -->
@@ -154,8 +154,8 @@
 						</td>
 					</tr>
 				</table>
-			</div>
 			</form>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

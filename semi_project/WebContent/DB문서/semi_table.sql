@@ -89,11 +89,12 @@ CREATE TABLE Look
 CREATE TABLE noticeBoard
 (
 	num number(7,0) NOT NULL,
-	title varchar2(30),
-	content varchar2(60),
-	email varchar2(30) NOT NULL,
-	hit number(3,0),
 	name varchar2(15),
+	email varchar2(30) NOT NULL,
+	title varchar2(30),
+	content varchar2(60),	
+	hit number(3,0),
+	regdate date
 	PRIMARY KEY (num)
 );
 
@@ -113,14 +114,15 @@ CREATE TABLE orderNum
 CREATE TABLE qnaboard
 (
 	num number(7,0) NOT NULL,
+	name varchar2(20),
+	email varchar2(30) NOT NULL,	
 	title varchar2(30),
 	content varchar2(60),
-	grp number(4,0),
+	grp number(7,0),
 	lev number(3,0),
 	step number(3,0),
-	email varchar2(30) NOT NULL,
 	hit number(3,0),
-	name varchar2(20),
+	regdate date
 	PRIMARY KEY (num)
 );
 
@@ -128,13 +130,14 @@ CREATE TABLE qnaboard
 CREATE TABLE reviewboard
 (
 	num number(7,0) NOT NULL,
+	name varchar2(20),
+	email varchar2(30) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	height number(4,0),
 	weight number(3,0),
-	email varchar2(30) NOT NULL,
 	hit number(3,0),
-	name varchar2(20),
+	regdate date
 	PRIMARY KEY (num)
 );
 
@@ -148,7 +151,11 @@ CREATE TABLE Users
 	name varchar2(20),
 	regdate date,
 	coupon number(10,0),
+<<<<<<< HEAD
 	flag number(10,0),
+=======
+	flag number(1,0),
+>>>>>>> branch 'master' of https://github.com/bjj9804/semi_project.git
 	PRIMARY KEY (email)
 );
 

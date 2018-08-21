@@ -1,37 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
-<style type="text/css">
-	#logiWrap{width: 800px; border: 1px solid #ccc;}
-	#loginJoin #loginLogin{float: left; width: 50%;}
-</style>
+	<jsp:include page="/inc/header.jsp"/>
 </head>
 <body>
-<div id="logiWrap">
-	<div id="loginHeader">·Î±×ÀÎ</div>
-	<div id="loginJoin">
-		½Å±Ô°í°´
-		±¸Âî ¿Â¶óÀÎ ¼­ºñ½º ÀÌ¿ëÀ» À§ÇØ È¸¿ø°¡ÀÔÀ» ÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
-		<ul>
-			<li>»óÇ° ¹è¼Û ÇöÈ² ¹× ¹ÝÇ° ³»¿ª È®ÀÎ</li>
-			<li>³ª¸¸À» À§ÇÑ ±¸ÂîÀÇ »óÇ° ÃßÃµ</li>
-			<li>°ü½É »óÇ° ÆíÁý</li>
-		</ul>
-		<input type="button" value="½Å±Ô È¸¿ø °¡ÀÔ" src="join.jsp">
+	<jsp:include page="/inc/gnb.jsp"/>
+	<div id="content">
+		<div class="inner">
+			<div id="logiWrap">
+				<div id="loginHeader">ë¡œê·¸ì¸</div>
+				<div id="loginJoin">
+					ì‹ ê·œê³ ê°
+					êµ¬ì°Œ ì˜¨ë¼ì¸ ì„œë¹„ìŠ¤ ì´ìš©ì„ ìœ„í•´ íšŒì›ê°€ìž…ì„ í•´ì£¼ì‹œê¸° ë°”ëžë‹ˆë‹¤.
+					<ul>
+						<li>ìƒí’ˆ ë°°ì†¡ í˜„í™© ë° ë°˜í’ˆ ë‚´ì—­ í™•ì¸</li>
+						<li>ë‚˜ë§Œì„ ìœ„í•œ êµ¬ì°Œì˜ ìƒí’ˆ ì¶”ì²œ</li>
+						<li>ê´€ì‹¬ ìƒí’ˆ íŽ¸ì§‘</li>
+					</ul>
+					<input type="button" value="ì‹ ê·œ íšŒì› ê°€ìž…" onclick = "location.href = 'join.jsp' ">
+				</div>
+				<div id="loginLogin">
+					<form method="post" action="login.do">
+						ì•„ì´ë”” <input type="text" name="id"><br>
+						ë¹„ë°€ë²ˆí˜¸ <input type="text" name="pwd"><br>
+						<input type="checkbox" name="idCheck"><br>
+						<input type="checkbox" name="pwdCheck"><br>
+						<input type="submit" value="ë¡œê·¸ì¸">
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div id="loginLogin">
-		<form method="post" action="login.do">
-			¾ÆÀÌµð <input type="text" name="id"><br>
-			ºñ¹Ð¹øÈ£ <input type="text" name="pwd"><br>
-			<input type="checkbox" name="idCheck"><br>
-			<input type="checkbox" name="pwdCheck"><br>
-			<input type="submit" value="·Î±×ÀÎ">
-		</form>
-	</div>
-</div>
+	<jsp:include page="/inc/footer.jsp"/>
 </body>
 </html>
