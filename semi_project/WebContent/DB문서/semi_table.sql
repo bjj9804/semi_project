@@ -218,6 +218,3 @@ ALTER TABLE reviewboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
 ;
-
-
-
