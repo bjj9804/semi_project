@@ -43,7 +43,7 @@ CREATE TABLE coupon
 
 CREATE TABLE demand
 (
-	bagNum number(10,0) NOT NULL,
+	orderNum number(10,0) NOT NULL,
 	orderDate date,
 	orderAmount number(3,0),
 	state varchar2(15),
@@ -90,7 +90,7 @@ CREATE TABLE itemsize
 
 CREATE TABLE Look
 (
-	num number(2,0) NOT NULL,
+	num number(3,0) NOT NULL,
 	lookCode varchar2(20) NOT NULL,
 	code varchar2(20) NOT NULL,
 	lookFront varchar2(20),
@@ -101,7 +101,7 @@ CREATE TABLE Look
 
 CREATE TABLE noticeBoard
 (
-	bagNum number(10,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	email varchar2(30) NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE noticeBoard
 
 CREATE TABLE qnaboard
 (
-	bagNum number(10,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	grp number(4,0),
@@ -124,7 +124,7 @@ CREATE TABLE qnaboard
 
 CREATE TABLE reviewboard
 (
-	bagNum number(10,0) NOT NULL,
+	num number(7,0) NOT NULL,
 	title varchar2(30),
 	content varchar2(60),
 	height number(4,0),
