@@ -93,6 +93,7 @@ CREATE TABLE noticeBoard
 	content varchar2(60),
 	email varchar2(30) NOT NULL,
 	hit number(3,0),
+	name varchar2(15),
 	PRIMARY KEY (num)
 );
 
@@ -119,6 +120,7 @@ CREATE TABLE qnaboard
 	step number(3,0),
 	email varchar2(30) NOT NULL,
 	hit number(3,0),
+	name varchar2(20),
 	PRIMARY KEY (num)
 );
 
@@ -132,6 +134,7 @@ CREATE TABLE reviewboard
 	weight number(3,0),
 	email varchar2(30) NOT NULL,
 	hit number(3,0),
+	name varchar2(20),
 	PRIMARY KEY (num)
 );
 
