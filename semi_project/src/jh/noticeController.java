@@ -1,4 +1,4 @@
-package semi_controller;
+package jh;
 
 import java.io.IOException;
 
@@ -25,6 +25,11 @@ public class noticeController extends HttpServlet{
 		
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num=Integer.parseInt(request.getParameter("num"));
+		NoticeDao dao=NoticeDao.getInstance();
+		NoticeVo vo=dao.select(num);
+		request.setAttribute("vo", vo);
+		request.getRequestDispatcher("jh/detail.jsp").forward(request, response);	
 		
 	}
 }
