@@ -1,0 +1,8 @@
+저희 오라클 디비를 새로운 계정에 만들고 시작할게요
+아이디 : semi 비밀번호 : 4444
+ - 관리자계정으로 접속
+   C:\Users\JHTA>sqlplus system/admin
+ - 연습용계정생성
+   SQL> CREATE USER semi IDENTIFIED BY 4444;
+ - 접속권한 부여하기
+   SQL> grant connect,resource to semi;
