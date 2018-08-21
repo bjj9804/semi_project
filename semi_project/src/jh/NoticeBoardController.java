@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/notice.do")
+@WebServlet("/jh/notice.do")
 public class NoticeBoardController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,9 +27,26 @@ public class NoticeBoardController extends HttpServlet{
 		
 	}
 	private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String spageNum=request.getParameter("pageNum");
+		int pageNum=1;
+		if(spageNum!=null) {
+			pageNum=Integer.parseInt(spageNum);
+		}
+		int startRow=(pageNum-1)*10+1;
+		int endRow=(pageNum-1)*10+10;		
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
-		ArrayList<NoticeBoardVo> list=dao.list();
+		int pageCnt=(int)Math.ceil(dao.getCount()/10.0);
+		int startPage=((pageNum-1)/10)*10+1;
+		int endPage=startPage+9;
+		if(endPage>pageCnt) {
+			endPage=pageCnt;
+		}		
+		ArrayList<NoticeBoardVo> list=dao.list(startRow,endRow);
 		request.setAttribute("list", list);
+		request.setAttribute("pageCnt", pageCnt);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageNum", pageNum);
 		request.getRequestDispatcher("../board/notice_list.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

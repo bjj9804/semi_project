@@ -22,14 +22,30 @@
 						<tr>
 							<td><input type="checkbox" name="check" value="${vo.num }" onclick="check1()"></td>
 							<td>${vo.num }</td>
-							<td><a href="jh/notice.do?num=${vo.num }&cmd='detail'">${vo.title }</a></td>
+							<td><a href="../jh/notice.do?num=${vo.num }&cmd=detail">${vo.title }</a></td>
 							<td>관리자</td>
 							<td>${vo.hit }</td>		
 						</tr>
 					</c:forEach>
 				</table>
-			
-			
+				<div>
+					<c:if test="${startPage!=1 }">
+						<a href="../jh/notice.do?pageNum=${startPage-1 }">[이전]</a>
+					</c:if>
+					<c:forEach var="i" begin="${startPage }" end="${endPage }">
+					<c:choose>
+						<c:when test="${pageNum==i }"><%--현재페이지인 경우 --%>
+							<a href="../jh/notice.do?pageNum=${i }"><span style="color:red">[${i }]</span></a>	
+						</c:when>
+						<c:otherwise>
+							<a href="../jh/notice.do?pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<c:if test="${endPage<pageCount }">
+						<a href="../jh/notice.do?pageNum=${endPage+1 }">[다음]</a>
+					</c:if>
+				</div>
 			</c:if>
 			
 			<!-- 일반인이 들어왔을때 -->
@@ -39,7 +55,7 @@
 				<c:forEach var="vo" items="${list }">
 					<tr>
 						<td>${vo.num }</td>
-						<td><a href="jh/notice.do?num=${vo.num }&cmd='detail'">${vo.title }</a></td>
+						<td><a href="../jh/notice.do?num=${vo.num }&cmd=detail">${vo.title }</a></td>
 						<td>관리자</td>
 						<td>${vo.hit }</td>		
 					</tr>
@@ -89,7 +105,7 @@
 		}
 		console.log(checkList);
 		if(confirm("삭제하시겠습니까?")){
-			location.href="jh/notice.do?checkList="+checkList+"&cmd='delete'";
+			location.href="../jh/notice.do?checkList="+checkList+"&cmd=delete";
 		}
 	}
 	</script>

@@ -5,7 +5,7 @@
 		<ul>
 			<li><a href="#">Sign In</a></li>
 			<li><a href="#">Bag</a></li>
-			<li><a href="#">공지사항</a></li>
+			<li><a href="/semi_project/jh/notice.do?cmd=list">공지사항</a></li>
 			<li><a href="#">문의게시판</a></li>
 			<li><a href="#">후기게시판</a></li>
 		</ul>
