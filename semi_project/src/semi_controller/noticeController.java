@@ -1,4 +1,4 @@
-package test.controller;
+package semi_controller;
 
 import java.io.IOException;
 
@@ -21,7 +21,8 @@ public class noticeController extends HttpServlet{
 		}		
 		
 	}
-	private void listAll(HttpServletSystem.out.println("?");
+	private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
