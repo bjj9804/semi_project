@@ -7,16 +7,10 @@
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
-	<div id="title" class="section">
-		<video autoplay	loop id="myVideo">
-			<source	src="../images/video/main.mp4" type="video/mp4">
-		</video>
-	</div>
-	<div id="section1" class="section">
-	</div>
-	<div id="section2" class="section">
-	</div>
-	<div id="section3" class="section">
+	<div id="content">
+		<div class="inner">
+			컨텐츠
+		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
