@@ -20,15 +20,13 @@ public class UsersDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = cp.getConnection();
-			String sql = "insert into Users values(?,?,?,?,?,sysdate,?,?);";
+			String sql = "insert into Users values(?,?,?,?,?,sysdate,1,1);";// 쿠폰은 초기값에 1장으로 넣고 flag도 구매자는 초기값 1번으로
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
 			pstmt.setString(3, vo.getPhone());
 			pstmt.setString(4, vo.getAddr());
 			pstmt.setString(5, vo.getName());
-			pstmt.setString(6, vo.getCoupon());
-			pstmt.setInt(7, vo.getFlag());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
