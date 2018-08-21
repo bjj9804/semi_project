@@ -1,26 +1,34 @@
 package jh;
 
+import java.sql.Date;
+
 public class NoticeBoardVo {
 	private int num;
 	private String name;
-	private String title;
-	private String content;
 	private String email;
+	private String title;
+	private String content;	
 	private int hit;
+	private Date regdate;
 	
 	
 	public NoticeBoardVo() {}
+	
+	
 
 
-	public NoticeBoardVo(int num, String name, String title, String content, String email, int hit) {
+	public NoticeBoardVo(int num, String name, String email, String title, String content, int hit, Date regdate) {
 		super();
 		this.num = num;
 		this.name = name;
+		this.email = email;
 		this.title = title;
 		this.content = content;
-		this.email = email;
 		this.hit = hit;
+		this.regdate = regdate;
 	}
+
+
 
 
 	public int getNum() {
@@ -40,6 +48,16 @@ public class NoticeBoardVo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
@@ -63,16 +81,6 @@ public class NoticeBoardVo {
 	}
 
 
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
 	public int getHit() {
 		return hit;
 	}
@@ -81,7 +89,17 @@ public class NoticeBoardVo {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
+
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
 	
 	
 }

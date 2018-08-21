@@ -51,6 +51,7 @@ public class NoticeBoardController extends HttpServlet{
 			}
 		}
 		if(bool==false) {//뭔가삭제에 실패했다.......
+			System.out.println("삭제 실패");
 			return;
 		}
 		listAll(request,response);
@@ -62,10 +63,11 @@ public class NoticeBoardController extends HttpServlet{
 		String content=request.getParameter("content");
 		
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
-		NoticeBoardVo vo=new NoticeBoardVo(0, name, title, content, email, 0);
-		dao.insert(vo);
-	
-	
-	
+		NoticeBoardVo vo=new NoticeBoardVo(0, name, email, title, content, 0, null);
+		if(dao.insert(vo)>0) {
+			listAll(request,response);
+		}else {
+			System.out.println("작성실패");
+		}
 	}
 }
