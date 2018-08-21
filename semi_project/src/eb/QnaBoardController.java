@@ -12,7 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/qnalist.do")
 public class QnaBoardController extends HttpServlet {
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String cmd=request.getParameter("cmd");
+		if(cmd!=null && cmd.equals("insert")) {
+			insert(request,response);
+		}else if(cmd!=null && cmd.equals("list")) {
+			list(request,response);
+		}else if(cmd!=null && cmd.equals("detail")) {
+			detail(request,response);
+		}
+	}
+	
+	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String spageNum=request.getParameter("pageNum");
 		int pageNum=1;
 		if(spageNum!=null) {
@@ -35,4 +47,40 @@ public class QnaBoardController extends HttpServlet {
 		request.setAttribute("pageNum", pageNum);
 		request.getRequestDispatcher("/list.jsp").forward(request, response);
 	}
+	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	
+		request.setCharacterEncoding("utf-8");
+		String snum=request.getParameter("num");
+		String name=request.getParameter("name");
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		String email=request.getParameter("email");
+		int num=0;
+		int grp=0;
+		int lev=0;
+		int step=0;
+		int hit=0;
+		if(snum!=null && !snum.equals("")) {
+			num=Integer.parseInt(snum);
+			grp=Integer.parseInt(request.getParameter("grp"));
+			lev=Integer.parseInt(request.getParameter("lev"));
+			step=Integer.parseInt(request.getParameter("step"));
+		}
+		QnaBoardVo vo=new QnaBoardVo(num, name, email, title, content, grp, lev, step, hit, null);
+		QnaBoardDao dao=new QnaBoardDao();
+		int n=dao.insert(vo);
+		if(n>0) {
+			request.setAttribute("code", "success");
+		}else {
+			request.setAttribute("code", "fail");
+		}
+		request.getRequestDispatcher("result.jsp").forward(request, response);
+	}
+
+
+	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
+
+
+
+	}	
 }

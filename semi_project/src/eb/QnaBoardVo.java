@@ -1,5 +1,7 @@
 package eb;
 
+import java.sql.Date;
+
 public class QnaBoardVo {
 	private int num;
 	private String name;
@@ -10,12 +12,12 @@ public class QnaBoardVo {
 	private int lev;
 	private int step;
 	private int hit;
+	private Date regdate;
 	
 	public QnaBoardVo() {}
 	
-	public QnaBoardVo(int num, String name, String title, String content, String email, int grp, int lev, int step,
-			int hit) {
-		super();
+	public QnaBoardVo(int num, String name, String email, String title, String content, int grp, int lev, int step,
+			  int hit, Date regdate) {
 		this.num = num;
 		this.name = name;
 		this.title = title;
@@ -25,6 +27,7 @@ public class QnaBoardVo {
 		this.lev = lev;
 		this.step = step;
 		this.hit = hit;
+		this.regdate=regdate;
 	}
 	
 	
@@ -81,6 +84,12 @@ public class QnaBoardVo {
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
+	}
+	public Date getDate() {
+		return regdate;
+	}
+	public void setDate(Date regdate) {
+		this.regdate = regdate;
 	}
 	
 }

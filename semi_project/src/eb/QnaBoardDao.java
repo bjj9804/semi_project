@@ -1,13 +1,13 @@
 package eb;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import semi.db.ConnectionPoolBean;
-
 
 public class QnaBoardDao {
 	ConnectionPoolBean cp;
@@ -21,7 +21,6 @@ public class QnaBoardDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ConnectionPoolBean cp=null;
 		
 		try {
 			con=cp.getConnection();
@@ -42,7 +41,8 @@ public class QnaBoardDao {
 				int lev=rs.getInt("lev");
 				int step=rs.getInt("step");
 				int hit=rs.getInt("hit");
-				QnaBoardVo vo=new QnaBoardVo(num, name, title, content, email, grp, lev, step, hit);
+				Date regdate=rs.getDate("regdate");
+				QnaBoardVo vo=new QnaBoardVo(num, name, email, title, content, grp, lev, step, hit, regdate);
 				list.add(vo);
 			}
 			return list;
@@ -98,7 +98,7 @@ public class QnaBoardDao {
 
 		try {
 		con=cp.getConnection();
-		String sql="select NVL(max(num),0) MAXNUM from guestboard";
+		String sql="select NVL(max(num),0) MAXNUM from qnaboard";
 		pstmt=con.prepareStatement(sql);
 		rs=pstmt.executeQuery();
 		if(rs.next()) {
@@ -127,7 +127,9 @@ public class QnaBoardDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		PreparedStatement pstmt1=null;
+		
 		try {
+		ConnectionPoolBean cp=new ConnectionPoolBean();
 		con=cp.getConnection();
 		int boardNum=getMaxNum()+1;//추가될글번호
 		int num=vo.getNum();
@@ -146,7 +148,7 @@ public class QnaBoardDao {
 			lev += 1;
 			step += 1;
 		}
-		String sql="insert into guestboard values(?,?,?,?,?,?,?,?,?)";
+		String sql="insert into qnaboard values(?,?,?,?,?,?,?,?,?,sysdate)";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, boardNum);
 		pstmt.setString(2, vo.getTitle());
@@ -162,7 +164,11 @@ public class QnaBoardDao {
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 		return -1;
-		}finally {
+		}catch(ClassNotFoundException cn){
+			cn.printStackTrace();
+			return -1;
+		}
+		finally {
 			try {
 				if(pstmt!=null) pstmt.close();
 				if(pstmt1!=null) pstmt1.close();
@@ -185,16 +191,18 @@ public class QnaBoardDao {
 			pstmt.setInt(1, num);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				String writer=rs.getString("writer");
-				String title=rs.getString("title");
+				String name=rs.getString("name");
 				String content=rs.getString("content");
 				String email=rs.getString("email");
-				int ref=rs.getInt("ref");
+				String title=rs.getString("title");
+				int grp=rs.getInt("grp");
 				int lev=rs.getInt("lev");
 				int step=rs.getInt("step");
 				int hit=rs.getInt("hit");
-				QnaBoardVo vo=new QnaBoardVo(num, writer, title, email, content, ref, lev, step, hit);
+				Date regdate=rs.getDate("regdate");
+				QnaBoardVo vo=new QnaBoardVo(num, name, email, title, content, grp, lev, step, hit, regdate);
 				return vo;
+				
 			}
 		return null;
 		}catch(SQLException se) {
@@ -209,6 +217,32 @@ public class QnaBoardDao {
 				se.printStackTrace();
 			}
 		}
+	}
+	public int hitup(int num){
+		String sql="update qnaboard set hit=hit+1 where num=?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=cp.getConnection();
+			pstmt=con.prepareStatement(sql);	
+			pstmt.setInt(1, num);
+			int n=pstmt.executeUpdate();
+		return n;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(rs!=null) rs.close();
+				if(con!=null) cp.returnConnection(con);				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+		
 	}
 	
 	
