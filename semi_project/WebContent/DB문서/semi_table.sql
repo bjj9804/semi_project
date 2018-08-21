@@ -4,7 +4,7 @@
 DROP TABLE coupon CASCADE CONSTRAINTS;
 DROP TABLE demand CASCADE CONSTRAINTS;
 DROP TABLE itemImg CASCADE CONSTRAINTS;
-DROP TABLE orderNum CASCADE CONSTRAINTS;
+DROP TABLE bag CASCADE CONSTRAINTS;
 DROP TABLE itemsize CASCADE CONSTRAINTS;
 DROP TABLE Look CASCADE CONSTRAINTS;
 DROP TABLE item CASCADE CONSTRAINTS;
@@ -94,12 +94,12 @@ CREATE TABLE noticeBoard
 	title varchar2(30),
 	content varchar2(60),	
 	hit number(3,0),
-	regdate date
+	regdate date,
 	PRIMARY KEY (num)
 );
 
 
-CREATE TABLE orderNum
+CREATE TABLE bag
 (
 	num number(7,0) NOT NULL,
 	email varchar2(30) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE qnaboard
 	lev number(3,0),
 	step number(3,0),
 	hit number(3,0),
-	regdate date
+	regdate date,
 	PRIMARY KEY (num)
 );
 
@@ -137,7 +137,7 @@ CREATE TABLE reviewboard
 	height number(4,0),
 	weight number(3,0),
 	hit number(3,0),
-	regdate date
+	regdate date,
 	PRIMARY KEY (num)
 );
 
@@ -151,11 +151,7 @@ CREATE TABLE Users
 	name varchar2(20),
 	regdate date,
 	coupon number(10,0),
-<<<<<<< HEAD
-	flag number(10,0),
-=======
 	flag number(1,0),
->>>>>>> branch 'master' of https://github.com/bjj9804/semi_project.git
 	PRIMARY KEY (email)
 );
 
