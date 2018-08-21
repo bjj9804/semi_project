@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -12,78 +11,79 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ReviewBoardDao;
 import vo.ReviewBoardVo;
 
-
 @WebServlet("/reviewBoard.do")
-public class ReviewBoardController extends HttpServlet{
+public class ReviewBoardController extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String cmd = request.getParameter("cmd");
-		if(cmd!=null && cmd.equals("insert")) {
+		if (cmd != null && cmd.equals("insert")) {
 			insert(request, response);
-		}else if(cmd!=null && cmd.equals("list")) {
+		} else if (cmd != null && cmd.equals("list")) {
 			list(request, response);
-		}else if(cmd!=null && cmd.equals("delete")) {
-			delete(request, response);
+		} else if (cmd != null && cmd.equals("detail")) {
+			detail(request, response);
 		}
 	}
-	
+
 	private void insert(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String comments = request.getParameter("comments");
-		ReviewBoardVo vo = new CommentsVo(0, id, comments);
-		CommentsDao dao = CommentsDao.getInstance();
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		int height = Integer.parseInt(request.getParameter("height"));
+		int weight = Integer.parseInt(request.getParameter("weight"));
+		String email = request.getParameter("email");
+		ReviewBoardVo vo = new ReviewBoardVo(0, title, content, height, weight, email, null, 0);
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.insert(vo);
-		//2. 결과를 XML로 응답하기
-		response.setContentType("text/xml;charset=utf-8");
-		PrintWriter pw = response.getWriter();
-		pw.print("<?xml version='1.0' encoding='UTF-8'?>");
-		pw.println("<result>");
-		if(n>0) {
-			pw.println("<code>success</code>");
-		}else {
-			pw.println("<code>fail</code>");
+		if (n > 0) {
+
 		}
-		pw.println("</result>");
-		pw.close();
 	}
-	
 
 	public void list(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		CommentsDao dao = CommentsDao.getInstance();
-		ArrayList<CommentsVo> list = dao.list();
-		
-		response.setContentType("text/xml;charset=utf-8");
-		PrintWriter pw = response.getWriter();
-		pw.print("<?xml version='1.0' encoding='UTF-8'?>");
-		pw.println("<result>");
-		for(CommentsVo vo : list) {
-			pw.println("<comm>");
-			pw.println("<num>" + vo.getNum() + "</num>");
-			pw.println("<id>" + vo.getId() + "</id>");
-			pw.println("<comments>" + vo.getComments() + "</comments>");
-			pw.println("</comm>");
+		String spageNum = request.getParameter("pageNum");
+		int pageNum = 1;
+		if (spageNum != null) {
+			pageNum = Integer.parseInt(spageNum);
 		}
-		pw.println("</result>");
-		pw.close();
+		// int startRow=(pageNum-1)*10+1;
+		// int endRow=startRow+9;
+		int startRow = pageNum * 10 - 9;
+		int endRow = startRow + 9;
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		ArrayList<ReviewBoardVo> list = dao.list(startRow, endRow);
+		// 전체페이지갯수구하기
+		int pageCount = (int) Math.ceil(dao.getCount() / 10.0);
+		// 시작페이지번호
+		int startPage = ((pageNum - 1) / 10 * 10) + 1;
+		// int startPage = (pageNum/10)*10-9;
+		// 끝페이지번호
+		// int endPage = startPage+pageNum%10-1;
+		int endPage = startPage + 9;
+		if (endPage > pageCount) {
+			endPage = pageCount;
+		}
+		request.setAttribute("list", list);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageNum", pageNum);
+		request.getRequestDispatcher("/review_list.jsp").forward(request, response);
 	}
-	
-	public void delete(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+
+	public void detail(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-		CommentsDao dao = CommentsDao.getInstance();
-		int n = dao.delete(num);
-		response.setContentType("text/xml;charset=utf-8");
-		PrintWriter pw = response.getWriter();
-		pw.print("<?xml version='1.0' encoding='UTF-8'?>");
-		pw.println("<result>");
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		int n = dao.hitup(num);
 		if(n>0) {
-			pw.println("<code>success</code>");
+			ReviewBoardVo vo = dao.detail(num);
+			request.setAttribute("vo", vo);
 		}else {
-			pw.println("<code>fail</code>");
+			System.out.println("<h1>안됏자나...</h1>");
 		}
-		pw.println("</result>");
-		pw.close();
 	}
 }

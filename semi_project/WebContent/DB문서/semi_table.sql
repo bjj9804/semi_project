@@ -148,7 +148,6 @@ CREATE TABLE Users
 	name varchar2(20),
 	regdate date,
 	coupon number(10,0),
-	point number(20),
 	flag number(10,0),
 	PRIMARY KEY (email)
 );

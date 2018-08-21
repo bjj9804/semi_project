@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
 <h1>테스트수정</h1>
+=======
+<h1>수정수정수정</h1>
+>>>>>>> refs/remotes/origin/세미프로젝트
 </body>
 </html>

@@ -5,18 +5,21 @@ public class ReviewBoardVo {
 	private String title;
 	private String content;
 	private int height;
+	private int weight;
 	private String email;
 	private String name;
 	private int hit;
 	
 	public ReviewBoardVo() {}
-	
-	public ReviewBoardVo(int num, String title, String content, int height, String email, String name, int hit) {
+
+	public ReviewBoardVo(int num, String title, String content, int height, int weight, String email, String name,
+			int hit) {
 		super();
 		this.num = num;
 		this.title = title;
 		this.content = content;
 		this.height = height;
+		this.weight = weight;
 		this.email = email;
 		this.name = name;
 		this.hit = hit;
@@ -54,6 +57,14 @@ public class ReviewBoardVo {
 		this.height = height;
 	}
 
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -77,5 +88,7 @@ public class ReviewBoardVo {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+	
 	
 }
