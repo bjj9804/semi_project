@@ -10,13 +10,11 @@ public class UsersVo {
 	private String name;
 	private Date regdate;
 	private String coupon;
-	private int point;
-	private int number;
+	private int flag;
 	
 	public UsersVo() {}
-	
 	public UsersVo(String email, String password, String phone, String addr, String name, Date regdate, String coupon,
-			int point, int number) {
+			int flag) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -25,8 +23,7 @@ public class UsersVo {
 		this.name = name;
 		this.regdate = regdate;
 		this.coupon = coupon;
-		this.point = point;
-		this.number = number;
+		this.flag = flag;
 	}
 	public String getEmail() {
 		return email;
@@ -70,17 +67,11 @@ public class UsersVo {
 	public void setCoupon(String coupon) {
 		this.coupon = coupon;
 	}
-	public int getPoint() {
-		return point;
+	public int getFlag() {
+		return flag;
 	}
-	public void setPoint(int point) {
-		this.point = point;
-	}
-	public int getNumber() {
-		return number;
-	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 	
 }
