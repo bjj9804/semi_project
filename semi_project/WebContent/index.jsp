@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	메인인덱스what
+	아이디<input type="text"	name="id"><br>
+	비밀번호<input type="password"	name="pwd"><br>
+	
 </body>
 </html>
