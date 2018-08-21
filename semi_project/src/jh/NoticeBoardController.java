@@ -19,21 +19,38 @@ public class NoticeBoardController extends HttpServlet{
 			listAll(request,response);
 		}else if(cmd!=null && cmd.equals("detail")) {
 			detail(request,response);
-		}		
+		}else if(cmd!=null && cmd.equals("delete")) {
+			delete(request,response);
+		}
 		
 	}
 	private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
 		ArrayList<NoticeBoardVo> list=dao.list();
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/noticeBoard.jsp").forward(request, response);
+		request.getRequestDispatcher("board/notice_list.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num=Integer.parseInt(request.getParameter("num"));
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
 		NoticeBoardVo vo=dao.select(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("/nb_detail.jsp").forward(request, response);	
-		
+		request.getRequestDispatcher("board/notice_detail.jsp").forward(request, response);			
+	}
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String checkList=request.getParameter("checkList");
+		String[] checkArray=checkList.split(",");
+		NoticeBoardDao dao=NoticeBoardDao.getInstance();
+		boolean bool=true;
+		for(int i=0;i<checkArray.length;i++) {
+			int num=Integer.parseInt(checkArray[i]);
+			if(dao.delete(num)<0) {
+				bool=false;
+			}
+		}
+		if(bool==false) {//뭔가삭제에 실패했다.......
+			return;
+		}
+		listAll(request,response);
 	}
 }

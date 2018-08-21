@@ -84,4 +84,25 @@ public class NoticeBoardDao {
 			}
 		}
 	}
+	public int delete(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=cp.getConnection();
+			String sql="delete from NoticeBoard where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			return pstmt.executeUpdate();			
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) cp.returnConnection(con);				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 }
