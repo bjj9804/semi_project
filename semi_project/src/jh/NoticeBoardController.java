@@ -21,6 +21,8 @@ public class NoticeBoardController extends HttpServlet{
 			detail(request,response);
 		}else if(cmd!=null && cmd.equals("delete")) {
 			delete(request,response);
+		}else if(cmd!=null && cmd.equals("insert")) {
+			insert(request,response);
 		}
 		
 	}
@@ -28,14 +30,14 @@ public class NoticeBoardController extends HttpServlet{
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
 		ArrayList<NoticeBoardVo> list=dao.list();
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("board/notice_list.jsp").forward(request, response);
+		request.getRequestDispatcher("../board/notice_list.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num=Integer.parseInt(request.getParameter("num"));
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
 		NoticeBoardVo vo=dao.select(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("board/notice_detail.jsp").forward(request, response);			
+		request.getRequestDispatcher("../board/notice_detail.jsp").forward(request, response);			
 	}
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String checkList=request.getParameter("checkList");
@@ -52,5 +54,18 @@ public class NoticeBoardController extends HttpServlet{
 			return;
 		}
 		listAll(request,response);
+	}
+	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name=request.getParameter("name");
+		String email=request.getParameter("email");
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		
+		NoticeBoardDao dao=NoticeBoardDao.getInstance();
+		NoticeBoardVo vo=new NoticeBoardVo(0, name, title, content, email, 0);
+		dao.insert(vo);
+	
+	
+	
 	}
 }
