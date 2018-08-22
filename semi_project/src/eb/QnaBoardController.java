@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.db.ConnectionPoolBean;
+import jh.NoticeBoardDao;
+import jh.NoticeBoardVo;
 
 
 @WebServlet("/eb/qnalist.do")
 public class QnaBoardController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");
 		if(cmd!=null && cmd.equals("insert")) {
 			insert(request,response);
@@ -25,7 +27,6 @@ public class QnaBoardController extends HttpServlet {
 			detail(request,response);
 		}
 	}
-	ConnectionPoolBean cp = null;
 	
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String spageNum=request.getParameter("pageNum");
@@ -78,7 +79,11 @@ public class QnaBoardController extends HttpServlet {
 
 
 	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
-
+		int num=Integer.parseInt(request.getParameter("num"));
+		QnaBoardDao dao=new QnaBoardDao();
+		QnaBoardVo vo=dao.detail(num);
+		request.setAttribute("vo", vo);
+		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);		
 
 
 	}	

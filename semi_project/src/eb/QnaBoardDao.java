@@ -7,14 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import semi.db.ConnectionPoolBean;
+import javax.naming.NamingException;
+
+import semi.db.DBConnection;
+
 
 public class QnaBoardDao {
-	ConnectionPoolBean cp=null;
 	private static QnaBoardDao instance=new QnaBoardDao();
 	
 	//리스트
 	public ArrayList<QnaBoardVo> list(int startRow, int endRow){
+
 		String sql="SELECT * FROM " + "(" + "SELECT AA.*,ROWNUM RNUM FROM " + "(" +
 				"SELECT * FROM QNABOARD " + "ORDER BY GRP DESC, STEP ASC" +
 				")AA"+ ")" + " WHERE RNUM>=? AND RNUM<=?";
@@ -23,8 +26,7 @@ public class QnaBoardDao {
 		ResultSet rs=null;
 		
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			pstmt=con.prepareStatement(sql);
 			
 			pstmt.setInt(1, startRow);
@@ -53,11 +55,14 @@ public class QnaBoardDao {
 			}catch(ClassNotFoundException cn) {
 				System.out.println(cn.getMessage());
 				return null;
+			} catch (NamingException e) {
+				e.printStackTrace();
+				return null;
 			}finally {
 				try {
 					if(rs!=null) rs.close();
 					if(pstmt!=null) pstmt.close();
-					if(con!=null) cp.returnConnection(con);				
+					if(con!=null) con.close();				
 				}catch(SQLException se) {
 					se.printStackTrace();
 				}
@@ -71,7 +76,7 @@ public class QnaBoardDao {
 		ResultSet rs=null;
 		
 		try {
-		con=cp.getConnection();
+		con=DBConnection.getConnection();
 		String sql="select NVL(count(num),0) cnt from qnaboard";
 		pstmt=con.prepareStatement(sql);
 		rs=pstmt.executeQuery();
@@ -83,11 +88,17 @@ public class QnaBoardDao {
 		}catch(SQLException se){
 			System.out.println(se.getMessage());
 			return -1;
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
 		}finally {
 			try {
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();				
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -101,7 +112,7 @@ public class QnaBoardDao {
 		ResultSet rs=null;
 
 		try {
-		con=cp.getConnection();
+		con=DBConnection.getConnection();
 		String sql="select NVL(max(num),0) MAXNUM from qnaboard";
 		pstmt=con.prepareStatement(sql);
 		rs=pstmt.executeQuery();
@@ -112,12 +123,18 @@ public class QnaBoardDao {
 		}
 		}catch(SQLException se){
 			System.out.println(se.getMessage());
+			
+			return -1;
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return -1;
+		} catch (NamingException e) {
 			return -1;
 		}finally {
 			try {
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();			
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -133,8 +150,7 @@ public class QnaBoardDao {
 		PreparedStatement pstmt1=null;
 		
 		try {
-		cp=new ConnectionPoolBean();
-		con=cp.getConnection();
+		con=DBConnection.getConnection();
 		int boardNum=getMaxNum()+1;//추가될글번호
 		int num=vo.getNum();
 		int grp=vo.getGrp();
@@ -172,12 +188,16 @@ public class QnaBoardDao {
 		}catch(ClassNotFoundException cn){
 			cn.printStackTrace();
 			return -1;
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
 		}
 		finally {
 			try {
 				if(pstmt!=null) pstmt.close();
 				if(pstmt1!=null) pstmt1.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();			
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -191,7 +211,7 @@ public class QnaBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			pstmt=con.prepareStatement(sql);	
 			pstmt.setInt(1, num);
 			rs=pstmt.executeQuery();
@@ -212,11 +232,17 @@ public class QnaBoardDao {
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return null;
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
 				if(rs!=null) rs.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();		
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -230,7 +256,7 @@ public class QnaBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			pstmt=con.prepareStatement(sql);	
 			pstmt.setInt(1, num);
 			int n=pstmt.executeUpdate();
@@ -238,15 +264,21 @@ public class QnaBoardDao {
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
 				if(rs!=null) rs.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();				
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
 		}		
 	}
-	}
+}
 
