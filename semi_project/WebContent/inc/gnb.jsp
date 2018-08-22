@@ -54,7 +54,7 @@
 					<li><a href="#">shoes</a></li>
 				</ul>
 			</li>
-			<li><a href="/semi_project/eb/qnalist.do?cmd=list">Q&amp;A</a></li>
+			<li><a href="/semi_project/eb/qnalist.do?cmd=list&email=${email }">Q&amp;A</a></li>
 			<li><a href="/semi_project/reviewBoard.do?cmd=list">Review</a></li>
 			<li><a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }">Notice</a></li>
 		</ul>

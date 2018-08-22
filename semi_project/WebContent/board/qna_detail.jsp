@@ -7,6 +7,15 @@
 	<jsp:include page="/inc/header.jsp"/>
 </head>
 <body>
+<%
+	String email=request.getParameter("email");
+	String flag1=request.getParameter("flag");
+	int flag=Integer.parseInt(flag1);
+	
+	session.setAttribute("email", email);
+	session.setAttribute("flag", flag);
+
+%>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
@@ -19,8 +28,16 @@
 				<tr><th>조회수</th><td>${vo.hit }</td></tr>
 				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
 			</table>
-			<input type="button" value="Q&A 목록" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=list'" style="margin-left:5%">
-			<input type="button" value="답글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num }&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'">
+			<input type="button" value="Q&A 목록" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=list&email=${email}'" style="margin-left:5%">
+
+
+
+	<c:if test="${email==vo.email || flag==1 }">
+			<input type="button" value="답글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num}&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'">
+			<input type="button" value="글 삭제" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&num=${vo.num }'">
+			<input type="button" value="글 수정" onclick="javascript:location.href='../board/qna_update.jsp?num=${vo.num }'">
+	</c:if>
+
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
