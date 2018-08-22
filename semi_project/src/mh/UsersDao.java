@@ -50,15 +50,15 @@ public class UsersDao {
 		}
 	}
 	
-	public boolean login(String id,String pwd) {
+	public boolean login(String email,String pwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from users where id=? and pwd=?";
+			String sql = "select * from users where email=? and password=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, email);
 			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
