@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import semi.db.ConnectionPoolBean;
+import javax.naming.NamingException;
+
+import semi.db.DBConnection;
 
 public class ReviewBoardDao {
 	
@@ -22,8 +24,7 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			ConnectionPoolBean cp = new ConnectionPoolBean();
-			con = cp.getConnection();
+			con = DBConnection.getConnection();
 			String sql="select NVL(max(num),0) maxnum from reviewboard";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -37,6 +38,9 @@ public class ReviewBoardDao {
 			return -1;
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
 			return -1;
 		}finally {
 			try {
@@ -53,9 +57,8 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			ConnectionPoolBean cp = new ConnectionPoolBean();
-			con = cp.getConnection();
-			String sql="select NVL(count(num),0) cnt from board";
+			con = DBConnection.getConnection();
+			String sql="select NVL(count(num),0) cnt from reviewboard";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -63,11 +66,8 @@ public class ReviewBoardDao {
 			}else {
 				return 0;
 			}
-		}catch(SQLException se) {
+		}catch(SQLException | ClassNotFoundException | NamingException se) {
 			System.out.println(se.getMessage());
-			return -1;
-		}catch(ClassNotFoundException clfe) {
-			clfe.printStackTrace();
 			return -1;
 		}finally {
 			try {
@@ -84,8 +84,7 @@ public class ReviewBoardDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			ConnectionPoolBean cp = new ConnectionPoolBean();
-			con = cp.getConnection();
+			con = DBConnection.getConnection();
 			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum+1);
@@ -99,8 +98,13 @@ public class ReviewBoardDao {
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;
-		}catch(ClassNotFoundException clfe) {
-			clfe.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return -1;
 		}finally {
 			try {
@@ -118,9 +122,8 @@ public class ReviewBoardDao {
 		ResultSet rs = null;
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
 		try {
-			ConnectionPoolBean cp = new ConnectionPoolBean();
-			con = cp.getConnection();
-			String sql = "select * from( select AA.*, rownum rnum from ( select * from board order by num desc) AA) where rnum>=? and rnum<=?";
+			con = DBConnection.getConnection();
+			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -145,6 +148,9 @@ public class ReviewBoardDao {
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
@@ -161,8 +167,7 @@ public class ReviewBoardDao {
 		ResultSet rs = null;
 		ReviewBoardVo vo = null;
 		try {
-			ConnectionPoolBean cp = new ConnectionPoolBean();
-			con = cp.getConnection();
+			con = DBConnection.getConnection();
 			String sql = "select * from reviewboard where num=?";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -184,6 +189,9 @@ public class ReviewBoardDao {
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
@@ -198,8 +206,7 @@ public class ReviewBoardDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
-			ConnectionPoolBean cp = new ConnectionPoolBean();
-			con = cp.getConnection();
+			con = DBConnection.getConnection();
 			String sql="update reviewboard set hit = hit+1 where num = ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -209,6 +216,9 @@ public class ReviewBoardDao {
 			return -1;
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
 			return -1;
 		}finally {
 			try {

@@ -56,9 +56,8 @@ public class ReviewBoardController extends HttpServlet {
 		int endRow = startRow + 9;
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		ArrayList<ReviewBoardVo> list = dao.list(startRow, endRow);
-		// 전체페이지갯수구하기
+		System.out.print("db자료 가꼬옴 " + list.size());
 		int pageCount = (int) Math.ceil(dao.getCount() / 10.0);
-		// 시작페이지번호
 		int startPage = ((pageNum - 1) / 10 * 10) + 1;
 		// int startPage = (pageNum/10)*10-9;
 		// 끝페이지번호
