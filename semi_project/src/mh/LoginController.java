@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 /* 로그인..
 <c:choose>
-	<c:when test="${empty sessionScope.id }">
+	<c:when test="${empty sessionScope.email }">
 		<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">로그인</a></li>
 	</c:when>
 	<c:otherwise>
