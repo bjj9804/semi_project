@@ -19,10 +19,10 @@
 						<li>나만을 위한 구찌의 상품 추천</li>
 						<li>관심 상품 편집</li>
 					</ul>
-					<input type="button" value="신규 회원 가입" onclick = "location.href = 'join.jsp' ">
+					<input type="button" value="신규 회원 가입" onclick = "location.href = '../user/join.jsp' ">
 				</div>
 				<div id="loginLogin">
-					<form method="post" action="login.do">
+					<form method="post" action="../mh/login.do">
 						아이디 <input type="text" name="id"><br>
 						비밀번호 <input type="text" name="pwd"><br>
 						<input type="checkbox" name="idCheck"><br>

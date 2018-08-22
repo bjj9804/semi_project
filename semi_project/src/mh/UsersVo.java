@@ -9,11 +9,11 @@ public class UsersVo {
 	private String addr;
 	private String name;
 	private Date regdate;
-	private String coupon;
+	private int coupon;
 	private int flag;
 	
 	public UsersVo() {}
-	public UsersVo(String email, String password, String phone, String addr, String name, Date regdate, String coupon,
+	public UsersVo(String email, String password, String phone, String addr, String name, Date regdate, int coupon,
 			int flag) {
 		super();
 		this.email = email;
@@ -61,10 +61,10 @@ public class UsersVo {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public String getCoupon() {
+	public int getCoupon() {
 		return coupon;
 	}
-	public void setCoupon(String coupon) {
+	public void setCoupon(int coupon) {
 		this.coupon = coupon;
 	}
 	public int getFlag() {
