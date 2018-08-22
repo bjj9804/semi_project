@@ -1,4 +1,4 @@
-package dao;
+package ms;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import semi.db.ConnectionPoolBean;
-import vo.ReviewBoardVo;
-
 
 public class ReviewBoardDao {
 	
@@ -84,21 +82,10 @@ public class ReviewBoardDao {
 	public int insert(ReviewBoardVo vo) {
 		int maxNum = getMaxNum();
 		Connection con = null;
-		Connection con1 = null;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt1 = null;
-		ResultSet rs = null;
-		String name = null;
 		try {
 			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
-			/*con1 = cp.getConnection();
-			String sql1 = "select u.name from reviewboard r, users u where r.email=u.email";
-			pstmt1 = con1.prepareStatement(sql1);
-			rs = pstmt1.executeQuery();
-			if(rs.next()) {
-				name = rs.getString("u.name");
-			}*/
 			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum+1);
