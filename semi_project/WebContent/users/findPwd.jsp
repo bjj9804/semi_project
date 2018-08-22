@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="semi.db.DBConnection"%>
@@ -38,6 +40,7 @@
 			se.printStackTrace();
 		}
 	}
+	response.setContentType("text/plain;charset=utf-8");
 	if (find == true){
 %>
 	<h1>회원님의 비밀번호는 <%=password %></h1>
@@ -45,7 +48,7 @@
 	}else{
 %>
 	<h1>조회된 정보가 없습니다</h1>
-	<a href="pwdfind.html">비밀번호 다시찾기</a><br>
+	<a href="pwdfind.jsp">비밀번호 다시찾기</a><br>
 <%
 	}
 %>

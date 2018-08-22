@@ -4,15 +4,14 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
-</head>
 <script type="text/javascript">
 	var xhr = null;
 	function getPwd(){
 		xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = callPwd();
-		var email = document.getElementById("eamil").value;
+		xhr.onreadystatechange = callPwd;
+		var email = document.getElementById("email").value;
 		var phone = document.getElementById("phone").value;
-		xhr.open("get","findPwd.jsp?email=" + email + "&phone" + phone,true);
+		xhr.open("get","findPwd.jsp?email=" + email + "&phone=" + phone,true);
 		xhr.send();
 	}
 	function callPwd(){
@@ -20,23 +19,21 @@
 			var data = xhr.responseText;
 			var findOk = document.getElementById("findOk");
 			findOk.innerHTML = data;
-			var findP = document.getElementById("findP");
-			findP.style.visibility = "hidden";
 		}
 	}
 </script>
+</head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
 			<div id="findP">
-				<h2>ºñ¹Ğ¹øÈ£ Ã£±â</h2>
-				ÀÌ¸ŞÀÏ<input type="text" id="email">
-				Æù¹øÈ£<input type="text" id="phone">
-				<input type="button" value="Ã£±â" onclick="getPwd()">
+				<h2>ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</h2>
+				ì´ë©”ì¼<input type="text" id="email">
+				í°ë²ˆí˜¸<input type="text" id="phone">
+				<input type="button" value="ì°¾ê¸°" onclick="getPwd()">
 			</div>
 			<div id="findOk">
-				
 			</div>
 		</div>
 	</div>
