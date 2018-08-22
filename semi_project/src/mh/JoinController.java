@@ -20,8 +20,6 @@ public class JoinController extends HttpServlet{
 		String addr = request.getParameter("addr");
 		String name = request.getParameter("name1") + request.getParameter("name2");
 		
-		System.out.println(email+password+phone+addr+name+"");
-		
 		UsersDao dao = UsersDao.getInstance();
 		UsersVo vo = new UsersVo(email,password,phone,addr,name,null,0,0);
 		int n = dao.join(vo);
