@@ -73,7 +73,7 @@ public class ReviewBoardController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/review_list.jsp").forward(request, response);
+		request.getRequestDispatcher("../board/review_list.jsp").forward(request, response);
 	}
 
 	public void detail(ServletRequest request, ServletResponse response) throws ServletException, IOException {
