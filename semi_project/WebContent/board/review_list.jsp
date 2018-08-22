@@ -20,9 +20,9 @@
 	<c:forEach var="vo" items="${list }">
 	<tr>
 		<td>${vo.num }</td>
-		<td>${vo.writer }</td>
+		<td>${vo.name }</td>
 		<td>
-		<a href="detail.do?num=${vo.num }">${vo.title }</a>
+		<a href="/semi_project/reviewBoard.do?cmd=detail&num=${vo.num }">${vo.title }</a>
 		</td>
 		<td>${vo.hit }</td>
 	</tr>
@@ -57,6 +57,7 @@
 	</c:choose>
 </div>
 		</div>
+		<input type="button" value="글쓰기" onclick="javascript:location.href='review_insert.jsp'" >
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>

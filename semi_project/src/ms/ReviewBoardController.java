@@ -29,7 +29,7 @@ public class ReviewBoardController extends HttpServlet {
 		}
 	}
 
-	private void insert(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String name = request.getParameter("name");
@@ -40,11 +40,11 @@ public class ReviewBoardController extends HttpServlet {
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.insert(vo);
 		if (n > 0) {
-			request.getRequestDispatcher("/main/index.jsp").forward(request, response);
+			list(request, response);
 		}
 	}
 
-	public void list(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+	public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
 		int pageNum = 1;
 		if (spageNum != null) {
@@ -71,10 +71,11 @@ public class ReviewBoardController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("../board/review_list.jsp").forward(request, response);
+		System.out.println("¿©±â¿È");
+		request.getRequestDispatcher("/board/review_list.jsp").forward(request, response);
 	}
 
-	public void detail(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.hitup(num);

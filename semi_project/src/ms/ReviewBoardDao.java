@@ -168,6 +168,7 @@ public class ReviewBoardDao {
 			con = DBConnection.getConnection();
 			String sql = "select * from reviewboard where num=?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String title = rs.getString("title");
