@@ -10,19 +10,20 @@ import java.util.ArrayList;
 import semi.db.ConnectionPoolBean;
 
 public class QnaBoardDao {
-	ConnectionPoolBean cp;
+	ConnectionPoolBean cp=null;
 	private static QnaBoardDao instance=new QnaBoardDao();
 	
 	//리스트
 	public ArrayList<QnaBoardVo> list(int startRow, int endRow){
-		String sql="SELECT * FROM" + "(" + "SELECT AA.*,ROWNUM RNUM FROM" + "(" +
-				"SELECT * FROM QNABOARD" + "ORDER BY GRP DESC, STEP ASC" +
-				")AA"+ ")" + "WHERE RNUM>=? AND RNUM<=?";
+		String sql="SELECT * FROM " + "(" + "SELECT AA.*,ROWNUM RNUM FROM " + "(" +
+				"SELECT * FROM QNABOARD " + "ORDER BY GRP DESC, STEP ASC" +
+				")AA"+ ")" + " WHERE RNUM>=? AND RNUM<=?";
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		try {
+			cp=new ConnectionPoolBean();
 			con=cp.getConnection();
 			pstmt=con.prepareStatement(sql);
 			
@@ -48,6 +49,9 @@ public class QnaBoardDao {
 			return list;
 			}catch(SQLException se) {
 				System.out.println(se.getMessage());
+				return null;
+			}catch(ClassNotFoundException cn) {
+				System.out.println(cn.getMessage());
 				return null;
 			}finally {
 				try {
@@ -129,7 +133,7 @@ public class QnaBoardDao {
 		PreparedStatement pstmt1=null;
 		
 		try {
-		ConnectionPoolBean cp=new ConnectionPoolBean();
+		cp=new ConnectionPoolBean();
 		con=cp.getConnection();
 		int boardNum=getMaxNum()+1;//추가될글번호
 		int num=vo.getNum();
@@ -151,14 +155,15 @@ public class QnaBoardDao {
 		String sql="insert into qnaboard values(?,?,?,?,?,?,?,?,?,sysdate)";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, boardNum);
-		pstmt.setString(2, vo.getTitle());
-		pstmt.setString(3, vo.getContent());
-		pstmt.setInt(4, grp);
-		pstmt.setInt(5, lev);
-		pstmt.setInt(6, step);
-		pstmt.setString(7, vo.getEmail());
-		pstmt.setInt(8, vo.getHit());
-		pstmt.setString(9, vo.getName());
+		pstmt.setString(2, vo.getName());
+		pstmt.setString(3, vo.getEmail());
+		pstmt.setString(4, vo.getTitle());
+		pstmt.setString(5, vo.getContent());
+		pstmt.setInt(6, grp);
+		pstmt.setInt(7, lev);
+		pstmt.setInt(8, step);
+		pstmt.setInt(9, vo.getHit());
+
 		int n=pstmt.executeUpdate();
 		return n;
 		}catch(SQLException se) {
@@ -201,8 +206,7 @@ public class QnaBoardDao {
 				int hit=rs.getInt("hit");
 				Date regdate=rs.getDate("regdate");
 				QnaBoardVo vo=new QnaBoardVo(num, name, email, title, content, grp, lev, step, hit, regdate);
-				return vo;
-				
+				return vo;	
 			}
 		return null;
 		}catch(SQLException se) {
@@ -218,6 +222,8 @@ public class QnaBoardDao {
 			}
 		}
 	}
+	
+	
 	public int hitup(int num){
 		String sql="update qnaboard set hit=hit+1 where num=?";
 		Connection con=null;
@@ -240,12 +246,7 @@ public class QnaBoardDao {
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
-		}
-		
-		
+		}		
 	}
-	
-	
-	
 	}
 

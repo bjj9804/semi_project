@@ -32,7 +32,6 @@
 				<ul class="sub_menu">
 					<li><a href="#">Women Fall Winter 2018</a></li>
 					<li><a href="#">Men Fall Winter 2018</a></li>
-					top, pants, skirts, outer, dresses
 				</ul>
 			</li>
 			<li>

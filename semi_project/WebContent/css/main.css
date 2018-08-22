@@ -77,26 +77,30 @@
     transition :all 0.5s;
 }
 #header.change .inner{height:50px; transition :all 0.5s;}
-#header.change .gnb li{line-height:50px; transition :all 0.5s;}
+#header.change .gnb > li{line-height:50px; transition :all 0.5s; padding:0 15px;}
 #header.change .login_area{height:0; overflow:hidden; transition :all 0.5s;}
 
-#header .login_area{height:30px; width:1000px; margin:0 auto; transition :all 0.5s;}
+#header .login_area{height:40px; width:1000px; margin:0 auto; transition :all 0.5s;}
 #header .login_area ul{font-size:0; text-align:right;}
-#header .login_area li{display:inline-block; vertical-align:middel; margin-left:15px;}
-#header .login_area li a{font-size:12px; color:#fff; line-height:30px;}
+#header .login_area li{display:inline-block; vertical-align:middle; margin-left:15px;}
+#header .login_area li a{font-size:12px; color:#fff; line-height:40px;}
 #header .login_area li a:hover{text-decoration:underline;}
 
-#header h1{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:100px; height:30px; background-color:#fff; font-size:0;}
+#header h1{position:absolute; top:-25px; left:50%; transform:translate(-50%, 0); width:100px; height:30px; background-color:#fff; font-size:0;}
+#header.change h1{top:-9999px;}
 #header h1 a{display:block; width:100%; height:30px;}
 #header .inner{position:relative; width:1000px; margin:0 auto; height:80px; transition :all 0.5s;}
-#header .gnb{position:absolute; font-size:0;}
-#header .gnb li{display:inline-block; vertical-align:middle; line-height:80px; transition :all 0.5s;}
-#header .gnb li a{font-size:14px; color:#fff; padding:0 20px;}
-#header .gnb.left{left:200px;}
-#header .gnb.right{right:200px;}
+#header .gnb{position:absolute; font-size:0; text-align:center; width:100%;}
+#header .gnb > li{display:inline-block; vertical-align:top; line-height:80px; transition :all 0.5s;}
+#header .gnb > li > a{font-size:14px; color:#fff; padding:0 20px; display:block;}
+#header .gnb.left{left:100px;}
+#header .gnb.right{right:100px;}
 
 #content{min-height:1000px; padding-top:110px;}
 #content .inner{width:1000px; margin:30px auto 0;}
 
 
 .section .main_content{width:1000px; margin:0 auto;}
+
+#header .sub_bg{display:none; position:absolute; top:120px; left:0; width:100%; height:300px; background-color:#fff; z-index:3}
+#header.change .sub_bg{top:50px;}

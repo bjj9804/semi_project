@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,19 +12,19 @@ import vo.ReviewBoardVo;
 
 
 public class ReviewBoardDao {
+	
 	private static ReviewBoardDao instance = new ReviewBoardDao();
 	private ReviewBoardDao() {}
 	public static ReviewBoardDao getInstance() {
 		return instance;
 	}
 	
-	ConnectionPoolBean cp;
-	
 	public int getMaxNum() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
+			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
 			String sql="select NVL(max(num),0) maxnum from reviewboard";
 			pstmt=con.prepareStatement(sql);
@@ -35,6 +36,9 @@ public class ReviewBoardDao {
 			}
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
+			return -1;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
 			return -1;
 		}finally {
 			try {
@@ -51,6 +55,7 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
+			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
 			String sql="select NVL(count(num),0) cnt from board";
 			pstmt=con.prepareStatement(sql);
@@ -63,6 +68,9 @@ public class ReviewBoardDao {
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+			return -1;
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
@@ -74,6 +82,7 @@ public class ReviewBoardDao {
 	}
 	
 	public int insert(ReviewBoardVo vo) {
+		int maxNum = getMaxNum();
 		Connection con = null;
 		Connection con1 = null;
 		PreparedStatement pstmt = null;
@@ -81,25 +90,30 @@ public class ReviewBoardDao {
 		ResultSet rs = null;
 		String name = null;
 		try {
+			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
-			con1 = cp.getConnection();
+			/*con1 = cp.getConnection();
 			String sql1 = "select u.name from reviewboard r, users u where r.email=u.email";
 			pstmt1 = con1.prepareStatement(sql1);
 			rs = pstmt1.executeQuery();
 			if(rs.next()) {
 				name = rs.getString("u.name");
-			}
-			String sql = "insert into reviewboard values(review_seq.nextval, ?, ?, ?, ?, ?, 0, ?)";
+			}*/
+			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContent());
-			pstmt.setInt(3, vo.getHeight());
-			pstmt.setInt(4, vo.getWeight());
-			pstmt.setString(5, vo.getEmail());
-			pstmt.setString(6, name);
+			pstmt.setInt(1, maxNum+1);
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getEmail());
+			pstmt.setString(4, vo.getTitle());
+			pstmt.setString(5, vo.getName());
+			pstmt.setInt(6, vo.getHeight());
+			pstmt.setInt(7, vo.getWeight());
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			se.printStackTrace();
+			return -1;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
 			return -1;
 		}finally {
 			try {
@@ -117,6 +131,7 @@ public class ReviewBoardDao {
 		ResultSet rs = null;
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
 		try {
+			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
 			String sql = "select * from( select AA.*, rownum rnum from ( select * from board order by num desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
@@ -132,12 +147,16 @@ public class ReviewBoardDao {
 				String email = rs.getString("email");
 				int hit = rs.getInt("hit");
 				String name = rs.getString("name");
-				ReviewBoardVo vo = new ReviewBoardVo(num, title, content, height, weight, email, name, hit);
+				Date regdate = rs.getDate("regdate");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate);
 				list.add(vo);
 			}
 			return list;
 		}catch(SQLException se) {
 			se.printStackTrace();
+			return null;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
 			return null;
 		}finally {
 			try {
@@ -155,6 +174,7 @@ public class ReviewBoardDao {
 		ResultSet rs = null;
 		ReviewBoardVo vo = null;
 		try {
+			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
 			String sql = "select * from reviewboard where num=?";
 			pstmt = con.prepareStatement(sql);
@@ -167,11 +187,15 @@ public class ReviewBoardDao {
 				String email = rs.getString("email");
 				int hit = rs.getInt("hit");
 				String name = rs.getString("name");
-				vo = new ReviewBoardVo(num, title, content, height, weight, email, name, hit);
+				Date regdate = rs.getDate("regdate");
+				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate);
 			}
 			return vo;
 		}catch(SQLException se) {
 			se.printStackTrace();
+			return null;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
 			return null;
 		}finally {
 			try {
@@ -186,8 +210,8 @@ public class ReviewBoardDao {
 	public int hitup(int num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		ResultSet rs=null;
 		try {
+			ConnectionPoolBean cp = new ConnectionPoolBean();
 			con = cp.getConnection();
 			String sql="update reviewboard set hit = hit+1 where num = ?";
 			pstmt=con.prepareStatement(sql);
@@ -195,6 +219,9 @@ public class ReviewBoardDao {
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
+			return -1;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
 			return -1;
 		}finally {
 			try {

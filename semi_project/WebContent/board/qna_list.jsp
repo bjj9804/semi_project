@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +28,7 @@
 							<c:forEach var="i" begin="1" end="${vo.lev }">
 								&nbsp;&nbsp;		
 							</c:forEach>
-						</c:if> <a href="content.do?num=${vo.num }">${vo.title }</a>
+						</c:if> <a href="/semi_project/qnalist.do?cmd=detail & num=${vo.num }">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
@@ -74,4 +75,3 @@
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
 </html>
-\
