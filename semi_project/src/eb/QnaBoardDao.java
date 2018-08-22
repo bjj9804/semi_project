@@ -15,9 +15,10 @@ public class QnaBoardDao {
 	
 	//¸®½ºÆ®
 	public ArrayList<QnaBoardVo> list(int startRow, int endRow){
-		String sql="SELECT * FROM" + "(" + "SELECT AA.*,ROWNUM RNUM FROM " + "(" +
+
+		String sql="SELECT * FROM " + "(" + "SELECT AA.*,ROWNUM RNUM FROM " + "(" +
 				"SELECT * FROM QNABOARD " + "ORDER BY GRP DESC, STEP ASC" +
-				")AA "+ ") " + "WHERE RNUM>=? AND RNUM<=?";
+				")AA"+ ")" + " WHERE RNUM>=? AND RNUM<=?";
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;

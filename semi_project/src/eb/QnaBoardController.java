@@ -14,7 +14,7 @@ import jh.NoticeBoardVo;
 import semi.db.ConnectionPoolBean;
 
 
-@WebServlet("/qnalist.do")
+@WebServlet("/eb/qnalist.do")
 public class QnaBoardController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,7 +75,7 @@ public class QnaBoardController extends HttpServlet {
 		QnaBoardDao dao=new QnaBoardDao();
 		int n=dao.insert(vo);
 		if(n>0) {
-			request.getRequestDispatcher("/board/qna_list.jsp").forward(request, response);
+			list(request, response);
 		}
 	}
 

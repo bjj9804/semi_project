@@ -33,14 +33,15 @@ public class ReviewBoardController extends HttpServlet {
 	private void insert(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String name = request.getParameter("name");
 		int height = Integer.parseInt(request.getParameter("height"));
 		int weight = Integer.parseInt(request.getParameter("weight"));
 		String email = request.getParameter("email");
-		ReviewBoardVo vo = new ReviewBoardVo(0, title, content, height, weight, email, null, 0);
+		ReviewBoardVo vo = new ReviewBoardVo(0, name, email, title, content, height, weight, 0, null);
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.insert(vo);
 		if (n > 0) {
-
+			request.getRequestDispatcher("/main/index.jsp").forward(request, response);
 		}
 	}
 
@@ -82,6 +83,7 @@ public class ReviewBoardController extends HttpServlet {
 		if(n>0) {
 			ReviewBoardVo vo = dao.detail(num);
 			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
 		}else {
 			System.out.println("<h1>¾È‰ÑÀÚ³ª...</h1>");
 		}
