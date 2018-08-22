@@ -8,7 +8,8 @@ import semi.db.ConnectionPoolBean;
 
 public class UsersDao {
 	ConnectionPoolBean cp;
-	private static UsersDao instance=new UsersDao();
+	private static UsersDao instance = new UsersDao();
+	
 	private UsersDao() {}
 
 	public static UsersDao getInstance() {
@@ -19,6 +20,7 @@ public class UsersDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
+			cp = new ConnectionPoolBean();
 			con = cp.getConnection();
 			String sql = "insert into Users values(?,?,?,?,?,sysdate,1,1);";// 쿠폰은 초기값에 1장으로 넣고 flag도 구매자는 초기값 1번으로
 			pstmt = con.prepareStatement(sql);
@@ -28,7 +30,7 @@ public class UsersDao {
 			pstmt.setString(4, vo.getAddr());
 			pstmt.setString(5, vo.getName());
 			return pstmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return -1;
 		} finally {

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/join.do")
+@WebServlet("/mh/join.do")
 public class JoinController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -19,20 +19,18 @@ public class JoinController extends HttpServlet{
 		String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
 		String addr = request.getParameter("addr");
 		String name = request.getParameter("name1") + request.getParameter("name2");
-		String coupon = request.getParameter("coupon");
-		int flag = Integer.parseInt(request.getParameter("flag"));
+		
+		System.out.println(email+password+phone+addr+name+"");
 		
 		UsersDao dao = UsersDao.getInstance();
-		UsersVo vo = new UsersVo(email,password,phone,addr,name,null,coupon,flag);
+		UsersVo vo = new UsersVo(email,password,phone,addr,name,null,0,0);
 		int n = dao.join(vo);
 		
 		if(n>0) {
-			response.sendRedirect("login.jsp");
+			request.setAttribute("code", "success");
 		}else {
-			request.setAttribute("errMsg", "오류로 인해 회원가입 실패");
-			RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-			rd.forward(request, response);
+			request.setAttribute("code", "fail");
 		}
-		
+		request.getRequestDispatcher("/semi_project/user/joinCon.jsp");
 	}
 }

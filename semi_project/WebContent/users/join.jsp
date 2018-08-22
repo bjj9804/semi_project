@@ -10,11 +10,7 @@
 	<div id="content">
 		<div class="inner">
 			<div id="joinWrap">
-			<form action="../join.do" method="post">
-				<!-- flag:1 (관리자) flag:0 (유저) -->
-				<input type="hidden" value="0" name="flag">
-				<!-- coupon:1 (한장) -->
-				<input type="hidden" value="1" name="coupon">
+			<form action="/semi_project/mh/join.do" method="post">
 				<!-- 계정 세부정보 email,pwd 확인 -->
 				<table style="width: 800px">
 					<tr>
@@ -35,19 +31,18 @@
 						<td>
 							<select name="email2">
 								<option value="">옵션선택</option>
-								<option value="naver.com">naver.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="nate.com">nate.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="hatmail.com">hatmail.com</option>
-								<option value="daum.com">daum.net</option>
-								<option value="yahoo.co.kr">yahoo.co.kr</option>
-								<option value="hanmir.com">hanmir.com</option>
-								<option value="dreamwiz.com">dreamwiz.com</option>
-								<option value="lycos.co.kr">lycos.co.kr</option>
-								<option value="empas.com">empas.com</option>
-								<option value="paran.com">paran.com</option>
-								<option value="">직접입력</option>
+								<option value="@naver.com">naver.com</option>
+								<option value="@hanmail.net">hanmail.net</option>
+								<option value="@nate.com">nate.com</option>
+								<option value="@gmail.com">gmail.com</option>
+								<option value="@hatmail.com">hatmail.com</option>
+								<option value="@daum.com">daum.net</option>
+								<option value="@yahoo.co.kr">yahoo.co.kr</option>
+								<option value="@hanmir.com">hanmir.com</option>
+								<option value="@dreamwiz.com">dreamwiz.com</option>
+								<option value="@lycos.co.kr">lycos.co.kr</option>
+								<option value="@empas.com">empas.com</option>
+								<option value="@paran.com">paran.com</option>
 							</select>
 						<td>
 					</tr>
