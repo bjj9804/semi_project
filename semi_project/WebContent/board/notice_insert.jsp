@@ -11,6 +11,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
+		
 			<form action="/semi_project/jh/notice.do" method="post">
 				<table>					
 					<tr><th>제목</th><td><input type="text" name="title"></td></tr>

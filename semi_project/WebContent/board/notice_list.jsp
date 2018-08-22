@@ -9,8 +9,7 @@
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
-		<div class="inner">
-		
+		<div class="inner">		
 			<h2>NOTICE BOARD</h2>
 			<!------------------------------------ 관리자가 들어왔을때 ------------------------------->
 			<c:if test="${flag==0}">

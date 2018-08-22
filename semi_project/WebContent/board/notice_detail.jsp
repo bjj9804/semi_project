@@ -19,6 +19,7 @@
 				<tr><th>조회수</th><td>${vo.hit }</td></tr>
 				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
 			</table>
+			
 			<c:if test="${flag==0}">
 				<a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=det_update">수정</a>
 				<a href="/semi_project/jh/notice.do?checkList=${vo.num }&cmd=delete">삭제</a>			

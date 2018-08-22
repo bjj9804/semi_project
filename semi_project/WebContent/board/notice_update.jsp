@@ -18,6 +18,7 @@
 				<input type="submit" value="수정">
 				<input type="reset" value="취소">
 			</form>
+			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

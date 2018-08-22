@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import semi.db.DBConnection;
 
 public class NoticeBoardDao {
+	
 	private static NoticeBoardDao instance=new NoticeBoardDao();
 	private NoticeBoardDao() {}
 	public static NoticeBoardDao getInstance() {

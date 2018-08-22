@@ -18,8 +18,7 @@ public class NoticeBoardController extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");		
 		String contextPath=getServletContext().getContextPath();
-		
-		
+			
 		
 		if(cmd!=null && cmd.equals("list")) {
 			listAll(request,response);
