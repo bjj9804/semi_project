@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jh.NoticeBoardDao;
+import jh.NoticeBoardVo;
 import semi.db.ConnectionPoolBean;
 
 
@@ -48,7 +50,7 @@ public class QnaBoardController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/qna_list.jsp").forward(request, response);
+		request.getRequestDispatcher("../board/qna_list.jsp").forward(request, response);
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 	
@@ -79,7 +81,11 @@ public class QnaBoardController extends HttpServlet {
 
 
 	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
-
+		int num=Integer.parseInt(request.getParameter("num"));
+		QnaBoardDao dao=new QnaBoardDao();
+		QnaBoardVo vo=dao.detail(num);
+		request.setAttribute("vo", vo);
+		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);		
 
 
 	}	

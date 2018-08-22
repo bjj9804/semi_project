@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
@@ -9,7 +10,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-
+	<h1>Q&A BOARD</h1>
 			<table border="1" width="800" bordercolor="black">
 				<tr>
 					<th>글번호</th>
@@ -27,7 +28,7 @@
 							<c:forEach var="i" begin="1" end="${vo.lev }">
 								&nbsp;&nbsp;		
 							</c:forEach>
-						</c:if> <a href="/semi_project/qnalist.do?cmd=detail & num=${vo.num }">${vo.title }</a>
+						</c:if> <a href="../eb/qnalist.do?num=${vo.num }&cmd=detail">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
@@ -74,4 +75,3 @@
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
 </html>
-\

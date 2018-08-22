@@ -15,9 +15,9 @@ public class QnaBoardDao {
 	
 	//리스트
 	public ArrayList<QnaBoardVo> list(int startRow, int endRow){
-		String sql="SELECT * FROM" + "(" + "SELECT AA.*,ROWNUM RNUM FROM" + "(" +
-				"SELECT * FROM QNABOARD" + "ORDER BY GRP DESC, STEP ASC" +
-				")AA"+ ")" + "WHERE RNUM>=? AND RNUM<=?";
+		String sql="SELECT * FROM" + "(" + "SELECT AA.*,ROWNUM RNUM FROM " + "(" +
+				"SELECT * FROM QNABOARD " + "ORDER BY GRP DESC, STEP ASC" +
+				")AA "+ ") " + "WHERE RNUM>=? AND RNUM<=?";
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -141,7 +141,7 @@ public class QnaBoardDao {
 		int lev=vo.getLev();
 		int step=vo.getStep();
 		if(num==0) {//새글인경우 num=0이라는건 부모글번호가 없다는 것으로 즉 새글.
-			grp=boardNum;S
+			grp=boardNum;
 			
 		}else {//답글인경우
 			String sql="update qnaboard set step=step+1 where grp=? and step>?";
