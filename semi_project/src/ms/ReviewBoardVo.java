@@ -1,4 +1,4 @@
-package vo;
+package ms;
 
 import java.sql.Date;
 

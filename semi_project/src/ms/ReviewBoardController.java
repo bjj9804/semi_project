@@ -1,4 +1,4 @@
-package controller;
+package ms;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ReviewBoardDao;
-import vo.ReviewBoardVo;
+
 
 @WebServlet("/reviewBoard.do")
 public class ReviewBoardController extends HttpServlet {
