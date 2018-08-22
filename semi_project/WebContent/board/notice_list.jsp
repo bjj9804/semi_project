@@ -13,7 +13,7 @@
 		
 			<h2>NOTICE BOARD</h2>
 			<!-- 관리자가 들어왔을때 -->
-			<c:if test="${param.flag!=1}">
+			<c:if test="${param.flag==1}">
 				<input type="button" value="삭제" onclick="delete1()">
 				<input type="button" value="글작성" onclick="location.href='../board/notice_insert.jsp'">
 				<table border="1" width="800">
@@ -30,26 +30,26 @@
 				</table>
 				<div>
 					<c:if test="${startPage!=1 }">
-						<a href="../jh/notice.do?pageNum=${startPage-1 }">[이전]</a>
+						<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${startPage-1 }">[이전]</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:choose>
 						<c:when test="${pageNum==i }"><%--현재페이지인 경우 --%>
-							<a href="../jh/notice.do?pageNum=${i }"><span style="color:red">[${i }]</span></a>	
+							<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${i }"><span style="color:red">[${i }]</span></a>	
 						</c:when>
 						<c:otherwise>
-							<a href="../jh/notice.do?pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
+							<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
 						</c:otherwise>
 					</c:choose>
 					</c:forEach>
-					<c:if test="${endPage<pageCount }">
-						<a href="../jh/notice.do?pageNum=${endPage+1 }">[다음]</a>
+					<c:if test="${endPage!=pageCnt }">
+						<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${endPage+1 }">[다음]</a>
 					</c:if>
 				</div>
 			</c:if>
 			
 			<!-- 일반인이 들어왔을때 -->
-			<c:if test="${param.flag==1}">
+			<c:if test="${param.flag!=1}">
 			<table border="1" width="800">
 				<tr><th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
 				<c:forEach var="vo" items="${list }">
@@ -61,6 +61,24 @@
 					</tr>
 				</c:forEach>
 			</table>
+				<div>
+					<c:if test="${startPage!=1 }">
+						<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${startPage-1 }">[이전]</a>
+					</c:if>
+					<c:forEach var="i" begin="${startPage }" end="${endPage }">
+					<c:choose>
+						<c:when test="${pageNum==i }"><%--현재페이지인 경우 --%>
+							<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${i }"><span style="color:red">[${i }]</span></a>	
+						</c:when>
+						<c:otherwise>
+							<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<c:if test="${endPage!=pageCnt }">
+						<a href="/semi_project/jh/notice.do?cmd=list&pageNum=${endPage+1 }">[다음]</a>
+					</c:if>
+				</div>
 			</c:if>
 		</div>
 	</div>

@@ -11,7 +11,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<form action="../jh/notice.do" method="post">
+			<form action="/semi_project/jh/notice.do" method="post">
 				<table>
 					<tr><th>작성자</th><td><input type="text" name="name"></td></tr>
 					<tr><th>이메일</th><td><input type="text" name="email"></td></tr>
