@@ -5,22 +5,47 @@
 		<ul>
 			<li><a href="#">Sign In</a></li>
 			<li><a href="#">Bag</a></li>
-			<li><a href="/semi_project/jh/notice.do?cmd=list">공지사항</a></li>
-			<li><a href="#">문의게시판</a></li>
-			<li><a href="#">후기게시판</a></li>
 		</ul>
 	</div>
 	<div class="inner">
 		<h1><a href="#">로고</a></h1>
-		<ul class="gnb left">
-			<li><a href="#">메뉴1</a></li>
-			<li><a href="#">메뉴2</a></li>
-			<li><a href="#">메뉴3</a></li>
-		</ul>
-		<ul class="gnb right">
-			<li><a href="#">메뉴4</a></li>
-			<li><a href="#">메뉴5</a></li>
-			<li><a href="#">메뉴6</a></li>
+		<ul class="gnb">
+			<li class="sub">
+				<a href="#">RUNWAY</a>
+				<ul class="sub_menu">
+					<li><a href="#">Women Fall Winter 2018</a></li>
+					<li><a href="#">Men Fall Winter 2018</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">WOMEN</a>
+				<ul class="sub_menu">
+					<li><a href="#">top</a></li>
+					<li><a href="#">pants</a></li>
+					<li><a href="#">skirts</a></li>
+					<li><a href="#">outer</a></li>
+					<li><a href="#">dresses</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">MEN</a>
+				<ul class="sub_menu">
+					<li><a href="#">Women Fall Winter 2018</a></li>
+					<li><a href="#">Men Fall Winter 2018</a></li>
+					top, pants, skirts, outer, dresses
+				</ul>
+			</li>
+			<li>
+				<a href="#">ACC</a>
+				<ul class="sub_menu">
+					<li><a href="#">Women Fall Winter 2018</a></li>
+					<li><a href="#">Men Fall Winter 2018</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Q&amp;A</a></li>
+			<li><a href="#">Review</a></li>
+			<li><a href="/semi_project/jh/notice.do?cmd=list">Notice</a></li>
 		</ul>
 	</div>
+	<div class="sub_bg"></div>
 </div>
