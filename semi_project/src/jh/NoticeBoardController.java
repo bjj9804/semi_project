@@ -42,6 +42,9 @@ public class NoticeBoardController extends HttpServlet{
 			endPage=pageCnt;
 		}		
 		ArrayList<NoticeBoardVo> list=dao.list(startRow,endRow);
+		
+		String email=request.getParameter("email");
+		dao.getFlag(email);
 		request.setAttribute("list", list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
