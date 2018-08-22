@@ -86,6 +86,5 @@ public class QnaBoardController extends HttpServlet {
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);		
 
-
 	}	
 }
