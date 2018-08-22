@@ -56,7 +56,7 @@
 			</li>
 			<li><a href="/semi_project/eb/qnalist.do?cmd=list">Q&amp;A</a></li>
 			<li><a href="/semi_project/reviewBoard.do?cmd=list">Review</a></li>
-			<li><a href="/semi_project/jh/notice.do?cmd=list">Notice</a></li>
+			<li><a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }">Notice</a></li>
 		</ul>
 	</div>
 	<div class="sub_bg"></div>

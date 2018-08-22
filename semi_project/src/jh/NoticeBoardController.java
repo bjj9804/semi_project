@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import mh.UsersDao;
+import mh.UsersVo;
 @WebServlet("/jh/notice.do")
 public class NoticeBoardController extends HttpServlet{
 	@Override
@@ -44,12 +47,23 @@ public class NoticeBoardController extends HttpServlet{
 		ArrayList<NoticeBoardVo> list=dao.list(startRow,endRow);
 		
 		String email=request.getParameter("email");
-		dao.getFlag(email);
+		System.out.println(email);
+		int flag=0;
+		if(!email.equals("")) {//로그인을 하고 들어온 경우
+			UsersDao usersDao=UsersDao.getInstance();
+			UsersVo vo=usersDao.select(email);
+			flag=vo.getFlag();//관리자인지 회원인지
+		}else {//로그인을 안하고 들어온경우
+			flag=1;
+		}		
+		System.out.println(flag);
 		request.setAttribute("list", list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("flag", flag);
+		
 		request.getRequestDispatcher("/board/notice_list.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -77,13 +91,15 @@ public class NoticeBoardController extends HttpServlet{
 		listAll(request,response);
 	}
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name=request.getParameter("name");
-		String email=request.getParameter("email");
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
+		String email=request.getParameter("email");
+		
+		UsersDao usersDao=UsersDao.getInstance();
+		UsersVo usersvo=usersDao.select(email);
 		
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
-		NoticeBoardVo vo=new NoticeBoardVo(0, name, email, title, content, 0, null);
+		NoticeBoardVo vo=new NoticeBoardVo(0, usersvo.getName(), email, title, content, 0, null);
 		if(dao.insert(vo)>0) {
 			listAll(request,response);
 		}else {
