@@ -85,10 +85,10 @@ public class QnaBoardVo {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public Date getDate() {
+	public Date getRegdate() {
 		return regdate;
 	}
-	public void setDate(Date regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 	

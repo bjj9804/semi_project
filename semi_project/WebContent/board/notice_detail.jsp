@@ -19,6 +19,7 @@
 				<tr><th>조회수</th><td>${vo.hit }</td></tr>
 				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
 			</table>
+			<input type="button" value="답글작성" onclick="javascript:location.href='insert.jsp?num=${vo.num }&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'" style="position:relative; left:420px">
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

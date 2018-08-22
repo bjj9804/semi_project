@@ -19,6 +19,8 @@
 				<tr><th>조회수</th><td>${vo.hit }</td></tr>
 				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
 			</table>
+			<input type="button" value="Q&A 목록" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=list'" style="margin-left:5%">
+			<input type="button" value="답글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num }&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'">
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

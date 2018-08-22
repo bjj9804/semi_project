@@ -26,9 +26,10 @@
 						<td>
 						<c:if test="${vo.lev>0 }">
 							<c:forEach var="i" begin="1" end="${vo.lev }">
-								&nbsp;&nbsp;		
+									&nbsp;&nbsp;
 							</c:forEach>
-						</c:if> <a href="../eb/qnalist.do?cmd=detail&num=${vo.num }">${vo.title }</a>
+							└
+						</c:if> <a href="qnalist.do?cmd=detail&num=${vo.num }">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
