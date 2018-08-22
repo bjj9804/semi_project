@@ -84,7 +84,7 @@ public class QnaBoardController extends HttpServlet {
 		QnaBoardVo vo=dao.detail(num);
 		int n=dao.hitup(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);		
+		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);	
 
 	}	
 }
