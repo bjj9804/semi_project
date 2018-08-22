@@ -1,6 +1,7 @@
 package mh;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,6 +75,41 @@ public class UsersDao {
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return false;
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public UsersVo select(String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from users where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String password=rs.getString("password");
+				String phone=rs.getString("phone");
+				String addr=rs.getString("addr");
+				String name=rs.getString("name");
+				Date regdate=rs.getDate("regdate");
+				int coupon=rs.getInt("coupon");
+				int flag=rs.getInt("flag");
+				UsersVo vo=new UsersVo(email, password, phone, addr, name, regdate, coupon, flag);
+				return vo;
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
 		}finally {
 			try {
 				if(rs != null) rs.close();

@@ -45,9 +45,9 @@
 									<option value="@paran.com">paran.com</option>
 								</select>
 								<br>
-								비밀번호 <input type="text" name="pwd"><br>
-								<input type="checkbox" name="idCheck"><br>
-								<input type="checkbox" name="pwdCheck"><br>
+								비밀번호 <input type="password" name="pwd"><br>
+								<input type="checkbox" name="idCheck"><label>로그인 상태 유지</label><br>
+								<input type="checkbox" name="pwdCheck"><label>아이디 기억하기</label><br>
 								<div style="font_size: 12px; color:red">${errMsg }</div>
 								<input type="submit" value="로그인">
 							</form>
