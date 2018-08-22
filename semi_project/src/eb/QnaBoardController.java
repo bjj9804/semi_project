@@ -51,7 +51,6 @@ public class QnaBoardController extends HttpServlet {
 		request.getRequestDispatcher("../board/qna_list.jsp").forward(request, response);
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-	
 		request.setCharacterEncoding("utf-8");
 		String snum=request.getParameter("num");
 		String name=request.getParameter("name");

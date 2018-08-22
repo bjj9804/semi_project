@@ -99,11 +99,9 @@ public class ReviewBoardDao {
 			se.printStackTrace();
 			return -1;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return -1;
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return -1;
 		}finally {
