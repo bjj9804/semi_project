@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet{
 			response.sendRedirect(contextPath + "/users/login.jsp");
 		}else if(cmd != null && cmd.equals("login")) {
 			login(request,response);
-		}else if(cmd != null && cmd.equals("login")) {
+		}else if(cmd != null && cmd.equals("logoutform")) {
 			logout(request,response);
 		}
 	}
