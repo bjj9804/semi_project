@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import jh.NoticeBoardDao;
 import jh.NoticeBoardVo;
-import semi.db.ConnectionPoolBean;
 
 
 @WebServlet("/eb/qnalist.do")
 public class QnaBoardController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");
 		if(cmd!=null && cmd.equals("insert")) {
 			insert(request,response);
@@ -27,7 +27,6 @@ public class QnaBoardController extends HttpServlet {
 			detail(request,response);
 		}
 	}
-	ConnectionPoolBean cp = null;
 	
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String spageNum=request.getParameter("pageNum");
@@ -54,7 +53,6 @@ public class QnaBoardController extends HttpServlet {
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 	
-		request.setCharacterEncoding("utf-8");
 		String snum=request.getParameter("num");
 		String name=request.getParameter("name");
 		String title=request.getParameter("title");

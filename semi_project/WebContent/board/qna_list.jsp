@@ -28,20 +28,16 @@
 							<c:forEach var="i" begin="1" end="${vo.lev }">
 								&nbsp;&nbsp;		
 							</c:forEach>
-						</c:if> <a href="../eb/qnalist.do?num=${vo.num }&cmd=detail">${vo.title }</a>
+						</c:if> <a href="../eb/qnalist.do?cmd=detail&num=${vo.num }">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
 					</tr>
-
-
 				</c:forEach>
 			</table>
-
-
-<c:choose>
+	<c:choose>
 		<c:when test="${startPage>10 }">
-		<a href="qnalist.do?pageNum=${startPage-1 }"><span style="color:black">[이전]</span></a>
+		<a href="qnalist.do?cmd=list&pageNum=${startPage-1 }"><span style="color:black">[이전]</span></a>
 		</c:when>
 		<c:otherwise>
 		<span style="color:gray">[이전]</span>
@@ -51,26 +47,27 @@
 	<c:forEach var="i" begin="${startPage }" end="${endPage }">
 	<c:choose>
 		<c:when test="${pageNum==i }">
-		<a href="qnalist.do?pageNum=${i }"><span style="color:black">[${i }]</span></a>
+		<a href="qnalist.do?cmd=list&pageNum=${i }"><span style="color:black">[${i }]</span></a>
 		</c:when>
 		<c:otherwise>
-		<a href="qnalist.do?pageNum=${i }"><span style="color:gray">[${i }]</span></a>
+		<a href="qnalist.do?cmd=list&pageNum=${i }"><span style="color:gray">[${i }]</span></a>
 		</c:otherwise>
 	</c:choose>
 	</c:forEach>
 	
 	<c:choose>
 		<c:when test="${endPage<pageCount }">
-		<a href="qnalist.do?pageNum=${endPage+1 }"><span style="color:black">[다음]</span></a>
+		<a href="qnalist.do?cmd=list&pageNum=${endPage+1 }"><span style="color:black">[다음]</span></a>
 		</c:when>
 		<c:otherwise>
 		
 		<span style="color:gray">[다음]</span>
+		<br>
 		</c:otherwise>
 	</c:choose>
 
 		</div>
-		<input type="button" value="글쓰기" onclick="javascript:location.href='insert.jsp'" style="margin-left:60%" >
+		<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
