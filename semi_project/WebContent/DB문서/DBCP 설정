@@ -1,0 +1,14 @@
+자신의 eclipse servers프로젝트에서 context.xml로 들어가서 맨 아래에 </context>위에 아래의 소스를 삽입해준다
+
+ <Resource auth="Container" 
+          name="jdbc/orcl" 
+          driverClassName="oracle.jdbc.driver.OracleDriver" 
+          type="javax.sql.DataSource" 
+          url="jdbc:oracle:thin:@localhost:1521:XE" 
+          username="semi"
+          password="4444" 
+          loginTimeout="10" 
+          maxActive="50" 
+          maxIdle="20"
+          maxWait="5000" 
+          testOnBorrow="true" />
