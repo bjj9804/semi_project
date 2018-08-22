@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.db.ConnectionPoolBean;
+
 
 @WebServlet("/qnalist.do")
 public class QnaBoardController extends HttpServlet {
@@ -23,6 +25,7 @@ public class QnaBoardController extends HttpServlet {
 			detail(request,response);
 		}
 	}
+	ConnectionPoolBean cp = null;
 	
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String spageNum=request.getParameter("pageNum");
@@ -45,7 +48,7 @@ public class QnaBoardController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/list.jsp").forward(request, response);
+		request.getRequestDispatcher("/qna_list.jsp").forward(request, response);
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 	
@@ -60,7 +63,7 @@ public class QnaBoardController extends HttpServlet {
 		int lev=0;
 		int step=0;
 		int hit=0;
-		if(snum!=null && !snum.equals("")) {
+		if(snum!=null && !snum.equals("")) {//NUM이 있다는 소리
 			num=Integer.parseInt(snum);
 			grp=Integer.parseInt(request.getParameter("grp"));
 			lev=Integer.parseInt(request.getParameter("lev"));
@@ -70,11 +73,8 @@ public class QnaBoardController extends HttpServlet {
 		QnaBoardDao dao=new QnaBoardDao();
 		int n=dao.insert(vo);
 		if(n>0) {
-			request.setAttribute("code", "success");
-		}else {
-			request.setAttribute("code", "fail");
+			request.getRequestDispatcher("/board/qna_list.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("result.jsp").forward(request, response);
 	}
 
 

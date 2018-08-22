@@ -27,7 +27,7 @@
 							<c:forEach var="i" begin="1" end="${vo.lev }">
 								&nbsp;&nbsp;		
 							</c:forEach>
-						</c:if> <a href="content.do?num=${vo.num }">${vo.title }</a>
+						</c:if> <a href="/semi_project/qnalist.do?cmd=detail & num=${vo.num }">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
