@@ -7,10 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import semi.db.ConnectionPoolBean;
+import semi.db.DBConnection;
 
 public class NoticeBoardDao {
-	ConnectionPoolBean cp=null;
 	private static NoticeBoardDao instance=new NoticeBoardDao();
 	private NoticeBoardDao() {}
 	public static NoticeBoardDao getInstance() {
@@ -22,8 +21,7 @@ public class NoticeBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			String sql="select NVL(max(num),0) maxnum from noticeboard";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -39,7 +37,7 @@ public class NoticeBoardDao {
 			try {
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();			
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -50,8 +48,7 @@ public class NoticeBoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			String sql="select NVL(count(num),0) cnt from noticeboard";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -67,7 +64,7 @@ public class NoticeBoardDao {
 			try {
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();				
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -79,8 +76,7 @@ public class NoticeBoardDao {
 		PreparedStatement pstmt1=null;
 		ResultSet rs=null;
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			String sql1="update noticeboard set hit=hit+1 where num=?";
 			pstmt1=con.prepareStatement(sql1);
 			pstmt1.setInt(1, num);
@@ -108,7 +104,7 @@ public class NoticeBoardDao {
 			try {
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();				
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -120,8 +116,7 @@ public class NoticeBoardDao {
 		ResultSet rs=null;
 		ArrayList<NoticeBoardVo> list=new ArrayList<>();
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			String sql="select * from "
 					+ "(select AA.*,rownum rnum from "
 					+ "(select * from noticeboard order by num desc) AA) "
@@ -149,7 +144,7 @@ public class NoticeBoardDao {
 			try {
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();			
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -159,8 +154,7 @@ public class NoticeBoardDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			String sql="delete from NoticeBoard where num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -171,7 +165,7 @@ public class NoticeBoardDao {
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();		
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
@@ -181,8 +175,7 @@ public class NoticeBoardDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
-			cp=new ConnectionPoolBean();
-			con=cp.getConnection();
+			con=DBConnection.getConnection();
 			int num=getMaxNum()+1;			
 			String sql="insert into noticeboard values(?,?,?,?,?,?,sysdate)";
 			pstmt=con.prepareStatement(sql);
@@ -199,7 +192,7 @@ public class NoticeBoardDao {
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
-				if(con!=null) cp.returnConnection(con);				
+				if(con!=null) con.close();		
 			}catch(SQLException se) {
 				se.printStackTrace();
 			}
