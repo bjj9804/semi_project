@@ -18,6 +18,9 @@ public class NoticeBoardController extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");		
 		String contextPath=getServletContext().getContextPath();
+		
+		
+		
 		if(cmd!=null && cmd.equals("list")) {
 			listAll(request,response);
 		}else if(cmd!=null && cmd.equals("detail")) {
@@ -26,6 +29,8 @@ public class NoticeBoardController extends HttpServlet{
 			delete(request,response);
 		}else if(cmd!=null && cmd.equals("insert")) {
 			insert(request,response);
+		}else if(cmd!=null && cmd.equals("update")) {
+			update(request,response);
 		}
 		
 	}
@@ -47,31 +52,34 @@ public class NoticeBoardController extends HttpServlet{
 		ArrayList<NoticeBoardVo> list=dao.list(startRow,endRow);
 		
 		String email=request.getParameter("email");
-		System.out.println(email);
 		int flag=0;
 		if(!email.equals("")) {//로그인을 하고 들어온 경우
 			UsersDao usersDao=UsersDao.getInstance();
 			UsersVo vo=usersDao.select(email);
-			flag=vo.getFlag();//관리자인지 회원인지
+			flag=vo.getFlag();//관리자인지 회원인지			
 		}else {//로그인을 안하고 들어온경우
 			flag=1;
 		}		
-		System.out.println(flag);
+		request.setAttribute("flag", flag);		
 		request.setAttribute("list", list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("flag", flag);
 		
 		request.getRequestDispatcher("/board/notice_list.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num=Integer.parseInt(request.getParameter("num"));
+		String cmd1=request.getParameter("cmd1");
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
 		NoticeBoardVo vo=dao.select(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("/board/notice_detail.jsp").forward(request, response);			
+		if(cmd1.equals("det_update")) {
+			request.getRequestDispatcher("/board/notice_update.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/board/notice_detail.jsp").forward(request, response);
+		}
 	}
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String checkList=request.getParameter("checkList");
@@ -105,5 +113,19 @@ public class NoticeBoardController extends HttpServlet{
 		}else {
 			System.out.println("작성실패");
 		}
+	}
+	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num=Integer.parseInt(request.getParameter("num"));
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		
+		NoticeBoardDao dao=NoticeBoardDao.getInstance();
+		if(dao.update(num,title,content)>0) {
+			request.setAttribute("cmd1", "detail");
+			detail(request,response);
+		}else {
+			System.out.println("작성실패");
+		}
+		
 	}
 }
