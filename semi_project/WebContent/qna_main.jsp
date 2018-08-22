@@ -8,8 +8,8 @@
 </head>
 <body>
 <ul style="position:relative; margin-left:500px; margin-top:150px;">
-	<li style="font-size: 50px" ><a href="/semi_project/qnalist.do?cmd=list" style="color:black">Q&A</a></li>
-	<form action="/semi_project/qnalist.do?cmd=insert" method="post">
+	<li style="font-size: 50px" ><a href="/semi_project/eb/qnalist.do?cmd=list" style="color:black">Q&A</a></li>
+	<form action="/semi_project/eb/qnalist.do?cmd=insert" method="post">
 	<input type="hidden" name="num" value="${param.num }">
 	<input type="hidden" name="grp" value="${param.grp }">
 	<input type="hidden" name="lev" value="${param.lev }">
