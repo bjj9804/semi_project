@@ -36,17 +36,17 @@ public class LoginController extends HttpServlet{
 		}
 	}
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		String email = request.getParameter("id") + request.getParameter("email");
 		String pwd = request.getParameter("pwd");
 		UsersDao dao = UsersDao.getInstance();
-		boolean b = dao.login(id,pwd);
+		boolean b = dao.login(email,pwd);
 		if(b){
 			HttpSession session = request.getSession(); //세션객체 얻어오기
-			session.setAttribute("id", id);
+			session.setAttribute("email", email);
 			String contextPath = getServletContext().getContextPath();
 			response.sendRedirect(contextPath + "/main/index.jsp");
 		}else {
-			request.setAttribute("errMsg", "아이디 또는 비밀번호가 맞지 않아요");
+			request.setAttribute("errMsg", "이메일 또는 비밀번호가 맞지 않아요");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}

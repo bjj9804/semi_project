@@ -28,10 +28,27 @@
 						</td>
 						<td>
 							<form method="post" action="<c:url value='../mh/login.do?cmd=login'/>">
-								이메일 <input type="text" name="id"><br>
+								이메일 <input type="text" name="id">@
+								<select name="email">
+									<option value="">옵션선택</option>
+									<option value="@naver.com">naver.com</option>
+									<option value="@hanmail.net">hanmail.net</option>
+									<option value="@nate.com">nate.com</option>
+									<option value="@gmail.com">gmail.com</option>
+									<option value="@hatmail.com">hatmail.com</option>
+									<option value="@daum.com">daum.net</option>
+									<option value="@yahoo.co.kr">yahoo.co.kr</option>
+									<option value="@hanmir.com">hanmir.com</option>
+									<option value="@dreamwiz.com">dreamwiz.com</option>
+									<option value="@lycos.co.kr">lycos.co.kr</option>
+									<option value="@empas.com">empas.com</option>
+									<option value="@paran.com">paran.com</option>
+								</select>
+								<br>
 								비밀번호 <input type="text" name="pwd"><br>
 								<input type="checkbox" name="idCheck"><br>
 								<input type="checkbox" name="pwdCheck"><br>
+								<div style="font_size: 12px; color:red">${errMsg }</div>
 								<input type="submit" value="로그인">
 							</form>
 						</td>
