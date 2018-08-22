@@ -44,10 +44,10 @@ public class LoginController extends HttpServlet{
 			HttpSession session = request.getSession(); //세션객체 얻어오기
 			session.setAttribute("id", id);
 			String contextPath = getServletContext().getContextPath();
-			response.sendRedirect(contextPath + "semi_project/main/index.jsp");
+			response.sendRedirect(contextPath + "/main/index.jsp");
 		}else {
 			request.setAttribute("errMsg", "아이디 또는 비밀번호가 맞지 않아요");
-			RequestDispatcher rd = request.getRequestDispatcher("/semi_project/users/login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}
 	}
@@ -55,6 +55,6 @@ public class LoginController extends HttpServlet{
 		HttpSession session = request.getSession();
 		session.invalidate();
 		String contextPath = getServletContext().getContextPath();
-		response.sendRedirect(contextPath + "semi_project/main/index.jsp");
+		response.sendRedirect(contextPath + "/main/index.jsp");
 	}
 }

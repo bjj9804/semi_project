@@ -56,7 +56,7 @@ public class UsersDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from users where id=? and pwd=?";
+			String sql = "select * from users where id=? and password=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);

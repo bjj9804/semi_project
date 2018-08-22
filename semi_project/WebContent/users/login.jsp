@@ -27,8 +27,8 @@
 							<input type="button" value="신규 회원 가입" onclick = "location.href = '../users/join.jsp' ">
 						</td>
 						<td>
-							<form method="post" action="<c:url value='/semi_project/mh/login.do?cmd=login'/>">
-								아이디 <input type="text" name="id"><br>
+							<form method="post" action="<c:url value='../mh/login.do?cmd=login'/>">
+								이메일 <input type="text" name="id"><br>
 								비밀번호 <input type="text" name="pwd"><br>
 								<input type="checkbox" name="idCheck"><br>
 								<input type="checkbox" name="pwdCheck"><br>
