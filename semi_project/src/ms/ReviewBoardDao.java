@@ -78,6 +78,33 @@ public class ReviewBoardDao {
 			}
 		}
 	}
+	public int getSearchCount(int height, int weight) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = DBConnection.getConnection();
+			String sql="select NVL(count(num),0) cnt from reviewboard where height between" + 
+						height +" and " + height+10 + " and weight between "+weight+" and "+ weight+10;
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}else {
+				return 0;
+			}
+		}catch(SQLException | ClassNotFoundException | NamingException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	
 	public int insert(ReviewBoardVo vo) {
 		int maxNum = getMaxNum();
@@ -132,6 +159,52 @@ public class ReviewBoardDao {
 				String content = rs.getString("content");
 				int height = rs.getInt("height");
 				int weight = rs.getInt("weight");
+				String email = rs.getString("email");
+				int hit = rs.getInt("hit");
+				String name = rs.getString("name");
+				Date regdate = rs.getDate("regdate");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate);
+				list.add(vo);
+			}
+			return list;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public ArrayList<ReviewBoardVo> searchlist(int startRow, int endRow, int height, int weight) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ReviewBoardVo> list = new ArrayList<>();
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where height between " +height+" and "+height+10 
+					    + " and " + "weight between " +weight+" and "+weight+10+ "order by num desc) AA) where rnum>=? and rnum<=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, height);
+			pstmt.setInt(4, weight);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int num = rs.getInt("num");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
 				String email = rs.getString("email");
 				int hit = rs.getInt("hit");
 				String name = rs.getString("name");
@@ -228,4 +301,63 @@ public class ReviewBoardDao {
 			}
 		}
 	}
+	
+	public int delete(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con = DBConnection.getConnection();
+			String sql="delete from reviewboard where num = ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public int update(ReviewBoardVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con = DBConnection.getConnection();
+			String sql="update reviewboard set title = ?, content = ? where num = ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getNum());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
 }
