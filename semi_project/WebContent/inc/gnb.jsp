@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="header">
 	<div class="login_area">
 		<ul>
-			<li><a href="#">Sign In</a></li>
+			<c:choose>
+				<c:when test="${empty sessionScope.email }">
+					<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">Sign In</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">Sign Out</a></li>
+				</c:otherwise>
+			</c:choose>
 			<li><a href="#">Bag</a></li>
 		</ul>
 	</div>
@@ -46,8 +54,8 @@
 					<li><a href="#">shoes</a></li>
 				</ul>
 			</li>
-			<li><a href="#">Q&amp;A</a></li>
-			<li><a href="#">Review</a></li>
+			<li><a href="/semi_project/eb/qnalist.do?cmd=list">Q&amp;A</a></li>
+			<li><a href="/semi_project/reviewBoard.do?cmd=list">Review</a></li>
 			<li><a href="/semi_project/jh/notice.do?cmd=list">Notice</a></li>
 		</ul>
 	</div>
