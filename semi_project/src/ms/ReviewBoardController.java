@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 @WebServlet("/reviewBoard.do")
 public class ReviewBoardController extends HttpServlet {
 	@Override
@@ -78,13 +76,9 @@ public class ReviewBoardController extends HttpServlet {
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		int n = dao.hitup(num);
-		if(n>0) {
-			ReviewBoardVo vo = dao.detail(num);
-			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
-		}else {
-			System.out.println("<h1>¾È‰ÑÀÚ³ª...</h1>");
-		}
+		int n=dao.hitup(num);
+		ReviewBoardVo vo = dao.detail(num);
+		request.setAttribute("vo", vo);
+		request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
 	}
 }
