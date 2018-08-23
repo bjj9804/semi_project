@@ -49,14 +49,48 @@ public class ItemDao{
 		PreparedStatement pstmtImg = null;
 		PreparedStatement pstmtSize = null;
 		PreparedStatement pstmtLook = null;
-		String sqlItem = "";
-		String sqlImg = "";
-		String sqlSize = "";
-		String sqlLook = "";
+		String sqlItem = "insert into item values(?,?,?,?)";
+		String sqlImg  = "insert into itemimg values(?,?,?)";
+		String sqlSize = "insert into itemsize values(?,?,?)";		
+		String sqlLook = "insert into look values(look_seq.nextval,?,?,?,?)";
 		try {
-			pstmtItem= con.prepareStatement(sqlItem);
-		}catch(SQLException se) {
-			System.out.println(se.getMessage());
+			con=DBConnection.getConnection();
+			con.setAutoCommit(false);
+			pstmtItem = con.prepareStatement(sqlItem);
+			pstmtItem.setString(1, vo.getCode());
+			pstmtItem.setInt(2, vo.getPrice());
+			pstmtItem.setString(3, vo.getItemName());
+			pstmtItem.setString(4, vo.getDescription());
+			
+			pstmtImg = con.prepareStatement(sqlImg);
+			pstmtImg.setString(1, vo.getImgType());
+			pstmtImg.setString(2, vo.getCode());
+			pstmtImg.setString(3, vo.getImgSrc());
+			
+			pstmtSize = con.prepareStatement(sqlSize);
+			pstmtSize.setString(1, vo.getIsize());
+			pstmtSize.setString(2, vo.getCode());
+			pstmtSize.setInt(3, vo.getAmount());
+			
+			pstmtLook = con.prepareStatement(sqlLook);
+			pstmtLook.setInt(1, vo.getNum());
+			pstmtLook.setString(2, vo.getLookCode());
+			pstmtLook.setString(3, vo.getCode());
+			pstmtLook.setString(4, vo.getLookFront());
+			pstmtLook.setString(5, vo.getLookBack());
+			
+			return pstmtItem.executeUpdate();
+			return pstmtImg.executeUpdate();
+			return pstmtSize.executeUpdate();
+			return pstmtLook.executeUpdate();
+			con.commit();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			try {
+				con.rollback();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
 		}finally {
 			try {
 				if(con != null) con.close();
