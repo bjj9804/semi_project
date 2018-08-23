@@ -20,6 +20,8 @@ public class DemandController extends HttpServlet{
 		
 		if(cmd!=null && cmd.equals("insert")) {
 			insert(request,response);
+		}else if(cmd!=null && cmd.equals("delete")) {
+			
 		}
 	}
 	
