@@ -19,9 +19,9 @@
 				<tr><th>조회수</th><td>${vo.hit }</td></tr>
 				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
 			</table>
-			<input type="button" value="review 목록" onclick="javascript:location.href='/semi_project/ms/reviewBoard.do?cmd=list'" style="margin-left:5%">
-			<input type="button" value="수정" onclick="javascript:location.href='/semi_project/ms/reviewBoard.do?cmd=update'" style="margin-left:5%">
-			<input type="button" value="삭제" onclick="javascript:location.href='/semi_project/ms/reviewBoard.do?cmd=delete'" style="margin-left:5%">
+			<input type="button" value="review 목록" onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=list'" style="margin-left:5%">
+			<input type="button" value="수정" onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=update'" style="margin-left:5%">
+			<input type="button" value="삭제" onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=delete'" style="margin-left:5%">
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

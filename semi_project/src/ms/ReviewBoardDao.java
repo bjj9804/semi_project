@@ -198,8 +198,6 @@ public class ReviewBoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, height);
-			pstmt.setInt(4, weight);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int num = rs.getInt("num");
