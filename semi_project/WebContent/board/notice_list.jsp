@@ -13,7 +13,7 @@
 			<h2>NOTICE BOARD</h2>
 			<!------------------------------------ 관리자가 들어왔을때 ------------------------------->
 			<c:if test="${flag==0}">
-				<input type="button" value="삭제" onclick="delete1()">
+				<input type="button" value="삭제" onclick="delete1(${pageNum})">
 				<input type="button" value="글작성" onclick="location.href='/semi_project/board/notice_insert.jsp'">
 				<table border="1" width="800" align="center">
 					<tr><th><input type="checkbox" name="check" onclick="checkAll()"></th><th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
@@ -21,7 +21,7 @@
 						<tr>
 							<td><input type="checkbox" name="check" value="${vo.num }" onclick="check1()"></td>
 							<td>${vo.num }</td>
-							<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=detail">${vo.title }</a></td>
+							<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=detail&flag=${flag}&pageNum=${pageNum}">${vo.title }</a></td>
 							<td>관리자</td>
 							<td>${vo.hit }</td>		
 						</tr>
@@ -54,7 +54,7 @@
 				<c:forEach var="vo" items="${list }">
 					<tr>
 						<td>${vo.num }</td>
-						<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=detail">${vo.title }</a></td>
+						<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=detail&flag=${flag}&pageNum=${pageNum}">${vo.title }</a></td>
 						<td>관리자</td>
 						<td>${vo.hit }</td>		
 					</tr>
@@ -106,7 +106,7 @@
 			}				
 		}		
 	}
-	function delete1(){
+	function delete1(pageNum){
 		var checkList="";
 		var chk=document.getElementsByName("check");
 		for(var i=1;i<chk.length;i++){
@@ -122,7 +122,7 @@
 		}
 		console.log(checkList);
 		if(confirm("삭제하시겠습니까?")){
-			location.href="/semi_project/jh/notice.do?checkList="+checkList+"&cmd=delete";
+			location.href="/semi_project/jh/notice.do?checkList="+checkList+"&cmd=delete&pageNum="+pageNum;
 		}
 	}
 	</script>
