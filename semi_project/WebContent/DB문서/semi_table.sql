@@ -54,8 +54,6 @@ CREATE TABLE item
 	description varchar2(200),
 	PRIMARY KEY (code)
 );
-
-
 CREATE TABLE itemImg
 (
 	imgType varchar2(15) NOT NULL,
@@ -63,8 +61,6 @@ CREATE TABLE itemImg
 	imgSrc varchar2(20),
 	PRIMARY KEY (imgType, code)
 );
-
-
 CREATE TABLE itemsize
 (
 	isize varchar2(15) NOT NULL,
@@ -72,8 +68,6 @@ CREATE TABLE itemsize
 	amount number(3,0),
 	PRIMARY KEY (isize,code)
 );
-
-
 CREATE TABLE Look
 (
 	num number(3,0) NOT NULL,
@@ -178,14 +172,10 @@ ALTER TABLE Look
 
 
 ALTER TABLE demand
-	ADD FOREIGN KEY (isize)
-	REFERENCES itemsize (isize)
+	ADD FOREIGN KEY (isize, code)
+	REFERENCES itemsize (isize, code)
 ;
 
-ALTER TABLE demand
-	ADD FOREIGN KEY (code)
-	REFERENCES itemsize (code)
-;
 
 ALTER TABLE coupon
 	ADD FOREIGN KEY (email)
@@ -221,3 +211,8 @@ ALTER TABLE reviewboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
 ;
+
+CREATE SEQUENCE look_seq;
+
+
+
