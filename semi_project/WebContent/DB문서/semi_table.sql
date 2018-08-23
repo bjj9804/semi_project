@@ -146,6 +146,8 @@ CREATE TABLE Users
 (
 	email varchar2(30) NOT NULL,
 	password varchar2(20),
+	question number(5,0),
+	answer varchar2(30),
 	phone varchar2(20),
 	addr varchar2(30),
 	name varchar2(20),

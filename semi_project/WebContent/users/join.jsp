@@ -27,7 +27,7 @@
 				<!-- 계정 세부정보 email,pwd 확인 -->
 				<table style="width: 800px;">
 					<tr>
-						<th rowspan="10" style="width: 300px">계정 세부 정보</th>
+						<th rowspan="12" style="width: 300px">계정 세부 정보</th>
 					</tr>
 					<tr>
 						<td>이메일 주소</td>
@@ -113,6 +113,36 @@
 						<td><input type="password" name="pwd"> </td>
 						<td> </td>
 						<td><input type="password" name="pwdok"></td>
+					</tr>
+					<tr>
+						<td>
+							이메일/비밀번호 찾기 질문
+						</td>
+						<td> </td>
+						<td>
+							답변
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<select name="question">
+								<option value="">질문선택</option>
+								<option value="1">당신의 취미는?</option>	
+								<option value="2">어릴적 별명은?</option>	
+								<option value="3">첫째 고모 성함은?</option>	
+								<option value="4">감명깊게 읽은 책은?</option>	
+								<option value="5">여자친구의 발사이즈는?</option>	
+								<option value="6">친구는 몇명인가요?</option>	
+								<option value="7">전 여자친구 이름은?</option>	
+								<option value="8">전 남자친구 이름은?</option>	
+								<option value="9">햄최몇?</option>	
+								<option value="10">엄마의 발사이즈는?</option>	
+								<option value="11">짝궁의 이름은?</option>	
+								<option value="12">방 벽지 색깔은?</option>	
+							</select>
+						</td>
+						<td> </td>
+						<td><input type="text" name="answer"></td>
 					</tr>
 					<tr>
 						<td>
