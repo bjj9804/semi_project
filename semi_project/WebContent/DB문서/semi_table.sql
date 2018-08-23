@@ -28,21 +28,27 @@ CREATE TABLE coupon
 	PRIMARY KEY (couponName, email)
 );
 
-
-CREATE TABLE demand
+CREATE TABLE BUY
 (
+	buyNum number(10,0) PRIMARY KEY NOT NULL,
 	orderNum number(10,0) NOT NULL,
-	orderDate date,
+	code varchar2(20),
+	isize varchar2(15),
 	orderAmount number(3,0),
+	Price number(10,0)
+);
+
+CREATE TABLE PAY
+(
+	orderNum number(10,0) PRIMARY KEY NOT NULL,
+	orderDate date,
 	state varchar2(15),
-	email varchar2(30) NOT NULL,
-	code varchar2(20) NOT NULL,
-	isize varchar2(15) NOT NULL,
-	addr varchar2(30),
 	method varchar2(20),
+	addr varchar2(30),
+	email varchar2(30) NOT NULL,
 	totalPrice number(10,0),
-	payMoney number(10,0),
-	PRIMARY KEY (orderNum)
+	payMoney number(10,0)
+
 );
 
 
@@ -171,9 +177,19 @@ ALTER TABLE Look
 ;
 
 
-ALTER TABLE demand
+ALTER TABLE buy
 	ADD FOREIGN KEY (isize, code)
 	REFERENCES itemsize (isize, code)
+;
+
+ALTER TABLE pay
+	ADD FOREIGN KEY (orderNum)
+	REFERENCES buy (orderNum)
+;
+
+ALTER TABLE pay
+	ADD FOREIGN KEY (email)
+	REFERENCES users (email)
 ;
 
 
