@@ -15,6 +15,7 @@ public class DemandVo {
 	private int totalPrice;
 	private int payMoney;
 	
+	
 	public DemandVo() {}
 	
 	public DemandVo(int ordernum, Date orderdate, int orderamount, String state, String email, String code, int num,
