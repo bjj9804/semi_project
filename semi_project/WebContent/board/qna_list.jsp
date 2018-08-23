@@ -68,7 +68,11 @@
 	</c:choose>
 
 		</div>
-		<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
+		console.log(${email });
+		<c:if test="${not empty email}">
+			<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
+		</c:if>
+
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
