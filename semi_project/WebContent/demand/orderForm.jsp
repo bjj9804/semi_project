@@ -11,8 +11,7 @@
 	<div id="content">
 		<div class="inner">
 		
-			<h1>ORDER FORM</h1><br>
-			
+			<h1>ORDER FORM</h1><br>			
 			<form action="/semi_project/jh/demand.do?cmd=insert" method="post">
 			
 			<h3>주문내역</h3>	

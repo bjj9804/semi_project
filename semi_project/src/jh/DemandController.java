@@ -22,6 +22,7 @@ public class DemandController extends HttpServlet{
 			insert(request,response);
 		}
 	}
+	
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
