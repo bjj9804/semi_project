@@ -13,7 +13,11 @@ import semi.db.DBConnection;
 
 
 public class QnaBoardDao {
-	private static QnaBoardDao instance=new QnaBoardDao();
+	private static QnaBoardDao instance=new QnaBoardDao();//객체 생성
+	private QnaBoardDao() {}//다른 클래스에서 생성못하게하려고 막기
+	public static QnaBoardDao getInstance() {//위에서 만든 객체를 반환해주는 메소드
+		return instance;
+	}
 	
 	//리스트
 	public ArrayList<QnaBoardVo> list(int startRow, int endRow){
@@ -279,6 +283,58 @@ public class QnaBoardDao {
 				se.printStackTrace();
 			}
 		}		
+	}
+	public int delete(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+		con=DBConnection.getConnection();
+		String sql="delete from qnaboard where num=?";
+		pstmt=con.prepareStatement(sql);
+		pstmt.setInt(1, num);
+		int n=pstmt.executeUpdate();
+		return n;
+	}catch(SQLException se){
+		System.out.println(se.getMessage());
+		return -1;				
+	}catch(ClassNotFoundException cn) {
+		cn.printStackTrace();
+		return -1;
+	} catch (NamingException e) {
+		e.printStackTrace();
+		return -1;
+	}finally {
+		try {
+			if(pstmt!=null) pstmt.close();
+			if(con!=null) con.close();				
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}
+	}
+}
+	public int update(int num,String title,String content) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+		con=DBConnection.getConnection();
+		String sql="update qnaboard set title=?,content=? where num=?";
+		pstmt=con.prepareStatement(sql);
+		pstmt.setString(1, title);
+		pstmt.setString(2, content);
+		pstmt.setInt(3, num);
+		return pstmt.executeUpdate();	
+	
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();		
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
 	}
 }
 

@@ -11,6 +11,7 @@
 		<div class="inner">
 			<form action="/semi_project/reviewBoard.do?cmd=insert" method="post">
 				height<select name="height">
+					<option value="0">입력안함</option>
 					<option value="140">~140</option>
 					<option value=150>140~150</option>
 					<option value=160>150~160</option>
@@ -21,6 +22,7 @@
 					<option value=210>200~</option>
 				</select> &nbsp; &nbsp;
 				weight<select name="weight">
+					<option value="0">입력안함</option>
 					<option value="40">~40kg</option>
 					<option value=50>40kg~50kg</option>
 					<option value=60>50kg~60kg</option>

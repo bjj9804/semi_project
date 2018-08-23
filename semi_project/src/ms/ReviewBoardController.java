@@ -25,6 +25,8 @@ public class ReviewBoardController extends HttpServlet {
 			list(request, response);
 		} else if (cmd != null && cmd.equals("detail")) {
 			detail(request, response);
+		}else if (cmd != null && cmd.equals("searchlist")) {
+			searchlist(request, response);
 		}
 	}
 
@@ -73,6 +75,47 @@ public class ReviewBoardController extends HttpServlet {
 		System.out.println("¿©±â¿È");
 		request.getRequestDispatcher("/board/review_list.jsp").forward(request, response);
 	}
+	
+	public void searchlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int height = 0;
+		int weight = 0;
+		if(request.getParameter("height")!=null || request.getParameter("weight")!=null){
+			height = Integer.parseInt(request.getParameter("height"));
+			weight = Integer.parseInt(request.getParameter("weight"));
+			request.getSession().setAttribute("height", height);
+			request.getSession().setAttribute("weight", weight);
+		}else if(request.getSession().getAttribute("height") != null || request.getSession().getAttribute("weight") != null){
+			height = (Integer)request.getSession().getAttribute("height");
+			weight = (Integer)request.getSession().getAttribute("weight");
+		}
+		String spageNum = request.getParameter("pageNum");
+		int pageNum = 1;
+		if (spageNum != null) {
+			pageNum = Integer.parseInt(spageNum);
+		}
+		int startRow = pageNum * 10 - 9;
+		int endRow = startRow + 9;
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		ArrayList<ReviewBoardVo> list = dao.searchlist(startRow, endRow, height, weight);
+		int pageCount = 0;
+		if(height!=0 || weight!=0) {
+			pageCount = (int)Math.ceil(dao.getSearchCount(height, weight)/10.0);
+		}else {
+			pageCount = (int)Math.ceil(dao.getCount()/10.0);
+		}
+		int startPage = ((pageNum - 1) / 10 * 10) + 1;
+		int endPage = startPage + 9;
+		if (endPage > pageCount) {
+			endPage = pageCount;
+		}
+		request.setAttribute("list", list);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageNum", pageNum);
+		System.out.println("¿©±â¿È");
+		request.getRequestDispatcher("/board/review_search.jsp").forward(request, response);
+	}
 
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -82,4 +125,26 @@ public class ReviewBoardController extends HttpServlet {
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
 	}
+	
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num = Integer.parseInt(request.getParameter("num"));
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		int n = dao.delete(num);
+		if(n>0) {
+			list(request, response);
+		}
+	}
+	
+	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		int num = Integer.parseInt(request.getParameter("num"));
+		ReviewBoardVo vo = dao.detail(num);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		int n = dao.update();
+		if(n>0) {
+			list(request, response);
+		}
+	}
+	
 }

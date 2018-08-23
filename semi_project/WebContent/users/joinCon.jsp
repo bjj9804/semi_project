@@ -13,6 +13,7 @@
 			<c:choose>
 				<c:when test="${requestScope.code == 'success'}">
 					<h2>회원가입 성공<h2>
+					<a href="/mh/login.do?cmd=loginform">로그인</a>
 				</c:when>
 				<c:otherwise>
 					<h2>회원가입 실패</h2>

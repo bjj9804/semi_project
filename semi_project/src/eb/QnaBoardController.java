@@ -3,6 +3,7 @@ package eb;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import jh.NoticeBoardDao;
 import jh.NoticeBoardVo;
+import mh.UsersDao;
+import mh.UsersVo;
 
 
 @WebServlet("/eb/qnalist.do")
@@ -25,18 +28,33 @@ public class QnaBoardController extends HttpServlet {
 			list(request,response);
 		}else if(cmd!=null && cmd.equals("detail")) {
 			detail(request,response);
+		}else if(cmd!=null && cmd.equals("delete")) {
+			delete(request,response);
+		}else if(cmd!=null && cmd.equals("update")) {
+			update(request,response);
 		}
 	}
-	
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		ServletContext sc= getServletContext();
 		String spageNum=request.getParameter("pageNum");
+		String email=request.getParameter("email");
+		System.out.println(email+"111");
+		UsersDao dao1=UsersDao.getInstance();
+		UsersVo vo=null;
+		String name="";
+		int flag=0;
+		if(!email.equals("")) {
+			vo=dao1.select(email);
+			name=vo.getName();
+			flag=vo.getFlag();
+		}
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
-		QnaBoardDao dao=new QnaBoardDao();
+		QnaBoardDao dao=QnaBoardDao.getInstance();
 		ArrayList<QnaBoardVo> list=dao.list(startRow, endRow);
 		int pageCount=(int)Math.ceil(dao.getCount()/10.0);
 		int startPage=((pageNum-1)/10*10)+1;
@@ -44,7 +62,11 @@ public class QnaBoardController extends HttpServlet {
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
+		sc.setAttribute("email", email);
 		request.setAttribute("list", list);
+		request.setAttribute("email", email);
+		request.setAttribute("name", name);
+		request.setAttribute("flag", flag);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
@@ -53,11 +75,13 @@ public class QnaBoardController extends HttpServlet {
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		request.setCharacterEncoding("utf-8");
+		UsersDao dao1=UsersDao.getInstance();
+		String email=request.getParameter("email");
+		UsersVo vo1=dao1.select(email);
+		String name=vo1.getName();
 		String snum=request.getParameter("num");
-		String name=request.getParameter("name");
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
-		String email=request.getParameter("email");
 		int num=0;
 		int grp=0;
 		int lev=0;
@@ -70,21 +94,45 @@ public class QnaBoardController extends HttpServlet {
 			step=Integer.parseInt(request.getParameter("step"));
 		}
 		QnaBoardVo vo=new QnaBoardVo(num, name, email, title, content, grp, lev, step, hit, null);
-		QnaBoardDao dao=new QnaBoardDao();
+		QnaBoardDao dao=QnaBoardDao.getInstance();
 		int n=dao.insert(vo);
 		if(n>0) {
 			list(request, response);
 		}
 	}
-
-
 	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 		int num=Integer.parseInt(request.getParameter("num"));
-		QnaBoardDao dao=new QnaBoardDao();
+		QnaBoardDao dao=QnaBoardDao.getInstance();
 		QnaBoardVo vo=dao.detail(num);
 		int n=dao.hitup(num);
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);	
-
 	}	
+	
+	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
+		int num=Integer.parseInt(request.getParameter("num"));
+		QnaBoardDao dao=QnaBoardDao.getInstance();
+		int n=dao.delete(num);
+		
+		ServletContext sc=getServletContext();
+		String email=(String)sc.getAttribute("email");
+		System.out.println(email);
+		if(n>0) {
+			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
+		}
+	}
+	protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
+		int num=Integer.parseInt(request.getParameter("num"));
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		ServletContext sc=getServletContext();
+		String email=(String)sc.getAttribute("email");
+		QnaBoardDao dao=QnaBoardDao.getInstance();
+		if(dao.update(num,title,content)>0) {
+			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
+		}else {
+			System.out.println("수정실패");
+		}
+		
+	}
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import semi.db.DBConnection;
 
 public class NoticeBoardDao {
+	
 	private static NoticeBoardDao instance=new NoticeBoardDao();
 	private NoticeBoardDao() {}
 	public static NoticeBoardDao getInstance() {
@@ -186,6 +187,29 @@ public class NoticeBoardDao {
 			pstmt.setString(5, vo.getContent());
 			pstmt.setInt(6, vo.getHit());
 			return pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();		
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int update(int num,String title,String content) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="update noticeboard set title=?,content=? where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, num);
+			return pstmt.executeUpdate();	
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;

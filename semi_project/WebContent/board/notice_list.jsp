@@ -9,8 +9,7 @@
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
-		<div class="inner">
-		
+		<div class="inner">		
 			<h2>NOTICE BOARD</h2>
 			<!------------------------------------ 관리자가 들어왔을때 ------------------------------->
 			<c:if test="${flag==0}">
@@ -22,7 +21,7 @@
 						<tr>
 							<td><input type="checkbox" name="check" value="${vo.num }" onclick="check1()"></td>
 							<td>${vo.num }</td>
-							<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail">${vo.title }</a></td>
+							<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=detail">${vo.title }</a></td>
 							<td>관리자</td>
 							<td>${vo.hit }</td>		
 						</tr>
@@ -55,7 +54,7 @@
 				<c:forEach var="vo" items="${list }">
 					<tr>
 						<td>${vo.num }</td>
-						<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail">${vo.title }</a></td>
+						<td><a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=detail">${vo.title }</a></td>
 						<td>관리자</td>
 						<td>${vo.hit }</td>		
 					</tr>

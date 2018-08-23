@@ -5,6 +5,19 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 </head>
+<script type="text/javascript">
+	var xhr = null;
+	function emailcheck(){
+		var email1 = doucument.getElementById("email1").value;
+		var email2 = doucument.getElementById("email2").value;
+		if(email1 == ""){
+			document.getElementById(email1).innerHTML = "";
+		}
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = emailcall;
+		xhr.open();
+	}
+</script>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
@@ -12,9 +25,9 @@
 			<div id="joinWrap">
 			<form action="/semi_project/mh/join.do" method="post">
 				<!-- 계정 세부정보 email,pwd 확인 -->
-				<table style="width: 800px">
+				<table style="width: 800px;">
 					<tr>
-						<th rowspan="7" style="width: 300px">계정 세부 정보</th>
+						<th rowspan="10" style="width: 300px">계정 세부 정보</th>
 					</tr>
 					<tr>
 						<td>이메일 주소</td>
@@ -23,13 +36,13 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="email1">
+							<input type="text" name="email1" id="email1">
 						</td>
 						<td>
 							@
 						</td>
 						<td>
-							<select name="email2">
+							<select name="email2" onchange="emailcheck()" id="email2">
 								<option value="">옵션선택</option>
 								<option value="@naver.com">naver.com</option>
 								<option value="@hanmail.net">hanmail.net</option>
@@ -47,19 +60,24 @@
 						<td>
 					</tr>
 					<tr>
+						<td colspan="3">
+							<span id="emailcheck" style="color:red"> </span>
+						</td>
+					</tr>
+					<tr>
 						<td>이메일 주소 다시 입력</td>
 						<td> </td>
 						<td> </td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="emailok1">
+							<input type="text" name="emailok1" id="email1">
 						</td>
 						<td>
 							@
 						</td>
 						<td>
-							<select name="emailok2">
+							<select name="emailok2" id="email1">
 								<option value="">옵션선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="hanmail.net">hanmail.net</option>
@@ -78,14 +96,32 @@
 						<td>
 					</tr>
 					<tr>
-						<td>비밀번호</td>
-						<td> </td>
-						<td>비밀번호 다시 입력</td>
+						<td colspan="3">
+							<span id="emailcheck2" style="color:red"> </span>
+						</td>
 					</tr>
 					<tr>
-						<td><input type="password" name="pwd"></td>
+						<td>
+							비밀번호
+						</td>
+						<td> </td>
+						<td>
+							비밀번호 다시 입력
+						</td>
+					</tr>
+					<tr>
+						<td><input type="password" name="pwd"> </td>
 						<td> </td>
 						<td><input type="password" name="pwdok"></td>
+					</tr>
+					<tr>
+						<td>
+							<span id="pwdcheck" style="color:red"> </span>
+						</td>
+						<td> </td>
+						<td>
+							<span id="pwdcheck2" style="color:red"> </span>
+						</td>
 					</tr>
 				</table>
 				<!-- 필수 동의 -->
