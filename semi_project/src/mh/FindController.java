@@ -29,11 +29,11 @@ public class FindController extends HttpServlet{
 		UsersDao dao = UsersDao.getInstance();
 		String pwd = dao.findEmail(phone, question, answer);
 		if(pwd != null) {
-			request.setAttribute("findPwdMsg", "회원님의 이메일은" + pwd + "입니다");
+			request.setAttribute("findMsg", "회원님의 이메일은" + pwd + "입니다");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}else {
-			request.setAttribute("findPwdMsg", "해당 이메일이 없습니다");
+			request.setAttribute("findMsg", "해당 이메일이 없습니다");
 			request.getRequestDispatcher("../users/login.jsp").forward(request, response);
 		}
 	}
@@ -45,11 +45,11 @@ public class FindController extends HttpServlet{
 		UsersDao dao = UsersDao.getInstance();
 		String pwd = dao.findPwd(email, phone, question, answer);
 		if(pwd != null) {
-			request.setAttribute("findPwdMsg", "회원님의 비밀번호는" + pwd + "입니다");
+			request.setAttribute("findMsg", "회원님의 비밀번호는" + pwd + "입니다");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}else {
-			request.setAttribute("findPwdMsg", "해당 비밀번호가 없습니다");
+			request.setAttribute("findMsg", "해당 비밀번호가 없습니다");
 			request.getRequestDispatcher("../users/login.jsp").forward(request, response);
 		}
 	}
