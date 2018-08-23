@@ -22,7 +22,7 @@
 			
 			<c:if test="${flag==0}">
 				<a href="/semi_project/jh/notice.do?num=${vo.num }&cmd=detail&cmd1=det_update&flag=${flag}&pageNum=${pageNum}">수정</a>
-				<a href="/semi_project/jh/notice.do?checkList=${vo.num }&cmd=delete&pageNum=${pageNum}">삭제</a>			
+				<a href="/semi_project/jh/notice.do?checkList=${vo.num }&cmd=delete&email=${email }&pageNum=${pageNum}">삭제</a>			
 			</c:if>
 			<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${pageNum }">목록으로</a>
 		</div>

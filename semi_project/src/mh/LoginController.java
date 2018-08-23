@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/* ·Î±×ÀÎ..
+/* ë¡œê·¸ì¸..
 <c:choose>
 	<c:when test="${empty sessionScope.email }">
-		<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">·Î±×ÀÎ</a></li>
+		<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">ï¿½Î±ï¿½ï¿½ï¿½</a></li>
 	</c:when>
 	<c:otherwise>
-		<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">·Î±×¾Æ¿ô</a></li>
+		<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">ï¿½Î±×¾Æ¿ï¿½</a></li>
 	</c:otherwise>
 </c:choose>
  */
@@ -41,12 +41,12 @@ public class LoginController extends HttpServlet{
 		UsersDao dao = UsersDao.getInstance();
 		boolean b = dao.login(email,pwd);
 		if(b){
-			HttpSession session = request.getSession(); //¼¼¼Ç°´Ã¼ ¾ò¾î¿À±â
+			HttpSession session = request.getSession(); //ì„¸ì…˜ì— ì•„ì´ë”” ë‹´ê¸°
 			session.setAttribute("email", email);
 			String contextPath = getServletContext().getContextPath();
 			response.sendRedirect(contextPath + "/main/index.jsp");
 		}else {
-			request.setAttribute("errMsg", "ÀÌ¸ŞÀÏ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê¾Æ¿ä");
+			request.setAttribute("errMsg", "ë¡œê·¸ì¸ ì‹¤íŒ¨");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}

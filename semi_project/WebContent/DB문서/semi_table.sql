@@ -37,7 +37,7 @@ CREATE TABLE demand
 	state varchar2(15),
 	email varchar2(30) NOT NULL,
 	code varchar2(20) NOT NULL,
-	num number(7,0) NOT NULL,
+	isize varchar2(15) NOT NULL,
 	addr varchar2(30),
 	method varchar2(20),
 	totalPrice number(10,0),
@@ -67,11 +67,10 @@ CREATE TABLE itemImg
 
 CREATE TABLE itemsize
 (
-	num number(7,0) NOT NULL,
-	isize varchar2(15),
+	isize varchar2(15) NOT NULL,
 	code varchar2(20) NOT NULL,
 	amount number(3,0),
-	PRIMARY KEY (num)
+	PRIMARY KEY (isize,code)
 );
 
 
@@ -101,9 +100,8 @@ CREATE TABLE noticeBoard
 
 CREATE TABLE bag
 (
-	num number(7,0) NOT NULL,
-	email varchar2(30) NOT NULL,
-	orderNum number(5,0) NOT NULL,
+	orderNum number(5,0) NOT NULL,	
+	email varchar2(30) NOT NULL,	
 	code varchar2(20),
 	orderAmount number(3,0),
 	totalPrice number(10,0),
@@ -146,6 +144,8 @@ CREATE TABLE Users
 (
 	email varchar2(30) NOT NULL,
 	password varchar2(20),
+	question number(5,0),
+	answer varchar2(30),
 	phone varchar2(20),
 	addr varchar2(30),
 	name varchar2(20),
@@ -178,16 +178,14 @@ ALTER TABLE Look
 
 
 ALTER TABLE demand
-	ADD FOREIGN KEY (num)
-	REFERENCES itemsize (num)
+	ADD FOREIGN KEY (isize)
+	REFERENCES itemsize (isize)
 ;
 
-
-ALTER TABLE orderNum
-	ADD FOREIGN KEY (num)
-	REFERENCES itemsize (num)
+ALTER TABLE demand
+	ADD FOREIGN KEY (code)
+	REFERENCES itemsize (code)
 ;
-
 
 ALTER TABLE coupon
 	ADD FOREIGN KEY (email)
@@ -207,7 +205,7 @@ ALTER TABLE noticeBoard
 ;
 
 
-ALTER TABLE orderNum
+ALTER TABLE bag
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
 ;

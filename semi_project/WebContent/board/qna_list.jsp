@@ -17,7 +17,6 @@
 					<th>제목</th>
 					<th>작성자</th>
 					<th>조회수</th>
-
 				</tr>
 				<c:forEach var="vo" items="${list }">
 					<tr>
@@ -68,7 +67,6 @@
 	</c:choose>
 
 		</div>
-		console.log(${email });
 		<c:if test="${not empty email}">
 			<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
 		</c:if>

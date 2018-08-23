@@ -100,6 +100,7 @@ public class QnaBoardController extends HttpServlet {
 			list(request, response);
 		}
 	}
+	
 	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 		int num=Integer.parseInt(request.getParameter("num"));
 		QnaBoardDao dao=QnaBoardDao.getInstance();
@@ -121,6 +122,7 @@ public class QnaBoardController extends HttpServlet {
 			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
 		}
 	}
+	
 	protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 		int num=Integer.parseInt(request.getParameter("num"));
 		String title=request.getParameter("title");
@@ -135,6 +137,5 @@ public class QnaBoardController extends HttpServlet {
 		}else {
 			System.out.println("수정실패");
 		}
-		
 	}
 }

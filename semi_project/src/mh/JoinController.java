@@ -16,12 +16,14 @@ public class JoinController extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email1") + request.getParameter("email2");
 		String password = request.getParameter("pwd");
+		int question = Integer.parseInt(request.getParameter("question"));
+		String answer = request.getParameter("answer");
 		String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
 		String addr = request.getParameter("addr");
 		String name = request.getParameter("name1") + request.getParameter("name2");
 		
 		UsersDao dao = UsersDao.getInstance();
-		UsersVo vo = new UsersVo(email,password,phone,addr,name,null,0,0);
+		UsersVo vo = new UsersVo(email,password,question,answer,phone,addr,name,null,0,0);
 		int n = dao.join(vo);
 		
 		if(n>0) {
