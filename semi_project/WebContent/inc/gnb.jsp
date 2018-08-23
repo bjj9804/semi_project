@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 	<div class="inner">
-		<h1><a href="#"><img src="/semi_project/images/main/logo.png" alt="구찌"></a></h1>
+		<h1><a href="/semi_project/main/index.jsp"><img src="/semi_project/images/main/logo.png" alt="구찌"></a></h1>
 		<ul class="gnb">
 			<li class="sub">
 				<a href="#" class="">RUNWAY</a>
