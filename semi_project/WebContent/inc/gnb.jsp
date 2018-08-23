@@ -55,7 +55,7 @@
 				</ul>
 			</li>
 			<li><a href="/semi_project/eb/qnalist.do?cmd=list&email=${email }">Q&amp;A</a></li>
-			<li><a href="/semi_project/reviewBoard.do?cmd=list">Review</a></li>
+			<li><a href="/semi_project/reviewBoard.do?cmd=list&email=${email }">Review</a></li>
 			<li><a href="/semi_project/jh/notice.do?cmd=list&email=${email }">Notice</a></li>
 		</ul>
 	</div>
