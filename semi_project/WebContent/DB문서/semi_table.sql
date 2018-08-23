@@ -199,11 +199,6 @@ ALTER TABLE coupon
 ;
 
 
-ALTER TABLE demand
-	ADD FOREIGN KEY (email)
-	REFERENCES Users (email)
-;
-
 
 ALTER TABLE noticeBoard
 	ADD FOREIGN KEY (email)
