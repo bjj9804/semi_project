@@ -19,7 +19,6 @@ public class NoticeBoardController extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");		
 		String contextPath=getServletContext().getContextPath();
-			
 		
 		if(cmd!=null && cmd.equals("list")) {
 			listAll(request,response);
@@ -35,10 +34,7 @@ public class NoticeBoardController extends HttpServlet{
 		
 	}
 	private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext sc= getServletContext();
 		String email=request.getParameter("email");
-		sc.setAttribute("email", email);
-		
 		String spageNum=request.getParameter("pageNum");
 		int pageNum=1;
 		if(spageNum!=null) {
@@ -69,7 +65,7 @@ public class NoticeBoardController extends HttpServlet{
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		
+		request.setAttribute("email", email);
 		request.getRequestDispatcher("/board/notice_list.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -88,10 +84,8 @@ public class NoticeBoardController extends HttpServlet{
 		}
 	}
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext sc=getServletContext();
-		String email=(String)sc.getAttribute("email");
+		String email=request.getParameter("email");
 		String pageNum=request.getParameter("pageNum");
-		System.out.println(pageNum);
 		String checkList=request.getParameter("checkList");
 		String[] checkArray=checkList.split(",");
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
@@ -106,7 +100,9 @@ public class NoticeBoardController extends HttpServlet{
 			System.out.println("삭제 실패");
 			return;
 		}
-		request.getRequestDispatcher("/jh/notice.do?cmd=list&email="+email+"&pageNum="+pageNum).forward(request, response);
+		request.setAttribute("email", email);
+		request.setAttribute("pageNum", pageNum);
+		request.getRequestDispatcher("/jh/notice.do?cmd=list").forward(request, response);
 	}
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title=request.getParameter("title");

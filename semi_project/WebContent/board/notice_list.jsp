@@ -13,7 +13,7 @@
 			<h2>NOTICE BOARD</h2>
 			<!------------------------------------ 관리자가 들어왔을때 ------------------------------->
 			<c:if test="${flag==0}">
-				<input type="button" value="삭제" onclick="delete1(${pageNum})">
+				<input type="button" value="삭제" onclick="delete1('${email}','${pageNum}')">
 				<input type="button" value="글작성" onclick="location.href='/semi_project/board/notice_insert.jsp'">
 				<table border="1" width="800" align="center">
 					<tr><th><input type="checkbox" name="check" onclick="checkAll()"></th><th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
@@ -29,20 +29,20 @@
 				</table>
 				<div>
 					<c:if test="${startPage!=1 }">
-						<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${startPage-1 }">[이전]</a>
+						<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:choose>
 						<c:when test="${pageNum==i }"><%--현재페이지인 경우 --%>
-							<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${i }"><span style="color:red">[${i }]</span></a>	
+							<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span style="color:red">[${i }]</span></a>	
 						</c:when>
 						<c:otherwise>
-							<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
+							<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
 						</c:otherwise>
 					</c:choose>
 					</c:forEach>
 					<c:if test="${endPage!=pageCnt }">
-						<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${endPage+1 }">[다음]</a>
+						<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
 					</c:if>
 				</div>
 			</c:if>
@@ -62,20 +62,20 @@
 			</table>
 				<div>
 					<c:if test="${startPage!=1 }">
-						<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${startPage-1 }">[이전]</a>
+						<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:choose>
 						<c:when test="${pageNum==i }"><%--현재페이지인 경우 --%>
-							<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${i }"><span style="color:red">[${i }]</span></a>	
+							<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span style="color:red">[${i }]</span></a>	
 						</c:when>
 						<c:otherwise>
-							<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
+							<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span style="color:#555">[${i }]</span></a>	
 						</c:otherwise>
 					</c:choose>
 					</c:forEach>
 					<c:if test="${endPage!=pageCnt }">
-						<a href="/semi_project/jh/notice.do?cmd=list&email=${sessionScope.email }&pageNum=${endPage+1 }">[다음]</a>
+						<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
 					</c:if>
 				</div>
 			</c:if>
@@ -106,7 +106,7 @@
 			}				
 		}		
 	}
-	function delete1(pageNum){
+	function delete1(email,pageNum){
 		var checkList="";
 		var chk=document.getElementsByName("check");
 		for(var i=1;i<chk.length;i++){
@@ -122,7 +122,7 @@
 		}
 		console.log(checkList);
 		if(confirm("삭제하시겠습니까?")){
-			location.href="/semi_project/jh/notice.do?checkList="+checkList+"&cmd=delete&pageNum="+pageNum;
+			location.href="/semi_project/jh/notice.do?checkList="+checkList+"&cmd=delete&email="+email+"&pageNum="+pageNum;
 		}
 	}
 	</script>
