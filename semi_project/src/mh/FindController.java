@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 public class FindController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		String cmd = request.getParameter("cmd");
-		String contextPath = getServletContext().getContextPath();
 		if(cmd != null && cmd.equals("findidform")) {
 			findid(request,response);
 		}else if(cmd != null && cmd.equals("findpwdform")) {
