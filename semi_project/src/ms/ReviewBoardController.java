@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jh.NoticeBoardDao;
+import mh.UsersDao;
+import mh.UsersVo;
+
 
 @WebServlet("/reviewBoard.do")
 public class ReviewBoardController extends HttpServlet {
@@ -68,6 +72,17 @@ public class ReviewBoardController extends HttpServlet {
 		if (endPage > pageCount) {
 			endPage = pageCount;
 		}
+		String email = request.getParameter("email");
+		int flag=0;
+		if(!email.equals("")) {//로그인을 하고 들어온 경우
+			UsersDao usersDao=UsersDao.getInstance();
+			UsersVo vo=usersDao.select(email);
+			flag=vo.getFlag();//관리자인지 회원인지			
+		}else {//로그인을 안하고 들어온경우
+			flag=1;
+		}
+		
+		request.setAttribute("flag", flag);	
 		request.setAttribute("list", list);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
@@ -127,12 +142,25 @@ public class ReviewBoardController extends HttpServlet {
 	}
 	
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		String email=request.getParameter("email");
+		String pageNum=request.getParameter("pageNum");
+		String checkList=request.getParameter("checkList");
+		String[] checkArray=checkList.split(",");
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		int n = dao.delete(num);
-		if(n>0) {
-			list(request, response);
+		boolean bool=true;
+		for(int i=0;i<checkArray.length;i++) {
+			int num=Integer.parseInt(checkArray[i]);
+			if(dao.delete(num)<0) {
+				bool=false;
+			}
+		}		
+		if(bool==false) {
+			System.out.println("삭제 실패");
+			return;
 		}
+		request.setAttribute("email", email);
+		request.setAttribute("pageNum", pageNum);
+		request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
 	}
 	
 	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
