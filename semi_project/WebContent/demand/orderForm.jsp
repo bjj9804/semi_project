@@ -13,7 +13,7 @@
 		
 			<h1>ORDER FORM</h1><br>
 			
-			<form action="" method="post">
+			<form action="/semi_project/jh/demand.do?cmd=insert" method="post">
 			
 			<h3>주문내역</h3>	
 				<table border="1" width="800" align="center">
@@ -47,7 +47,11 @@
 					<tr><th>총 주문금액</th><th>할인 금액</th><th>총 결제예정금액</th></tr>
 					<tr><td>총 주문금액</td><td>할인 금액</td><td>총 결제예정금액</td></tr>
 				</table><br>				
-				<div>쿠폰사용</div>
+				<div>쿠폰사용
+					<select name="coupon" onchange="couponCheck()">
+						<option value="">사용하지 않음</option>
+						<option value="coupon">coupon</option>						
+					</select></div>
 				<br>
 				
 			<h3>결제방법</h3>	
@@ -65,7 +69,46 @@
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
 <script type="text/javascript">
-	function delete1(){
+	function checkAll(){
+		var chk=document.getElementsByName("check");
+		if(chk[0].checked==true){
+			for(var i=1;i<chk.length;i++){
+				chk[i].checked=true;				
+			}			
+		}else{
+			for(var i=1;i<chk.length;i++){
+				chk[i].checked=false;				
+			}
+		}
+	}
+	function check1(){
+		var chk=document.getElementsByName("check");
+		for(var i=1;i<chk.length;i++){
+			if(chk[i].checked==false){
+				chk[0].checked=false;
+			}				
+		}		
+	}
+	function delete1(email,pageNum){
+		var checkList="";
+		var chk=document.getElementsByName("check");
+		for(var i=1;i<chk.length;i++){
+			if(chk[i].checked==true){
+				checkList+=chk[i].value+",";
+			}
+		}
+		checkList=checkList.substring(0,checkList.lastIndexOf(","));//맨끝 콤마 지우기
+		
+		if(checkList==''){
+			alert("삭제할 대상을 선택하세요");
+			return false;
+		}
+		console.log(checkList);
+		if(confirm("삭제하시겠습니까?")){
+			location.href="/semi_project/jh/notice.do?checkList="+checkList+"&cmd=delete&email="+email+"&pageNum="+pageNum;
+		}
+	}
+	function couponCheck(){
 		
 	}
 
