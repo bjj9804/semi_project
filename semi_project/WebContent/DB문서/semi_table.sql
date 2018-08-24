@@ -202,7 +202,6 @@ ALTER TABLE noticeBoard
 	REFERENCES Users (email)
 ;
 
-
 ALTER TABLE bag
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
