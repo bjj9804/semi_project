@@ -157,6 +157,72 @@ public class DemandDao {
 			}
 		}
 	}
+	public LookVo getLookVo(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from look where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int num=rs.getInt("num");
+				String lookCode=rs.getString("lookCode");
+				String lookFront=rs.getString("lookFront");
+				String lookBack=rs.getString("lookBack");
+				LookVo vo=new LookVo(num, lookCode, lookCode, lookFront, lookBack);
+				return vo;
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public ItemVo getItemVo(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from item where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int price=rs.getInt("price");
+				String itemName=rs.getString("itemName");
+				String description=rs.getString("description");
+				ItemVo vo=new ItemVo(code, price, itemName, description);
+				return vo;
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
 	public int cart(PayVo pvo,BuyVo bvo) {//굳이 동시에 insert시키는 이유는 둘다 동시에 생성해야하니까!
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -248,6 +314,41 @@ public class DemandDao {
 			}
 		}
 		
+	}
+	public ArrayList<BuyVo> getBuyVo(String email) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<BuyVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from buy where orderNum=("
+					+ "select orderNum from pay where email=?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				int buyNum=rs.getInt("buyNum");
+				int orderNum=rs.getInt("orderNum");
+				String code=rs.getString("code");
+				String isize=rs.getString("isize");
+				int orderAmount=rs.getInt("orderAmount");
+				int price=rs.getInt("Price");
+				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price);
+				list.add(bvo);				
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
 	}
 	public int payInsert(PayVo pvo) {
 		Connection con=null;

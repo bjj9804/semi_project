@@ -12,11 +12,18 @@
 		<div class="inner">
 		
 			<h1>CART</h1><br>			
-			<form action="/semi_project/jh/demand.do?cmd=insert" method="post">
+			<form action="/semi_project/jh/demand.do?cmd=orderForm" method="post">
 			
 			<h3>담긴 상품</h3>	
 				<table border="1" width="800" align="center">
-					<tr><th><input type="checkbox" name="check" onclick="checkAll()"></th><th>이미지</th><th>상품정보</th><th>판매가</th><th>수량</th><th>합계</th></tr>
+					<tr>
+						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+						<th>이미지</th>
+						<th>상품정보</th>
+						<th>판매가</th>
+						<th>수량</th>
+						<th>합계</th>
+					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
 						<td><input type="checkbox" name="check" value="${vo.buyNum }" onclick="check1()"></td>

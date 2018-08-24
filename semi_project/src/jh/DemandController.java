@@ -1,6 +1,7 @@
 package jh;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,10 +20,12 @@ public class DemandController extends HttpServlet{
 		String cmd=request.getParameter("cmd");		
 		String contextPath=getServletContext().getContextPath();
 		
-		if(cmd!=null && cmd.equals("cart")) {
+		if(cmd!=null && cmd.equals("cart")) {//상세페이지에서 장바구니담기 누르면 메소드호출!
 			cart(request,response);
-		}else if(cmd!=null && cmd.equals("order")) {
+		}else if(cmd!=null && cmd.equals("order")) {//orderForm에서 결제하기 누르면 메소드호출!
 			order(request,response);
+		}else if(cmd!=null && cmd.equals("showCart")) {//장바구니보기 누르면 메소드호출!
+			showCart(request,response);
 		}
 	}
 	
@@ -43,8 +46,7 @@ public class DemandController extends HttpServlet{
 		String code=request.getParameter("code");
 		String isize=request.getParameter("isize");
 		int orderAmount=Integer.parseInt(request.getParameter("orderAmount"));
-		ItemDao idao=ItemDao.getInstance();
-		int o_price=idao.getPrice(code);//상품단품가격가져오기
+		int o_price=dao.getItemVo(code).getPrice();//상품단품가격가져오기
 		int price=o_price*orderAmount;//상품단일가격*수량
 		
 		
@@ -111,7 +113,43 @@ public class DemandController extends HttpServlet{
 				System.out.println("payTb에서 장바구니정보삭제 실패!!!!");
 			}
 		}
-		
+	}
+	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email=request.getParameter("email");
+		DemandDao dao=DemandDao.getInstance();
+		ArrayList<Object[]> list=new ArrayList<>();
+		ArrayList<BuyVo> blist=dao.getBuyVo(email);
+		for(BuyVo bvo:blist) {
+			String code=bvo.getCode();
+			LookVo lvo=dao.getLookVo(code);
+			String lookFront=lvo.getLookFront();
+			ItemVo ivo=dao.getItemVo(code);
+			String description=ivo.getDescription();
+			int price=ivo.getPrice();
+			Object[] ob= {bvo,lookFront,description,price};
+			list.add(ob);
+		}
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
 		
 	}
 }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
