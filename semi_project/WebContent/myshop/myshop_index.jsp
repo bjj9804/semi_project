@@ -9,9 +9,9 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<div>
+			<h2>
 				주문정보
-			</div>
+			</h2>
 			<div>
 				<ul class="admin_menu"> 
 					<li><a href="#">주문 배송 조회</a></li>
