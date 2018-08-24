@@ -108,11 +108,11 @@
 
 .section .main_content{width:1000px; margin:0 auto;}
 
-#header .sub_bg{display:none; position:absolute; top:120px; left:0; width:100%; height:300px; background-color:#fff; z-index:3}
+#header .sub_bg{display:none; position:absolute; top:120px; left:0; width:100%; height:300px; background-color:rgba(255,255,255,0.7); z-index:3}
 #header.change .sub_bg{top:50px;}
 
 #header .gnb .sub_menu{display:none; position:absolute; top:79px; left:20px; width:135px; z-index:4; text-align:left; padding-top:15px;}
 #header .gnb .sub_menu li{line-height:28px; margin-top:1px;}
-#header .gnb .sub_menu li a{display:block; font-size:12px; color:#666;}
+#header .gnb .sub_menu li a{display:block; font-size:13px; color:#222;}
 
 #header .gnb .sub_menu.sub1{left:20px;}

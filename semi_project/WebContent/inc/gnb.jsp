@@ -11,12 +11,10 @@
 				<c:otherwise>
 					<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">Sign Out</a></li>
 					<li><a href="/semi_project/myshop/myshop_index.jsp">Mypage</a></li>
-<<<<<<< HEAD
-=======
+
 					<c:if test="${flag==0 }">
 						<li><a href="/semi_project/admin/index.jsp">admin</a></li>
 					</c:if>
->>>>>>> refs/remotes/origin/master
 				</c:otherwise>
 			</c:choose>
 			<li><a href="#">Bag</a></li>
@@ -35,7 +33,7 @@
 			<li class="sub">
 				<a href="#">WOMEN</a>
 				<ul class="sub_menu sub2">
-					<li><a href="#">top</a></li>
+					<li><a href="/semi_project/product/product_list.jsp">top</a></li>
 					<li><a href="#">pants</a></li>
 					<li><a href="#">skirts</a></li>
 					<li><a href="#">outer</a></li>
