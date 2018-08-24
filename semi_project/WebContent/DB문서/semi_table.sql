@@ -5,7 +5,6 @@ DROP TABLE coupon CASCADE CONSTRAINTS;
 DROP TABLE buy CASCADE CONSTRAINTS;
 DROP TABLE pay CASCADE CONSTRAINTS;
 DROP TABLE itemImg CASCADE CONSTRAINTS;
-DROP TABLE bag CASCADE CONSTRAINTS;
 DROP TABLE itemsize CASCADE CONSTRAINTS;
 DROP TABLE Look CASCADE CONSTRAINTS;
 DROP TABLE item CASCADE CONSTRAINTS;
@@ -32,7 +31,7 @@ CREATE TABLE coupon
 CREATE TABLE BUY
 (
 	buyNum number(10,0) PRIMARY KEY NOT NULL,
-	orderNum number(10,0) NOT NULL,
+	orderNum number(10,0) UNIQUE,
 	code varchar2(20),
 	isize varchar2(15),
 	orderAmount number(3,0),
@@ -91,17 +90,6 @@ CREATE TABLE noticeBoard
 	hit number(3,0),
 	regdate date,
 	PRIMARY KEY (num)
-);
-
-
-CREATE TABLE bag
-(
-	orderNum number(5,0) NOT NULL,	
-	email varchar2(30) NOT NULL,	
-	code varchar2(20),
-	orderAmount number(3,0),
-	totalPrice number(10,0),
-	PRIMARY KEY (orderNum)
 );
 
 
@@ -218,6 +206,7 @@ ALTER TABLE reviewboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
 ;
+
 
 CREATE SEQUENCE look_seq;
 

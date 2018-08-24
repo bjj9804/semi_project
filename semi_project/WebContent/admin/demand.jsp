@@ -34,8 +34,8 @@
 			<td>163513</td>
 			<td>배송준비중</td>
 			<td>상태수정</td>
-			
 			</tr>
+			</c:forEach>
 			</table>
 		</div>
 	</div>
