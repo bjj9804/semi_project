@@ -155,7 +155,7 @@ public class ItemDao{
 		PreparedStatement pstmtLook = null;
 		String sqlItem = "insert into item values(?,?,?,?)";
 		String sqlImg  = "insert into itemimg values(?,?,?)";
-		String sqlSize = "insert into itemsize values(?,?,?)";		
+		String sqlSize = "insert into itemsize values(?,?,?)";
 		String sqlLook = "insert into look values(look_seq.nextval,?,?,?,?)";
 		try {
 			con=DBConnection.getConnection();
@@ -171,6 +171,7 @@ public class ItemDao{
 			pstmtImg.setString(1, vo.getImgType());
 			pstmtImg.setString(2, vo.getCode());
 			pstmtImg.setString(3, vo.getImgSrc());
+			System.out.println(vo.getImgType() + vo.getCode() + vo.getImgSrc());
 			
 			pstmtSize = con.prepareStatement(sqlSize);
 			pstmtSize.setString(1, vo.getIsize());
@@ -178,21 +179,23 @@ public class ItemDao{
 			pstmtSize.setInt(3, vo.getAmount());
 			
 			pstmtLook = con.prepareStatement(sqlLook);
-			pstmtLook.setInt(1, vo.getNum());
-			pstmtLook.setString(2, vo.getLookCode());
-			pstmtLook.setString(3, vo.getCode());
-			pstmtLook.setString(4, vo.getLookFront());
-			pstmtLook.setString(5, vo.getLookBack());
+			pstmtLook.setString(1, vo.getLookCode());
+			pstmtLook.setString(2, vo.getCode());
+			pstmtLook.setString(3, vo.getLookFront());
+			pstmtLook.setString(4, vo.getLookBack());
 
-			con.commit();
 			int a = pstmtItem.executeUpdate();
 			int b = pstmtImg.executeUpdate();
 			int c = pstmtSize.executeUpdate();
 			int d = pstmtLook.executeUpdate();
+			
 			int n = a+b+c+d;
+
+			con.commit();
 			return n;
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			e.printStackTrace();
 			try {
 				con.rollback();
 			}catch(SQLException se) {

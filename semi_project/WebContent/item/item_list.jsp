@@ -12,15 +12,17 @@
 			<table align="center">
 				<tr>
 					<th>상품코드</th>
-					<th>상품명</th>
-					<th>상품이미지</th>
-					<th>상품설명</th>
 					<th>가격</th>
-					<th>사이즈</th>
+					<th>상품명</th>
+					<th>상품설명</th>
+					<th>이미지타입</th>
+					<th>이미지경로</th>
+					<th>아이템사이즈</th>
 					<th>수량</th>
+					<th>룩번호</th>
 					<th>룩코드</th>
-					<th>룩앞면사진</th>
-					<th>룩뒷면사진</th>
+					<th>룩앞면</th>
+					<th>룩뒷면</th>
 				</tr>
 			</table>
 		</div>
