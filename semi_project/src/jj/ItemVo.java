@@ -16,6 +16,27 @@ public class ItemVo {
 	
 	public ItemVo() {}
 
+	
+	
+	public ItemVo(String code, int price, String itemName, String description, String imgType, String imgSrc,
+			String isize, int amount, int num, String lookCode, String lookFront, String lookBack) {
+		super();
+		this.code = code;
+		this.price = price;
+		this.itemName = itemName;
+		this.description = description;
+		this.imgType = imgType;
+		this.imgSrc = imgSrc;
+		this.isize = isize;
+		this.amount = amount;
+		this.num = num;
+		this.lookCode = lookCode;
+		this.lookFront = lookFront;
+		this.lookBack = lookBack;
+	}
+
+
+
 	public String getCode() {
 		return code;
 	}
