@@ -49,7 +49,7 @@
 					</tr>
 					<tr>
 						<td>첨부파일</td>
-						<td><input type="file" name="file"></td>
+						<td><input type="file" name="img"></td>
 					</tr>
 				</table>
 				<input type="submit" value="작성">

@@ -12,11 +12,12 @@ public class ReviewBoardVo {
 	private int weight;
 	private int hit;
 	private Date regdate;
-	private String imgScr;
+	private String img;
+	
 	public ReviewBoardVo() {}
 
 	public ReviewBoardVo(int num, String name, String email, String title, String content, int height, int weight,
-			int hit, Date regdate) {
+			int hit, Date regdate, String img) {
 		super();
 		this.num = num;
 		this.name = name;
@@ -101,5 +102,11 @@ public class ReviewBoardVo {
 		this.regdate = regdate;
 	}
 	
-	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 }
