@@ -84,7 +84,6 @@ CREATE TABLE Look
 	PRIMARY KEY (num)
 );
 
-
 CREATE TABLE noticeBoard
 (
 	num number(7,0) NOT NULL,
@@ -136,6 +135,7 @@ CREATE TABLE reviewboard
 	weight number(3,0),
 	hit number(3,0),
 	regdate date,
+	imgSrc varchar2(20),
 	PRIMARY KEY (num)
 );
 
@@ -221,6 +221,11 @@ ALTER TABLE qnaboard
 ALTER TABLE reviewboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
+;
+
+ALTER TABLE reviewboard
+	ADD FOREIGN KEY (imgSrc)
+	REFERENCES itemImg (imgSrc)
 ;
 
 CREATE SEQUENCE look_seq;
