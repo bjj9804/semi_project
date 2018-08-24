@@ -23,9 +23,10 @@
 			<td>배송상태</td>
 			<td>상태수정</td>
 			</tr>
+			<c:forEach var="vo" items="${list }">
 			<tr>
-			<td>1</td>
-			<td>sk01bk</td>
+			<td>${vo.num }</td>
+			<td>${vo.writer }</td>
 			<td>44</td>
 			<td>92eunbyul@naver.com</td>
 			<td>서울시 은평구</td>
