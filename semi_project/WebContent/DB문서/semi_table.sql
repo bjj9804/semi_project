@@ -121,6 +121,7 @@ CREATE TABLE reviewboard
 	hit number(3,0),
 	regdate date,
 	imgSrc varchar2(20),
+	upFile varchar2(20),
 	PRIMARY KEY (num)
 );
 

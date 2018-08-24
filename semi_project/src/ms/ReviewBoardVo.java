@@ -12,7 +12,7 @@ public class ReviewBoardVo {
 	private int weight;
 	private int hit;
 	private Date regdate;
-	
+	private String imgScr;
 	public ReviewBoardVo() {}
 
 	public ReviewBoardVo(int num, String name, String email, String title, String content, int height, int weight,
