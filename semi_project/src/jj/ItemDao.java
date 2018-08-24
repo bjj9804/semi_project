@@ -71,7 +71,33 @@ public class ItemDao{
 			}
 		}
 	}	
-	
+	public int getPrice(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select price from item where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("price");
+			}
+			return -1;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	
 	public ArrayList<ItemVo> list(int startRow,int endRow) {
 		Connection con=null;

@@ -84,9 +84,7 @@
 			location.href="/semi_project/jh/demand.do?checkList="+checkList+"&cmd=delete";
 		}
 	}
-	function couponCheck(){
-		
-	}
+	
 
 </script>
 </html>
