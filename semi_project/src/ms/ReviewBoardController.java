@@ -3,11 +3,15 @@ package ms;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import mh.UsersDao;
 import mh.UsersVo;
@@ -36,12 +40,21 @@ public class ReviewBoardController extends HttpServlet {
 	}
 
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String name = request.getParameter("name");
-		int height = Integer.parseInt(request.getParameter("height"));
-		int weight = Integer.parseInt(request.getParameter("weight"));
-		String email = request.getParameter("email");
+		ServletContext sc = getServletContext();
+		String path = sc.getRealPath("/upload");
+		MultipartRequest mr = new MultipartRequest(request, //request 객체
+				path, //파일 업로드한 경로
+				1024*1024*20, //최대 업로드 크기 - 5메가바이트
+				"utf-8", // 인코딩
+				new DefaultFileRenamePolicy()); // 업로드한 파일이름이 중복되면 같은 이름 뒤에 숫자를 붙여서 구분
+				//예)foo.gif가 존재하면 foo1.gif로 파일명이 생성됨
+		String title = mr.getParameter("title");
+		String content = mr.getParameter("content");
+		String name = mr.getParameter("name");
+		int height = Integer.parseInt(mr.getParameter("height"));
+		int weight = Integer.parseInt(mr.getParameter("weight"));
+		String email = mr.getParameter("email");
+		
 		ReviewBoardVo vo = new ReviewBoardVo(0, name, email, title, content, height, weight, 0, null);
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.insert(vo);
