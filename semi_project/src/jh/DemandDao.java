@@ -18,6 +18,35 @@ public class DemandDao {
 		return instance;
 	}
 	
+	public int cartCheck(int cartNum) {//buyTb에 cartNum를 갖는 장바구니정보가 남아있는지
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select count(*) as cnt from buy where orderNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, cartNum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int cnt=rs.getInt("cnt");
+				return cnt;
+			}
+			return 0;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
 	public int[] getCartNum(String email) {//장바구니 번호 얻어오기
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -30,11 +59,13 @@ public class DemandDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs=pstmt.executeQuery();
-			int check=1;//장바구니정보가 있다.
+			int check=1;//일단 그냥 초기값으로 1을 주기는했는데 //1이면 장바구니정보가 있다.로 합시다.
 			int cartNum=0;
+			int originalCartNum=0;
 			if(rs.next()) {//pay테이블에 해당email을 가진 행이 존재하면 일단 그 값을 꺼낸다. 없으면 일단 0을 받아온다.
 						/////cartNum이 음수면 장바구니정보가 있는것! 음수가 아니면 장바구니정보가 없는것!
 				cartNum=rs.getInt("cartNum");				
+				originalCartNum=cartNum;				
 				if(cartNum>=0) {//만약 값이 0이라면 아예 장바구니고 주문이고 아무것도 없었다는 것. 
 								//만약 값이 양수라면 장바구니는 비었지만 과거에 주문은 이루어졌었다는것
 					check=0;//장바구니정보가 없다.
@@ -48,7 +79,7 @@ public class DemandDao {
 						}
 					}
 				}
-				int[] cartPayTbCh= {check,cartNum};
+				int[] cartPayTbCh= {check,cartNum,originalCartNum};
 				return cartPayTbCh;
 			}			
 			return null;
@@ -185,11 +216,6 @@ public class DemandDao {
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 			return -1;
 		}finally {
 			try {
@@ -212,11 +238,6 @@ public class DemandDao {
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 			return -1;
 		}finally {
 			try {
@@ -233,9 +254,8 @@ public class DemandDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			con.setAutoCommit(false);
-			String sql1="insert into pay values(?,sysdate,'배송준비중',?,?,?,?,?)";
-			pstmt=con.prepareStatement(sql1);
+			String sql="insert into pay values(?,sysdate,'배송준비중',?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, pvo.getOrderNum());
 			pstmt.setString(2, pvo.getMethod());
 			pstmt.setString(3, pvo.getAddr());
@@ -245,11 +265,6 @@ public class DemandDao {
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 			return -1;
 		}finally {
 			try {
@@ -260,5 +275,25 @@ public class DemandDao {
 			}
 		}
 	}
-	
+	public int payDelete(int cartNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="delete from pay where orderNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, cartNum);			
+			return pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();			
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 }
