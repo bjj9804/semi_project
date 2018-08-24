@@ -194,8 +194,8 @@
 								<option value="010">010</option>
 								<option value="011">011</option>
 								<option value="070">070</option>
-							</select>
-							<input type="text" name="phone2">
+							</select>-
+							<input type="text" name="phone2">-
 							<input type="text" name="phone3">
 						</td>
 					</tr>

@@ -23,11 +23,12 @@ public class FindController extends HttpServlet{
 		}
 	}
 	protected void findid(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String phone = request.getParameter("phone");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
 		int question = Integer.parseInt(request.getParameter("question"));
 		String answer = request.getParameter("answer");
 		UsersDao dao = UsersDao.getInstance();
-		String pwd = dao.findEmail(phone, question, answer);
+		String pwd = dao.findEmail(name, phone, question, answer);
 		if(pwd != null) {
 			request.setAttribute("findMsg", "회원님의 이메일은" + pwd + "입니다");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
@@ -38,8 +39,8 @@ public class FindController extends HttpServlet{
 		}
 	}
 	protected void findpwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
+		String email = request.getParameter("id")+request.getParameter("email");
+		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
 		int question = Integer.parseInt(request.getParameter("question"));
 		String answer = request.getParameter("answer");
 		UsersDao dao = UsersDao.getInstance();

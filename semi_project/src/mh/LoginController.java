@@ -33,6 +33,25 @@ public class LoginController extends HttpServlet{
 			login(request,response);
 		}else if(cmd != null && cmd.equals("logoutform")) {
 			logout(request,response);
+		}else if(cmd != null && cmd.equals("profileView")) {
+			profile(request,response);
+		}
+	}
+	protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		String email = (String)request.getSession().getAttribute("email");
+		String pwd = request.getParameter("pwd");
+		UsersDao dao = UsersDao.getInstance();
+		boolean a = dao.login(email,pwd);
+		
+		if(a){
+			UsersVo vo = dao.select(email);
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("../myshop/modify.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errMsg", "비밀번호 확인 실패!");
+			RequestDispatcher rd = request.getRequestDispatcher("../myshop/profile.jsp");
+			rd.forward(request, response);
 		}
 	}
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

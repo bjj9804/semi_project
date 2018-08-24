@@ -25,7 +25,6 @@ public class JoinController extends HttpServlet{
 		UsersDao dao = UsersDao.getInstance();
 		UsersVo vo = new UsersVo(email,password,question,answer,phone,addr,name,null,0,0);
 		int n = dao.join(vo);
-		
 		if(n>0) {
 			request.setAttribute("code", "success");
 		}else {

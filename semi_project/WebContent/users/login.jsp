@@ -13,7 +13,7 @@
 			<div id="logiWrap">
 				<table>
 					<tr>
-						<th colspan="2">로그인</th>
+						<th colspan="2"><h1>로그인</h1></th>
 					</tr>
 					<tr>
 						<td>
@@ -55,8 +55,33 @@
 							</form>
 							<div id="findpwd" style="display: none">
 								<form method="post" action="/semi_project/mh/find.do?cmd=findpwdform">
-									폰번호<input type="text" name="phone"><br>
-									이메일<input type="text" name="email"><br>
+									이메일
+									<input type="text" name="id">@
+									<select name="email">
+										<option value="">옵션선택</option>
+										<option value="@naver.com">naver.com</option>
+										<option value="@hanmail.net">hanmail.net</option>
+										<option value="@nate.com">nate.com</option>
+										<option value="@gmail.com">gmail.com</option>
+										<option value="@hatmail.com">hatmail.com</option>
+										<option value="@daum.com">daum.net</option>
+										<option value="@yahoo.co.kr">yahoo.co.kr</option>
+										<option value="@hanmir.com">hanmir.com</option>
+										<option value="@dreamwiz.com">dreamwiz.com</option>
+										<option value="@lycos.co.kr">lycos.co.kr</option>
+										<option value="@empas.com">empas.com</option>
+										<option value="@paran.com">paran.com</option>
+									</select>
+									<br>
+									전화번호
+									<select name="phone1">
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="070">070</option>
+									</select>-
+									<input type="text" name="phone2">-
+									<input type="text" name="phone3">
+									<br>
 									질문
 									<select name="question">
 										<option value="">질문선택</option>
@@ -79,7 +104,16 @@
 							</div>
 							<div id="findemail" style="display: none">
 								<form method="post" action="/semi_project/mh/find.do?cmd=findidform">
-									폰번호<input type="text" name="phone"><br>
+									이름<input type="text" name="name"><br>
+									전화번호
+									<select name="phone1">
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="070">070</option>
+									</select>-
+									<input type="text" name="phone2">-
+									<input type="text" name="phone3">
+									<br>
 									질문
 									<select name="question">
 										<option value="">질문선택</option>

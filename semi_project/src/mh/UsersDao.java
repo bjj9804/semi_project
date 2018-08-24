@@ -19,6 +19,7 @@ public class UsersDao {
 		return instance;
 	}
 	
+	//회원가입 정보 받아오기
 	public int join(UsersVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -36,13 +37,10 @@ public class UsersDao {
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
-			return -1;
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
-			return -1;
 		} catch (NamingException e) {
 			e.printStackTrace();
-			return -1;
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
@@ -51,8 +49,10 @@ public class UsersDao {
 				se.printStackTrace();
 			}
 		}
+		return -1;
 	}
 	
+	//로그인시 이메일/비밀번호 확인하기
 	public boolean login(String email,String pwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -67,16 +67,12 @@ public class UsersDao {
 			if(rs.next()) {
 				return true;
 			}
-			return false;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
-			return false;
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
-			return false;
 		} catch (NamingException e) {
 			e.printStackTrace();
-			return false;
 		}finally {
 			try {
 				if(rs != null) rs.close();
@@ -86,7 +82,9 @@ public class UsersDao {
 				se.printStackTrace();
 			}
 		}
+		return false;
 	}
+	
 	public UsersVo select(String email) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -110,10 +108,8 @@ public class UsersDao {
 				UsersVo vo=new UsersVo(email, password, question, answer, phone, addr, name, regdate, coupon, flag);
 				return vo;
 			}
-			return null;
 		}catch(Exception e) {
 			e.printStackTrace();
-			return null;
 		}finally {
 			try {
 				if(rs != null) rs.close();
@@ -123,7 +119,10 @@ public class UsersDao {
 				se.printStackTrace();
 			}
 		}
+		return null;
 	}
+	
+	//비밀번호 찾기
 	public String findPwd(String email, String phone, int question, String answer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -140,16 +139,12 @@ public class UsersDao {
 			if(rs.next()){
 				return rs.getString("password");
 			}
-			return null;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
-			return null;
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
-			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
-			return null;
 		}finally {
 			try {
 				if(rs != null) rs.close();
@@ -159,32 +154,32 @@ public class UsersDao {
 				se.printStackTrace();
 			}
 		}
+		return null;
 	}
-	public String findEmail(String phone, int question, String answer) {
+	
+	//이메일받기
+	public String findEmail(String name, String phone, int question, String answer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{
 			con = DBConnection.getConnection();
-			String sql = "select email from users where phone=? and question=? and answer=?";
+			String sql = "select email from users where name=? and phone=? and question=? and answer=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, phone);
-			pstmt.setInt(2, question);
-			pstmt.setString(3, answer);
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			pstmt.setInt(3, question);
+			pstmt.setString(4, answer);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
 				return rs.getString("email");
 			}
-			return null;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
-			return null;
 		}catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
-			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
-			return null;
 		}finally {
 			try {
 				if(rs != null) rs.close();
@@ -194,6 +189,35 @@ public class UsersDao {
 				se.printStackTrace();
 			}
 		}
+		return null;
 	}
-	
+	public int update(UsersVo vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "update users set password=?,name=?,phone=?,addr=? where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getPassword());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getPhone());
+			pstmt.setString(4, vo.getAddr());
+			pstmt.setString(5, vo.getEmail());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return -1;
+	}
 }
