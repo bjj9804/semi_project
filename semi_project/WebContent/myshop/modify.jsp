@@ -43,7 +43,7 @@
 						</td>
 					</tr>
 				</table>
-				<a href="userdelect.do"></a>
+				<a href="/semi_project/mh/userdelete.do?email=${email }">탈퇴하기</a>
 			</form>
 		</div>
 	</div>

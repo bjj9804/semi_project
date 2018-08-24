@@ -220,4 +220,25 @@ public class UsersDao {
 		}
 		return -1;
 	}
+	public int delete(String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "delete from users where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			return pstmt.executeUpdate();
+		} catch (ClassNotFoundException | SQLException | NamingException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+	}
 }
