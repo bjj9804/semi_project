@@ -9,7 +9,10 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<!-- 나의 게시물 관리 -->
+			<ul>
+				<li><a href="myreview_list.jsp">내가쓴 리뷰</a></li>
+				<li><a href="myqna_list.jsp">내가쓴 질문</a></li>
+			</ul>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

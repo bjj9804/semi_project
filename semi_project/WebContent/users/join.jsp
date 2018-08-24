@@ -12,10 +12,19 @@
 		var email2 = doucument.getElementById("email2").value;
 		if(email1 == ""){
 			document.getElementById(email1).innerHTML = "";
+			return;//메소드 끝내기
 		}
 		xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = emailcall;
-		xhr.open();
+		xhr.open('get','idcheck.jsp?id='+id,true);
+		xhr.send();
+	}
+	function emailcall(){
+		 if(xhr.readyState == 4 && xhr.status == 200){
+			 alert("zz");
+			 var xml = xhr.responseXML;
+			 var o
+		 }
 	}
 </script>
 <body>
@@ -57,6 +66,7 @@
 								<option value="@empas.com">empas.com</option>
 								<option value="@paran.com">paran.com</option>
 							</select>
+							<span id="emailcheck" style="color:red"></span>
 						<td>
 					</tr>
 					<tr>

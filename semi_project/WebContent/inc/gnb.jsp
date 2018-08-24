@@ -10,7 +10,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">Sign Out</a></li>
-					<li><a href="#">Mypage</a></li>
+					<li><a href="/semi_project/myshop/myshop_index.jsp">Mypage</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="#">Bag</a></li>
