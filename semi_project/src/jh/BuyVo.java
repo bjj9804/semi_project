@@ -6,7 +6,7 @@ public class BuyVo {
 	private String code;
 	private String isize;
 	private int orderAmount;
-	private int Price;
+	private int price;
 	
 	public BuyVo() {}
 	
@@ -17,7 +17,7 @@ public class BuyVo {
 		this.code = code;
 		this.isize = isize;
 		this.orderAmount = orderAmount;
-		Price = price;
+		this.price = price;
 	}
 
 	public int getBuyNum() {
@@ -61,11 +61,11 @@ public class BuyVo {
 	}
 
 	public int getPrice() {
-		return Price;
+		return price;
 	}
 
 	public void setPrice(int price) {
-		Price = price;
+		this.price = price;
 	}
 	
 	

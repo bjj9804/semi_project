@@ -13,9 +13,7 @@
 			<table border="1" width=900px bordercolor="black">
 			<h1>주문서</h1>
 			<tr>
-			<td>번호</td>
-			<td>상품코드</td>
-			<td>사이즈</td>
+			<td>주문번호</td>
 			<td>주문자이메일</td>
 			<td>배송지</td>
 			<td>총가격</td>
@@ -25,15 +23,13 @@
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
-			<td>${vo.num }</td>
-			<td>${vo.writer }</td>
-			<td>44</td>
-			<td>92eunbyul@naver.com</td>
-			<td>서울시 은평구</td>
-			<td>456513</td>
-			<td>163513</td>
-			<td>배송준비중</td>
-			<td>상태수정</td>
+			<td><a href="detail.do?num=${vo.orderNum}">${vo.orderNum }</a></td>
+			<td>${vo.email }</td>
+			<td>${vo.addr }</td>
+			<td>${vo.totalPrice }</td>
+			<td>${vo.payMoney }</td>
+			<td>${vo.state }</td>
+			<td>상태수정버튼</td>
 			</tr>
 			</c:forEach>
 			</table>
