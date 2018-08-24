@@ -99,8 +99,12 @@
 #header .gnb.right{right:100px;}
 
 #content{min-height:1000px; padding-top:110px;}
-#content .inner{width:1000px; margin:30px auto 0;}
-
+#content .inner{width:1200px; margin:30px auto 0;}
+#content .inner .admin_menu{font-size:0; text-align:center;}
+#content .inner .admin_menu li{display:inline-block; vertical-align:middle;border:1px solid #ccc; border-left:0px none;}
+#content .inner .admin_menu li:first-child{border-left:1px solid #ccc;}
+#content .inner .admin_menu li a{display:block; padding:10px 20px; font-size:14px;}
+#content .inner .admin_menu li a:hover{background-color:#222; color:#fff;}
 
 .section .main_content{width:1000px; margin:0 auto;}
 

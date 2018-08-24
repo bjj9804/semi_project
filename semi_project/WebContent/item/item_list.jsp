@@ -5,6 +5,11 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
+	<style type="text/css">
+		table{width:100%; text-align:center;}
+		table th{border:1px solid #ccc; padding:10px 0;}
+		table td{border:1px solid #ccc; padding:10px 0;}
+	</style>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
@@ -25,24 +30,20 @@
 					<th>룩앞면</th>
 					<th>룩뒷면</th>
 				</tr>
-				<c:if test="${flag==0}">
-					<c:forEach var="vo" items="${list }">
-						<tr>
-							<td>${vo.code }</td>
-							<td>${vo.price }</td>
-							<td>${vo.itemName }</td>
-							<td>${vo.description }</td>
-							<td>이미지</td>
-							<td>이미지경로</td>
-							<td>${vo.isize }</td>
-							<td>${vo.amount }</td>
-							<td>${vo.num }</td>
-							<td>${vo.lookCode }</td>
-							<td>${vo.lookFront }</td>
-							<td>${vo.lookBack }</td>
-						</tr>
-					</c:forEach>
-				</c:if>
+				<tr>
+					<td>aa</td>
+					<td>10,000</td>
+					<td>셔츠</td>
+					<td>셔츠11</td>
+					<td>aa.jpg</td>
+					<td>/upload/aa.jpg</td>
+					<td>L</td>
+					<td>10</td>
+					<td>1</td>
+					<td>K</td>
+					<td>look_front.jpg</td>
+					<td>look_back.jpg</td>
+				</tr>
 			</table>
 		</div>
 	</div>
