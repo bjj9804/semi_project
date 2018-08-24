@@ -31,11 +31,12 @@
 					<th>룩앞면</th>
 					<th>룩뒷면</th>
 				</tr>
+				<c:forEach var="vo" items="${list }">
 				<tr>
-					<td>aa</td>
-					<td>10,000</td>
-					<td>셔츠</td>
-					<td>셔츠11</td>
+					<td>${vo.code }</td>
+					<td>${vo.price }</td>
+					<td>${vo.itemName }</td>
+					<td>${vo. }</td>
 					<td>aa.jpg</td>
 					<td>/upload/aa.jpg</td>
 					<td>L</td>
@@ -45,6 +46,7 @@
 					<td>look_front.jpg</td>
 					<td>look_back.jpg</td>
 				</tr>
+				</c:forEach>
 			</table>
 			<a href="item_insert.jsp">상품등록</a>
 		</div>

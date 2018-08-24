@@ -28,6 +28,7 @@ public class ReviewBoardVo {
 		this.weight = weight;
 		this.hit = hit;
 		this.regdate = regdate;
+		this.img = img;
 	}
 
 	public int getNum() {

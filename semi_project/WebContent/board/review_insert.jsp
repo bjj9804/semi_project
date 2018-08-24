@@ -32,14 +32,6 @@
 				</select>
 				<table>
 					<tr>
-						<th>작성자</th>
-						<td><input type="text" name="name"></td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td><input type="text" name="email"></td>
-					</tr>
-					<tr>
 						<th>제목</th>
 						<td><input type="text" name="title"></td>
 					</tr>
@@ -48,7 +40,7 @@
 						<td><textarea rows="5" cols="50" name="content"></textarea></td>
 					</tr>
 					<tr>
-						<td>첨부파일</td>
+						<td>리뷰사진</td>
 						<td><input type="file" name="img"></td>
 					</tr>
 				</table>

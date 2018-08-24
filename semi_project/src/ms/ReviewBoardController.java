@@ -40,22 +40,15 @@ public class ReviewBoardController extends HttpServlet {
 	}
 
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext sc = getServletContext();
-		String path = sc.getRealPath("/upload");
-		MultipartRequest mr = new MultipartRequest(request, //request 객체
-				path, //파일 업로드한 경로
-				1024*1024*20, //최대 업로드 크기 - 5메가바이트
-				"utf-8", // 인코딩
-				new DefaultFileRenamePolicy()); // 업로드한 파일이름이 중복되면 같은 이름 뒤에 숫자를 붙여서 구분
-				//예)foo.gif가 존재하면 foo1.gif로 파일명이 생성됨
-		String title = mr.getParameter("title");
-		String content = mr.getParameter("content");
-		String name = mr.getParameter("name");
-		int height = Integer.parseInt(mr.getParameter("height"));
-		int weight = Integer.parseInt(mr.getParameter("weight"));
-		String email = mr.getParameter("email");
-		String img = mr.getParameter("img");
-		ReviewBoardVo vo = new ReviewBoardVo(0, name, email, title, content, height, weight, 0, null, img);
+		String email = request.getParameter("email");
+		UsersDao udao = UsersDao.getInstance();
+		UsersVo uvo = udao.select(email);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String height = request.getParameter("height");
+		String weight = request.getParameter("weight");
+		String img = request.getParameter("img");
+		ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img);
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.insert(vo);
 		if (n > 0) {
