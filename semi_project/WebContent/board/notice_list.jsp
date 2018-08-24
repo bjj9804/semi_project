@@ -140,6 +140,7 @@
 			if (chk[i].checked == true) {
 				checkList += chk[i].value + ",";
 			}
+		
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
 
