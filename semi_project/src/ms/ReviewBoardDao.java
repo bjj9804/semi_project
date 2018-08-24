@@ -112,7 +112,7 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate)";
+			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum+1);
 			pstmt.setString(2, vo.getName());
@@ -121,6 +121,7 @@ public class ReviewBoardDao {
 			pstmt.setString(5, vo.getName());
 			pstmt.setInt(6, vo.getHeight());
 			pstmt.setInt(7, vo.getWeight());
+			pstmt.setString(8, vo.getImg());
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			se.printStackTrace();
@@ -163,7 +164,8 @@ public class ReviewBoardDao {
 				int hit = rs.getInt("hit");
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate);
+				String img = rs.getString("img");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
 				list.add(vo);
 			}
 			return list;
@@ -207,7 +209,8 @@ public class ReviewBoardDao {
 				int hit = rs.getInt("hit");
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate);
+				String img = rs.getString("img");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
 				list.add(vo);
 			}
 			return list;
@@ -250,7 +253,8 @@ public class ReviewBoardDao {
 				int hit = rs.getInt("hit");
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
-				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate);
+				String img = rs.getString("img");
+				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
 			}
 			return vo;
 		}catch(SQLException se) {

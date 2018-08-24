@@ -9,24 +9,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jh.BuyVo;
+import jh.PayVo;
 import mh.UsersDao;
 import mh.UsersVo;
 
-@WebServlet("/Demand.do")
+@WebServlet("/demand.do")
 public class DeController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");
-		if(cmd!=null && cmd.equals("delist")) {
-			delist(request,response);
+		if(cmd!=null && cmd.equals("paylist")) {
+			paylist(request,response);
+		}else if(cmd!=null && cmd.equals("buylist")) {
+			buylist(request,response);
 		}
 	}
-		protected void delist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 			DemandDao dao=DemandDao.getInstance();
-			ArrayList<DemandVo> list=dao.list();
+			ArrayList<PayVo> list=dao.list();
 			
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("../admin/demand.jsp").forward(request, response);
+			request.getRequestDispatcher("/admin/demand.jsp").forward(request, response);
 		}
+		protected void buylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			BuyVo vo=dao.detail(orderNum);
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("/admin/demand_detail.jsp").forward(request, response);	
 	}
+}
 

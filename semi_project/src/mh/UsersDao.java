@@ -19,13 +19,13 @@ public class UsersDao {
 		return instance;
 	}
 	
-	//회원가입 정보 받아오기
+	//�쉶�썝媛��엯 �젙蹂� 諛쏆븘�삤湲�
 	public int join(UsersVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,1)";// ������ �ʱⰪ�� 1������ �ְ� flag�� �����ڴ� �ʱⰪ 1������
+			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,0)";// 占쏙옙占쏙옙占쏙옙 占십기값占쏙옙 1占쏙옙占쏙옙占쏙옙 占쌍곤옙 flag占쏙옙 占쏙옙占쏙옙占쌘댐옙 占십기값 1占쏙옙占쏙옙占쏙옙
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
@@ -52,7 +52,7 @@ public class UsersDao {
 		return -1;
 	}
 	
-	//로그인시 이메일/비밀번호 확인하기
+	//濡쒓렇�씤�떆 �씠硫붿씪/鍮꾨�踰덊샇 �솗�씤�븯湲�
 	public boolean login(String email,String pwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -122,7 +122,7 @@ public class UsersDao {
 		return null;
 	}
 	
-	//비밀번호 찾기
+	//鍮꾨�踰덊샇 李얘린
 	public String findPwd(String email, String phone, int question, String answer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -157,7 +157,7 @@ public class UsersDao {
 		return null;
 	}
 	
-	//이메일받기
+	//�씠硫붿씪諛쏄린
 	public String findEmail(String name, String phone, int question, String answer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/* 로그인..
+/* 濡쒓렇�씤..
 <c:choose>
 	<c:when test="${empty sessionScope.email }">
-		<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">�α���</a></li>
+		<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">占싸깍옙占쏙옙</a></li>
 	</c:when>
 	<c:otherwise>
-		<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">�α׾ƿ�</a></li>
+		<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">占싸그아울옙</a></li>
 	</c:otherwise>
 </c:choose>
  */
@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet{
 		String contextPath = getServletContext().getContextPath();
 		if(cmd != null && cmd.equals("loginform")) {
 			response.sendRedirect(contextPath + "/users/login.jsp");
-		}else if(cmd != null && cmd.equals("login")) {
+		}else if(cmd != null && cmd.equals("login")) {			
 			login(request,response);
 		}else if(cmd != null && cmd.equals("logoutform")) {
 			logout(request,response);
@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet{
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("../myshop/modify.jsp").forward(request, response);
 		}else {
-			request.setAttribute("errMsg", "비밀번호 확인 실패!");
+			request.setAttribute("errMsg", "鍮꾨�踰덊샇 �솗�씤 �떎�뙣!");
 			RequestDispatcher rd = request.getRequestDispatcher("../myshop/profile.jsp");
 			rd.forward(request, response);
 		}
@@ -59,13 +59,23 @@ public class LoginController extends HttpServlet{
 		String pwd = request.getParameter("pwd");
 		UsersDao dao = UsersDao.getInstance();
 		boolean b = dao.login(email,pwd);
+		int flag=0;
+		if(!email.equals("")) {//로그인을 하고 들어온 경우
+			UsersDao usersDao=UsersDao.getInstance();
+			UsersVo vo=usersDao.select(email);
+			flag=vo.getFlag();//관리자인지 회원인지	
+		}else {//로그인을 안하고 들어온경우
+			flag=1;
+		}				
+		//request.setAttribute("flag", flag);		
 		if(b){
-			HttpSession session = request.getSession(); //세션에 아이디 담기
+			HttpSession session = request.getSession(); //�꽭�뀡�뿉 �븘�씠�뵒 �떞湲�
 			session.setAttribute("email", email);
+			session.setAttribute("flag", flag);
 			String contextPath = getServletContext().getContextPath();
 			response.sendRedirect(contextPath + "/main/index.jsp");
 		}else {
-			request.setAttribute("errMsg", "로그인 실패");
+			request.setAttribute("errMsg", "濡쒓렇�씤 �떎�뙣");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}

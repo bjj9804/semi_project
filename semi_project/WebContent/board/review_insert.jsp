@@ -20,8 +20,7 @@
 					<option value=190>180~190</option>
 					<option value=200>190~200</option>
 					<option value=210>200~</option>
-				</select> &nbsp; &nbsp;
-				weight<select name="weight">
+				</select> &nbsp; &nbsp; weight<select name="weight">
 					<option value="0">입력안함</option>
 					<option value="40">~40kg</option>
 					<option value=50>40kg~50kg</option>
@@ -47,6 +46,10 @@
 					<tr>
 						<th>내용</th>
 						<td><textarea rows="5" cols="50" name="content"></textarea></td>
+					</tr>
+					<tr>
+						<td>첨부파일</td>
+						<td><input type="file" name="img"></td>
 					</tr>
 				</table>
 				<input type="submit" value="작성">

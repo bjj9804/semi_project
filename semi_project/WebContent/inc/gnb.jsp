@@ -11,6 +11,12 @@
 				<c:otherwise>
 					<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">Sign Out</a></li>
 					<li><a href="/semi_project/myshop/myshop_index.jsp">Mypage</a></li>
+<<<<<<< HEAD
+=======
+					<c:if test="${flag==0 }">
+						<li><a href="/semi_project/admin/index.jsp">admin</a></li>
+					</c:if>
+>>>>>>> refs/remotes/origin/master
 				</c:otherwise>
 			</c:choose>
 			<li><a href="#">Bag</a></li>

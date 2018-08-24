@@ -9,17 +9,12 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<div>
-				주문정보
-			</div>
-			<div>
-				<ul class="admin_menu"> 
-					<li><a href="#">주문 배송 조회</a></li>
-					<li><a href="profile.jsp">정보 수정</a></li>
-					<li><a href="myboard.jsp">게시물</a></li>
-					<li><a href="#">쿠폰</a></li>
-				</ul>
-			</div>
+			<ul class="admin_menu">
+				<li><a href="#">상품관리</a></li>
+				<li><a href="/semi_project/board/index.jsp">게시글관리</a></li>
+				<li><a href="#">주문관리</a></li>
+				<li><a href="#">판매관리</a></li>
+			</ul>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

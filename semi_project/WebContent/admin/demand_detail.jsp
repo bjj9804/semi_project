@@ -29,7 +29,8 @@
 			</tr>
 			</c:forEach>
 			</table>
-			<a href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${pageNum }">목록으로</a>
+			<a href="../demand.do?cmd=paylist">목록으로</a>
+						console.log(${vo.code });
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

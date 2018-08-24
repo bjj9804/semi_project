@@ -6,7 +6,7 @@ public class ItemVo {
 	private String itemName;//상품명
 	private String description;//상품설명
 	private String imgType;//이미지타입
-	private String imgSrc;//이미직경로
+	private String imgSrc;//이미지경로
 	private String isize;//아이템사이즈
 	private int amount;//수량
 	private int num; //룩번호
