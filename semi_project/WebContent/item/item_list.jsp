@@ -9,6 +9,7 @@
 		table{width:100%; text-align:center;}
 		table th{border:1px solid #ccc; padding:10px 0;}
 		table td{border:1px solid #ccc; padding:10px 0;}
+		#content .inner a{display:block; width:100px; height:30px; line-height:30px; background-color:#222; color:#fff; text-align:center; margin:20px auto}
 	</style>
 </head>
 <body>
@@ -45,6 +46,7 @@
 					<td>look_back.jpg</td>
 				</tr>
 			</table>
+			<a href="item_insert.jsp">상품등록</a>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
