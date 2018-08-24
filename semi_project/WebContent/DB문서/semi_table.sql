@@ -18,6 +18,7 @@ DROP TABLE Users CASCADE CONSTRAINTS;
 
 /* Create Tables */
 
+
 CREATE TABLE coupon
 (
 	couponName varchar2(30) NOT NULL,
@@ -31,7 +32,7 @@ CREATE TABLE coupon
 CREATE TABLE BUY
 (
 	buyNum number(10,0) PRIMARY KEY NOT NULL,
-	orderNum number(10,0) UNIQUE,
+	orderNum number(10,0),
 	code varchar2(20),
 	isize varchar2(15),
 	orderAmount number(3,0),
@@ -49,6 +50,7 @@ CREATE TABLE PAY
 	totalPrice number(10,0),
 	payMoney number(10,0)
 );
+
 CREATE TABLE item
 (
 	code varchar2(20) NOT NULL,
@@ -168,9 +170,9 @@ ALTER TABLE buy
 	REFERENCES itemsize (isize, code)
 ;
 
-ALTER TABLE pay
+ALTER TABLE buy
 	ADD FOREIGN KEY (orderNum)
-	REFERENCES buy (orderNum)
+	REFERENCES pay (orderNum)
 ;
 
 ALTER TABLE pay
