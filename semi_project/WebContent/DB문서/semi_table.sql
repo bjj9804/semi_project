@@ -223,11 +223,6 @@ ALTER TABLE reviewboard
 	REFERENCES Users (email)
 ;
 
-ALTER TABLE reviewboard
-	ADD FOREIGN KEY (imgSrc)
-	REFERENCES itemImg (imgSrc)
-;
-
 CREATE SEQUENCE look_seq;
 
 
