@@ -49,10 +49,7 @@ CREATE TABLE PAY
 	email varchar2(30) NOT NULL,
 	totalPrice number(10,0),
 	payMoney number(10,0)
-
 );
-
-
 CREATE TABLE item
 (
 	code varchar2(20) NOT NULL,
@@ -84,8 +81,6 @@ CREATE TABLE Look
 	lookBack varchar2(20),
 	PRIMARY KEY (num)
 );
-
-
 CREATE TABLE noticeBoard
 (
 	num number(7,0) NOT NULL,
@@ -137,6 +132,7 @@ CREATE TABLE reviewboard
 	weight number(3,0),
 	hit number(3,0),
 	regdate date,
+	imgSrc varchar2(20),
 	PRIMARY KEY (num)
 );
 

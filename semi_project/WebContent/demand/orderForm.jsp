@@ -11,8 +11,7 @@
 	<div id="content">
 		<div class="inner">
 		
-			<h1>ORDER FORM</h1><br>
-			
+			<h1>ORDER FORM</h1><br>			
 			<form action="/semi_project/jh/demand.do?cmd=insert" method="post">
 			
 			<h3>주문내역</h3>	
@@ -33,7 +32,9 @@
 				
 			<h3>배송정보</h3>					
 				<table border="1" width="800" align="center">
-					<tr><th>배송지 선택</th><td>배송지</td></tr>
+					<tr><th>배송지 선택</th>
+						<td><input type="radio" name="root" value="">회원정보와 동일
+							<input type="radio" name="root" value="">새로운 배송지</td></tr>
 					<tr><th>받는 사람</th><td>받는 사람</td></tr>
 					<tr><th>주소</th><td>주소</td></tr>
 					<tr><th>전화번호</th><td>전화번호</td></tr>
@@ -56,10 +57,10 @@
 				
 			<h3>결제방법</h3>	
 				<div>
-					<input type="radio" name="radio" value="">신용카드
-					<input type="radio" name="radio" value="">무통장입금
-					<input type="radio" name="radio" value="">실시간 계좌이체
-					<input type="radio" name="radio" value="">휴대폰 결제
+					<input type="radio" name="method" value="">신용카드
+					<input type="radio" name="method" value="">무통장입금
+					<input type="radio" name="method" value="">실시간 계좌이체
+					<input type="radio" name="method" value="">휴대폰 결제
 				</div>
 				<div>최종결제금액</div>
 				<input type="submit" value="결제하기">
