@@ -46,7 +46,24 @@ public class ItemController extends HttpServlet{
 		if(endPage>pageCnt) {
 			endPage=pageCnt;
 		}		
-		ArrayList<ItemVo> list=dao.list(startRow,endRow);		
+		ArrayList<ItemVo> list=dao.list(startRow,endRow);
+		
+		int flag=0;
+		if(!email.equals("")) {//로그인을 하고 들어온 경우
+			UsersDao usersDao=UsersDao.getInstance();
+			UsersVo vo=usersDao.select(email);
+			flag=vo.getFlag();//관리자인지 회원인지			
+		}else {//로그인을 안하고 들어온경우
+			flag=1;
+		}
+		request.setAttribute("flag", flag);		
+		request.setAttribute("list", list);
+		request.setAttribute("pageCnt", pageCnt);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("email", email);
+		request.getRequestDispatcher("/item/item_list.jsp").forward(request, response);		
 	}
 	
 

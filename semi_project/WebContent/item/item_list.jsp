@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,6 +25,24 @@
 					<th>룩앞면</th>
 					<th>룩뒷면</th>
 				</tr>
+				<c:if test="${flag==0}">
+					<c:forEach var="vo" items="${list }">
+						<tr>
+							<td>${vo.code }</td>
+							<td>${vo.price }</td>
+							<td>${vo.itemName }</td>
+							<td>${vo.description }</td>
+							<td>이미지</td>
+							<td>이미지경로</td>
+							<td>${vo.isize }</td>
+							<td>${vo.amount }</td>
+							<td>${vo.num }</td>
+							<td>${vo.lookCode }</td>
+							<td>${vo.lookFront }</td>
+							<td>${vo.lookBack }</td>
+						</tr>
+					</c:forEach>
+				</c:if>
 			</table>
 		</div>
 	</div>

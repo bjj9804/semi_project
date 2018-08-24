@@ -11,6 +11,9 @@
 				<c:otherwise>
 					<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">Sign Out</a></li>
 					<li><a href="#">Mypage</a></li>
+					<c:if test="${flag==0 }">
+						<li><a href="#">admin</a></li>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="#">Bag</a></li>
