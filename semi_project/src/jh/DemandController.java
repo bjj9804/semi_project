@@ -20,8 +20,11 @@ public class DemandController extends HttpServlet{
 		
 		if(cmd!=null && cmd.equals("insert")) {
 			insert(request,response);
+		}else if(cmd!=null && cmd.equals("delete")) {
+			
 		}
 	}
+	
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
