@@ -19,7 +19,7 @@
 			<td>총가격</td>
 			<td>실결제가</td>
 			<td>배송상태</td>
-			<td>상태수정</td>
+			<td>   </td>
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
@@ -29,7 +29,7 @@
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
 			<td>${vo.state }</td>
-			<td>상태수정버튼</td>
+			<td><input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateupdate&num=${vo.orderNum}'"></td>
 			</tr>
 			</c:forEach>
 			</table>

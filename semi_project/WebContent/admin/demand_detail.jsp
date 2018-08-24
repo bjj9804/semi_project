@@ -29,8 +29,8 @@
 			</tr>
 			</c:forEach>
 			</table>
-			<a href="../demand.do?cmd=paylist">목록으로</a>
-						console.log(${vo.code });
+			<br>
+			<a href="/semi_project/demand.do?cmd=paylist">목록으로</a><br>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
