@@ -33,6 +33,7 @@ public class ItemController extends HttpServlet{
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
 		String email = request.getParameter("email");
+		System.out.println(email);
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);

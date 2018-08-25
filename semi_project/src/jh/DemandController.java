@@ -26,6 +26,10 @@ public class DemandController extends HttpServlet{
 			order(request,response);
 		}else if(cmd!=null && cmd.equals("showCart")) {//장바구니보기 누르면 메소드호출!
 			showCart(request,response);
+		}else if(cmd!=null && cmd.equals("showOrderForm")) {//장바구니보기 누르면 메소드호출!
+			showOrderForm(request,response);
+		}else if(cmd!=null && cmd.equals("delete")) {//장바구니에서 상품삭제
+			
 		}
 	}
 	
@@ -131,6 +135,28 @@ public class DemandController extends HttpServlet{
 		}
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
+		
+	}
+	private void showOrderForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email=request.getParameter("email");
+		String buyList=request.getParameter("buyList");
+		String totalPrice=request.getParameter("totalPrice");
+		System.out.println(email+","+buyList+","+totalPrice);
+//		DemandDao dao=DemandDao.getInstance();
+//		ArrayList<Object[]> list=new ArrayList<>();
+//		ArrayList<BuyVo> blist=dao.getBuyVo(email);
+//		for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
+//			String code=bvo.getCode();
+//			LookVo lvo=dao.getLookVo(code);
+//			String lookFront=lvo.getLookFront();
+//			ItemVo ivo=dao.getItemVo(code);
+//			String description=ivo.getDescription();
+//			int price=ivo.getPrice();
+//			Object[] ob= {bvo,lookFront,description,price};
+//			list.add(ob);
+//		}
+//		request.setAttribute("list", list);
+//		request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
 		
 	}
 }

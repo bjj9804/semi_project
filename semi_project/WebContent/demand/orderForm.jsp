@@ -12,7 +12,7 @@
 		<div class="inner">
 		
 			<h1>ORDER FORM</h1><br>			
-			<form action="/semi_project/jh/demand.do?cmd=insert" method="post">
+			<form action="/semi_project/jh/demand.do?cmd=order" method="post">
 			
 			<h3>주문내역</h3>	
 				<table border="1" width="800" align="center">

@@ -12,12 +12,12 @@
 		<div class="inner">
 		
 			<h1>CART</h1><br>			
-			<form name="cart" action="/semi_project/jh/demand.do?cmd=orderForm" method="post">
+			<form name="cart" action="/semi_project/jh/demand.do?cmd=showOrderForm" method="post">
 			
 			<h3>담긴 상품</h3>	
 				<table border="1" width="800" align="center">
 					<tr>						
-						<th><input type="checkbox" name="check" onclick="checkAll()" checked="checked"></th>
+						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 						<th>이미지</th> 
 						<th>상품정보</th> 
 						<th>판매가</th> 
@@ -26,19 +26,20 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
-						<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1()"></td>
+						<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1('${vo[0].price}')"></td>
 						<td>${vo[1] }</td> <!-- 이미지 -->
 						<td>${vo[2] }</td> <!-- 상품정보 -->
 						<td>${vo[3] }</td> <!-- 판매가 -->
 						<td>${vo[0].orderAmount }</td> <!-- 수량 -->
-						<td name="price">${vo[0].price }</td> <!-- 합계 -->
+						<td>${vo[0].price }</td> <!-- 합계 -->
 					</tr>					
 					</c:forEach>						
 				</table>
 				<input type="button" value="내보내기" onclick="delete1()">
 				<br><br>
 				
-				결제예정금액<div id="totalPrice"></div>
+				결제예정금액<span id="totalPrice" name="totalPrice"></span>
+				<input type="hidden" name="email" value="${email }">
 				<input type="hidden" id="buyList" name="buyList">
 				<input type="button" value="선택상품주문" onclick="getBuyList()">			
 				<a href="">쇼핑계속하기</a>
@@ -48,15 +49,7 @@
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
 <script type="text/javascript">
-	function totlaPrice(){
-		var totPrice=0;
-		var totalPrice=document.getElementById("totalPrice");
-		var price=document.getElementsByName("price");
-		for(var i=0;i<price.length;i++){
-			totPrice+=price[i].innerHTML;	
-		}	
-		totalPrice.innerHTML=totPrice;
-	}
+	
 	function checkAll(){
 		var chk=document.getElementsByName("check");
 		if(chk[0].checked==true){
@@ -69,13 +62,23 @@
 			}
 		}
 	}
-	function check1(){
+	function check1(price){
 		var chk=document.getElementsByName("check");
 		for(var i=1;i<chk.length;i++){
 			if(chk[i].checked==false){
 				chk[0].checked=false;
 			}				
-		}		
+		}	
+		var totalPrice=document.getElementById("totalPrice");
+		var totPrice=totalPrice.innerHTML;
+		for(var i=1;i<chk.length;i++){
+			if(chk[i].checked==true){
+				totPrice=totPrice*1+price*1;				
+			}else{
+				totPrice=totPrice*1-price*1;
+			}
+		}	
+		totalPrice.innerHTML=totPrice;
 	}
 	function getBuyList(){
 		var cart=document.cart;
