@@ -135,7 +135,7 @@ CREATE TABLE Users
 	question number(5,0),
 	answer varchar2(30),
 	phone varchar2(20),
-	addr varchar2(30),
+	addr varchar2(100),
 	name varchar2(20),
 	regdate date,
 	coupon number(10,0),
