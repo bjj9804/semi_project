@@ -12,8 +12,8 @@
 		<div class="inner">
 			<c:choose>
 				<c:when test="${requestScope.code == 'success'}">
-					<h2>회원가입 성공<h2>
-					<a href="<c:url value='/mh/login.do?cmd=loginform'/>">Sign In</a>
+					<h2>회원가입 성공</h2>
+					<a href="<c:url value='/mh/users.do?cmd=loginform'/>">Sign In</a>
 				</c:when>
 				<c:otherwise>
 					<h2>회원가입 실패</h2>

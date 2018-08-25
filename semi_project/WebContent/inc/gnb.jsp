@@ -6,10 +6,10 @@
 		<ul>
 			<c:choose>
 				<c:when test="${empty sessionScope.email }">
-					<li><a href="<c:url value='/mh/login.do?cmd=loginform'/>">Sign In</a></li>
+					<li><a href="<c:url value='/mh/users.do?cmd=loginform'/>">Sign In</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="<c:url value='/mh/login.do?cmd=logoutform'/>">Sign Out</a></li>
+					<li><a href="<c:url value='/mh/users.do?cmd=logoutform'/>">Sign Out</a></li>
 					<li><a href="/semi_project/myshop/myshop_index.jsp">Mypage</a></li>
 
 					<c:if test="${flag==0 }">

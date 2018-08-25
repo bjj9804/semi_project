@@ -10,7 +10,7 @@
 	<div id="content">
 		<div class="inner">
 			<!-- 정보수정, 탈퇴 -->
-			<form action="/semi_project/mh/modify.do">
+			<form action="/semi_project/mh/myshopmodify.do?cmd=modify">
 				<table>
 					<tr>
 						<th>이메일</th>
@@ -43,7 +43,7 @@
 						</td>
 					</tr>
 				</table>
-				<a href="/semi_project/mh/userdelete.do?email=${email }">탈퇴하기</a>
+				<a href="/semi_project/mh/myshopmodify.do?cmd=delete&&email=${email }">탈퇴하기</a>
 			</form>
 		</div>
 	</div>
