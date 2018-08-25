@@ -10,8 +10,8 @@
 	<div id="content">
 		<div class="inner">
 			<ul>
-				<li><a href="myreview_list.jsp">내가쓴 리뷰</a></li>
-				<li><a href="myqna_list.jsp">내가쓴 질문</a></li>
+				<li><a href="/semi_project/myshopBoard?cmd=reviewList">내가쓴 리뷰</a></li>
+				<li><a href="/semi_project/myshopBoard?cmd=qnaList">내가쓴 질문</a></li>
 			</ul>
 		</div>
 	</div>

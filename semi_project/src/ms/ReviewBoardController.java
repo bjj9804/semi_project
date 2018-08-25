@@ -87,7 +87,6 @@ public class ReviewBoardController extends HttpServlet {
 		}else {//로그인을 안하고 들어온경우
 			flag=1;
 		}
-		
 		request.setAttribute("flag", flag);	
 		request.setAttribute("list", list);
 		request.setAttribute("pageCount", pageCount);

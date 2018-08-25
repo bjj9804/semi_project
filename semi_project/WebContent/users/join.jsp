@@ -32,7 +32,7 @@
 	<div id="content">
 		<div class="inner">
 			<div id="joinWrap">
-			<form action="/semi_project/mh/join.do" method="post">
+			<form action="/mh/users.do?cmd=joinform" method="post">
 				<!-- 계정 세부정보 email,pwd 확인 -->
 				<table style="width: 800px;">
 					<tr>

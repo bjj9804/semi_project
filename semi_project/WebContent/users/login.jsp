@@ -27,7 +27,7 @@
 							<input type="button" value="신규 회원 가입" onclick = "location.href = '/semi_project/users/join.jsp'">
 						</td>
 						<td>
-							<form method="post" action="<c:url value='../mh/login.do?cmd=login'/>">
+							<form method="post" action="<c:url value='../mh/users.do?cmd=login'/>">
 								이메일 <input type="text" name="id">@
 								<select name="email">
 									<option value="">옵션선택</option>
@@ -54,7 +54,7 @@
 								<input type="button" value="아이디찾기" onclick="getid()"><br>
 							</form>
 							<div id="findpwd" style="display: none">
-								<form method="post" action="/semi_project/mh/find.do?cmd=findpwdform">
+								<form method="post" action="/semi_project/mh/users.do?cmd=findpwdform">
 									이메일
 									<input type="text" name="id">@
 									<select name="email">
@@ -103,7 +103,7 @@
 								</form>
 							</div>
 							<div id="findemail" style="display: none">
-								<form method="post" action="/semi_project/mh/find.do?cmd=findidform">
+								<form method="post" action="/semi_project/mh/users.do?cmd=findidform">
 									이름<input type="text" name="name"><br>
 									전화번호
 									<select name="phone1">
