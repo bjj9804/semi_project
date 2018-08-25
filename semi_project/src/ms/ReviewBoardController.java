@@ -45,9 +45,10 @@ public class ReviewBoardController extends HttpServlet {
 		UsersVo uvo = udao.select(email);
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		String height = request.getParameter("height");
-		String weight = request.getParameter("weight");
+		int height = Integer.parseInt(request.getParameter("height"));
+		int weight = Integer.parseInt(request.getParameter("weight"));
 		String img = request.getParameter("img");
+		System.out.println(email + title + content + height + weight + img);
 		ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img);
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n = dao.insert(vo);

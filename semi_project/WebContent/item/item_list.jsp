@@ -36,15 +36,16 @@
 					<td>${vo.code }</td>
 					<td>${vo.price }</td>
 					<td>${vo.itemName }</td>
-					<td>${vo. }</td>
-					<td>aa.jpg</td>
-					<td>/upload/aa.jpg</td>
-					<td>L</td>
-					<td>10</td>
-					<td>1</td>
-					<td>K</td>
-					<td>look_front.jpg</td>
-					<td>look_back.jpg</td>
+					<td>${vo.description }</td>
+					<td>${vo.imgType }</td>
+					<td>${vo.imgType }</td>
+					<td>${vo.imgSrc }</td>
+					<td>${vo.isize }</td>
+					<td>${vo.amount }</td>
+					<td>${vo.num }</td>
+					<td>${vo.lookCode }</td>
+					<td>${vo.lookFront }</td>
+					<td>${vo.lookBack }</td>
 				</tr>
 				</c:forEach>
 			</table>
