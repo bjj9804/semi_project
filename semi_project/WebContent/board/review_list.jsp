@@ -83,7 +83,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/reviewBoard.do?cmd=detail&email=${email }&num=${vo.num }">${vo.title }</a>
+								href="/semi_project/reviewBoard.do?cmd=detail&email=${email }&flag=${flag}&num=${vo.num }">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
