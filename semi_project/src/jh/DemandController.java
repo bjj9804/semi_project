@@ -119,7 +119,7 @@ public class DemandController extends HttpServlet{
 		DemandDao dao=DemandDao.getInstance();
 		ArrayList<Object[]> list=new ArrayList<>();
 		ArrayList<BuyVo> blist=dao.getBuyVo(email);
-		for(BuyVo bvo:blist) {
+		for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
 			String code=bvo.getCode();
 			LookVo lvo=dao.getLookVo(code);
 			String lookFront=lvo.getLookFront();

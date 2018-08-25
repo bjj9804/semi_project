@@ -49,7 +49,7 @@
 				</tr>
 				</c:forEach>
 			</table>
-			<a href="item_insert.jsp">상품등록</a>
+			<a href="/semi_project/item/item_insert.jsp">상품등록</a>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
