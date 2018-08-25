@@ -26,19 +26,20 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
-						<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1('${vo[0].price}')"></td>
+						<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1()"></td>
 						<td>${vo[1] }</td> <!-- 이미지 -->
 						<td>${vo[2] }</td> <!-- 상품정보 -->
 						<td>${vo[3] }</td> <!-- 판매가 -->
 						<td>${vo[0].orderAmount }</td> <!-- 수량 -->
-						<td>${vo[0].price }</td> <!-- 합계 -->
+						<td name="price">${vo[0].price }</td> <!-- 합계 -->
 					</tr>					
 					</c:forEach>						
 				</table>
 				<input type="button" value="내보내기" onclick="delete1()">
 				<br><br>
 				
-				결제예정금액<span id="totalPrice" name="totalPrice"></span>
+				결제예정금액<div id="totalPrice1"></div>
+				<input type="hidden" name="totalPrice">
 				<input type="hidden" name="email" value="${email }">
 				<input type="hidden" id="buyList" name="buyList">
 				<input type="button" value="선택상품주문" onclick="getBuyList()">			
@@ -54,30 +55,40 @@
 		if(chk[0].checked==true){
 			for(var i=1;i<chk.length;i++){
 				chk[i].checked=true;				
-			}			
+			}
+			var totalPrice1=document.getElementById("totalPrice1");
+			var totalPrice=document.getElementsByName("totalPrice")[0];
+			var price=document.getElementsByName("price");	
+			var totPrice=0;
+			for(var i=1;i<chk.length;i++){
+				totPrice=totPrice*1+price[i-1].innerHTML*1;	
+			}	
+			totalPrice1.innerHTML=totPrice;
+			totalPrice.value=totPrice;
 		}else{
 			for(var i=1;i<chk.length;i++){
 				chk[i].checked=false;				
 			}
 		}
 	}
-	function check1(price){
-		var chk=document.getElementsByName("check");
+	function check1(){
+		var chk=document.getElementsByName("check");		
+		var price=document.getElementsByName("price");		
 		for(var i=1;i<chk.length;i++){
 			if(chk[i].checked==false){
 				chk[0].checked=false;
 			}				
 		}	
-		var totalPrice=document.getElementById("totalPrice");
-		var totPrice=totalPrice.innerHTML;
+		var totalPrice1=document.getElementById("totalPrice1");
+		var totalPrice=document.getElementsByName("totalPrice")[0];
+		var totPrice=0;
 		for(var i=1;i<chk.length;i++){
 			if(chk[i].checked==true){
-				totPrice=totPrice*1+price*1;				
-			}else{
-				totPrice=totPrice*1-price*1;
+				totPrice=totPrice*1+price[i-1].innerHTML*1;				
 			}
 		}	
-		totalPrice.innerHTML=totPrice;
+		totalPrice1.innerHTML=totPrice;
+		totalPrice.value=totPrice;
 	}
 	function getBuyList(){
 		var cart=document.cart;
