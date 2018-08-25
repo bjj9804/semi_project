@@ -48,8 +48,7 @@
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
-<script type="text/javascript">
-	
+<script type="text/javascript">	
 	function checkAll(){
 		var chk=document.getElementsByName("check");
 		if(chk[0].checked==true){

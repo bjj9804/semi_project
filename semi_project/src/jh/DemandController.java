@@ -31,8 +31,7 @@ public class DemandController extends HttpServlet{
 		}else if(cmd!=null && cmd.equals("delete")) {//장바구니에서 상품삭제
 			
 		}
-	}
-	
+	}	
 	
 	private void cart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
