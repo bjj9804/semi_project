@@ -15,6 +15,7 @@
 			<form action="/semi_project/jh/demand.do?cmd=order" method="post">
 			
 			<h3>주문내역</h3>	
+			
 				<table border="1" width="800" align="center">
 					<tr><th><input type="checkbox" name="check" onclick="checkAll()"></th><th>이미지</th><th>상품정보</th><th>판매가</th><th>수량</th><th>합계</th></tr>
 					<tr>

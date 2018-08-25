@@ -33,6 +33,7 @@ public class DemandController extends HttpServlet{
 		}
 	}
 	
+	
 	private void cart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		DemandDao dao=DemandDao.getInstance();

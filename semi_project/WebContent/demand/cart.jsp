@@ -112,8 +112,7 @@
 		if(confirm("삭제하시겠습니까?")){
 			location.href="/semi_project/jh/demand.do?checkList="+checkList+"&cmd=delete";
 		}
-	}
-	
+	}	
 
 </script>
 </html>
