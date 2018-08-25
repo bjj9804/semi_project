@@ -9,27 +9,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import eb.QnaBoardDao;
 import eb.QnaBoardVo;
-import mh.UsersDao;
-import mh.UsersVo;
 
 @WebServlet("/myshopBoard")
 public class MyshopBoardController extends HttpServlet {
+	//public ServletContext sc = getServletContext();
+	static HttpSession session = null;
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String cmd = request.getParameter("cmd");
-		if (cmd != null && cmd.equals("insert")) {
+		session = request.getSession();
+		if (cmd != null && cmd.equals("reviewList")) {
 			reviewList(request, response);
-		}else if (cmd != null && cmd.equals("insert")) {
+		}else if(cmd !=null && cmd.equals("qnaList")) {
 			qnaList(request, response);
 		}
 	}
+	//--------------------------------reviewBoard----------------------------------------------
 	
 	public void reviewList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = (String) session.getAttribute("email");
+		int flag = (int) session.getAttribute("flag");
+		System.out.println(email + " " + flag);
 		String spageNum = request.getParameter("pageNum");
 		int pageNum = 1;
 		if (spageNum != null) {
@@ -39,9 +44,9 @@ public class MyshopBoardController extends HttpServlet {
 		// int endRow=startRow+9;
 		int startRow = pageNum * 5 - 4;
 		int endRow = startRow + 4;
-		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		ArrayList<ReviewBoardVo> list = dao.list(startRow, endRow);
-		int pageCount = (int) Math.ceil(dao.getCount() / 5.0);
+		MyshopBoardDao dao = MyshopBoardDao.getInstance();
+		ArrayList<ReviewBoardVo> list = dao.reveiwList(email, startRow, endRow);
+		int pageCount = (int) Math.ceil(dao.getReviewCount(email)/ 5.0);
 		int startPage = ((pageNum - 1) / 5 * 5) + 1;
 		// int startPage = (pageNum/10)*10-9;
 		// 끝페이지번호
@@ -50,53 +55,86 @@ public class MyshopBoardController extends HttpServlet {
 		if (endPage > pageCount) {
 			endPage = pageCount;
 		}
-		ServletContext sc = getServletContext();
-		String email = (String) sc.getAttribute("email");
 		request.setAttribute("email", email);
 		request.setAttribute("list", list);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/board/review_list.jsp").forward(request, response);
+		request.getRequestDispatcher("/myshop/myreview_list.jsp").forward(request, response);
+	}
+	public void reviewDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num = Integer.parseInt(request.getParameter("num"));
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		int n=dao.hitup(num);
+		ReviewBoardVo vo = dao.detail(num);
+		request.setAttribute("vo", vo);
+		request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
 	}
 	
-	protected void qnaList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		//ServletContext sc= getServletContext();
-		String spageNum=request.getParameter("pageNum");
+	public void ReviewDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
-		UsersDao dao1=UsersDao.getInstance();
-		UsersVo vo=null;
-		String name="";
-		int flag=0;
-		if(!email.equals("")) {
-			vo=dao1.select(email);
-			name=vo.getName();
-			flag=vo.getFlag();
+		String pageNum=request.getParameter("pageNum");
+		String checkList=request.getParameter("checkList");
+		String[] checkArray=checkList.split(",");
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		boolean bool=true;
+		for(int i=0;i<checkArray.length;i++) {
+			int num=Integer.parseInt(checkArray[i]);
+			if(dao.delete(num)<0) {
+				bool=false;
+			}
+		}		
+		if(bool==false) {
+			System.out.println("삭제 실패");
+			return;
 		}
+		request.setAttribute("email", email);
+		request.setAttribute("pageNum", pageNum);
+		request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
+	}
+	
+	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		int num = Integer.parseInt(request.getParameter("num"));
+		ReviewBoardVo vo1 = dao.detail(num);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String img = request.getParameter("img");
+		ReviewBoardVo vo = new ReviewBoardVo(num, vo1.getName(), vo1.getEmail(), title, content, vo1.getHeight(), vo1.getWeight(), vo1.getHit(), vo1.getRegdate(), img);
+		int n = dao.update(vo);
+		if(n>0) {
+			reviewList(request, response);
+		}
+	}
+	//----------------------------qnaBoard--------------------------------------------------
+	
+	protected void qnaList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		int flag = (int) session.getAttribute("flag");
+		String spageNum=request.getParameter("pageNum");
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
-		QnaBoardDao dao=QnaBoardDao.getInstance();
-		ArrayList<QnaBoardVo> list=dao.list(startRow, endRow);
-		int pageCount=(int)Math.ceil(dao.getCount()/10.0);
+		MyshopBoardDao dao = MyshopBoardDao.getInstance();
+		ArrayList<QnaBoardVo> list=dao.qnaList(email, startRow, endRow);
+		int pageCount=(int)Math.ceil(dao.getQnaCount(email)/10.0);
 		int startPage=((pageNum-1)/10*10)+1;
 		int endPage=startPage+9;
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
-		//sc.setAttribute("email", email);
 		request.setAttribute("list", list);
 		request.setAttribute("email", email);
-		request.setAttribute("name", name);
 		request.setAttribute("flag", flag);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("../board/qna_list.jsp").forward(request, response);
+		request.getRequestDispatcher("/myshop/myqna_list.jsp").forward(request, response);
 	}
 }

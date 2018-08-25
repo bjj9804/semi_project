@@ -14,14 +14,68 @@ import semi.db.DBConnection;
 
 public class MyshopBoardDao {
 	private static MyshopBoardDao instance = new MyshopBoardDao();
-
-	private MyshopBoardDao() {
-	}
-
+	private MyshopBoardDao() {}
 	public static MyshopBoardDao getInstance() {
 		return instance;
 	}
-
+	
+	
+	public int getReviewCount(String email) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = DBConnection.getConnection();
+			String sql="select NVL(count(num),0) cnt from reviewboard where email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}else {
+				return 0;
+			}
+		}catch(SQLException | ClassNotFoundException | NamingException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public int getQnaCount(String email) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = DBConnection.getConnection();
+			String sql="select NVL(count(num),0) cnt from qnaboard where email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}else {
+				return 0;
+			}
+		}catch(SQLException | ClassNotFoundException | NamingException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
 	public ArrayList<ReviewBoardVo> reveiwList(String email, int startRow, int endRow) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -45,8 +99,7 @@ public class MyshopBoardDao {
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate,
-						img);
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
 				list.add(vo);
 			}
 			return list;
@@ -71,8 +124,8 @@ public class MyshopBoardDao {
 		}
 	}
 
-	public ArrayList<QnaBoardVo> list(String email, int startRow, int endRow) {
-		String sql = "select * from( select AA.*, rownum rnum from ( select * from qanboard where email=? order by num desc) AA) where rnum>=? and rnum<=?";
+	public ArrayList<QnaBoardVo> qnaList(String email, int startRow, int endRow) {
+		String sql = "select * from( select AA.*, rownum rnum from ( select * from qnaboard where email=? and lev=0 order by num desc) AA) where rnum>=? and rnum<=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
