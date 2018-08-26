@@ -21,16 +21,14 @@
 				<table>
 					<tr>
 						<td>회원이메일</td>
-						<td>구매가격</td>
-						<td>구매상태</td>
-						<td>구매날짜</td>
+						<td>총구매가격</td>
+						<td>총구매횟수</td>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
-						<td>${vo.email }<input type="button" value="ㅇㅇㅇㅇ"></td>
-						<td>${vo.payMoney }</td>
-						<td>${vo.state }</td>
-						<td>${vo.orderDate }</td>
+						<td>${vo.email }</td>
+						<td>${vo.tot }</td>
+						<td>${vo.cnt }</td>
 					</tr>
 					</c:forEach>
 				</table>

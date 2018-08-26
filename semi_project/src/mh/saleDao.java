@@ -21,7 +21,7 @@ private static saleDao instance = new saleDao();
 		return instance;
 	}
 	
-	public ArrayList<PayVo> alllist(){
+	public ArrayList<PayVo> salelist(){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -41,6 +41,37 @@ private static saleDao instance = new saleDao();
 				int totalPrice=rs.getInt("totalPrice");
 				int payMoney=rs.getInt("payMoney");
 				PayVo vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);
+				list.add(vo);
+			}
+			return list;
+		} catch (ClassNotFoundException | SQLException | NamingException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return null;
+	}
+	public ArrayList<SaleUserVo> userlist(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select email, sum(payMoney) tot, count(email) cnt from pay group by email order by tot desc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			ArrayList<SaleUserVo> list=new ArrayList<>();
+			while(rs.next()) {
+				String email = rs.getString("email");
+				int tot = rs.getInt("tot");
+				int cnt = rs.getInt("cnt");
+				SaleUserVo vo = new SaleUserVo(email,tot,cnt);
 				list.add(vo);
 			}
 			return list;

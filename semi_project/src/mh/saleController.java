@@ -26,11 +26,14 @@ public class saleController extends HttpServlet{
 	}
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		saleDao dao = saleDao.getInstance();
-		ArrayList<PayVo> list = dao.alllist();
+		ArrayList<PayVo> list = dao.salelist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/sale/sale_list.jsp").forward(request, response);
 	}
 	protected void userlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		saleDao dao = saleDao.getInstance();
+		ArrayList<SaleUserVo> list = dao.userlist();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/sale/sale_userlist.jsp").forward(request, response);
 	}
 }

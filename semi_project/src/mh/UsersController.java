@@ -91,7 +91,7 @@ public class UsersController extends HttpServlet{
 		if(!email.equals("")) {//로그인을 하고 들어온 경우
 			UsersDao usersDao=UsersDao.getInstance();
 			UsersVo vo=usersDao.select(email);
-			flag=vo.getFlag();//관리자인지 회원인지	
+			flag=vo.getFlag();//관리자인지 회원인지
 		}else {//로그인을 안하고 들어온경우
 			flag=1;
 		}				
