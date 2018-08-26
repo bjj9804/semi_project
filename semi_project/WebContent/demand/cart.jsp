@@ -35,7 +35,7 @@
 					</tr>					
 					</c:forEach>						
 				</table>
-				<input type="button" value="내보내기" onclick="delete1()">
+				<input type="button" value="내보내기" onclick="delete1('${email}')">
 				<br><br>
 				
 				결제예정금액<div id="totalPrice1"></div>
@@ -117,7 +117,7 @@
 		}
 		
 	}
-	function delete1(){
+	function delete1(email){
 		var checkList="";
 		var chk=document.getElementsByName("check");
 		for(var i=1;i<chk.length;i++){
@@ -133,7 +133,7 @@
 		}
 		console.log(checkList);
 		if(confirm("삭제하시겠습니까?")){
-			location.href="/semi_project/jh/demand.do?checkList="+checkList+"&cmd=delete";
+			location.href="/semi_project/jh/demand.do?checkList="+checkList+"&cmd=delete&email="+email;
 		}
 	}	
 

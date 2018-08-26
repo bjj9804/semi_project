@@ -29,7 +29,7 @@ public class DemandController extends HttpServlet{
 		}else if(cmd!=null && cmd.equals("showOrderForm")) {//장바구니보기 누르면 메소드호출!
 			showOrderForm(request,response);
 		}else if(cmd!=null && cmd.equals("delete")) {//장바구니에서 상품삭제
-			
+			delete(request,response);
 		}
 	}	
 	
@@ -175,6 +175,19 @@ public class DemandController extends HttpServlet{
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/demand/orderForm.jsp").forward(request, response);
 		
+	}
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email=request.getParameter("email");
+		String checkList=request.getParameter("checkList");
+		String[] checkArray=checkList.split(",");
+		DemandDao dao=DemandDao.getInstance();
+		for(int i=0;i<checkArray.length;i++) {
+			int buyNum=Integer.parseInt(checkArray[i]);
+			dao.buyDelete(buyNum);
+		}
+		request.getRequestDispatcher("/jh/demand.do?cmd=showCart&email="+email).forward(request, response);
+		
+	
 	}
 }
 

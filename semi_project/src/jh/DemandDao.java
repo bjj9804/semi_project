@@ -339,6 +339,61 @@ public class DemandDao {
 			}
 		}
 	}
+	public int buyDelete(int buyNum) {//장바구니에 담긴 상품 삭제
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
+		ResultSet rs1=null;
+		ResultSet rs2=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql1="select orderNum from buy where buyNum=?";
+			pstmt1=con.prepareStatement(sql1);
+			pstmt1.setInt(1, buyNum);
+			rs1=pstmt1.executeQuery();
+			int orderNum=0;
+			if(rs1.next()) {
+				orderNum=rs1.getInt("orderNum");
+			}
+			String sql="delete from buy where buyNum=?";
+			pstmt=con.prepareStatement(sql);			
+			pstmt.setInt(1, buyNum);
+			if(pstmt.executeUpdate()>0) {
+				String sql2="select * from buy where orderNum=?";
+				pstmt2=con.prepareStatement(sql2);
+				pstmt2.setInt(1, orderNum);
+				rs2=pstmt2.executeQuery();
+				if(rs2.next()) {
+					return 1;
+				}else {
+					String sql3="delete from pay where orderNum=?";
+					pstmt3=con.prepareStatement(sql3);
+					pstmt3.setInt(1, orderNum);
+					return pstmt3.executeUpdate();
+				}
+			}
+			return 0;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {				
+				if(rs2!=null) rs2.close();
+				if(rs1!=null) rs1.close();
+				if(pstmt3!=null) pstmt3.close();
+				if(pstmt2!=null) pstmt2.close();
+				if(pstmt1!=null) pstmt1.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	
 	public int buyUpdate(int buyNum,int orderNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
