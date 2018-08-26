@@ -45,7 +45,7 @@
 							tds[j++].innerHTML = "";
 						}
 					}
-					tds[j].innerHTML = "<a href='#'>"+(i++)+"</a>";
+					tds[j].innerHTML = "<a href='#' onclick='fun1("+year.value+","+(Number(month.value)+1)+","+i+")'>"+(i++)+"</a>";
 				}
 				if(i > lastdays[d.getMonth()]) {
 					for(;;){
@@ -61,6 +61,10 @@
 					}
 				}
 			}
+		}
+		
+		function fun1(year,month,day){
+			alert(""+year+month+day);
 		}
 	</script>
 </head>
