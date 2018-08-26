@@ -41,10 +41,10 @@
 				</tr>
 				<tr>
 					<th>사진</th>
-					<td></td>
+					<td><img src="/semi_project/Upload/${vo.img}"></td>
 			</table>
 			<input type="button" value="review 목록"
-				onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=list&email=${email }'"
+				onclick="javascript:location.href='/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${pageNum }'"
 				style="margin-left: 5%">
 			<c:if test="${email==vo.email}">
 				<input type="button" value="수정"

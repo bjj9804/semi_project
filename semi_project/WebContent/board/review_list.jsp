@@ -28,7 +28,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/reviewBoard.do?cmd=detail&num=${vo.num }&flag=${flag}">${vo.title }</a>
+								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
@@ -83,7 +83,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/reviewBoard.do?cmd=detail&email=${email }&flag=${flag}&num=${vo.num }">${vo.title }</a>
+								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&email=${email }&flag=${flag}&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>

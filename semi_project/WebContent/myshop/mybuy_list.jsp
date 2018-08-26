@@ -41,7 +41,7 @@
 			</c:if>
 			<!-- 구매확정이 완료되면 교환,환불버튼이 안보이고 리뷰남기기버튼이 보인다.. -->
 			<c:if test="${vo.state=='구매완료' }">
-			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href=''"></td>
+			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href='/semi_project/board/review_insert.jsp'"></td>
 			</c:if>
 			</tr>
 			</c:forEach>
