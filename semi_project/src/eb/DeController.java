@@ -29,6 +29,8 @@ public class DeController extends HttpServlet {
 			mylist(request,response);
 		}else if(cmd!=null && cmd.equals("stateconfirm")) {
 			stateconfirm(request,response);
+		}else if(cmd!=null && cmd.equals("cancel")) {
+			cancel(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -68,5 +70,14 @@ public class DeController extends HttpServlet {
 			request.setAttribute("n", n);
 			request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);	
 	}
+		protected void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
+			int num=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			int n=dao.paycancel(num);
+		
+			if(n>0) {
+				request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
+			}
+		}
 }
 

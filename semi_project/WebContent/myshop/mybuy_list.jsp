@@ -31,7 +31,7 @@
 			<td>${vo.state }</td>
 			<!-- 배송준비중상태에서는 바로 취소가 가능한 취소버튼이 보인다. -->
 			<c:if test="${vo.state=='배송준비중' }">
-			<td><input type="button" value="구매취소" onclick="javascript:location.href=''"></td>
+			<td><input type="button" value="구매취소" onclick="javascript:location.href='demand.do?cmd=cancel&num=${vo.orderNum}'"></td>
 			</c:if>
 			<!-- 판매자가 배송을 완료하여 배송중상태여야지 구매확정버튼이 보인다. -->
 			<c:if test="${vo.state=='배송중' }">
