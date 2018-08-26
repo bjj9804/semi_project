@@ -27,7 +27,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/reviewBoard.do?cmd=detail&num=${vo.num }&flag=${flag}">${vo.title }</a>
+								href="/semi_project/myshopBoard.do?cmd=reviewDetail&num=${vo.num }&flag=${flag}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
@@ -37,7 +37,7 @@
 					<c:choose>
 						<c:when test="${pageNum>10}">
 							<a
-								href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+								href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum=${startPage-1 }">[이전]</a>
 						</c:when>
 						<c:otherwise>
 			[이전]
@@ -47,12 +47,12 @@
 						<c:choose>
 							<c:when test="${pageNum==i }">
 								<a
-									href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
+									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
 									style="color: red">[${i }]</span></a>
 							</c:when>
 							<c:otherwise>
 								<a
-									href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
+									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
 									style="color: #555">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>

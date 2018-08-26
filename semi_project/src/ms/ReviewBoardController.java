@@ -95,6 +95,7 @@ public class ReviewBoardController extends HttpServlet {
 
 	public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
+		System.out.println(spageNum);
 		int pageNum = 1;
 		if (spageNum != null) {
 			pageNum = Integer.parseInt(spageNum);
@@ -175,11 +176,19 @@ public class ReviewBoardController extends HttpServlet {
 
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
+		String cmd1 = request.getParameter("cmd1");
+		int flag=Integer.parseInt(request.getParameter("flag"));
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n=dao.hitup(num);
 		ReviewBoardVo vo = dao.detail(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
+		request.setAttribute("flag", flag);
+		request.setAttribute("pageNum", request.getAttribute("pageNum"));
+		if(cmd1.equals("update")) {
+			request.getRequestDispatcher("/board/review_update.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
+		}
 	}
 	
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

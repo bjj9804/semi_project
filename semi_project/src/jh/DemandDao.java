@@ -17,6 +17,40 @@ public class DemandDao {
 	public static DemandDao getInstance() {
 		return instance;
 	}
+	public ArrayList<CouponVo> getCoupon(String email) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<CouponVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from coupon where email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String couponName=rs.getString("couponName");
+				String couponState=rs.getString("couponState");
+				Date offerDate=rs.getDate("offerDate");
+				Date endDate=rs.getDate("endDate");
+				//CouponVo vo=new CouponVo(couponName, email, couponState, offerDate, endDate);
+				CouponVo vo=new CouponVo(couponName, email, null, null, null);
+				list.add(vo);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	
 	public int cartCheck(int cartNum) {//buyTb에 cartNum를 갖는 장바구니정보가 남아있는지
 		Connection con=null;

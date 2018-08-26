@@ -26,7 +26,6 @@
 								<c:forEach var="i" begin="1" end="${vo.lev }">
 									&nbsp;&nbsp;
 							</c:forEach>
-							└
 						</c:if> <a
 							href="qnalist.do?cmd=detail&num=${vo.num }&email=${email }&name=${name}&flag=${flag}">${vo.title }</a>
 						</td>
