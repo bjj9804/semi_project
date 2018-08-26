@@ -10,7 +10,8 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/reviewBoard.do?cmd=insert&email=${email }" method="post">
+			<form action="/semi_project/reviewBoard.do?cmd=insert&email=${email }" method="post" 
+			enctype="multipart/form-data">
 				height<select name="height">
 					<option value="0">입력안함</option>
 					<option value="140">~140</option>

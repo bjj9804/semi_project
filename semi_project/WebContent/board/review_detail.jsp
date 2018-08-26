@@ -40,8 +40,8 @@
 					<td>${vo.regdate }</td>
 				</tr>
 				<tr>
-					<th>사진</th>
-					<td></td>
+					<th>사진</th> ${vo.img}
+					<td><img src="/semi_project/Upload/${vo.img}"></td>
 			</table>
 			<input type="button" value="review 목록"
 				onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=list&email=${email }'"
