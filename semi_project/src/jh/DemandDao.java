@@ -391,8 +391,7 @@ public class DemandDao {
 				se.printStackTrace();
 			}
 		}
-	}
-	
+	}	
 	
 	public int buyUpdate(int buyNum,int orderNum) {
 		Connection con=null;

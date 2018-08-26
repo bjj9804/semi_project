@@ -185,6 +185,7 @@ public class DemandController extends HttpServlet{
 			int buyNum=Integer.parseInt(checkArray[i]);
 			dao.buyDelete(buyNum);
 		}
+		
 		request.getRequestDispatcher("/jh/demand.do?cmd=showCart&email="+email).forward(request, response);
 		
 	
