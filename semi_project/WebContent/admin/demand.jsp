@@ -29,7 +29,7 @@
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
 			<td>${vo.state }</td>
-			<td><input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateupdate&num=${vo.orderNum}'"></td>
+			<td><input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'"></td>
 			</tr>
 			</c:forEach>
 			</table>

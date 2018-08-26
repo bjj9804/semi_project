@@ -5,6 +5,7 @@
 <html lang="ko">
 <head>
 <jsp:include page="/inc/header.jsp" />
+
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp" />
@@ -40,23 +41,23 @@
 					<td>${vo.regdate }</td>
 				</tr>
 				<tr>
-					<th>사진</th>
-					<td></td>
+					<th>사진</th> ${vo.img}
+					<td><img src="/semi_project/Upload/${vo.img}"></td>
 			</table>
 			<input type="button" value="review 목록"
-				onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=list&email=${email }'"
+				onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${pageNum }'"
 				style="margin-left: 5%">
 			<c:if test="${email==vo.email}">
 				<input type="button" value="수정"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=update&num=${vo.num}'"
+					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=detail&cmd1=update&num=${vo.num}'"
 					style="margin-left: 5%">
 				<input type="button" value="삭제"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=delete&email=${email}&pageNum=${pageNum }'"
+					onclick="javascript:location.href='/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&email=${email}&pageNum=${pageNum }'"
 					style="margin-left: 5%">
 			</c:if>
 			<c:if test="${flag==0 }">
 				<input type="button" value="삭제"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=delete&email=${email}&pageNum=${pageNum }'"
+					onclick="javascript:location.href='/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&email=${email}&pageNum=${pageNum }'"
 					style="margin-left: 5%">
 			</c:if>
 		</div>

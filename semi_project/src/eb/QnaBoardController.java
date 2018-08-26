@@ -38,7 +38,6 @@ public class QnaBoardController extends HttpServlet {
 		//ServletContext sc= getServletContext();
 		String spageNum=request.getParameter("pageNum");
 		String email=request.getParameter("email");
-		System.out.println(email+"111");
 		UsersDao dao1=UsersDao.getInstance();
 		UsersVo vo=null;
 		String name="";

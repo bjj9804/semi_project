@@ -94,7 +94,11 @@
 							@
 						</td>
 						<td>
+<<<<<<< HEAD
 							<select name="emailok2" id="reemail2">
+=======
+							<select name="emailok2" id="reemail1">
+>>>>>>> refs/remotes/origin/master
 								<option value="">옵션선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="hanmail.net">hanmail.net</option>

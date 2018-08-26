@@ -14,7 +14,7 @@
 			</h2>
 			<div>
 				<ul class="admin_menu"> 
-					<li><a href="#">주문 배송 조회</a></li>
+					<li><a href="/semi_project/demand.do?cmd=mylist&email=${email }">주문 배송 조회</a></li>
 					<li><a href="profile.jsp">정보 수정</a></li>
 					<li><a href="myboard.jsp">게시물</a></li>
 					<li><a href="#">쿠폰</a></li>

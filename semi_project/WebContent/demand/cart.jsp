@@ -35,15 +35,15 @@
 					</tr>					
 					</c:forEach>						
 				</table>
-				<input type="button" value="내보내기" onclick="delete1()">
+				<input type="button" value="내보내기" onclick="delete1('${email}')">
 				<br><br>
 				
 				결제예정금액<div id="totalPrice1"></div>
 				<input type="hidden" name="totalPrice">
 				<input type="hidden" name="email" value="${email }">
 				<input type="hidden" id="buyList" name="buyList">
-				<input type="button" value="선택상품주문" onclick="getBuyList()">			
-				<a href="">쇼핑계속하기</a>
+				<input type="button" value="선택상품주문" onclick="getBuyList('${email}')">			
+				<a href="javascript:history.go(-1)">쇼핑계속하기</a>
 			</form>
 		</div>
 	</div>
@@ -69,6 +69,12 @@
 			for(var i=1;i<chk.length;i++){
 				chk[i].checked=false;				
 			}
+			var totalPrice1=document.getElementById("totalPrice1");
+			var totalPrice=document.getElementsByName("totalPrice")[0];			
+			totalPrice1.innerHTML=0;
+			totalPrice.value=0;
+			
+			
 		}
 	}
 	function check1(){
@@ -95,16 +101,24 @@
 		var buyList=document.getElementById("buyList");
 		var checkList="";
 		var chk=document.getElementsByName("check");
+		var bool=false;
 		for(var i=1;i<chk.length;i++){
 			if(chk[i].checked==true){
 				checkList+=chk[i].value+",";
+				bool=true;
 			}
 		}
-		checkList=checkList.substring(0,checkList.lastIndexOf(","));//맨끝 콤마 지우기
-		buyList.value=checkList;
-		cart.submit();
+		if(bool==true){
+			checkList=checkList.substring(0,checkList.lastIndexOf(","));//맨끝 콤마 지우기
+			buyList.value=checkList;
+			cart.submit();
+		}else{
+			alert("구매할 상품을 선택해주세요");
+		}
+		
 	}
-	function delete1(){
+	
+	function delete1(email){
 		var checkList="";
 		var chk=document.getElementsByName("check");
 		for(var i=1;i<chk.length;i++){
@@ -120,7 +134,7 @@
 		}
 		console.log(checkList);
 		if(confirm("삭제하시겠습니까?")){
-			location.href="/semi_project/jh/demand.do?checkList="+checkList+"&cmd=delete";
+			location.href="/semi_project/jh/demand.do?checkList="+checkList+"&cmd=delete&email="+email;
 		}
 	}	
 

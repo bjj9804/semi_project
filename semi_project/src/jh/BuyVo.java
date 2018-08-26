@@ -67,6 +67,11 @@ public class BuyVo {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public void getEmail() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

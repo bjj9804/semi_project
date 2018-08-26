@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -39,7 +41,7 @@ public class ReviewBoardController extends HttpServlet {
 		}
 	}
 
-	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		UsersDao udao = UsersDao.getInstance();
 		UsersVo uvo = udao.select(email);
@@ -55,10 +57,45 @@ public class ReviewBoardController extends HttpServlet {
 		if (n > 0) {
 			list(request, response);
 		}
+	}*/
+	
+	protected void insert(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ServletContext context = getServletContext(); // 어플리케이션에 대한 정보를 ServletContext 객체가 갖음
+		String saveDir = context.getRealPath("Upload"); // 절대경로를 가져옴
+		System.out.println("절대경로 >> " + saveDir);
+
+		int maxSize = 3 * 1024 * 1024;
+		String encoding = "utf-8";
+
+		boolean isMulti = ServletFileUpload.isMultipartContent(request);
+		if (isMulti) {
+			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
+					new DefaultFileRenamePolicy());
+			String img = mr.getFilesystemName("img");
+			System.out.println(img);
+			String email = mr.getParameter("email");
+			UsersDao udao = UsersDao.getInstance();
+			UsersVo uvo = udao.select(email);
+			String title = mr.getParameter("title");
+			String content = mr.getParameter("content");
+			int height = Integer.parseInt(mr.getParameter("height"));
+			int weight = Integer.parseInt(mr.getParameter("weight"));
+			System.out.println(email + title + content + height + weight + img);
+			ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img);
+			ReviewBoardDao dao = ReviewBoardDao.getInstance();
+			int n = dao.insert(vo);
+			if (n > 0) {
+				list(request, response);
+			}else {
+				System.out.println("안됨");
+			}
+		}
 	}
 
 	public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
+		System.out.println(spageNum);
 		int pageNum = 1;
 		if (spageNum != null) {
 			pageNum = Integer.parseInt(spageNum);
@@ -139,11 +176,19 @@ public class ReviewBoardController extends HttpServlet {
 
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
+		String cmd1 = request.getParameter("cmd1");
+		int flag=Integer.parseInt(request.getParameter("flag"));
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n=dao.hitup(num);
 		ReviewBoardVo vo = dao.detail(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
+		request.setAttribute("flag", flag);
+		request.setAttribute("pageNum", request.getAttribute("pageNum"));
+		if(cmd1.equals("update")) {
+			request.getRequestDispatcher("/board/review_update.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
+		}
 	}
 	
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

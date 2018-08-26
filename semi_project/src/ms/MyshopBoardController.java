@@ -3,7 +3,6 @@ package ms;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import eb.QnaBoardVo;
 
-@WebServlet("/myshopBoard")
+@WebServlet("/myshopBoard.do")
 public class MyshopBoardController extends HttpServlet {
 	//public ServletContext sc = getServletContext();
 	static HttpSession session = null;
@@ -25,7 +24,10 @@ public class MyshopBoardController extends HttpServlet {
 		session = request.getSession();
 		if (cmd != null && cmd.equals("reviewList")) {
 			reviewList(request, response);
-		}else if(cmd !=null && cmd.equals("qnaList")) {
+		}else if(cmd !=null && cmd.equals("reviewDetail")) {
+			reviewDetail(request, response);
+		}
+		else if(cmd !=null && cmd.equals("qnaList")) {
 			qnaList(request, response);
 		}
 	}
@@ -69,7 +71,7 @@ public class MyshopBoardController extends HttpServlet {
 		int n=dao.hitup(num);
 		ReviewBoardVo vo = dao.detail(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
+		request.getRequestDispatcher("/myshop/myreview_detail.jsp").forward(request, response);
 	}
 	
 	public void ReviewDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

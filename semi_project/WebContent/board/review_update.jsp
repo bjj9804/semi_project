@@ -10,7 +10,7 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/reviewBoard.do?cmd=insert&email=${email }" method="post" 
+			<form action="/semi_project/reviewBoard.do?cmd=update&email=${email }" method="post" 
 			enctype="multipart/form-data">
 				height<select name="height">
 					<option value="0">입력안함</option>
@@ -35,15 +35,15 @@
 				<table>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="title"></td>
+						<td><input type="text" name="title" value="${vo.title }"></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea rows="5" cols="50" name="content"></textarea></td>
+						<td><textarea rows="5" cols="50" name="content">${vo.content }</textarea></td>
 					</tr>
 					<tr>
 						<td>리뷰사진</td>
-						<td><input type="file" name="img"></td>
+						<td><input type="file" name="img" value="vo.img"></td>
 					</tr>
 				</table>
 				<input type="submit" value="작성">

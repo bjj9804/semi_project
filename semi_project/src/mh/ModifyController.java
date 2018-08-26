@@ -25,7 +25,6 @@ public class ModifyController extends HttpServlet{
 		}
 	}
 	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email");
 		UsersDao dao = UsersDao.getInstance();
 		int n = dao.delete(email);
@@ -37,7 +36,6 @@ public class ModifyController extends HttpServlet{
 		request.getRequestDispatcher("../myshop/deleteok.jsp").forward(request, response);
 	}
 	protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		String email = (String)request.getSession().getAttribute("email");
 		String pwd = request.getParameter("pwd");
 		UsersDao dao = UsersDao.getInstance();
@@ -54,7 +52,6 @@ public class ModifyController extends HttpServlet{
 		}
 	}
 	protected void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email");
 		String password = request.getParameter("pwd");
 		String phone = request.getParameter("phone");

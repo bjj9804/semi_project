@@ -17,6 +17,39 @@ public class DemandDao {
 	public static DemandDao getInstance() {
 		return instance;
 	}
+	public ArrayList<CouponVo> getCoupon(String email) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<CouponVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from coupon where email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String couponName=rs.getString("couponName");
+				String couponState=rs.getString("couponState");
+				Date offerDate=rs.getDate("offerDate");
+				Date endDate=rs.getDate("endDate");
+				CouponVo vo=new CouponVo(couponName, email, couponState, offerDate, endDate);
+				list.add(vo);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	
 	public int cartCheck(int cartNum) {//buyTb에 cartNum를 갖는 장바구니정보가 남아있는지
 		Connection con=null;
@@ -101,7 +134,9 @@ public class DemandDao {
 	public int getOrderNum(String email) {//주문번호 얻어오기
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
 		ResultSet rs=null;
+		ResultSet rs1=null;
 		try {
 			con=DBConnection.getConnection();
 			String sql="select max(orderNum) as orderNum from pay where email=?";
@@ -114,7 +149,17 @@ public class DemandDao {
 								//어차피 이 처리는 카트이후에 이루어져야하니깐 비어있진 않을것!그러니깐 이 테이블을 사용하려면 max는 항상 존재.
 					orderNum=0;
 				}
-				return orderNum+1;
+				String sql1="select max(orderNum) as orderNum from pay";
+				pstmt1=con.prepareStatement(sql1);
+				rs1=pstmt1.executeQuery();
+				if(rs1.next()) {
+					orderNum=rs1.getInt("orderNum");
+					if(orderNum<0) {
+						orderNum=1;
+						return orderNum;
+					}
+					return orderNum+1;
+				}				
 			}			
 			return 0;
 		}catch(Exception e) {
@@ -122,6 +167,8 @@ public class DemandDao {
 			return 0;
 		}finally {
 			try {				
+				if(rs1!=null) rs1.close();
+				if(pstmt1!=null) pstmt1.close();
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
 				if(con!=null) con.close();				
@@ -292,6 +339,60 @@ public class DemandDao {
 			}
 		}
 	}
+	public int buyDelete(int buyNum) {//장바구니에 담긴 상품 삭제
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
+		ResultSet rs1=null;
+		ResultSet rs2=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql1="select orderNum from buy where buyNum=?";
+			pstmt1=con.prepareStatement(sql1);
+			pstmt1.setInt(1, buyNum);
+			rs1=pstmt1.executeQuery();
+			int orderNum=0;
+			if(rs1.next()) {
+				orderNum=rs1.getInt("orderNum");
+			}
+			String sql="delete from buy where buyNum=?";
+			pstmt=con.prepareStatement(sql);			
+			pstmt.setInt(1, buyNum);
+			if(pstmt.executeUpdate()>0) {
+				String sql2="select * from buy where orderNum=?";
+				pstmt2=con.prepareStatement(sql2);
+				pstmt2.setInt(1, orderNum);
+				rs2=pstmt2.executeQuery();
+				if(rs2.next()) {
+					return 1;
+				}else {
+					String sql3="delete from pay where orderNum=?";
+					pstmt3=con.prepareStatement(sql3);
+					pstmt3.setInt(1, orderNum);
+					return pstmt3.executeUpdate();
+				}
+			}
+			return 0;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {				
+				if(rs2!=null) rs2.close();
+				if(rs1!=null) rs1.close();
+				if(pstmt3!=null) pstmt3.close();
+				if(pstmt2!=null) pstmt2.close();
+				if(pstmt1!=null) pstmt1.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}	
+	
 	public int buyUpdate(int buyNum,int orderNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -322,8 +423,8 @@ public class DemandDao {
 		ArrayList<BuyVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConnection();
-			String sql="select * from buy where orderNum=("
-					+ "select orderNum from pay where email=?)";
+			String sql="select * from buy where orderNum =("
+					+ "select orderNum from pay where email=? and orderNum<0)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs=pstmt.executeQuery();
@@ -350,6 +451,38 @@ public class DemandDao {
 			}
 		}
 	}
+	public BuyVo getBuyVo(int buyNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from buy where buyNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, buyNum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int orderNum=rs.getInt("orderNum");
+				String code=rs.getString("code");
+				String isize=rs.getString("isize");
+				int orderAmount=rs.getInt("orderAmount");
+				int price=rs.getInt("Price");
+				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price);
+				return bvo;				
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int payInsert(PayVo pvo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -363,6 +496,7 @@ public class DemandDao {
 			pstmt.setString(4, pvo.getEmail());
 			pstmt.setInt(5, pvo.getTotalPrice());
 			pstmt.setInt(6, pvo.getPayMoney());
+			System.out.println(pvo.getOrderNum()+","+pvo.getMethod()+","+pvo.getAddr()+","+pvo.getEmail()+","+pvo.getTotalPrice()+","+pvo.getPayMoney());
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();

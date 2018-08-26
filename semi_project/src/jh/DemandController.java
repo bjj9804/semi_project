@@ -29,7 +29,7 @@ public class DemandController extends HttpServlet{
 		}else if(cmd!=null && cmd.equals("showOrderForm")) {//장바구니보기 누르면 메소드호출!
 			showOrderForm(request,response);
 		}else if(cmd!=null && cmd.equals("delete")) {//장바구니에서 상품삭제
-			
+			delete(request,response);
 		}
 	}	
 	
@@ -87,15 +87,22 @@ public class DemandController extends HttpServlet{
 		//String state=request.getParameter("state"); 
 		String method=request.getParameter("method");
 		String addr=request.getParameter("addr");		
+		String payMoney1=request.getParameter("payMoney");	
+		int payMoney=0;
 		int totalPrice=Integer.parseInt(request.getParameter("totalPrice"));
-		int payMoney=Integer.parseInt(request.getParameter("payMoney"));
-		
+		if(payMoney1==null||payMoney1.equals("")) {
+			payMoney=totalPrice;
+		}else {
+			payMoney=Integer.parseInt(payMoney1);					
+		}
+		System.out.println(orderNum);
 		//buyTb과 payTb 주문번호 update시키기
 		PayVo pvo=new PayVo(orderNum, null, null, method, addr, email, totalPrice, payMoney);
 		if(dao.payInsert(pvo)>0) {
 			System.out.println("payTb에 생성");
 		}else {
 			System.out.println("payTb에 생성실패!!!!");
+			return;
 		}
 		String buyList=request.getParameter("buyList");//buyNum들을 갖고옴
 		String[] buyArray=buyList.split(",");		
@@ -112,11 +119,15 @@ public class DemandController extends HttpServlet{
 		int check=dao.cartCheck(cartNum);
 		if(check==0) {
 			if(dao.payDelete(cartNum)>0) {
-				System.out.println("payTb에서 장바구니정보삭제");
+				System.out.println("payTb에서 장바구니정보삭제");				
 			}else {
 				System.out.println("payTb에서 장바구니정보삭제 실패!!!!");
 			}
 		}
+		eb.DemandDao dmDao=eb.DemandDao.getInstance();
+		ArrayList<PayVo> list=dmDao.mylist(email);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
 	}
 	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
@@ -141,23 +152,47 @@ public class DemandController extends HttpServlet{
 		String email=request.getParameter("email");
 		String buyList=request.getParameter("buyList");
 		String totalPrice=request.getParameter("totalPrice");
-		System.out.println(email+","+buyList+","+totalPrice);
-//		DemandDao dao=DemandDao.getInstance();
-//		ArrayList<Object[]> list=new ArrayList<>();
-//		ArrayList<BuyVo> blist=dao.getBuyVo(email);
-//		for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
-//			String code=bvo.getCode();
-//			LookVo lvo=dao.getLookVo(code);
-//			String lookFront=lvo.getLookFront();
-//			ItemVo ivo=dao.getItemVo(code);
-//			String description=ivo.getDescription();
-//			int price=ivo.getPrice();
-//			Object[] ob= {bvo,lookFront,description,price};
-//			list.add(ob);
-//		}
-//		request.setAttribute("list", list);
-//		request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
 		
+		ArrayList<Object[]> list=new ArrayList<>();
+		DemandDao dao=DemandDao.getInstance();
+		String[] buyArray=buyList.split(",");
+		for(int i=0;i<buyArray.length;i++) {
+			int buyNum=Integer.parseInt(buyArray[i]);
+			BuyVo bvo=dao.getBuyVo(buyNum);
+			String code=bvo.getCode();
+			String lookFront=dao.getLookVo(code).getLookFront();
+			ItemVo ivo=dao.getItemVo(code);
+			String description=ivo.getDescription();
+			int price=ivo.getPrice();
+			Object[] ob= {bvo,lookFront,description,price};
+			list.add(ob);
+		}		
+		ArrayList<CouponVo> cvo=dao.getCoupon(email);		
+		
+		UsersVo usersvo=UsersDao.getInstance().select(email);
+		
+		request.setAttribute("cvo", cvo);
+		request.setAttribute("buyList", buyList);
+		request.setAttribute("email", email);
+		request.setAttribute("totalPrice", totalPrice);
+		request.setAttribute("usersvo", usersvo);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/demand/orderForm.jsp").forward(request, response);
+		
+	}
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email=request.getParameter("email");
+		String checkList=request.getParameter("checkList");
+		String[] checkArray=checkList.split(",");
+		DemandDao dao=DemandDao.getInstance();
+		for(int i=0;i<checkArray.length;i++) {
+			int buyNum=Integer.parseInt(checkArray[i]);
+			dao.buyDelete(buyNum);
+		}
+		
+		request.getRequestDispatcher("/jh/demand.do?cmd=showCart&email="+email).forward(request, response);
+		
+	
 	}
 }
 

@@ -82,7 +82,6 @@ public class UsersController extends HttpServlet{
 		}
 	}
 	protected void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email1") + request.getParameter("email2");
 		String password = request.getParameter("pwd");
 		int question = Integer.parseInt(request.getParameter("question"));
@@ -110,7 +109,7 @@ public class UsersController extends HttpServlet{
 		if(!email.equals("")) {//로그인을 하고 들어온 경우
 			UsersDao usersDao=UsersDao.getInstance();
 			UsersVo vo=usersDao.select(email);
-			flag=vo.getFlag();//관리자인지 회원인지	
+			flag=vo.getFlag();//관리자인지 회원인지
 		}else {//로그인을 안하고 들어온경우
 			flag=1;
 		}				
