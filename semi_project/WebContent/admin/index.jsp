@@ -14,7 +14,7 @@
 				<li><a href="/semi_project/item/item_list.jsp">상품관리</a></li>
 				<li><a href="/semi_project/board/index.jsp">게시글관리</a></li>
 				<li><a href="/semi_project/demand.do?cmd=paylist">주문관리</a></li>
-				<li><a href="#">판매관리</a></li>
+				<li><a href="/semi_project/mh/sale.do?cmd=salelist">판매관리</a></li>
 			</ul>
 		</div>
 	</div>
