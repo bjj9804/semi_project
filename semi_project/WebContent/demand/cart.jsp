@@ -43,7 +43,7 @@
 				<input type="hidden" name="email" value="${email }">
 				<input type="hidden" id="buyList" name="buyList">
 				<input type="button" value="선택상품주문" onclick="getBuyList('${email}')">			
-				<a href="">쇼핑계속하기</a>
+				<a href="javascript:history.go(-1)">쇼핑계속하기</a>
 			</form>
 		</div>
 	</div>

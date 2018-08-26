@@ -90,8 +90,8 @@ public class DemandController extends HttpServlet{
 		String payMoney1=request.getParameter("payMoney");	
 		int payMoney=0;
 		int totalPrice=Integer.parseInt(request.getParameter("totalPrice"));
-		if(payMoney1==null) {
-			payMoney=0;
+		if(payMoney1==null||payMoney1.equals("")) {
+			payMoney=totalPrice;
 		}else {
 			payMoney=Integer.parseInt(payMoney1);					
 		}
@@ -124,6 +124,10 @@ public class DemandController extends HttpServlet{
 				System.out.println("payTb에서 장바구니정보삭제 실패!!!!");
 			}
 		}
+		eb.DemandDao dmDao=eb.DemandDao.getInstance();
+		ArrayList<PayVo> list=dmDao.mylist(email);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
 	}
 	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
