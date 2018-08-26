@@ -141,22 +141,29 @@ public class DemandController extends HttpServlet{
 		String email=request.getParameter("email");
 		String buyList=request.getParameter("buyList");
 		String totalPrice=request.getParameter("totalPrice");
-		System.out.println(email+","+buyList+","+totalPrice);
-//		DemandDao dao=DemandDao.getInstance();
-//		ArrayList<Object[]> list=new ArrayList<>();
-//		ArrayList<BuyVo> blist=dao.getBuyVo(email);
-//		for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
-//			String code=bvo.getCode();
-//			LookVo lvo=dao.getLookVo(code);
-//			String lookFront=lvo.getLookFront();
-//			ItemVo ivo=dao.getItemVo(code);
-//			String description=ivo.getDescription();
-//			int price=ivo.getPrice();
-//			Object[] ob= {bvo,lookFront,description,price};
-//			list.add(ob);
-//		}
-//		request.setAttribute("list", list);
-//		request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
+		
+		ArrayList<Object[]> list=new ArrayList<>();
+		DemandDao dao=DemandDao.getInstance();
+		String[] buyArray=buyList.split(",");
+		for(int i=0;i<buyArray.length;i++) {
+			int buyNum=Integer.parseInt(buyArray[i]);
+			BuyVo bvo=dao.getBuyVo(buyNum);
+			String code=bvo.getCode();
+			String lookFront=dao.getLookVo(code).getLookFront();
+			ItemVo ivo=dao.getItemVo(code);
+			String description=ivo.getDescription();
+			int price=ivo.getPrice();
+			Object[] ob= {bvo,lookFront,description,price};
+			list.add(ob);
+		}		
+		
+		UsersVo usersvo=UsersDao.getInstance().select(email);
+		
+		request.setAttribute("email", email);
+		request.setAttribute("totalPrice", totalPrice);
+		request.setAttribute("usersvo", usersvo);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/demand/orderForm.jsp").forward(request, response);
 		
 	}
 }

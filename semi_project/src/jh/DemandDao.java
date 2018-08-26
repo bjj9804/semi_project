@@ -350,6 +350,38 @@ public class DemandDao {
 			}
 		}
 	}
+	public BuyVo getBuyVo(int buyNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from buy where buyNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, buyNum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int orderNum=rs.getInt("orderNum");
+				String code=rs.getString("code");
+				String isize=rs.getString("isize");
+				int orderAmount=rs.getInt("orderAmount");
+				int price=rs.getInt("Price");
+				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price);
+				return bvo;				
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int payInsert(PayVo pvo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
