@@ -72,7 +72,7 @@
 				<h2>판매 전체 리스트</h2>
 				<ul class="admin_menu">
 					<li><a href="/semi_project/mh/sale.do?cmd=salelist">전체보기</a></li>
-					<li><a href="#">회원별</a></li>
+					<li><a href="/semi_project/mh/sale.do?cmd=userlist">회원별</a></li>
 					<li><a href="#">날짜별</a></li>
 					<li><a href="#">상품별</a></li>
 				</ul>
