@@ -11,10 +11,10 @@
 	<div id="content">
 		<div class="inner">
 			<table border="1" width=900px bordercolor="black">
-			<h1>주문서</h1>
+			<h1>나의 주문내역</h1>
 			<tr>
+			<td>주문일시</td>
 			<td>주문번호</td>
-			<td>주문자이메일</td>
 			<td>배송지</td>
 			<td>총가격</td>
 			<td>실결제가</td>
@@ -23,13 +23,21 @@
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
+			<td>${vo.orderDate }</td>
 			<td><a href="demand.do?cmd=buylist&num=${vo.orderNum}">${vo.orderNum }</a></td>
-			<td>${vo.email }</td>
 			<td>${vo.addr }</td>
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
 			<td>${vo.state }</td>
-			<td><input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'"></td>
+			<!-- 판매자가 배송을 완료하여 배송중상태여야지 구매확정버튼이 보인다. -->
+			<c:if test="${vo.state=='배송중' }">
+			<td><input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm&num=${vo.orderNum}'"></td>
+			</c:if>
+			<!-- 구매확정이 완료되면 교환,환불버튼이 안보여야한다. -->
+			<c:if test="${vo.state=='구매완료' }">
+			<td><input type="button" value="교환" onclick="javascript:location.href='demand.do?cmd=stateupdate&num=${vo.orderNum}'"></td>
+			<td><input type="button" value="환불" onclick="javascript:location.href='demand.do?cmd=stateupdate&num=${vo.orderNum}'"></td>
+			</c:if>
 			</tr>
 			</c:forEach>
 			</table>

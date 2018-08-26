@@ -112,7 +112,7 @@ public class DemandDao {
 	}
 	
 	
-	//배송상태 업데이트
+	//배송상태 업데이트(관리자-배송완료)
 	public int update(int num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -136,6 +136,80 @@ public class DemandDao {
 			}
 		}
 	}
+	
+	
+	//나(회원) 주문확인
+	public ArrayList<PayVo> mylist(String email) {
+		String sql="select * from pay where email=?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			pstmt=con.prepareStatement(sql);	
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			ArrayList<PayVo> list=new ArrayList<>();
+			while(rs.next()) {
+				int orderNum=rs.getInt("orderNum");
+				Date orderDate=rs.getDate("orderDate");
+				String state=rs.getString("state");
+				String method=rs.getString("method");
+				String addr=rs.getString("addr");
+				int totalPrice=rs.getInt("totalPrice");
+				int payMoney=rs.getInt("payMoney");
+				PayVo vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);
+				list.add(vo);
+			}
+		return list;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(rs!=null) rs.close();
+				if(con!=null) con.close();		
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	//배송상태 업데이트(구매자-구매확정)
+		public int payconfirm(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="update pay set state=? where orderNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, "구매완료");
+				pstmt.setInt(2, num);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	
+	
+	
+	
 	}
 	
 	

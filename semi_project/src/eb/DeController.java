@@ -23,8 +23,12 @@ public class DeController extends HttpServlet {
 			paylist(request,response);
 		}else if(cmd!=null && cmd.equals("buylist")) {
 			buylist(request,response);
-		}else if(cmd!=null && cmd.equals("stateupdate")) {
-			stateupdate(request,response);
+		}else if(cmd!=null && cmd.equals("stateadmin")) {
+			stateadmin(request,response);
+		}else if(cmd!=null && cmd.equals("mylist")) {
+			mylist(request,response);
+		}else if(cmd!=null && cmd.equals("stateconfirm")) {
+			stateconfirm(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -41,12 +45,28 @@ public class DeController extends HttpServlet {
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/admin/demand_detail.jsp").forward(request, response);	
 	}
-		protected void stateupdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		protected void stateadmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();
 			int n=dao.update(orderNum);
 			request.setAttribute("n", n);
 			request.getRequestDispatcher("demand.do?cmd=paylist").forward(request, response);	
+	}
+		protected void mylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String email=request.getParameter("email");
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<PayVo> list=dao.mylist(email);
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
+			
+}
+		
+		protected void stateconfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			int n=dao.payconfirm(orderNum);
+			request.setAttribute("n", n);
+			request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);	
 	}
 }
 

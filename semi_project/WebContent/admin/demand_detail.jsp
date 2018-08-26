@@ -30,7 +30,12 @@
 			</c:forEach>
 			</table>
 			<br>
+			<c:if test="${flag==0 }">
 			<a href="/semi_project/demand.do?cmd=paylist">목록으로</a><br>
+			</c:if>
+			<c:if test="${flag==1 }">
+			<a href="/semi_project/demand.do?cmd=mylist&email=${email }">목록으로</a><br>
+			</c:if>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
