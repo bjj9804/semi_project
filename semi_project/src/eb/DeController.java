@@ -70,13 +70,16 @@ public class DeController extends HttpServlet {
 			request.setAttribute("n", n);
 			request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);	
 	}
-		protected void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
-			int num=Integer.parseInt(request.getParameter("num"));
-			DemandDao dao=DemandDao.getInstance();
-			int n=dao.paycancel(num);
 		
+		protected void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			int n=dao.paycancel(orderNum);
+			PayVo vo=dao.selectview(orderNum);
+			String email=vo.getEmail();
+			System.out.println(vo.getEmail());
 			if(n>0) {
-				request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
+				request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email).forward(request, response);
 			}
 		}
 }

@@ -236,6 +236,49 @@ public class DemandDao {
 		}
 	}
 	
+		
+	//넘버로 상세 정보 가져오기
+		public PayVo selectview(int orderNum) {
+			String sql="select * from pay where ordernum=?";
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				con=DBConnection.getConnection();
+				pstmt=con.prepareStatement(sql);	
+				pstmt.setInt(1, orderNum);
+				rs=pstmt.executeQuery();
+				while(rs.next()) {
+					Date orderDate=rs.getDate("orderdate");
+					String state=rs.getString("state");
+					String method=rs.getString("method");
+					String addr=rs.getString("addr");
+					String email=rs.getString("email");
+					int totalPrice=rs.getInt("totalprice");
+					int payMoney=rs.getInt("paymoney");
+					PayVo vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);
+					return vo;	
+				}
+			return null;
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+				return null;
+			}catch(ClassNotFoundException cn) {
+				System.out.println(cn.getMessage());
+				return null;
+			} catch (NamingException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(rs!=null) rs.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 	
 	
 	}
