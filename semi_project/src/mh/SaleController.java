@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import jh.PayVo;
 
 @WebServlet("/mh/sale.do")
-public class saleController extends HttpServlet{
+public class SaleController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -25,13 +25,13 @@ public class saleController extends HttpServlet{
 		}
 	}
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		saleDao dao = saleDao.getInstance();
+		SaleDao dao = SaleDao.getInstance();
 		ArrayList<PayVo> list = dao.salelist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/sale/sale_list.jsp").forward(request, response);
 	}
 	protected void userlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		saleDao dao = saleDao.getInstance();
+		SaleDao dao = SaleDao.getInstance();
 		ArrayList<SaleUserVo> list = dao.userlist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/sale/sale_userlist.jsp").forward(request, response);

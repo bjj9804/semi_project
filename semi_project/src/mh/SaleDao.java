@@ -12,12 +12,12 @@ import javax.naming.NamingException;
 import jh.PayVo;
 import semi.db.DBConnection;
 
-public class saleDao {
-private static saleDao instance = new saleDao();
+public class SaleDao {
+private static SaleDao instance = new SaleDao();
 	
-	private saleDao() {}
+	private SaleDao() {}
 
-	public static saleDao getInstance() {
+	public static SaleDao getInstance() {
 		return instance;
 	}
 	

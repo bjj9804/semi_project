@@ -7,9 +7,8 @@
 	<script type="text/javascript">
 		var xhr = null;
 		function emailcheck(){
-			alert("ㅇㅇ");
-			var email1 = doucument.getElementById("email1");
-			var email2 = doucument.getElementById("email2");
+			var email1 = document.getElementById("email1");
+			var email2 = document.getElementById("email2");
 			var email = email1.value + email2.value;
 			if(email1.value == "" || email2.value == ""){
 				document.getElementById("echeck").innerHTML = "";
@@ -22,7 +21,6 @@
 		}
 		function emailcall(){
 			 if(xhr.readyState == 4 && xhr.status == 200){
-				 alert("zz");
 				 var xml = xhr.responseXML;
 				 var using = xml.getElementsByTagName("using")[0];
 				 var u = using.firstChild.nodeValue;
@@ -59,7 +57,7 @@
 							@
 						</td>
 						<td>
-							<select name="email2" id="email2" onchange="emailcheck()"0>
+							<select name="email2" id="email2" onchange="emailcheck()">
 								<option value="">옵션선택</option>
 								<option value="@naver.com">naver.com</option>
 								<option value="@hanmail.net">hanmail.net</option>
@@ -94,11 +92,7 @@
 							@
 						</td>
 						<td>
-<<<<<<< HEAD
 							<select name="emailok2" id="reemail2">
-=======
-							<select name="emailok2" id="reemail1">
->>>>>>> refs/remotes/origin/master
 								<option value="">옵션선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="hanmail.net">hanmail.net</option>
@@ -118,7 +112,7 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<span id="emailcheck2" style="color:red"> </span>
+							<span id="echeck2" style="color:red"> </span>
 						</td>
 					</tr>
 					<tr>
