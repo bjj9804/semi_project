@@ -19,13 +19,13 @@ public class UsersDao {
 		return instance;
 	}
 	
-	//�쉶�썝媛��엯 �젙蹂� 諛쏆븘�삤湲�
+	//회원가입
 	public int join(UsersVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,1)";// 占쏙옙占쏙옙占쏙옙 占십기값占쏙옙 1占쏙옙占쏙옙占쏙옙 占쌍곤옙 flag占쏙옙 占쏙옙占쏙옙占쌘댐옙 占십기값 1占쏙옙占쏙옙占쏙옙
+			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,1)";// 쿠폰 1 flag 1 가입할때 받아오기
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
@@ -52,7 +52,6 @@ public class UsersDao {
 		return -1;
 	}
 	
-	//濡쒓렇�씤�떆 �씠硫붿씪/鍮꾨�踰덊샇 �솗�씤�븯湲�
 	public boolean login(String email,String pwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -122,7 +121,34 @@ public class UsersDao {
 		return null;
 	}
 	
-	//鍮꾨�踰덊샇 李얘린
+	public boolean checkE(String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean using = false;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from users where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				using = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return using;
+	}
+	
 	public String findPwd(String email, String phone, int question, String answer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -157,7 +183,6 @@ public class UsersDao {
 		return null;
 	}
 	
-	//�씠硫붿씪諛쏄린
 	public String findEmail(String name, String phone, int question, String answer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

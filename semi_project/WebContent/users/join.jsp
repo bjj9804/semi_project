@@ -4,35 +4,43 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
-</head>
-<script type="text/javascript">
-	var xhr = null;
-	function emailcheck(){
-		var email1 = doucument.getElementById("email1").value;
-		var email2 = doucument.getElementById("email2").value;
-		if(email1 == ""){
-			document.getElementById(email1).innerHTML = "";
-			return;//메소드 끝내기
+	<script type="text/javascript">
+		var xhr = null;
+		function emailcheck(){
+			alert("ㅇㅇ");
+			var email1 = doucument.getElementById("email1");
+			var email2 = doucument.getElementById("email2");
+			var email = email1.value + email2.value;
+			if(email1.value == "" || email2.value == ""){
+				document.getElementById("echeck").innerHTML = "";
+				return;//메소드 끝내기
+			}
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = emailcall;
+			xhr.open('get','/semi_project/mh/users.do?cmd=emailcheck&&email='+email,true);
+			xhr.send();
 		}
-		xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = emailcall;
-		xhr.open('get','idcheck.jsp?id='+id,true);
-		xhr.send();
-	}
-	function emailcall(){
-		 if(xhr.readyState == 4 && xhr.status == 200){
-			 alert("zz");
-			 var xml = xhr.responseXML;
-			 var o
-		 }
-	}
-</script>
+		function emailcall(){
+			 if(xhr.readyState == 4 && xhr.status == 200){
+				 alert("zz");
+				 var xml = xhr.responseXML;
+				 var using = xml.getElementsByTagName("using")[0];
+				 var u = using.firstChild.nodeValue;
+				 var span = document.getElementById("echeck");
+				 if(eval(u) == true){
+					 span.innerHTML = "사용할 수 없는 이메일 입니다."
+				 }else{
+					 span.innerHTML = "사용가능한 아이디 입니다."
+				 }
+			 }
+		}
+	</script>
+</head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<div id="joinWrap">
-			<form action="/mh/users.do?cmd=joinform" method="post">
+			<form action="/semi_project/mh/users.do?cmd=joinform" method="post">
 				<!-- 계정 세부정보 email,pwd 확인 -->
 				<table style="width: 800px;">
 					<tr>
@@ -51,7 +59,7 @@
 							@
 						</td>
 						<td>
-							<select name="email2" onchange="emailcheck()" id="email2">
+							<select name="email2" id="email2" onchange="emailcheck()"0>
 								<option value="">옵션선택</option>
 								<option value="@naver.com">naver.com</option>
 								<option value="@hanmail.net">hanmail.net</option>
@@ -66,12 +74,11 @@
 								<option value="@empas.com">empas.com</option>
 								<option value="@paran.com">paran.com</option>
 							</select>
-							<span id="emailcheck" style="color:red"></span>
 						<td>
 					</tr>
 					<tr>
 						<td colspan="3">
-							<span id="emailcheck" style="color:red"> </span>
+							<span id="echeck" style="color:red"> </span>
 						</td>
 					</tr>
 					<tr>
@@ -81,13 +88,13 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="emailok1" id="email1">
+							<input type="text" name="emailok1" id="reemail1">
 						</td>
 						<td>
 							@
 						</td>
 						<td>
-							<select name="emailok2" id="email1">
+							<select name="emailok2" id="reemail2">
 								<option value="">옵션선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="hanmail.net">hanmail.net</option>
@@ -226,8 +233,7 @@
 					</tr>
 				</table>
 			</form>
-			</div>
-		</div>
+		</div>	
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>

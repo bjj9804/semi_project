@@ -1,6 +1,7 @@
 package mh;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +30,24 @@ public class UsersController extends HttpServlet{
 			findid(request,response);
 		}else if(cmd != null && cmd.equals("findpwdform")) {
 			findpwd(request,response);
+		}else if(cmd != null && cmd.equals("emailcheck")) {
+			emailcheck(request,response);
 		}
+	}
+	protected void emailcheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		response.setContentType("text/xml;charset=utf-8");
+		UsersDao dao = UsersDao.getInstance();
+		boolean using = dao.checkE(email);
+		PrintWriter pw = response.getWriter();
+		pw.println("<?xml version='1.0' encoding='utf-8'>");
+		pw.print("<result>");
+		pw.println("<using>" + using + "</using>");
+		pw.print("<result>");
+		pw.close();
+	}
+	protected void check(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
 	}
 	protected void findid(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
@@ -104,7 +122,7 @@ public class UsersController extends HttpServlet{
 			String contextPath = getServletContext().getContextPath();
 			response.sendRedirect(contextPath + "/main/index.jsp");
 		}else {
-			request.setAttribute("errMsg", "아이디와 비밀번호가 맞지 않습니다.");
+			request.setAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			RequestDispatcher rd = request.getRequestDispatcher("../users/login.jsp");
 			rd.forward(request, response);
 		}

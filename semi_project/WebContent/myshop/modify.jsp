@@ -10,7 +10,7 @@
 	<div id="content">
 		<div class="inner">
 			<!-- 정보수정, 탈퇴 -->
-			<form action="/semi_project/mh/myshopmodify.do?cmd=modify">
+			<form method="post" action="/semi_project/mh/myshopmodify.do?cmd=modify">
 				<table>
 					<tr>
 						<th>이메일</th>

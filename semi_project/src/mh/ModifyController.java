@@ -60,11 +60,9 @@ public class ModifyController extends HttpServlet{
 		String phone = request.getParameter("phone");
 		String addr = request.getParameter("addr");
 		String name = request.getParameter("name");
-		System.out.println(email);
 		UsersDao dao = UsersDao.getInstance();
 		UsersVo vo = new UsersVo(email,password,0,null,phone,addr,name,null,0,0);
 		int n = dao.update(vo);
-		System.out.println(n);
 		if(n>0) {
 			request.setAttribute("updateMsg", "success");
 		}else {
