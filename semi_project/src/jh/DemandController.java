@@ -156,9 +156,12 @@ public class DemandController extends HttpServlet{
 			Object[] ob= {bvo,lookFront,description,price};
 			list.add(ob);
 		}		
+		ArrayList<CouponVo> cvo=dao.getCoupon(email);		
 		
 		UsersVo usersvo=UsersDao.getInstance().select(email);
 		
+		request.setAttribute("cvo", cvo);
+		request.setAttribute("buyList", buyList);
 		request.setAttribute("email", email);
 		request.setAttribute("totalPrice", totalPrice);
 		request.setAttribute("usersvo", usersvo);
