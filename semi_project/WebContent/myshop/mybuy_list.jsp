@@ -29,14 +29,19 @@
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
 			<td>${vo.state }</td>
+			<!-- 배송준비중상태에서는 바로 취소가 가능한 취소버튼이 보인다. -->
+			<c:if test="${vo.state=='배송준비중' }">
+			<td><input type="button" value="구매취소" onclick="javascript:location.href=''"></td>
+			</c:if>
 			<!-- 판매자가 배송을 완료하여 배송중상태여야지 구매확정버튼이 보인다. -->
 			<c:if test="${vo.state=='배송중' }">
 			<td><input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm&num=${vo.orderNum}'"></td>
-			</c:if>
-			<!-- 구매확정이 완료되면 교환,환불버튼이 안보여야한다. -->
-			<c:if test="${vo.state=='구매완료' }">
 			<td><input type="button" value="교환" onclick="javascript:location.href='demand.do?cmd=stateupdate&num=${vo.orderNum}'"></td>
 			<td><input type="button" value="환불" onclick="javascript:location.href='demand.do?cmd=stateupdate&num=${vo.orderNum}'"></td>
+			</c:if>
+			<!-- 구매확정이 완료되면 교환,환불버튼이 안보이고 리뷰남기기버튼이 보인다.. -->
+			<c:if test="${vo.state=='구매완료' }">
+			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href=''"></td>
 			</c:if>
 			</tr>
 			</c:forEach>
