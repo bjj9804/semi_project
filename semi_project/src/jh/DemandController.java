@@ -87,15 +87,22 @@ public class DemandController extends HttpServlet{
 		//String state=request.getParameter("state"); 
 		String method=request.getParameter("method");
 		String addr=request.getParameter("addr");		
+		String payMoney1=request.getParameter("payMoney");	
+		int payMoney=0;
 		int totalPrice=Integer.parseInt(request.getParameter("totalPrice"));
-		int payMoney=Integer.parseInt(request.getParameter("payMoney"));
-		
+		if(payMoney1==null) {
+			payMoney=0;
+		}else {
+			payMoney=Integer.parseInt(payMoney1);					
+		}
+		System.out.println(orderNum);
 		//buyTb과 payTb 주문번호 update시키기
 		PayVo pvo=new PayVo(orderNum, null, null, method, addr, email, totalPrice, payMoney);
 		if(dao.payInsert(pvo)>0) {
 			System.out.println("payTb에 생성");
 		}else {
 			System.out.println("payTb에 생성실패!!!!");
+			return;
 		}
 		String buyList=request.getParameter("buyList");//buyNum들을 갖고옴
 		String[] buyArray=buyList.split(",");		
@@ -112,7 +119,7 @@ public class DemandController extends HttpServlet{
 		int check=dao.cartCheck(cartNum);
 		if(check==0) {
 			if(dao.payDelete(cartNum)>0) {
-				System.out.println("payTb에서 장바구니정보삭제");
+				System.out.println("payTb에서 장바구니정보삭제");				
 			}else {
 				System.out.println("payTb에서 장바구니정보삭제 실패!!!!");
 			}

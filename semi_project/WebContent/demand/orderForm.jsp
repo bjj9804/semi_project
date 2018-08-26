@@ -41,16 +41,16 @@
 				</table>
 				<br>
 				
-			<h3>결제예정금액</h3>	
+			<h3>결제예정금액</h3>
 				<table border="1" width="800" align="center">
 					<tr><th>총 주문금액</th><th>할인 금액</th><th>총 결제예정금액</th></tr>
-					<tr><td>${totalPrice }</td><div id="sale"></div><td><div id="payMoney"></div></td></tr>
+					<tr><td>${totalPrice }</td><td><span id="sale">0</span></td><td><span id="payMoney1">${totalPrice }</span></td></tr>
 				</table><br>				
 				<div>쿠폰사용
-					<select name="coupon" onchange="couponCheck(${totalPrice },'${vo.couponName }')">
-						<option value="0">사용하지 않음</option>
+					<select name="coupon" onchange="couponCheck(${totalPrice })">
+						<option value="0%">사용하지 않음</option>
 						<c:forEach var="vo" items="${cvo }">
-						<option value="">${vo.couponName }</option>
+						<option id="couponName">${vo.couponName }</option>
 						</c:forEach>				
 					</select></div>
 				<br>
@@ -63,7 +63,7 @@
 					<input type="radio" name="method" value="휴대폰 결제">휴대폰 결제
 				</div>
 				<div>최종결제금액</div>
-				
+			<input type="hidden" name="payMoney">
 			<input type="hidden" name="buyList" value="${buyList }">
 			<input type="hidden" name="totalPrice" value="${totalPrice }">			
 			<input type="submit" value="결제하기">
@@ -73,16 +73,26 @@
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
 <script type="text/javascript">
-	function couponCheck(totalPrice,couponName){		
-		var percent=couponName.indexOf("(","%");
+	function couponCheck(totalPrice){
+		var couponName=document.getElementById("couponName").innerHTML;
+		var start = couponName.indexOf("(");
+		var end = couponName.indexOf("%", start+1);		
+		var percent = couponName.substring(start+1, end); 
 		var coupon=document.getElementsByName("coupon")[0];
-		if(coupon.value!=0){
-			coupon.value=percent;
+		var payMoney=document.getElementsByName("payMoney")[0];
+		var payMoney1=document.getElementById("payMoney1");	
+		if(coupon.value=="0%"){
+			percent=0;
+			payMoney.value=totalPrice;
+		}else{
+			payMoney.value=totalPrice-totalPrice*percent*0.01;
 		}
+		
 		var sale=document.getElementById("sale");
-		var payMoney=document.getElementById("payMoney");
-		sale.innerHTML=totalPrice*coupon.value;
-		payMoney.innerHTML=totalPrice-totalPrice*coupon.value;
+			
+		sale.innerHTML=totalPrice*percent*0.01;
+		payMoney1.innerHTML=totalPrice-totalPrice*percent*0.01;
+		
 		
 	}
 	function root1(num,a,p,e){

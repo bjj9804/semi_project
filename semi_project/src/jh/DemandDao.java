@@ -33,8 +33,7 @@ public class DemandDao {
 				String couponState=rs.getString("couponState");
 				Date offerDate=rs.getDate("offerDate");
 				Date endDate=rs.getDate("endDate");
-				//CouponVo vo=new CouponVo(couponName, email, couponState, offerDate, endDate);
-				CouponVo vo=new CouponVo(couponName, email, null, null, null);
+				CouponVo vo=new CouponVo(couponName, email, couponState, offerDate, endDate);
 				list.add(vo);
 			}
 			return list;
@@ -135,7 +134,9 @@ public class DemandDao {
 	public int getOrderNum(String email) {//주문번호 얻어오기
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
 		ResultSet rs=null;
+		ResultSet rs1=null;
 		try {
 			con=DBConnection.getConnection();
 			String sql="select max(orderNum) as orderNum from pay where email=?";
@@ -148,7 +149,17 @@ public class DemandDao {
 								//어차피 이 처리는 카트이후에 이루어져야하니깐 비어있진 않을것!그러니깐 이 테이블을 사용하려면 max는 항상 존재.
 					orderNum=0;
 				}
-				return orderNum+1;
+				String sql1="select max(orderNum) as orderNum from pay";
+				pstmt1=con.prepareStatement(sql1);
+				rs1=pstmt1.executeQuery();
+				if(rs1.next()) {
+					orderNum=rs1.getInt("orderNum");
+					if(orderNum<0) {
+						orderNum=1;
+						return orderNum;
+					}
+					return orderNum+1;
+				}				
 			}			
 			return 0;
 		}catch(Exception e) {
@@ -156,6 +167,8 @@ public class DemandDao {
 			return 0;
 		}finally {
 			try {				
+				if(rs1!=null) rs1.close();
+				if(pstmt1!=null) pstmt1.close();
 				if(rs!=null) rs.close();
 				if(pstmt!=null) pstmt.close();
 				if(con!=null) con.close();				
@@ -356,8 +369,8 @@ public class DemandDao {
 		ArrayList<BuyVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConnection();
-			String sql="select * from buy where orderNum=("
-					+ "select orderNum from pay where email=?)";
+			String sql="select * from buy where orderNum =("
+					+ "select orderNum from pay where email=? and orderNum<0)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs=pstmt.executeQuery();
@@ -429,6 +442,7 @@ public class DemandDao {
 			pstmt.setString(4, pvo.getEmail());
 			pstmt.setInt(5, pvo.getTotalPrice());
 			pstmt.setInt(6, pvo.getPayMoney());
+			System.out.println(pvo.getOrderNum()+","+pvo.getMethod()+","+pvo.getAddr()+","+pvo.getEmail()+","+pvo.getTotalPrice()+","+pvo.getPayMoney());
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();
