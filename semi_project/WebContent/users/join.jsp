@@ -81,13 +81,13 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="emailok1" id="email1">
+							<input type="text" name="emailok1" id="reemail1">
 						</td>
 						<td>
 							@
 						</td>
 						<td>
-							<select name="emailok2" id="email1">
+							<select name="emailok2" id="reemail1">
 								<option value="">옵션선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="hanmail.net">hanmail.net</option>

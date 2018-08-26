@@ -193,12 +193,6 @@ ALTER TABLE noticeBoard
 	REFERENCES Users (email)
 ;
 
-ALTER TABLE bag
-	ADD FOREIGN KEY (email)
-	REFERENCES Users (email)
-;
-
-
 ALTER TABLE qnaboard
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
