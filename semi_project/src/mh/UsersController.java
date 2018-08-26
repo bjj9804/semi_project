@@ -64,7 +64,6 @@ public class UsersController extends HttpServlet{
 		}
 	}
 	protected void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email1") + request.getParameter("email2");
 		String password = request.getParameter("pwd");
 		int question = Integer.parseInt(request.getParameter("question"));
