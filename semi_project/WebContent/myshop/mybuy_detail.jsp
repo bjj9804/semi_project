@@ -27,8 +27,8 @@
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
 			<td>
-			<c:if test="${state=='배송준비중' }">
-			<td><input type="button" value="구매취소" onclick="javascript:location.href='demand.do?cmd=cancel&num=${vo.orderNum}'"></td>
+			<c:if test="${state=='구매완료' }">
+			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href='/semi_project/board/review_insert.jsp'"></td>
 			</c:if>
 			</td>
 			</tr>
