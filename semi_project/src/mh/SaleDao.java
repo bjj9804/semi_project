@@ -29,8 +29,11 @@ public class SaleDao {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
-			ArrayList<PayVo> list=new ArrayList<>();
+			ArrayList<PayVo> list = new ArrayList<>();
+			System.out.println(list);
+			System.out.println(rs.next());
 			while(rs.next()) {
+				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");

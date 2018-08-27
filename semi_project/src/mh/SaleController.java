@@ -28,6 +28,7 @@ public class SaleController extends HttpServlet{
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<PayVo> list = dao.salelist();
+		System.out.println(list);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
 	}

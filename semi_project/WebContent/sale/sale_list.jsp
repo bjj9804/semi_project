@@ -28,10 +28,13 @@
 			<div class="dd">
 				<table>
 					<tr>
-						<th>회원이메일</thd>
+						<th>회원이메일</th>
 						<th>구매가격</th>
 						<th>구매상태</th>
 						<th>구매날짜</th>
+					</tr>
+					<tr>
+						<th>${list }</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
