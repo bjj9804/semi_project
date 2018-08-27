@@ -41,6 +41,10 @@ public class DeController extends HttpServlet {
 			mydetail(request,response);
 		}else if(cmd!=null && cmd.equals("buychange")) {
 			buychange(request,response);
+		}else if(cmd!=null && cmd.equals("refund")) {
+			refund(request,response);
+		}else if(cmd!=null && cmd.equals("insertrefund")) {
+			insertrefund(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -62,7 +66,7 @@ public class DeController extends HttpServlet {
 			DemandDao dao=DemandDao.getInstance();
 			int n=dao.update(orderNum);
 			request.setAttribute("n", n);
-			request.getRequestDispatcher("demand.do?cmd=paylist").forward(request, response);	
+			paylist(request, response);	
 	}
 		protected void mylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			HttpSession session = request.getSession();
@@ -141,6 +145,39 @@ public class DeController extends HttpServlet {
 			request.setAttribute("itemlist", itemlist);
 			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
 	}
+		protected void refund(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<BuyVo> list=dao.detail(orderNum);
+			ArrayList<ItemVo> itemlist=new ArrayList<>();
+			System.out.println(list.size()+"");
+			for(int i=0; i<list.size(); i++) {
+				BuyVo name=list.get(i);
+				String code=name.getCode();
+				ItemVo itemvo=dao.item(code);
+				itemlist.add(itemvo);
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("itemlist", itemlist);
+			request.getRequestDispatcher("/myshop/mybuy_refund.jsp").forward(request, response);	
+	}
+		protected void insertrefund(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<BuyVo> list=dao.detail(orderNum);
+			ArrayList<ItemVo> itemlist=new ArrayList<>();
+			System.out.println(list.size()+"");
+			for(int i=0; i<list.size(); i++) {
+				BuyVo name=list.get(i);
+				String code=name.getCode();
+				ItemVo itemvo=dao.item(code);
+				itemlist.add(itemvo);
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("itemlist", itemlist);
+			request.getRequestDispatcher("/myshop/mybuy_refund.jsp").forward(request, response);	
+	}
+		
 		
 }
 
