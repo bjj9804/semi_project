@@ -135,7 +135,7 @@ CREATE TABLE Users
 	addr varchar2(100),
 	name varchar2(20),
 	regdate date,
-	--coupon number(10,0),
+	coupon number(10,0),
 	flag number(1,0)
 	
 );
