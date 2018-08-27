@@ -4,7 +4,7 @@ public class ItemImgVo {
 	private String imgType;
 	private String code;
 	private String imgSrc;
-	
+
 	public ItemImgVo() {}
 
 	public ItemImgVo(String imgType, String code, String imgSrc) {
