@@ -31,6 +31,7 @@ public class MyshopBoardController extends HttpServlet {
 			qnaList(request, response);
 		}
 	}
+	
 	//--------------------------------reviewBoard----------------------------------------------
 	
 	public void reviewList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
