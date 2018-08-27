@@ -519,7 +519,6 @@ public class DemandDao {
 			pstmt.setString(4, pvo.getEmail());
 			pstmt.setInt(5, pvo.getTotalPrice());
 			pstmt.setInt(6, pvo.getPayMoney());
-			System.out.println(pvo.getOrderNum()+","+pvo.getMethod()+","+pvo.getAddr()+","+pvo.getEmail()+","+pvo.getTotalPrice()+","+pvo.getPayMoney());
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();

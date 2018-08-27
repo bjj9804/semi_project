@@ -57,7 +57,7 @@
 				
 			<h3>결제방법</h3>	
 				<div>
-					<input type="radio" name="method" value="신용카드">신용카드
+					<input type="radio" name="method" value="신용카드" checked="checked">신용카드
 					<input type="radio" name="method" value="무통장입금">무통장입금
 					<input type="radio" name="method" value="실시간 계좌이체">실시간 계좌이체
 					<input type="radio" name="method" value="휴대폰 결제">휴대폰 결제

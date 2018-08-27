@@ -18,7 +18,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
-				<c:when test="${empty sessionScope.email }">
+				<c:when test="${empty sessionScope.email }">					
 					<li><a href="<c:url value='/mh/users.do?cmd=loginform'/>">cart</a></li>
 				</c:when>
 				<c:otherwise>

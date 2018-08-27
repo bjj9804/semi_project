@@ -46,7 +46,6 @@ public class DemandController extends HttpServlet{
 		if(cartNum==0) {
 			System.out.println("cartNum오류");
 		}
-		System.out.println(cartNum);
 		String code=request.getParameter("code");
 		String isize=request.getParameter("isize");
 		int orderAmount=Integer.parseInt(request.getParameter("orderAmount"));
@@ -124,8 +123,7 @@ public class DemandController extends HttpServlet{
 			}else {
 				System.out.println("쿠폰변경실패!!");
 			}
-		}
-		
+		}		
 		
 		//결제이후 buyTb에 장바구니에 정보가 남아있는지 확인한후 남아있으면 내버려두고 남아있지 않으면 payTb에서 장바구니정보를 삭제시켜야함
 		int check=dao.cartCheck(cartNum);
