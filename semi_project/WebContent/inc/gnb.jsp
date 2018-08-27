@@ -17,7 +17,14 @@
 					</c:if>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="/semi_project/jh/demand.do?cmd=showCart&email=${email }">cart</a></li>
+			<c:choose>
+				<c:when test="${empty sessionScope.email }">
+					<li><a href="<c:url value='/mh/users.do?cmd=loginform'/>">cart</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="/semi_project/jh/demand.do?cmd=showCart&email=${email }">cart</a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	</div>
 	<div class="inner">
