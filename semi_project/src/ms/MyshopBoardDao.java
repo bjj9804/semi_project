@@ -99,7 +99,9 @@ public class MyshopBoardDao {
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
+				String itemImg = rs.getString("itemImg");
+				String code = rs.getString("code");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
 				list.add(vo);
 			}
 			return list;

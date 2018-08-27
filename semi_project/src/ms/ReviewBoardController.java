@@ -81,8 +81,10 @@ public class ReviewBoardController extends HttpServlet {
 			String content = mr.getParameter("content");
 			int height = Integer.parseInt(mr.getParameter("height"));
 			int weight = Integer.parseInt(mr.getParameter("weight"));
+			String itemImg = request.getParameter("itemImg");
+			String code = request.getParameter("code");
 			System.out.println(email + title + content + height + weight + img);
-			ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img);
+			ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img, code, code);
 			ReviewBoardDao dao = ReviewBoardDao.getInstance();
 			int n = dao.insert(vo);
 			if (n > 0) {
@@ -220,7 +222,7 @@ public class ReviewBoardController extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String img = request.getParameter("img");
-		ReviewBoardVo vo = new ReviewBoardVo(num, vo1.getName(), vo1.getEmail(), title, content, vo1.getHeight(), vo1.getWeight(), vo1.getHit(), vo1.getRegdate(), img);
+		ReviewBoardVo vo = new ReviewBoardVo(num, vo1.getName(), vo1.getEmail(), title, content, vo1.getHeight(), vo1.getWeight(), vo1.getHit(), vo1.getRegdate(), img, vo1.getItemImg(), vo1.getCode());
 		int n = dao.update(vo);
 		if(n>0) {
 			list(request, response);
