@@ -4,6 +4,7 @@ public class ItemsizeVo {
 	private String isize;
 	private String code;
 	private int amount;
+	
 	public ItemsizeVo() {}
 	public ItemsizeVo(String isize, String code, int amount) {
 		super();
@@ -29,7 +30,6 @@ public class ItemsizeVo {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
 	
 	
 	

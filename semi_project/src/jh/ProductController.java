@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jj.ItemDao;
 import jj.ItemVo;
+import ms.ItemImgVo;
 @WebServlet("/jh/product.do")
 public class ProductController extends HttpServlet{
 	@Override
@@ -67,7 +68,12 @@ public class ProductController extends HttpServlet{
 		request.getRequestDispatcher("/product/product_list.jsp").forward(request, response);		
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String code=request.getParameter("code");
+		ProductDao pdao=ProductDao.getInstance();
+		jh.ItemVo itemvo=pdao.getItemVo(code);
+		ItemImgVo itemimgvo=pdao.getItemImgVo(code);
+		Items itemimgvo=pdao.getItemImgVo(code);
+		ItemImgVo itemimgvo=pdao.getItemImgVo(code);
 		
 		
 		
