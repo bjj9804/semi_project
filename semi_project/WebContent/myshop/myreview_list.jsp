@@ -68,10 +68,12 @@
 		</c:otherwise>
 					</c:choose>
 				</div>
-
+	<br><br>
+	<br><br>
+	<br><br>
 	<h1>My Q&A</h1>
 				<input type="button" value="삭제"
-					onclick="delete1('${email}','${pageNum})">
+					onclick="delete1('${email}','${pageNum1})">
 				<table border="1" width="500">
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
@@ -97,7 +99,7 @@
 					<c:choose>
 						<c:when test="${pageNum1>10}">
 							<a
-								href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+								href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum1=${startPage1-1 }">[이전]</a>
 						</c:when>
 						<c:otherwise>
 			[이전]
@@ -107,12 +109,12 @@
 						<c:choose>
 							<c:when test="${pageNum1==i }">
 								<a
-									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
+									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${i }"><span
 									style="color: red">[${i }]</span></a>
 							</c:when>
 							<c:otherwise>
 								<a
-									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
+									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${i }"><span
 									style="color: #555">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>
@@ -120,7 +122,7 @@
 					<c:choose>
 						<c:when test="${endPage1<pageCount1}">
 							<a
-								href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${endPage+1 }">[다음]</a>
+								href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${endPage1+1 }">[다음]</a>
 						</c:when>
 						<c:otherwise>
 			[다음]
