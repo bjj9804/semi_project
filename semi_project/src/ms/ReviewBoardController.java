@@ -81,11 +81,11 @@ public class ReviewBoardController extends HttpServlet {
 			String content = mr.getParameter("content");
 			int height = Integer.parseInt(mr.getParameter("height"));
 			int weight = Integer.parseInt(mr.getParameter("weight"));
-			String itemImg = request.getParameter("itemImg");
 			String code = request.getParameter("code");
-			System.out.println(email + title + content + height + weight + img);
-			ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img, code, code);
 			ReviewBoardDao dao = ReviewBoardDao.getInstance();
+			ItemImgVo ivo = dao.getItemImg(code);
+			String itemImg = ivo.getImgSrc();
+			ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img, itemImg, code);
 			int n = dao.insert(vo);
 			if (n > 0) {
 				list(request, response);

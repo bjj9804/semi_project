@@ -10,25 +10,25 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
-				<h1>교환</h1>
-				<form action="" method="post" border="1" bordercolor="black">
-				<tr>
-					<td> </td>
-					<td>주문상품정보</td>
-					<td>가격</td>
-				</tr>
-				<c:forEach var="vo1" items="${itemlist }">
+			<h1>교환</h1>
+			<form action="" method="post" border="1" bordercolor="black">
+				<table border="1" width=900px bordercolor="black">
 					<tr>
-						<td><input type="checkbox" value=${vo1.itemName }></td>
-						<td>${vo1.itemName }</td>
-				</c:forEach>
-				<c:forEach var="vo" items="${list }">
-					<td>${vo.price }</td>
+						<th></th>
+						<th>주문상품정보</th>
+						<th>가격</th>
 					</tr>
-				</c:forEach>
-				</form>
-			</table>
+					<c:forEach var="vo1" items="${itemlist }">
+						<tr>
+							<td><input type="checkbox" value=${vo1.itemName }></td>
+							<td>${vo1.itemName }</td>
+							<c:forEach var="vo" items="${list }">
+								<td>${vo.price }</td>
+							</c:forEach>
+					</c:forEach>
+					</tr>
+					</form>
+				</table>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />

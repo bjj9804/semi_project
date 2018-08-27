@@ -105,7 +105,41 @@ public class ReviewBoardDao {
 			}
 		}
 	}
-	
+	public ItemImgVo getItemImg(String code) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ItemImgVo vo = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from itemImg where code = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String imgType = rs.getString("imgtype");
+				String imgSrc = rs.getString("imgSrc");
+				vo = new ItemImgVo(imgType, code, imgSrc);
+			}
+			return vo;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int insert(ReviewBoardVo vo) {
 		int maxNum = getMaxNum();
 		Connection con = null;
@@ -262,7 +296,7 @@ public class ReviewBoardDao {
 				String img = rs.getString("img");
 				String itemImg = rs.getString("itemImg");
 				String code = rs.getString("code");
-				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, code, code);
+				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
 			}
 			return vo;
 		}catch(SQLException se) {
@@ -369,5 +403,5 @@ public class ReviewBoardDao {
 			}
 		}
 	}
-	
+
 }
