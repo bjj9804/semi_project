@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.naming.NamingException;
 
 import jh.BuyVo;
+import jh.ItemVo;
 import jh.PayVo;
 import semi.db.DBConnection;
 
@@ -276,6 +277,7 @@ public class DemandDao {
 				pstmt=con.prepareStatement(sql);	
 				pstmt.setInt(1, orderNum);
 				rs=pstmt.executeQuery();
+				PayVo vo = null;
 				while(rs.next()) {
 					Date orderDate=rs.getDate("orderdate");
 					String state=rs.getString("state");
@@ -284,10 +286,9 @@ public class DemandDao {
 					String email=rs.getString("email");
 					int totalPrice=rs.getInt("totalprice");
 					int payMoney=rs.getInt("paymoney");
-					PayVo vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);
-					return vo;	
+					vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);	
 				}
-			return null;
+				return vo;
 			}catch(SQLException se) {
 				System.out.println(se.getMessage());
 				return null;
@@ -331,7 +332,44 @@ public class DemandDao {
 				}
 			}
 		}
-		
+	//상품명 뽑아오기
+		public ItemVo item(String code) {
+			String sql="select * from item where code=?";
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				con=DBConnection.getConnection();
+				pstmt=con.prepareStatement(sql);	
+				pstmt.setString(1, code);
+				rs=pstmt.executeQuery();
+				ItemVo vo = null;
+				while(rs.next()) {
+					String itemName=rs.getString("itemName");
+					String description=rs.getString("description");
+					int price=rs.getInt("price");
+					vo=new ItemVo(code, price, itemName, description);	
+				}
+				return vo;
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+				return null;
+			}catch(ClassNotFoundException cn) {
+				System.out.println(cn.getMessage());
+				return null;
+			} catch (NamingException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(rs!=null) rs.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 }
 	
 	
