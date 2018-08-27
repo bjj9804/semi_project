@@ -126,7 +126,6 @@ CREATE TABLE reviewboard
 	PRIMARY KEY (num)
 );
 
-
 CREATE TABLE Users
 (
 	email varchar2(30) NOT NULL,
