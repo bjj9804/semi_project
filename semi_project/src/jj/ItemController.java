@@ -32,8 +32,8 @@ public class ItemController extends HttpServlet{
 	
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
-		String email = request.getParameter("email");
-		System.out.println(email);
+//		String email = request.getParameter("email");
+//		System.out.println(email);
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
@@ -49,21 +49,21 @@ public class ItemController extends HttpServlet{
 		}		
 		ArrayList<ItemVo> list=dao.list(startRow,endRow);
 		
-		int flag=0;
-		if(!email.equals("")) {//로그인을 하고 들어온 경우
-			UsersDao usersDao=UsersDao.getInstance();
-			UsersVo vo=usersDao.select(email);
-			flag=vo.getFlag();//관리자인지 회원인지			
-		}else {//로그인을 안하고 들어온경우
-			flag=1;
-		}
-		request.setAttribute("flag", flag);		
+//		int flag=0;
+//		if(!email.equals("")) {//로그인을 하고 들어온 경우
+//			UsersDao usersDao=UsersDao.getInstance();
+//			UsersVo vo=usersDao.select(email);
+//			flag=vo.getFlag();//관리자인지 회원인지			
+//		}else {//로그인을 안하고 들어온경우
+//			flag=1;
+//		}
+//		request.setAttribute("flag", flag);		
 		request.setAttribute("list", list);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("email", email);
+//		request.setAttribute("email", email);
 		request.getRequestDispatcher("/item/item_list.jsp").forward(request, response);		
 	}
 	
@@ -79,16 +79,28 @@ public class ItemController extends HttpServlet{
 		String lookCode = request.getParameter("lookCode");
 		String lookFront = request.getParameter("lookFront");
 		String lookBack = request.getParameter("lookBack");
+//		String email = request.getParameter("email");
 
 		ItemDao dao=ItemDao.getInstance();
 		ItemVo vo = new ItemVo(code, price, itemName, description, imgType, null, isize, amount, 0, lookCode, lookFront, lookBack);
 		
 		if(dao.insert(vo)>0) {
+//			request.setAttribute("email", email);
+			request.setAttribute("code", code);
+			request.setAttribute("price", price);
+			request.setAttribute("itemName", itemName);
+			request.setAttribute("description", description);
+			request.setAttribute("imgType", imgType);
+			request.setAttribute("isize", isize);
+			request.setAttribute("amount", amount);
+			request.setAttribute("lookCode", lookCode);
+			request.setAttribute("lookFront", lookFront);
+			request.setAttribute("lookBack", lookBack);			
 			list(request,response);
 		}else {
 			System.out.println("등록실패");
 		}
 		
-		request.getRequestDispatcher("/item/item_list.jsp").forward(request, response);
+		//request.getRequestDispatcher("/item/item_list.jsp").forward(request, response);
 	}
 }

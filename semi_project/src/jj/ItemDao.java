@@ -80,12 +80,11 @@ public class ItemDao{
 		try {
 			con=DBConnection.getConnection();
 			String sql="select * from "
-					+ "(select AA.*,rownum rnum from "
-					+ "(select * from item order by num desc) AA) "
-					+ "where rnum>=? and rnum<=?";
+					+ "item,itemimg,itemsize,look "
+					+ "where item.code=itemimg.code "
+					+ "and item.code=itemsize.code "
+					+ "and item.code=look.code";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				String code = rs.getString("code");

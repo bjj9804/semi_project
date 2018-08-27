@@ -65,7 +65,7 @@
 							<input type="file" name="lookBack">
 						</td>
 					</tr>
-				</table>
+				</table>				
 				<input type="hidden" name="cmd" value="insert">
 				<input type="submit" value="등록">
 				<input type="reset" value="취소">

@@ -38,7 +38,6 @@
 					<td>${vo.itemName }</td>
 					<td>${vo.description }</td>
 					<td>${vo.imgType }</td>
-					<td>${vo.imgType }</td>
 					<td>${vo.imgSrc }</td>
 					<td>${vo.isize }</td>
 					<td>${vo.amount }</td>
