@@ -28,7 +28,7 @@
 			<td>${vo.price }</td>
 			<td>
 			<c:if test="${state=='구매완료' }">
-			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href='/semi_project/board/review_insert.jsp'"></td>
+			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href='/semi_project/board/review_insert.jsp?orderNum=${vo.code}'"></td>
 			</c:if>
 			</td>
 			</tr>

@@ -38,6 +38,8 @@ public class DeController extends HttpServlet {
 			change(request,response);
 		}else if(cmd!=null && cmd.equals("mydetail")) {
 			mydetail(request,response);
+		}else if(cmd!=null && cmd.equals("buychange")) {
+			buychange(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -80,15 +82,16 @@ public class DeController extends HttpServlet {
 			request.setAttribute("n", n);
 			request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);	
 	}
-		
+		//배송되기전 구매취소버튼
 		protected void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 			HttpSession session = request.getSession();
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			System.out.println(orderNum);
 			DemandDao dao=DemandDao.getInstance();
+			PayVo vo=dao.selectview(orderNum);
+			System.out.println(vo.getEmail());
 			int a=dao.buycancel(orderNum);
 			int n=dao.paycancel(orderNum);
-			PayVo vo=dao.selectview(orderNum);
 			String email=(String) session.getAttribute("email");
 			session.setAttribute("email", email);
 			//String email = vo.getEmail();
@@ -103,6 +106,7 @@ public class DeController extends HttpServlet {
 				mylist(request, response);
 			
 		}
+		//배송상태를 구매완료로 확정시켜줌
 		protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();
@@ -120,7 +124,15 @@ public class DeController extends HttpServlet {
 			request.setAttribute("state", state);
 			request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);	
 	}
-		
+		//교환 정보 뿌려주기
+		protected void buychange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<BuyVo> list=dao.detail(orderNum);
+			
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
+	}
 		
 }
 
