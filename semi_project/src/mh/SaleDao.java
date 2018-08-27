@@ -25,7 +25,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where";
+			String sql = "select * from pay where state='구매완료'";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
