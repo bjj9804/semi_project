@@ -41,12 +41,12 @@ public class DemandController extends HttpServlet{
 		
 		int[] cartPayTbCh=dao.getCartNum(email);//(기존에있었는지없었는지유무,cartNum)
 		int check=cartPayTbCh[0];//0이면 장바구니정보 없음. 1이면 장바구니정보 있었음.
-								///0이면 payTb에 장바구니 생성.1이면 장바구니에 담긴 총가격 수정
+								///0이면 payTb에 장바구니 생성.1이면 장바구니번호가져와 insert하기
 		int cartNum=cartPayTbCh[1];		
 		if(cartNum==0) {
 			System.out.println("cartNum오류");
 		}
-		
+		System.out.println(cartNum);
 		String code=request.getParameter("code");
 		String isize=request.getParameter("isize");
 		int orderAmount=Integer.parseInt(request.getParameter("orderAmount"));
@@ -72,8 +72,8 @@ public class DemandController extends HttpServlet{
 			}
 		}
 		////payTb의 총가격은 수정하지 않는걸로! 결제는이루어지지않았으니까 보여질때는 뿌려져서 더하는걸로!
-		
-		
+		request.setAttribute("email", email);
+		showCart(request, response);
 	}
 	private void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
@@ -117,7 +117,7 @@ public class DemandController extends HttpServlet{
 			System.out.println("buyTb의 buyNum으로 기존 cartNum을 orderNum으로 바꾸기 실패!!");
 		}
 		
-		if(!couponNumSt.equals("") && couponNumSt!=null) {
+		if(!couponNumSt.equals("0%")) {
 			int couponNum=Integer.parseInt(couponNumSt);
 			if(dao.couponUpdate(couponNum)>0) {
 				System.out.println("쿠폰상태변경완료");

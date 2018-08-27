@@ -14,7 +14,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-		<form action="">
+		<form action="/semi_project/jh/demand.do?cmd=cart" method="post">
 			<table>
 				<tr>
 					<th>상품명</th>
@@ -36,7 +36,7 @@
 						</select>
 					</td>
 					<td>
-						<select name="amount">
+						<select name="orderAmount">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -47,6 +47,9 @@
 					</td>
 				</tr>
 			</table>
+			<input type="hidden" name="code" value="${itemvo.code }">
+			<input type="hidden" name="email" value="${email }">
+			<input type="submit" value="상품담기">
 		</form>
 		</div>
 	</div>

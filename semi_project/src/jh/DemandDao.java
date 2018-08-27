@@ -132,6 +132,7 @@ public class DemandDao {
 						if(cartNum>0) {//buy테이블에 아예 장바구니정보가 없으면||초기에 장바구니담기
 							cartNum=-1;
 						}
+						cartNum-=1;
 					}
 				}
 				int[] cartPayTbCh= {check,cartNum,originalCartNum};
