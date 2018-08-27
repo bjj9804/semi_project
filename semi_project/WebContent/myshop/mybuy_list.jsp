@@ -44,6 +44,7 @@
 			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href='/semi_project/board/review_insert.jsp'"></td>
 			</c:if>
 			</tr>
+			
 			</c:forEach>
 			</table>
 		</div>
