@@ -123,6 +123,8 @@ CREATE TABLE reviewboard
 	hit number(3,0),
 	regdate date,
 	img varchar2(30),
+	itemImg varchar2(30),
+	code varchar2(20),
 	PRIMARY KEY (num)
 );
 
