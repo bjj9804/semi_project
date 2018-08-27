@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 @WebServlet("/mh/users.do")
 public class UsersController extends HttpServlet{
 	@Override
@@ -39,11 +41,12 @@ public class UsersController extends HttpServlet{
 		response.setContentType("text/xml;charset=utf-8");
 		UsersDao dao = UsersDao.getInstance();
 		boolean using = dao.checkE(email);
+		JSONObject obj = new JSONObject();
+		obj.put("using", using);
+		
+		response.setContentType("text/plain;charset=utf-8");
 		PrintWriter pw = response.getWriter();
-		pw.println("<?xml version='1.0' encoding='utf-8'>");
-		pw.print("<result>");
-		pw.println("<using>" + using + "</using>");
-		pw.print("<result>");
+		pw.println(obj.toString());
 		pw.close();
 	}
 	protected void check(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

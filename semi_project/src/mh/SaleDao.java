@@ -13,10 +13,8 @@ import jh.PayVo;
 import semi.db.DBConnection;
 
 public class SaleDao {
-private static SaleDao instance = new SaleDao();
-	
+	private static SaleDao instance = new SaleDao();
 	private SaleDao() {}
-
 	public static SaleDao getInstance() {
 		return instance;
 	}
@@ -27,9 +25,10 @@ private static SaleDao instance = new SaleDao();
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where state='구매완료'";
+			String sql = "select * from pay where";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
 			ArrayList<PayVo> list=new ArrayList<>();
 			while(rs.next()) {
 				int orderNum = rs.getInt("orderNum");
@@ -44,7 +43,11 @@ private static SaleDao instance = new SaleDao();
 				list.add(vo);
 			}
 			return list;
-		} catch (ClassNotFoundException | SQLException | NamingException e) {
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+		} catch (NamingException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -63,7 +66,7 @@ private static SaleDao instance = new SaleDao();
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select email, sum(payMoney) tot, count(email) cnt from pay group by email order by tot desc";
+			String sql = "select email, sum(payMoney) tot, count(email) cnt from pay where state='구매완료' group by email order by tot desc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<SaleUserVo> list=new ArrayList<>();
@@ -75,7 +78,11 @@ private static SaleDao instance = new SaleDao();
 				list.add(vo);
 			}
 			return list;
-		} catch (ClassNotFoundException | SQLException | NamingException e) {
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+		} catch (NamingException e) {
 			e.printStackTrace();
 		} finally {
 			try {

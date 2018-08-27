@@ -17,23 +17,27 @@ public class SaleController extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String cmd = request.getParameter("cmd");
-		String contextPath = getServletContext().getContextPath();
 		if(cmd != null && cmd.equals("salelist")) {			
 			salelist(request,response);
 		}else if(cmd != null && cmd.equals("userlist")) {
 			userlist(request,response);
+		}else if(cmd != null && cmd.equals("datelist")) {
+			datelist(request,response);
 		}
 	}
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<PayVo> list = dao.salelist();
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/sale/sale_list.jsp").forward(request, response);
+		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
 	}
 	protected void userlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<SaleUserVo> list = dao.userlist();
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/sale/sale_userlist.jsp").forward(request, response);
+		request.getRequestDispatcher("../sale/sale_userlist.jsp").forward(request, response);
+	}
+	protected void datelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 }

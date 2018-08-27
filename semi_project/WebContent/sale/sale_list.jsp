@@ -15,7 +15,7 @@
 				<ul class="admin_menu">
 					<li><a href="/semi_project/mh/sale.do?cmd=salelist">전체보기</a></li>
 					<li><a href="/semi_project/mh/sale.do?cmd=userlist">회원별</a></li>
-					<li><a href="#">날짜별</a></li>
+					<li><a href="/semi_project/mh/sale.do?cmd=datelist">날짜별</a></li>
 					<li><a href="#">상품별</a></li>
 				</ul>
 				<table>
@@ -27,7 +27,7 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
-						<td>${vo.email }<input type="button" value="ㅇㅇㅇㅇ"></td>
+						<td>${vo.email }</td>
 						<td>${vo.payMoney }</td>
 						<td>${vo.state }</td>
 						<td>${vo.orderDate }</td>

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/mh/myshopmodify.do")
 public class ModifyController extends HttpServlet{
@@ -33,7 +34,10 @@ public class ModifyController extends HttpServlet{
 		}else {
 			request.setAttribute("deleteMsg", "fail");
 		}
-		request.getRequestDispatcher("../myshop/deleteok.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		session.invalidate();
+		String contextPath = getServletContext().getContextPath();
+		request.getRequestDispatcher(contextPath + "/myshop/deleteok.jsp").forward(request, response);
 	}
 	protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String)request.getSession().getAttribute("email");

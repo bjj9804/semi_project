@@ -5,6 +5,9 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 	<script type="text/javascript">
+	
+		<!-- 이메일 사용가능 여부 -->
+		
 		var xhr = null;
 		function emailcheck(){
 			var email1 = document.getElementById("email1");
@@ -21,16 +24,74 @@
 		}
 		function emailcall(){
 			 if(xhr.readyState == 4 && xhr.status == 200){
-				 var xml = xhr.responseXML;
-				 var using = xml.getElementsByTagName("using")[0];
-				 var u = using.firstChild.nodeValue;
+				 var text = xhr.responseText;
+				 var json = JSON.parse(text);
 				 var span = document.getElementById("echeck");
-				 if(eval(u) == true){
+				 if(json.using == true){
 					 span.innerHTML = "사용할 수 없는 이메일 입니다."
 				 }else{
 					 span.innerHTML = "사용가능한 아이디 입니다."
 				 }
 			 }
+		}
+		
+		<!-- 이메일 다시입력 확인 -->
+		
+		function reemailOk(){
+			var email1 = document.getElementById("email1");
+			var email2 = document.getElementById("email2");
+			var email = email1.value + email2.value;
+			var reemail1 = document.getElementById("reemail1");
+			var reemail2 = document.getElementById("reemail2");
+			var reemail = reemail1.value + reemail2.value;
+			var span = document.getElementById("echeck2");
+			if(reemail1.value == "" || reemail2.value == ""){
+				span.innerHTML = "";
+				return;//메소드 끝내기
+			}else if(email == reemail){
+				span.innerHTML = "Ok!";
+				return;//메소드 끝내기
+			}else if(email != reemail){
+				span.innerHTML = "이메일이 같지 않습니다.";
+			}
+		}
+		
+		<!-- 비밀번호 제약 -->
+		
+		function pwdcheck(){
+			var pwd = document.getElementById("pwd").value;
+			var span = document.getElementById("pwdcheck");
+			if(pwd == ""){
+				span.innerHTML = "";
+				return;//메소드 끝내기
+			}
+			for(var i=0; i<pwd.length; i++){
+				if(!(pwd.charAt(i)>= 'a' && pwd.charAt(i) <= 'z') && !(pwd.charAt(i)>= 'a' && pwd.charAt(i) <= 'z') && !(pwd.charAt(i)>= '0' && pwd.charAt(i) <= '9')){
+					span.innerHTML = "대소문자나 숫자로만 작성";
+				}
+			}
+			for(var i=0; i<pwd.length; i++){
+				if((pwd.charAt(i)>= 'a' && pwd.charAt(i) <= 'z') && (pwd.charAt(i)>= 'a' && pwd.charAt(i) <= 'z') && (pwd.charAt(i)>= '0' && pwd.charAt(i) <= '9')){
+					span.innerHTML = "";
+				}
+			}
+		}
+		
+		<!-- 비밀번호 확인 -->
+		
+		function pwdcheck2(){
+			var pwd = document.getElementById("pwd").value;
+			var pwdok = document.getElementById("pwdok").value;
+			var span = document.getElementById("pwdcheck2");
+			if(pwd == "" || pwdok == ""){
+				span.innerHTML = "";
+				return;//메소드 끝내기
+			}else if(pwd == pwdok){
+				span.innerHTML = "Ok!";
+				return;//메소드 끝내기
+			}else if(pwd != pwdok){
+				span.innerHTML = "비밀번호가 같지 않습니다.";
+			}
 		}
 	</script>
 </head>
@@ -51,7 +112,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="email1" id="email1">
+							<input type="text" name="email1" id="email1" onkeyup="emailcheck()">
 						</td>
 						<td>
 							@
@@ -86,27 +147,26 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="emailok1" id="reemail1">
+							<input type="text" name="emailok1" id="reemail1" onkeyup="reemailOk()">
 						</td>
 						<td>
 							@
 						</td>
 						<td>
-							<select name="emailok2" id="reemail2">
+							<select name="emailok2" id="reemail2" onchange="reemailOk()">
 								<option value="">옵션선택</option>
-								<option value="naver.com">naver.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="nate.com">nate.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="hatmail.com">hatmail.com</option>
-								<option value="daum.com">daum.net</option>
-								<option value="yahoo.co.kr">yahoo.co.kr</option>
-								<option value="hanmir.com">hanmir.com</option>
-								<option value="dreamwiz.com">dreamwiz.com</option>
-								<option value="lycos.co.kr">lycos.co.kr</option>
-								<option value="empas.com">empas.com</option>
-								<option value="paran.com">paran.com</option>
-								<option value="">직접입력</option>
+								<option value="@naver.com">naver.com</option>
+								<option value="@hanmail.net">hanmail.net</option>
+								<option value="@nate.com">nate.com</option>
+								<option value="@gmail.com">gmail.com</option>
+								<option value="@hatmail.com">hatmail.com</option>
+								<option value="@daum.com">daum.net</option>
+								<option value="@yahoo.co.kr">yahoo.co.kr</option>
+								<option value="@hanmir.com">hanmir.com</option>
+								<option value="@dreamwiz.com">dreamwiz.com</option>
+								<option value="@lycos.co.kr">lycos.co.kr</option>
+								<option value="@empas.com">empas.com</option>
+								<option value="@paran.com">paran.com</option>
 							</select>
 						<td>
 					</tr>
@@ -125,9 +185,18 @@
 						</td>
 					</tr>
 					<tr>
-						<td><input type="password" name="pwd"> </td>
+						<td><input type="password" name="pwd" id="pwd" onkeyup="pwdcheck()"> </td>
 						<td> </td>
-						<td><input type="password" name="pwdok"></td>
+						<td><input type="password" name="pwdok" id="pwdok" onkeyup="pwdcheck2()"></td>
+					</tr>
+					<tr>
+						<td>
+							<span id="pwdcheck" style="color:red"></span>
+						</td>
+						<td></td>
+						<td>
+							<span id="pwdcheck2" style="color:red"></span>
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -158,15 +227,6 @@
 						</td>
 						<td> </td>
 						<td><input type="text" name="answer"></td>
-					</tr>
-					<tr>
-						<td>
-							<span id="pwdcheck" style="color:red"> </span>
-						</td>
-						<td> </td>
-						<td>
-							<span id="pwdcheck2" style="color:red"> </span>
-						</td>
 					</tr>
 				</table>
 				<!-- 필수 동의 -->

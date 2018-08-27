@@ -122,10 +122,10 @@ public class UsersDao {
 	}
 	
 	public boolean checkE(String email) {
+		boolean using = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		boolean using = false;
 		try {
 			con = DBConnection.getConnection();
 			String sql = "select * from users where email=?";
