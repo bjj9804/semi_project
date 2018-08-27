@@ -27,7 +27,7 @@
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
 			</tr>
-			
+		
 			</c:forEach>
 			</table>
 			<br>
