@@ -37,13 +37,13 @@ public class QnaBoardController extends HttpServlet {
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		//ServletContext sc= getServletContext();
 		String spageNum=request.getParameter("pageNum");
-		String email=request.getParameter("email");
+		String originalEmail=request.getParameter("email");
 		UsersDao dao1=UsersDao.getInstance();
 		UsersVo vo=null;
 		String name="";
 		int flag=0;
-		if(!email.equals("")) {
-			vo=dao1.select(email);
+		if(!originalEmail.equals("")) {
+			vo=dao1.select(originalEmail);
 			name=vo.getName();
 			flag=vo.getFlag();
 		}
@@ -63,7 +63,7 @@ public class QnaBoardController extends HttpServlet {
 		}
 		//sc.setAttribute("email", email);
 		request.setAttribute("list", list);
-		request.setAttribute("email", email);
+		request.setAttribute("originalEmail", originalEmail);
 		request.setAttribute("name", name);
 		request.setAttribute("flag", flag);
 		request.setAttribute("pageCount", pageCount);
@@ -102,11 +102,24 @@ public class QnaBoardController extends HttpServlet {
 	
 	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 		int num=Integer.parseInt(request.getParameter("num"));
-		QnaBoardDao dao=QnaBoardDao.getInstance();
-		QnaBoardVo vo=dao.detail(num);
-		int n=dao.hitup(num);
-		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);	
+		String email=request.getParameter("email");
+		String writer=request.getParameter("writer");
+		System.out.println(email+","+writer);
+		int flag=Integer.parseInt(request.getParameter("flag"));
+		if(flag==0||writer.equals(email)) {//관리자이거나 작성자와 email이 같다면 상세내용 보여주기
+			QnaBoardDao dao=QnaBoardDao.getInstance();
+			QnaBoardVo vo=dao.detail(num);
+			if(dao.hitup(num)>0) {
+				System.out.println("상세내용보기 성공");
+			}else {
+				System.out.println("상세내용보기 실패!!");
+			}
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);	
+		}else {//제3자가 들어왔을때 되돌아가게하기
+			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
+		}
+		
 	}	
 	
 	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 

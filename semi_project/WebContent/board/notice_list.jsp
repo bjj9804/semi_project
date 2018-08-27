@@ -107,6 +107,15 @@
 					</c:if>
 				</div>
 			</c:if>
+			
+			<select name="">
+				<option value="title">제목</option>
+				<option value="content">내용</option>
+			</select>
+			<input type="text">
+			<input type="button" value="검색">
+			
+			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />
