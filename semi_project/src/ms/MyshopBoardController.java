@@ -103,7 +103,8 @@ public class MyshopBoardController extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String img = request.getParameter("img");
-		ReviewBoardVo vo = new ReviewBoardVo(num, vo1.getName(), vo1.getEmail(), title, content, vo1.getHeight(), vo1.getWeight(), vo1.getHit(), vo1.getRegdate(), img);
+		
+		ReviewBoardVo vo = new ReviewBoardVo(num, vo1.getName(), vo1.getEmail(), title, content, vo1.getHeight(), vo1.getWeight(), vo1.getHit(), vo1.getRegdate(), img, vo1.getItemImg(), vo1.getCode());
 		int n = dao.update(vo);
 		if(n>0) {
 			reviewList(request, response);

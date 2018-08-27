@@ -112,7 +112,7 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate, ?)";
+			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxNum+1);
 			pstmt.setString(2, vo.getName());
@@ -122,6 +122,8 @@ public class ReviewBoardDao {
 			pstmt.setInt(6, vo.getHeight());
 			pstmt.setInt(7, vo.getWeight());
 			pstmt.setString(8, vo.getImg());
+			pstmt.setString(9, vo.getItemImg());
+			pstmt.setString(10, vo.getCode());
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			se.printStackTrace();
@@ -165,7 +167,9 @@ public class ReviewBoardDao {
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
+				String itemImg = rs.getString("itemImg");
+				String code = rs.getString("code");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
 				list.add(vo);
 			}
 			return list;
@@ -210,7 +214,9 @@ public class ReviewBoardDao {
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
+				String itemImg = rs.getString("itemImg");
+				String code = rs.getString("code");
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, code, code);
 				list.add(vo);
 			}
 			return list;
@@ -254,7 +260,9 @@ public class ReviewBoardDao {
 				String name = rs.getString("name");
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
-				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img);
+				String itemImg = rs.getString("itemImg");
+				String code = rs.getString("code");
+				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, code, code);
 			}
 			return vo;
 		}catch(SQLException se) {
