@@ -17,7 +17,7 @@
 	<div id="content">
 		<div class="inner">
 			<div>
-				<h2>판매 전체 리스트</h2>
+				<h2>회원별 구매 리스트</h2>
 				<ul class="admin_menu">
 					<li><a href="/semi_project/mh/sale.do?cmd=salelist">전체보기</a></li>
 					<li><a href="/semi_project/mh/sale.do?cmd=userlist">회원별</a></li>
@@ -36,7 +36,7 @@
 					<tr>
 						<td>${vo.email }</td>
 						<td>${vo.tot }</td>
-						<td>${vo.cnt }</td>
+						<td><a href="/semi_project/mh/sale.do?cmd=userdetail&&email=${vo.email }">${vo.cnt }</a></td>
 					</tr>
 					</c:forEach>
 				</table>

@@ -1,0 +1,21 @@
+INSERT INTO PAY VALUES (0,'18/01/01','备概肯丰','0','林家','test1@naver.com',10000,10000);
+INSERT INTO PAY VALUES (1,'18/01/14','备概肯丰','0','林家','test2@naver.com',23000,23000);
+INSERT INTO PAY VALUES (2,'18/01/23','备概肯丰','0','林家','test3@naver.com',35000,35000);
+INSERT INTO PAY VALUES (3,'18/03/11','备概肯丰','0','林家','test4@naver.com',13000,13000);
+INSERT INTO PAY VALUES (4,'18/04/23','备概肯丰','0','林家','test5@naver.com',98000,98000);
+INSERT INTO PAY VALUES (5,'18/04/24','备概肯丰','0','林家','test1@naver.com',64000,64000);
+INSERT INTO PAY VALUES (6,'18/05/05','备概肯丰','0','林家','test1@naver.com',55000,55000);
+INSERT INTO PAY VALUES (7,'18/05/20','备概肯丰','0','林家','test5@naver.com',78000,78000);
+INSERT INTO PAY VALUES (8,'18/06/12','备概肯丰','0','林家','test5@naver.com',25000,25000);
+INSERT INTO PAY VALUES (9,'18/06/22','备概肯丰','0','林家','test2@naver.com',42000,42000);
+INSERT INTO PAY VALUES (10,'18/06/23','备概肯丰','0','林家','test3@naver.com',11000,11000);
+INSERT INTO PAY VALUES (11,'18/08/01','备概肯丰','0','林家','test4@naver.com',91000,91000);
+INSERT INTO PAY VALUES (12,'18/08/12','备概肯丰','0','林家','test3@naver.com',57000,57000);
+INSERT INTO PAY VALUES (13,'18/08/15','备概肯丰','0','林家','test1@naver.com',76000,76000);
+INSERT INTO PAY VALUES (14,'18/08/27','备概肯丰','0','林家','test2@naver.com',41000,41000);
+INSERT INTO PAY VALUES (15,SYSDATE,'备概肯丰','0','林家','test3@naver.com',19000,19000);
+
+commit;
+
+SELECT * FROM USERS;
+SELECT * FROM PAY;

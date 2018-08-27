@@ -23,12 +23,13 @@ public class SaleController extends HttpServlet{
 			userlist(request,response);
 		}else if(cmd != null && cmd.equals("datelist")) {
 			datelist(request,response);
+		}else if(cmd != null && cmd.equals("userdetail")) {
+			userdetail(request,response);
 		}
 	}
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<PayVo> list = dao.salelist();
-		System.out.println(list);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
 	}
@@ -40,5 +41,13 @@ public class SaleController extends HttpServlet{
 	}
 	protected void datelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+	}
+	protected void userdetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = request.getParameter("email");
+		SaleDao dao = SaleDao.getInstance();
+		ArrayList<PayVo> list = dao.userdetail(email);
+		request.setAttribute("list", list);
+		request.setAttribute("email", email);
+		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
 	}
 }

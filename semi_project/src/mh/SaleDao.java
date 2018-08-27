@@ -28,10 +28,7 @@ public class SaleDao {
 			String sql = "select * from pay where state='구매완료'";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
 			ArrayList<PayVo> list = new ArrayList<>();
-			System.out.println(list);
-			System.out.println(rs.next());
 			while(rs.next()) {
 				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
@@ -46,9 +43,9 @@ public class SaleDao {
 				list.add(vo);
 			}
 			return list;
-		}catch(SQLException se) {
+		} catch(SQLException se) {
 			System.out.println(se.getMessage());
-		}catch(ClassNotFoundException cn) {
+		} catch(ClassNotFoundException cn) {
 			System.out.println(cn.getMessage());
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -81,9 +78,9 @@ public class SaleDao {
 				list.add(vo);
 			}
 			return list;
-		}catch(SQLException se) {
+		} catch(SQLException se) {
 			System.out.println(se.getMessage());
-		}catch(ClassNotFoundException cn) {
+		} catch(ClassNotFoundException cn) {
 			System.out.println(cn.getMessage());
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -99,4 +96,45 @@ public class SaleDao {
 		return null;
 	}
 	
+	public ArrayList<PayVo> userdetail(String email){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from pay where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			ArrayList<PayVo> list = new ArrayList<>();
+			while(rs.next()) {
+				System.out.println(rs.getInt("orderNum"));
+				int orderNum = rs.getInt("orderNum");
+				Date orderDate=rs.getDate("orderDate");
+				String state=rs.getString("state");
+				String method=rs.getString("method");
+				String addr=rs.getString("addr");
+				int totalPrice=rs.getInt("totalPrice");
+				int payMoney=rs.getInt("payMoney");
+				PayVo vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);
+				list.add(vo);
+			}
+			return list;
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+		} catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return null;
+	}
 }
