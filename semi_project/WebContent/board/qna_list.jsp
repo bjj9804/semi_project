@@ -6,6 +6,7 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 </head>
+
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">

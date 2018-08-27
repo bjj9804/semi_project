@@ -280,8 +280,7 @@ public class QnaBoardDao {
 				se.printStackTrace();
 			}
 		}
-	}		
-	
+	}			
 	public int hitup(int num){
 		String sql="update qnaboard set hit=hit+1 where num=?";
 		Connection con=null;

@@ -34,6 +34,7 @@ public class QnaBoardController extends HttpServlet {
 			update(request,response);
 		}
 	}
+	
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		//ServletContext sc= getServletContext();
 		String spageNum=request.getParameter("pageNum");
