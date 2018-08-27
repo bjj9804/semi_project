@@ -91,5 +91,14 @@ public class DeController extends HttpServlet {
 				//request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email).forward(request, response);
 			}
 		}
+		protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			int n=dao.payconfirm(orderNum);
+			request.setAttribute("n", n);
+			request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);	
+	}
+		
+		
 }
 

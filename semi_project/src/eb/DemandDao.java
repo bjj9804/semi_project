@@ -279,8 +279,29 @@ public class DemandDao {
 				}
 			}
 		}
-	
-	
-	}
+	//상품 교환
+		public int update(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="update pay set state=? where orderNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, "배송중");
+				pstmt.setInt(2, num);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 	
 	
