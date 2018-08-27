@@ -32,7 +32,7 @@
 			<h3>배송정보</h3>					
 				<table border="1" width="800" align="center">
 					<tr><th>배송지 선택</th>
-						<td><input type="radio" name="root" checked="checked" onclick="root1(1,'${usersvo.addr }','${usersvo.phone }','${usersvo.email }')">회원정보와 동일
+						<td><input type="radio" name="root" checked="checked" onclick="root1(1,'${usersvo.addr }','${usersvo.phone }')">회원정보와 동일
 							<input type="radio" name="root" onclick="root1(0)">새로운 배송지</td></tr>
 					<tr><th>주소</th><td><input type="text" id="addr" name="addr" value="${usersvo.addr }" readonly="readonly"></td></tr>
 					<tr><th>전화번호</th><td><input type="text" id="phone" name="phone" value="${usersvo.phone }" readonly="readonly"></td></tr>
@@ -98,25 +98,20 @@
 		couponName.value=couponName1;
 		
 	}
-	function root1(num,a,p,e){
+	function root1(num,a,p){
 		var root=document.getElementsByName("root");
 		var addr=document.getElementById("addr");
 		var phone=document.getElementById("phone");
-		var email=document.getElementById("email");
 		if(num==1){
 			addr.value=a;
 			phone.value=p;
-			email.value=e;
 			addr.readOnly=true;
 			phone.readOnly=true;
-			email.readOnly=true;
 		}else{
 			addr.value="";
 			phone.value="";
-			email.value="";
 			addr.readOnly=false;
 			phone.readOnly=false;
-			email.readOnly=false;
 		}
 	}
 	function checkAll(){
