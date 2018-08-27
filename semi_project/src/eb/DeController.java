@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 
 import jh.BuyVo;
+import jh.ItemVo;
 import jh.PayVo;
 import mh.UsersDao;
 import mh.UsersVo;
@@ -129,8 +130,15 @@ public class DeController extends HttpServlet {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();
 			ArrayList<BuyVo> list=dao.detail(orderNum);
-			
+			ArrayList<ItemVo> itemlist=new ArrayList<>();
+			for(int i=0; i<list.size(); i++) {
+				BuyVo name=list.get(i);
+				String code=name.getCode();
+				ItemVo itemvo=dao.item(code);
+				itemlist.add(itemvo);
+			}
 			request.setAttribute("list", list);
+			request.setAttribute("itemlist", itemlist);
 			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
 	}
 		
