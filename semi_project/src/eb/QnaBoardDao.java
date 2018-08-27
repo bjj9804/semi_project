@@ -252,7 +252,35 @@ public class QnaBoardDao {
 			}
 		}
 	}
-	
+	//글상세보기에서 답글까지보기
+	public String getEmail(int grp){		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select email from qnaboard where grp=? and lev=0 and step=0";
+			pstmt=con.prepareStatement(sql);	
+			pstmt.setInt(1, grp);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String email=rs.getString("email");
+				return email;
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(rs!=null) rs.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}		
 	
 	public int hitup(int num){
 		String sql="update qnaboard set hit=hit+1 where num=?";

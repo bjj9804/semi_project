@@ -41,7 +41,7 @@ public class QnaBoardController extends HttpServlet {
 		UsersDao dao1=UsersDao.getInstance();
 		UsersVo vo=null;
 		String name="";
-		int flag=0;
+		int flag=1;
 		if(!originalEmail.equals("")) {
 			vo=dao1.select(originalEmail);
 			name=vo.getName();
@@ -102,12 +102,16 @@ public class QnaBoardController extends HttpServlet {
 	
 	protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 		int num=Integer.parseInt(request.getParameter("num"));
+		int grp=Integer.parseInt(request.getParameter("grp"));
 		String email=request.getParameter("email");
 		String writer=request.getParameter("writer");
+		QnaBoardDao dao=QnaBoardDao.getInstance();
+		String email1=dao.getEmail(grp);
 		System.out.println(email+","+writer);
 		int flag=Integer.parseInt(request.getParameter("flag"));
-		if(flag==0||writer.equals(email)) {//관리자이거나 작성자와 email이 같다면 상세내용 보여주기
-			QnaBoardDao dao=QnaBoardDao.getInstance();
+		if(flag==0||email.equals(writer)||email.equals(email1)) {
+			//관리자이거나 작성자와 email이 같거나 해당글의 최초글의 작성자가 같다면 상세내용 보여주기
+			
 			QnaBoardVo vo=dao.detail(num);
 			if(dao.hitup(num)>0) {
 				System.out.println("상세내용보기 성공");
