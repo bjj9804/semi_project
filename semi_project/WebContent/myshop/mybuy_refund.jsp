@@ -6,61 +6,47 @@
 <head>
 <jsp:include page="/inc/header.jsp" />
 </head>
+
 <body>
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-<<<<<<< HEAD
-			<h1>교환</h1>
-			<form action="" method="post" border="1" bordercolor="black">
-				<table border="1" width=900px bordercolor="black">
-					<tr>
-						<th></th>
-						<th>주문상품정보</th>
-						<th>가격</th>
-					</tr>
-					<c:forEach var="vo1" items="${itemlist }">
-						<tr>
-							<td><input type="checkbox" value=${vo1.itemName }></td>
-							<td>${vo1.itemName }</td>
-							<c:forEach var="vo" items="${list }">
-								<td>${vo.price }</td>
-							</c:forEach>
-					</c:forEach>
-					</tr>
-					</form>
-				</table>
-=======
 			<table border="1" width=900px bordercolor="black">
-				<h1>교환</h1>
-				<form action="" method="post" border="1" bordercolor="black">
+				<h1>반품</h1>
+				<form action="demand.do?cmd=insertrefund" method="post" border="1" bordercolor="black">
 				<tr>
 					<td><input type="checkbox" class="chk" id="chk_all" name="chk"/></td>
-					<td>주문상품명</td>
+					<td>주문상품정보</td>
 					<td>가격</td>
 					<td>사이즈</td>
+					<td>반품사유</td>
 				</tr>
-				
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
 				<tr>
 						<td><input type="checkbox" class="chk" name="chk" value=${vo.itemName }/></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
+				<td>
+				<select name="reason">
+					<option value="">반품사유</option>
+					<option value="상품불량">상품불량</option>
+					<option value="단순변심">단순변심</option>
+					<option value="주머니사정">주머니사정</option>
+					<option value="기타">기타</option>
+				</select>
+				</td>
 				</c:forEach>
 				</tr>
 				<tr>
 				<td colspan=3>
-				<input type="submit" value="교환신청" style="margin-left:30%">
+				<input type="submit" value="반품신청" style="margin-left:30%">
 				</td>
 				</tr>
 				</form>
 			</table>
->>>>>>> branch 'master' of https://github.com/bjj9804/semi_project.git
 		</div>
 	</div>
-	토네이도는 롯리데아에 있는 아이크스림 이름이라가합니다.
-	
 	<jsp:include page="/inc/footer.jsp" />
 </body>
 
@@ -68,6 +54,7 @@
 //체크박스 전체 선택 전체 해제
 $("#chk_all").click(function(){
 	if($("#chk_all").is(":checked")){
+		$(".chk").prop("checked",true);
 		$(".chk").prop("checked",true);
 	}else{
 		$(".chk").prop("checked",false);
@@ -85,5 +72,4 @@ $(".chk").click(function(){
 
 
 </script>
-
 </html>

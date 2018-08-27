@@ -88,7 +88,7 @@ public class DemandDao {
 				String isize=rs.getString("isize");
 				int orderAmount=rs.getInt("orderAmount");
 				int price=rs.getInt("price");
-				BuyVo vo=new BuyVo(buyNum,orderNum,code,isize,orderAmount,price);
+				BuyVo vo=new BuyVo(buyNum,orderNum,code.trim(),isize,orderAmount,price);
 				list.add(vo);
 			}
 		return list;
@@ -348,7 +348,7 @@ public class DemandDao {
 					String itemName=rs.getString("itemName");
 					String description=rs.getString("description");
 					int price=rs.getInt("price");
-					vo=new ItemVo(code, price, itemName, description);	
+					vo=new ItemVo(code.trim(), price, itemName, description);	
 				}
 				return vo;
 			}catch(SQLException se) {
