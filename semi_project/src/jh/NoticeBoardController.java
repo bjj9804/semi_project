@@ -36,20 +36,40 @@ public class NoticeBoardController extends HttpServlet{
 	private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		String spageNum=request.getParameter("pageNum");
+		
+		String search = request.getParameter("search");
+		String keyword = request.getParameter("keyword");
+		
+		if(keyword==null||keyword.equals("")){
+			keyword = "";
+			search = "";
+		}
+		
+		
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
 		int startRow=(pageNum-1)*10+1;
-		int endRow=(pageNum-1)*10+10;		
+		int endRow=(pageNum-1)*10+10;	
+		int pageCnt=0;
+		int startPage=0;
+		int endPage=0;
+		
 		NoticeBoardDao dao=NoticeBoardDao.getInstance();
-		int pageCnt=(int)Math.ceil(dao.getCount()/10.0);
-		int startPage=((pageNum-1)/10)*10+1;
-		int endPage=startPage+9;
-		if(endPage>pageCnt) {
-			endPage=pageCnt;
+		ArrayList<NoticeBoardVo> list=dao.list(startRow,endRow,search,keyword);
+		
+		if(list!=null) {
+			pageCnt=(int)Math.ceil(dao.getCount(search,keyword)/10.0);
+			startPage=((pageNum-1)/10)*10+1;
+			endPage=startPage+9;
+			if(endPage>pageCnt) {
+				endPage=pageCnt;
+			}					
+		}else {
+			System.out.println("실패!");
+			return;
 		}		
-		ArrayList<NoticeBoardVo> list=dao.list(startRow,endRow);
 		
 		int flag=0;
 		if(!email.equals("")) {//로그인을 하고 들어온 경우

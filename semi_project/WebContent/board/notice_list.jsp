@@ -107,14 +107,14 @@
 					</c:if>
 				</div>
 			</c:if>
-			
-			<select name="">
+			<form action="/semi_project/jh/notice.do?cmd=list&email=${email}" method="post">
+			<select name="search">
 				<option value="title">제목</option>
 				<option value="content">내용</option>
 			</select>
-			<input type="text">
-			<input type="button" value="검색">
-			
+			<input type="text" name="keyword" value="${param.keyword }">
+			<input type="submit" value="검색">
+			</form>
 			
 		</div>
 	</div>

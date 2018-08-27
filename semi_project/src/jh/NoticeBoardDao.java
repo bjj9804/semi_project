@@ -44,15 +44,22 @@ public class NoticeBoardDao {
 			}
 		}
 	}
-	public int getCount() {
+	public int getCount(String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="select NVL(count(num),0) cnt from noticeboard";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(num),0) cnt from noticeboard";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+			}else {
+				String sql = "select NVL(count(num),0) cnt from noticeboard where "+search+" like '%'||?||'%' ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				rs = pstmt.executeQuery();
+			}			
 			if(rs.next()) {
 				return rs.getInt("cnt");
 			}else {
@@ -111,21 +118,33 @@ public class NoticeBoardDao {
 			}
 		}
 	}
-	public ArrayList<NoticeBoardVo> list(int startRow,int endRow) {
+	public ArrayList<NoticeBoardVo> list(int startRow,int endRow,String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<NoticeBoardVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConnection();
-			String sql="select * from "
-					+ "(select AA.*,rownum rnum from "
-					+ "(select * from noticeboard order by num desc) AA) "
-					+ "where rnum>=? and rnum<=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			rs=pstmt.executeQuery();
+			if(search.equals("")) {
+				String sql="select * from "
+						+ "(select AA.*,rownum rnum from "
+						+ "(select * from noticeboard order by num desc) AA) "
+						+ "where rnum>=? and rnum<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String sql="select * from "
+						+ "(select AA.*,rownum rnum from "
+						+ "(select * from noticeboard  where "+search+" like '%'||?||'%' order by num desc) AA) "
+						+ "where rnum>=? and rnum<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs = pstmt.executeQuery();				
+			}
 			while(rs.next()) {
 				int num=rs.getInt("num");
 				String name=rs.getString("name");
