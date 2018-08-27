@@ -7,6 +7,9 @@
 <jsp:include page="/inc/header.jsp" />
 </head>
 <body>
+<%
+	String code = request.getParameter("code");
+%>
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
@@ -47,6 +50,7 @@
 					</tr>
 				</table>
 				<input type="submit" value="작성">
+				<input type="hidden" name="code" value=<%=code %>>
 			</form>
 		</div>
 	</div>

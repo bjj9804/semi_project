@@ -81,7 +81,8 @@ public class ReviewBoardController extends HttpServlet {
 			String content = mr.getParameter("content");
 			int height = Integer.parseInt(mr.getParameter("height"));
 			int weight = Integer.parseInt(mr.getParameter("weight"));
-			String code = request.getParameter("code");
+			String code = mr.getParameter("code");
+			System.out.println(code);
 			ReviewBoardDao dao = ReviewBoardDao.getInstance();
 			ItemImgVo ivo = dao.getItemImg(code);
 			String itemImg = ivo.getImgSrc();
