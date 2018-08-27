@@ -25,8 +25,7 @@ CREATE TABLE coupon
 	email varchar2(30) NOT NULL,
 	couponState varchar2(20),
 	offerDate date,
-	endDate date
-	
+	endDate date	
 );
 
 CREATE TABLE BUY
@@ -56,8 +55,7 @@ CREATE TABLE item
 	code varchar2(20) PRIMARY KEY NOT NULL,
 	price number(10,0),
 	itemName varchar2(30),
-	description varchar2(200)
-	
+	description varchar2(200)	
 );
 CREATE TABLE itemImg
 (
@@ -135,8 +133,7 @@ CREATE TABLE Users
 	name varchar2(20),
 	regdate date,
 	coupon number(10,0),
-	flag number(1,0)
-	
+	flag number(1,0)	
 );
 
 

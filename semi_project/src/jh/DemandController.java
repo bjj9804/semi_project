@@ -77,7 +77,8 @@ public class DemandController extends HttpServlet{
 	}
 	private void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
-		String couponName=request.getParameter("couponName");
+		String couponNumSt=request.getParameter("couponNum");
+		System.out.println(couponNumSt);
 		DemandDao dao=DemandDao.getInstance();		
 		int cartNum=dao.getCartNum(email)[2];
 		
@@ -116,8 +117,9 @@ public class DemandController extends HttpServlet{
 			System.out.println("buyTb의 buyNum으로 기존 cartNum을 orderNum으로 바꾸기 실패!!");
 		}
 		
-		if(!couponName.equals("") && couponName!=null) {
-			if(dao.couponUpdate(email,couponName)>0) {
+		if(!couponNumSt.equals("") && couponNumSt!=null) {
+			int couponNum=Integer.parseInt(couponNumSt);
+			if(dao.couponUpdate(couponNum)>0) {
 				System.out.println("쿠폰상태변경완료");
 			}else {
 				System.out.println("쿠폰변경실패!!");

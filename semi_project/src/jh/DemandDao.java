@@ -29,11 +29,12 @@ public class DemandDao {
 			pstmt.setString(1, email);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				int couponNum=rs.getInt("couponNum");
 				String couponName=rs.getString("couponName");
 				String couponState=rs.getString("couponState");
 				Date offerDate=rs.getDate("offerDate");
 				Date endDate=rs.getDate("endDate");
-				CouponVo vo=new CouponVo(couponName, email, couponState, offerDate, endDate);
+				CouponVo vo=new CouponVo(couponNum, couponName, email, couponState, offerDate, endDate);
 				list.add(vo);
 			}
 			return list;
@@ -50,15 +51,14 @@ public class DemandDao {
 			}
 		}
 	}
-	public int couponUpdate(String email,String couponName) {
+	public int couponUpdate(int couponNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="update coupon set couponState='사용완료' where email=? and couponName=?";
+			String sql="update coupon set couponState='사용완료' where couponNum=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, email);
-			pstmt.setString(2, couponName);
+			pstmt.setInt(1, couponNum);
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

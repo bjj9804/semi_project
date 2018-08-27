@@ -47,10 +47,10 @@
 					<tr><td>${totalPrice }</td><td><span id="sale">0</span></td><td><span id="payMoney1">${totalPrice }</span></td></tr>
 				</table><br>				
 				<div>쿠폰사용
-					<select id="coupon" onchange="couponCheck(${totalPrice })">
+					<select id="coupon" name="couponNum" onchange="couponCheck(${totalPrice })">
 						<option value="0%">사용하지 않음</option>
 						<c:forEach var="vo" items="${cvo }">
-						<option >${vo.couponName }</option>
+						<option value="${vo.couponNum }">${vo.couponName }</option>
 						</c:forEach>				
 					</select></div>
 				<br>
@@ -63,7 +63,7 @@
 					<input type="radio" name="method" value="휴대폰 결제">휴대폰 결제
 				</div>
 				<div>최종결제금액</div>
-			<input type="hidden" name="couponName">
+			<!-- <input type="hidden" name="couponNum">  -->
 			<input type="hidden" name="payMoney">
 			<input type="hidden" name="buyList" value="${buyList }">
 			<input type="hidden" name="totalPrice" value="${totalPrice }">			
@@ -77,12 +77,13 @@
 	function couponCheck(totalPrice){
 		var coupon=document.getElementById("coupon");
 		var index=coupon.selectedIndex;
-		var couponName1=coupon.options[index].value;
-		var start = couponName1.indexOf("(");
-		var end = couponName1.indexOf("%", start+1);		
-		var percent = couponName1.substring(start+1, end); 
+		var couponName=coupon.options[index].value;
+		alert(couponName);
+		var start = couponName.indexOf("(");
+		var end = couponName.indexOf("%", start+1);		
+		var percent = couponName.substring(start+1, end); 
 		var payMoney=document.getElementsByName("payMoney")[0];
-		var couponName=document.getElementsByName("couponName")[0];
+		//var couponNum=document.getElementsByName("couponNum")[0];
 		var payMoney1=document.getElementById("payMoney1");	
 		if(coupon.value=="0%"){
 			percent=0;
@@ -95,7 +96,7 @@
 			
 		sale.innerHTML=totalPrice*percent*0.01;
 		payMoney1.innerHTML=totalPrice-totalPrice*percent*0.01;
-		couponName.value=couponName1;
+		//couponNum.value=couponName1;
 		
 	}
 	function root1(num,a,p){
