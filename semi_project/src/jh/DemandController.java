@@ -46,7 +46,6 @@ public class DemandController extends HttpServlet{
 		if(cartNum==0) {
 			System.out.println("cartNum¿À·ù");
 		}
-		System.out.println(cartNum);
 		String code=request.getParameter("code");
 		String isize=request.getParameter("isize");
 		int orderAmount=Integer.parseInt(request.getParameter("orderAmount"));
