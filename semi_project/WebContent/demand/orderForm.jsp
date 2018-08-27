@@ -63,7 +63,6 @@
 					<input type="radio" name="method" value="휴대폰 결제">휴대폰 결제
 				</div>
 				<div>최종결제금액</div>
-			<!-- <input type="hidden" name="couponNum">  -->
 			<input type="hidden" name="payMoney">
 			<input type="hidden" name="buyList" value="${buyList }">
 			<input type="hidden" name="totalPrice" value="${totalPrice }">			
@@ -77,8 +76,7 @@
 	function couponCheck(totalPrice){
 		var coupon=document.getElementById("coupon");
 		var index=coupon.selectedIndex;
-		var couponName=coupon.options[index].value;
-		alert(couponName);
+		var couponName=coupon.options[index].text;
 		var start = couponName.indexOf("(");
 		var end = couponName.indexOf("%", start+1);		
 		var percent = couponName.substring(start+1, end); 
@@ -95,8 +93,7 @@
 		var sale=document.getElementById("sale");
 			
 		sale.innerHTML=totalPrice*percent*0.01;
-		payMoney1.innerHTML=totalPrice-totalPrice*percent*0.01;
-		//couponNum.value=couponName1;
+		payMoney1.innerHTML=totalPrice-totalPrice*percent*0.01;		
 		
 	}
 	function root1(num,a,p){
