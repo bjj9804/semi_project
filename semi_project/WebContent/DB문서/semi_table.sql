@@ -15,7 +15,6 @@ DROP TABLE Users CASCADE CONSTRAINTS;
 
 
 
-
 /* Create Tables */
 
 CREATE TABLE coupon
