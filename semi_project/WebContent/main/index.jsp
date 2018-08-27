@@ -9,7 +9,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="title" class="section">
 		<video autoplay	loop id="myVideo">
-			<source	src="../image`s/video/main.mp4" type="video/mp4">
+			<source	src="../images/video/main.mp4" type="video/mp4">
 		</video>
 		<p class="main_tit">Gucci FALL/WINTER 2018</p>
 	</div>
