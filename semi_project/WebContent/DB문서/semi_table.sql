@@ -18,7 +18,6 @@ DROP TABLE Users CASCADE CONSTRAINTS;
 
 /* Create Tables */
 
-
 CREATE TABLE coupon
 (
 	couponNum number(10,0) PRIMARY KEY NOT NULL,
