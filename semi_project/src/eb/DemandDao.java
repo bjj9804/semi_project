@@ -235,7 +235,35 @@ public class DemandDao {
 			}
 		}
 	}
-	
+		//배송전 주문취소(buy삭제)
+		public int buycancel(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+			con=DBConnection.getConnection();
+			String sql="delete from buy where orderNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException se){
+			System.out.println(se.getMessage());
+			return -1;				
+		}catch(ClassNotFoundException cn) {
+			cn.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 		
 	//넘버로 상세 정보 가져오기
 		public PayVo selectview(int orderNum) {

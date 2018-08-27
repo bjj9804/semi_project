@@ -86,18 +86,21 @@ public class DeController extends HttpServlet {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			System.out.println(orderNum);
 			DemandDao dao=DemandDao.getInstance();
-			//int n=dao.paycancel(orderNum);
-			//PayVo vo=dao.selectview(orderNum);
+			int a=dao.buycancel(orderNum);
+			int n=dao.paycancel(orderNum);
+			PayVo vo=dao.selectview(orderNum);
 			String email=(String) session.getAttribute("email");
-			System.out.println(email);
-			//session.setAttribute("email", email);
-			int n = dao.paycancel(orderNum);
-			if(n>0) {
+			session.setAttribute("email", email);
+			//String email = vo.getEmail();
+			System.out.println(vo.getEmail()+"111");
+			request.setAttribute("email", email);
+			request.setAttribute("n", n);
+			request.setAttribute("a", a);
 				//RequestDispatcher rd = request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email);
 				//rd.forward(request, response);
-				//request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email).forward(request, response);
+			//request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);
 				mylist(request, response);
-			}
+			
 		}
 		protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
