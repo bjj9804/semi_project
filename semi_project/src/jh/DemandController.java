@@ -143,9 +143,6 @@ public class DemandController extends HttpServlet{
 	}
 	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
-		if(email.equals("")||email==null) {
-			System.out.println("¿Ã∏ﬁ¿œ");
-		}
 		DemandDao dao=DemandDao.getInstance();
 		ArrayList<Object[]> list=new ArrayList<>();
 		ArrayList<BuyVo> blist=dao.getBuyVo(email);
