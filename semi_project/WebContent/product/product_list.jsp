@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,12 +22,14 @@
 					<th>상품앞면이미지</th>
 					<th>상품뒷면이지미</th>
 				</tr>
+				<c:forEach var="vo" items="${list }">
 				<tr>
-					<td><a href="product_detail.jsp">남성바지1</a></td>
-					<td>20,000원</td>
-					<td>앞면이미지.jpg</td>
-					<td>뒷면이미지.jpg</td>
+					<td><a href="/jh/product.do?cmd=detail">${vo.itemName }</a></td>
+					<td>${vo.price }원</td>
+					<td>${vo.lookFront }</td>
+					<td>${vo.lookBack }</td>
 				</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>

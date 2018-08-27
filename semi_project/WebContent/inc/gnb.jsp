@@ -40,7 +40,7 @@
 			<li class="sub">
 				<a href="#">WOMEN</a>
 				<ul class="sub_menu sub2">
-					<li><a href="/semi_project/product/product_list.jsp">top</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=list">top</a></li>
 					<li><a href="#">pants</a></li>
 					<li><a href="#">skirts</a></li>
 					<li><a href="#">outer</a></li>
