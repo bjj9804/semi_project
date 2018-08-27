@@ -36,6 +36,8 @@ public class DeController extends HttpServlet {
 			cancel(request,response);
 		}else if(cmd!=null && cmd.equals("change")) {
 			change(request,response);
+		}else if(cmd!=null && cmd.equals("mydetail")) {
+			mydetail(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -103,6 +105,16 @@ public class DeController extends HttpServlet {
 			int n=dao.payconfirm(orderNum);
 			request.setAttribute("n", n);
 			request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);	
+	}
+		protected void mydetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<BuyVo> list=dao.detail(orderNum);
+			PayVo vo=dao.selectview(orderNum);
+			String state=vo.getState();
+			request.setAttribute("list", list);
+			request.setAttribute("state", state);
+			request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);	
 	}
 		
 		

@@ -24,7 +24,7 @@
 			<c:forEach var="vo" items="${list }">
 			<tr>
 			<td>${vo.orderDate }</td>
-			<td><a href="demand.do?cmd=buylist&num=${vo.orderNum}">${vo.orderNum }</a></td>
+			<td><a href="demand.do?cmd=mydetail&num=${vo.orderNum}">${vo.orderNum }</a></td>
 			<td>${vo.addr }</td>
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
