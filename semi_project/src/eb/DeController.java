@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 import jh.BuyVo;
 import jh.PayVo;
@@ -60,7 +60,10 @@ public class DeController extends HttpServlet {
 			request.getRequestDispatcher("demand.do?cmd=paylist").forward(request, response);	
 	}
 		protected void mylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String email=request.getParameter("email");
+			HttpSession session = request.getSession();
+			String email = (String) session.getAttribute("email");
+			System.out.println(email);
+			//String email=request.getParameter("email");
 			DemandDao dao=DemandDao.getInstance();
 			ArrayList<PayVo> list=dao.mylist(email);
 			request.setAttribute("list", list);
@@ -77,18 +80,21 @@ public class DeController extends HttpServlet {
 	}
 		
 		protected void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
-			int orderNum=Integer.parseInt(request.getParameter("num"));
-			DemandDao dao=DemandDao.getInstance();
-			int n=dao.paycancel(orderNum);
-			PayVo vo=dao.selectview(orderNum);
-			String email=vo.getEmail();
-			//System.out.println(vo.getEmail());
 			HttpSession session = request.getSession();
-			session.setAttribute("email", email);
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			System.out.println(orderNum);
+			DemandDao dao=DemandDao.getInstance();
+			//int n=dao.paycancel(orderNum);
+			//PayVo vo=dao.selectview(orderNum);
+			String email=(String) session.getAttribute("email");
+			System.out.println(email);
+			//session.setAttribute("email", email);
+			int n = dao.paycancel(orderNum);
 			if(n>0) {
-				RequestDispatcher rd = request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email);
-				rd.forward(request, response);
+				//RequestDispatcher rd = request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email);
+				//rd.forward(request, response);
 				//request.getRequestDispatcher("/semi_project/demand.do?cmd=mylist&email="+email).forward(request, response);
+				mylist(request, response);
 			}
 		}
 		protected void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

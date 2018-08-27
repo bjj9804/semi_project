@@ -280,7 +280,7 @@ public class DemandDao {
 			}
 		}
 	//상품 교환
-		public int update(int num) {
+		public int change(int num) {
 			Connection con=null;
 			PreparedStatement pstmt=null;
 			try {
@@ -303,5 +303,7 @@ public class DemandDao {
 				}
 			}
 		}
+		
+}
 	
 	
