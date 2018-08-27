@@ -14,6 +14,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
+		<form action="">
 			<table>
 				<tr>
 					<th>상품명</th>
@@ -24,9 +25,9 @@
 					<th>상품이미지</th>
 				</tr>
 				<tr>
-					<td>남성바지1</td>
-					<td>20,000원</td>
-					<td>상품설명설명</td>
+					<td>${itemvo.itemName }</td>
+					<td>${itemvo.price }</td>
+					<td>${itemvo.description }</td>
 					<td>
 						<select name="isize">
 							<option value="small">S</option>
@@ -37,8 +38,8 @@
 					<td>
 						<select name="amount">
 							<option value="1">1</option>
-							<option value="1">2</option>
-							<option value="1">3</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
 						</select>
 					</td>
 					<td>
@@ -46,6 +47,7 @@
 					</td>
 				</tr>
 			</table>
+		</form>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

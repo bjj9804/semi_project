@@ -24,7 +24,7 @@
 				</tr>
 				<c:forEach var="vo" items="${list }">
 				<tr>
-					<td><a href="/jh/product.do?cmd=detail&code=${vo.code }">${vo.itemName }</a></td>
+					<td><a href="/semi_project/jh/product.do?cmd=detail&code=${vo.code }">${vo.itemName }</a></td>
 					<td>${vo.price }원</td>
 					<td>${vo.lookFront }</td>
 					<td>${vo.lookBack }</td>

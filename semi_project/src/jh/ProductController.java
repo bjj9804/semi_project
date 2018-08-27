@@ -72,10 +72,15 @@ public class ProductController extends HttpServlet{
 		ProductDao pdao=ProductDao.getInstance();
 		jh.ItemVo itemvo=pdao.getItemVo(code);
 		ItemImgVo itemimgvo=pdao.getItemImgVo(code);
-		Items itemimgvo=pdao.getItemImgVo(code);
-		ItemImgVo itemimgvo=pdao.getItemImgVo(code);
+		ItemsizeVo itemsizevo=pdao.getItemsizeVo(code);
+		LookVo lookvo=pdao.getLookVo(code);
 		
-		
+		request.setAttribute("itemvo", itemvo);
+		request.setAttribute("itemimgvo", itemimgvo);
+		request.setAttribute("itemsizevo", itemsizevo);
+		request.setAttribute("lookvo", lookvo);
+		request.getRequestDispatcher("/product/product_detail.jsp").forward(request, response);		
+
 		
 	
 	}
