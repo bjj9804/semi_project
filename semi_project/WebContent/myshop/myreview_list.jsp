@@ -10,6 +10,7 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
+		<h1>My Review</h1>
 				<input type="button" value="삭제"
 					onclick="delete1('${email}','${pageNum})">
 				<table border="1" width="500">
@@ -106,7 +107,7 @@
 			alert("삭제할 대상을 선택하세요");
 			return false;
 		}
-		console.log(checkList);
+		console.log(checkList);	a
 		if (confirm("삭제하시겠습니까?")) {
 			location.href = "/semi_project/reviewBoard.do?checkList=" + checkList
 					+ "&cmd=delete&email=" + email + "&pageNum=" + pageNum;

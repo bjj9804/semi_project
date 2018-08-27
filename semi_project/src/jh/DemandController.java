@@ -77,6 +77,8 @@ public class DemandController extends HttpServlet{
 	}
 	private void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
+		String couponName=request.getParameter("couponName");
+		
 		DemandDao dao=DemandDao.getInstance();		
 		int cartNum=dao.getCartNum(email)[2];
 		
@@ -114,6 +116,15 @@ public class DemandController extends HttpServlet{
 		if(buyArray.length!=num) {//결제실패시 혹여나!.....만드는게맘편하지만 굳이 안만들어도되는데 만들어야되나?? 복잡한데..
 			System.out.println("buyTb의 buyNum으로 기존 cartNum을 orderNum으로 바꾸기 실패!!");
 		}
+		
+		if(!couponName.equals("사용하지 않음")) {
+			if(dao.couponUpdate(email,couponName)>0) {
+				System.out.println("쿠폰상태변경완료");
+			}else {
+				System.out.println("쿠폰변경실패!!");
+			}
+		}
+		
 		
 		//결제이후 buyTb에 장바구니에 정보가 남아있는지 확인한후 남아있으면 내버려두고 남아있지 않으면 payTb에서 장바구니정보를 삭제시켜야함
 		int check=dao.cartCheck(cartNum);

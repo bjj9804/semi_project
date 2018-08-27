@@ -24,7 +24,7 @@ public class DemandDao {
 		ArrayList<CouponVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConnection();
-			String sql="select * from coupon where email=?";
+			String sql="select * from coupon where email=? and couponState='사용가능'";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs=pstmt.executeQuery();
@@ -43,6 +43,28 @@ public class DemandDao {
 		}finally {
 			try {				
 				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int couponUpdate(String email,String couponName) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="update coupon set couponState='사용완료' where email=? and couponName=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, couponName);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
 				if(pstmt!=null) pstmt.close();
 				if(con!=null) con.close();				
 			}catch(SQLException se) {

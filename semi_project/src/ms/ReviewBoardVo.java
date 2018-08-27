@@ -13,10 +13,12 @@ public class ReviewBoardVo {
 	private int hit;
 	private Date regdate;
 	private String img;
+	private String itemImg;
+	private String code;
 	
 	public ReviewBoardVo() {}
 	public ReviewBoardVo(int num, String name, String email, String title, String content, int height, int weight,
-			int hit, Date regdate, String img) {
+			int hit, Date regdate, String img, String itemImg, String code) {
 		super();
 		this.num = num;
 		this.name = name;
@@ -28,6 +30,8 @@ public class ReviewBoardVo {
 		this.hit = hit;
 		this.regdate = regdate;
 		this.img = img;
+		this.itemImg = itemImg;
+		this.code = code;
 	}
 	public int getNum() {
 		return num;
@@ -88,6 +92,18 @@ public class ReviewBoardVo {
 	}
 	public void setImg(String img) {
 		this.img = img;
+	}
+	public String getItemImg() {
+		return itemImg;
+	}
+	public void setItemImg(String itemImg) {
+		this.itemImg = itemImg;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

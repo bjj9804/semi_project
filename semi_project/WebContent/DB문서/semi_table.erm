@@ -122,15 +122,20 @@
 			<id></id>
 			<height>-1</height>
 			<width>-1</width>
-				<font_name></font_name>
+				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
 			<x>50</x>
 			<y>50</y>
+			<color>
+				<r>255</r>
+				<g>255</g>
+				<b>255</b>
+			</color>
 			<connections>
 			</connections>
 			<display>false</display>
 			<creation_date>2018-08-25 17:22:36</creation_date>
-			<updated_date>2018-08-25 17:22:36</updated_date>
+			<updated_date>2018-08-27 11:18:19</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -156,6 +161,10 @@
 			<schema></schema>
 		</table_properties>
 		<environment_setting>
+			<environment>
+				<id>0</id>
+				<name>기본</name>
+			</environment>
 		</environment_setting>
 	</settings>
 	<dictionary>
@@ -163,6 +172,37 @@
 	<tablespace_set>
 	</tablespace_set>
 	<contents>
+		<table>
+			<id>0</id>
+			<height>251</height>
+			<width>259</width>
+				<font_name>맑은 고딕</font_name>
+				<font_size>9</font_size>
+			<x>162</x>
+			<y>134</y>
+			<color>
+				<r>128</r>
+				<g>128</g>
+				<b>192</b>
+			</color>
+			<connections>
+			</connections>
+			<physical_name>NEW_TABLE</physical_name>
+			<logical_name>새 테이블</logical_name>
+			<description></description>
+			<constraint></constraint>
+			<primary_key_name></primary_key_name>
+			<option></option>
+			<columns>
+			</columns>
+			<indexes>
+			</indexes>
+			<complex_unique_key_list>
+			</complex_unique_key_list>
+			<table_properties>
+				<schema></schema>
+			</table_properties>
+		</table>
 	</contents>
 	<column_groups>
 	</column_groups>
