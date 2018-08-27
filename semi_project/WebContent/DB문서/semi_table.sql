@@ -122,8 +122,7 @@ CREATE TABLE reviewboard
 	weight number(3,0),
 	hit number(3,0),
 	regdate date,
-	imgSrc varchar2(20),
-	upFile varchar2(20),
+	img varchar2(30),
 	PRIMARY KEY (num)
 );
 
