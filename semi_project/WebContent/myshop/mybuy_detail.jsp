@@ -26,7 +26,13 @@
 			<td>${vo.isize }</td>
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
+			<td>
+			<c:if test="${state=='배송준비중' }">
+			<td><input type="button" value="구매취소" onclick="javascript:location.href='demand.do?cmd=cancel&num=${vo.orderNum}'"></td>
+			</c:if>
+			</td>
 			</tr>
+			
 			</c:forEach>
 			</table>
 			<br>
