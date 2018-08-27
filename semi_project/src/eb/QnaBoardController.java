@@ -32,6 +32,8 @@ public class QnaBoardController extends HttpServlet {
 			delete(request,response);
 		}else if(cmd!=null && cmd.equals("update")) {
 			update(request,response);
+		}else if(cmd!=null && cmd.equals("list2")) {
+			list2(request,response);
 		}
 	}
 	
@@ -57,6 +59,47 @@ public class QnaBoardController extends HttpServlet {
 		QnaBoardDao dao=QnaBoardDao.getInstance();
 		ArrayList<QnaBoardVo> list=dao.list(startRow, endRow);
 		int pageCount=(int)Math.ceil(dao.getCount()/10.0);
+		int startPage=((pageNum-1)/10*10)+1;
+		int endPage=startPage+9;
+		if(endPage>pageCount) {
+			endPage=pageCount;
+		}
+		//sc.setAttribute("email", email);
+		request.setAttribute("list", list);
+		request.setAttribute("originalEmail", originalEmail);
+		request.setAttribute("name", name);
+		request.setAttribute("flag", flag);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageNum", pageNum);
+		request.getRequestDispatcher("../board/qna_list.jsp").forward(request, response);
+	}
+	
+	
+	//5개씩보이는 게시판
+	protected void list2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		//ServletContext sc= getServletContext();
+		String spageNum=request.getParameter("pageNum");
+		String originalEmail=request.getParameter("email");
+		UsersDao dao1=UsersDao.getInstance();
+		UsersVo vo=null;
+		String name="";
+		int flag=1;
+		if(!originalEmail.equals("")) {
+			vo=dao1.select(originalEmail);
+			name=vo.getName();
+			flag=vo.getFlag();
+		}
+		int pageNum=1;
+		if(spageNum!=null) {
+			pageNum=Integer.parseInt(spageNum);
+		}
+		int startRow=(pageNum-1)*10+1;
+		int endRow=startRow+4;
+		QnaBoardDao dao=QnaBoardDao.getInstance();
+		ArrayList<QnaBoardVo> list=dao.list(startRow, endRow);
+		int pageCount=(int)Math.ceil(dao.getCount()/5.0);
 		int startPage=((pageNum-1)/10*10)+1;
 		int endPage=startPage+9;
 		if(endPage>pageCount) {
