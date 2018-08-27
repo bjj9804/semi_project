@@ -10,29 +10,8 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-<<<<<<< HEAD
-			<h1>교환</h1>
-			<form action="" method="post" border="1" bordercolor="black">
-				<table border="1" width=900px bordercolor="black">
-					<tr>
-						<th></th>
-						<th>주문상품정보</th>
-						<th>가격</th>
-					</tr>
-					<c:forEach var="vo1" items="${itemlist }">
-						<tr>
-							<td><input type="checkbox" value=${vo1.itemName }></td>
-							<td>${vo1.itemName }</td>
-							<c:forEach var="vo" items="${list }">
-								<td>${vo.price }</td>
-							</c:forEach>
-					</c:forEach>
-					</tr>
-					</form>
-				</table>
-=======
+		<h1>교환</h1>
 			<table border="1" width=900px bordercolor="black">
-				<h1>교환</h1>
 				<form action="" method="post" border="1" bordercolor="black">
 				<tr>
 					<td><input type="checkbox" class="chk" id="chk_all" name="chk"/></td>
@@ -56,7 +35,6 @@
 				</tr>
 				</form>
 			</table>
->>>>>>> branch 'master' of https://github.com/bjj9804/semi_project.git
 		</div>
 	</div>
 	토네이도는 롯리데아에 있는 아이크스림 이름이라가합니다.
