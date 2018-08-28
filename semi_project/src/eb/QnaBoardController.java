@@ -3,17 +3,15 @@ package eb;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jh.NoticeBoardDao;
-import jh.NoticeBoardVo;
 import mh.UsersDao;
 import mh.UsersVo;
+import ms.ReviewBoardDao;
 
 
 @WebServlet("/eb/qnalist.do")
@@ -65,7 +63,7 @@ public class QnaBoardController extends HttpServlet {
 			endPage=pageCount;
 		}
 		//sc.setAttribute("email", email);
-		request.setAttribute("", num);
+		//request.setAttribute("num", num);
 		request.setAttribute("list", list);
 		request.setAttribute("originalEmail", originalEmail);
 		request.setAttribute("name", name);
@@ -149,14 +147,14 @@ public class QnaBoardController extends HttpServlet {
 		int num=Integer.parseInt(request.getParameter("num"));
 		int grp=Integer.parseInt(request.getParameter("grp"));
 		String email=request.getParameter("email");
-		String writer=request.getParameter("writer");
+		String name=request.getParameter("name");
 		QnaBoardDao dao=QnaBoardDao.getInstance();
 		String email1=dao.getEmail(grp);
-		System.out.println(email+","+writer);
+		System.out.println(email+","+name);
 		int flag=Integer.parseInt(request.getParameter("flag"));
-		if(flag==0||email.equals(writer)||email.equals(email1)) {
+		String cmd1 = request.getParameter("cmd1");
+		if(flag==0||email.equals(name)||email.equals(email1)) {
 			//관리자이거나 작성자와 email이 같거나 해당글의 최초글의 작성자가 같다면 상세내용 보여주기
-			
 			QnaBoardVo vo=dao.detail(num);
 			if(dao.hitup(num)>0) {
 				System.out.println("상세내용보기 성공");
@@ -164,34 +162,40 @@ public class QnaBoardController extends HttpServlet {
 				System.out.println("상세내용보기 실패!!");
 			}
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("../board/qna_detail.jsp").forward(request, response);	
+			if(cmd1.equals("update")) {
+				request.getRequestDispatcher("/board/qna_update.jsp").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/board/qna_detail.jsp").forward(request, response);
+			}
 		}else {//제3자가 들어왔을때 되돌아가게하기
 			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
 		}
-		
 	}	
 	
 	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
-		int num=Integer.parseInt(request.getParameter("num"));
+		String email=request.getParameter("email");
+		String pageNum=request.getParameter("pageNum");
 		String checkList=request.getParameter("checkList");
-		String[] checkArr=checkList.split(",");
-		QnaBoardDao dao=QnaBoardDao.getInstance();
+		String[] checkArray=checkList.split(",");
+		String cmd2 = request.getParameter("cmd2");
+		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		boolean bool=true;
-		for(int i=0;i<checkArr.length;i++) {
-			int num1=Integer.parseInt(checkArr[i]);
-			if(dao.delete(num1)<0) {
+		for(int i=0;i<checkArray.length;i++) {
+			int num=Integer.parseInt(checkArray[i]);
+			if(dao.delete(num)<0) {
 				bool=false;
 			}
-		}	
+		}
 		if(bool==false) {
 			System.out.println("삭제 실패");
 			return;
 		}
-		//ServletContext sc=getServletContext();
-		String email=dao.detail(num).getEmail();
-		System.out.println(email);
-			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
-
+		request.setAttribute("email", email);
+		request.setAttribute("pageNum", pageNum);
+		if(cmd2.equals("myshop"))
+			request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);
+		else
+			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email=" + email).forward(request, response);
 	}
 	
 	protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 

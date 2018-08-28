@@ -39,7 +39,7 @@
 									&nbsp;&nbsp;
 							</c:forEach>
 							└
-						</c:if> <a href="qnalist.do?cmd=detail&num=${vo.num }&grp=${vo.grp }&email=${originalEmail }&writer=${vo.email}&flag=${flag}">${vo.title }</a>
+						</c:if> <a href="qnalist.do?cmd=detail&cmd1=det&num=${vo.num }&grp=${vo.grp }&email=${originalEmail }&writer=${vo.email}&flag=${flag}">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>

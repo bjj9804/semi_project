@@ -208,7 +208,7 @@ public class ReviewBoardController extends HttpServlet {
 			if(dao.delete(num)<0) {
 				bool=false;
 			}
-		}		
+		}
 		if(bool==false) {
 			System.out.println("삭제 실패");
 			return;

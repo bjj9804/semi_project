@@ -35,7 +35,7 @@
 	<c:if test="${email==vo.email || flag==0 }">
 			<input type="button" value="답글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num}&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'">
 			<input type="button" value="글 삭제" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&num=${vo.num }'">
-			<input type="button" value="글 수정" onclick="javascript:location.href='../board/qna_update.jsp?num=${vo.num }'">
+			<input type="button" value="글 수정" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=detail&cmd1=update&num=${vo.num }&grp=${vo.grp }&email=${email }&name=${vo.name }&flag=${flag }'">
 	</c:if>
 
 		</div>

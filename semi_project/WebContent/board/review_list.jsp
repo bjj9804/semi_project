@@ -149,12 +149,13 @@
 			}
 		}
 	}
+	
 	function delete1(email, pageNum) {
 		var checkList = "";
 		var chk = document.getElementsByName("check");
 		for (var i = 1; i < chk.length; i++) {
 			if (chk[i].checked == true) {
-				checkList += chk[i].value + ",";
+				checkList += chk[i].value + ",";	
 			}
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
