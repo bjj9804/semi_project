@@ -65,7 +65,11 @@ public class SaleController extends HttpServlet{
 		int year = cal.get(cal.YEAR);
 		int month = cal.get(cal.MONTH) + 1 ;
 		int startDay = cal.get(cal.DATE);
-		int endDay = cal.get(cal.DATE) + 7;
+		int endDay = startDay + 7;
+		int[] arr = {31,28,31,30,31,30,31,31,30,31,30,31};
+		if(endDay > arr[month-1]) {
+			endDay = arr[month-1];
+		}
 		ArrayList<PayVo> list = dao.weeklist(year,month,startDay,endDay);
 		DatelistVo vo = dao.totlist(year, month, startDay, year, month, endDay);
 		request.setAttribute("list", list);
@@ -78,8 +82,9 @@ public class SaleController extends HttpServlet{
 		int year = cal.get(cal.YEAR);
 		int month = cal.get(cal.MONTH) + 1 ;
 		int day = cal.get(cal.DATE);
+		int endday = day + 1;
 		ArrayList<PayVo> list = dao.daylist(year,month,day);
-		DatelistVo vo = dao.totlist(year, month, day, year, month, day);
+		DatelistVo vo = dao.totlist(year, month, day, year, month, endday);
 		request.setAttribute("list", list);
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../sale/sale_datelist.jsp").forward(request, response);
