@@ -178,6 +178,7 @@ public class QnaBoardController extends HttpServlet {
 		String checkList=request.getParameter("checkList");
 		String[] checkArray=checkList.split(",");
 		String cmd2 = request.getParameter("cmd2");
+		
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		boolean bool=true;
 		for(int i=0;i<checkArray.length;i++) {
