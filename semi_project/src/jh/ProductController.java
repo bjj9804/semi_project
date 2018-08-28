@@ -20,34 +20,34 @@ public class ProductController extends HttpServlet{
 		String cmd=request.getParameter("cmd");		
 		String contextPath=getServletContext().getContextPath();
 		
-		if(cmd!=null && cmd.equals("list")) {
-			list(request,response);
+		if(cmd!=null && cmd.equals("lookList")) {
+			lookList(request,response);
 		}else if(cmd!=null && cmd.equals("detail")) {
 			detail(request,response);
 		}
 		
 	}
 	
-	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void lookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ItemDao itemdao=ItemDao.getInstance();
-//		itemdao.list(startRow, endRow);
-		
-		
-		String spageNum = request.getParameter("pageNum");
-//		String email = request.getParameter("email");
-//		System.out.println(email);
-		int pageNum=1;
-		if(spageNum!=null) {
-			pageNum=Integer.parseInt(spageNum);
-		}
-		int startRow=(pageNum-1)*10+1;
-		int endRow=(pageNum-1)*10+10;		
-		int pageCnt=(int)Math.ceil(itemdao.getCount()/10.0);
-		int startPage=((pageNum-1)/10)*10+1;
-		int endPage=startPage+9;
-		if(endPage>pageCnt) {
-			endPage=pageCnt;
-		}		
+////		itemdao.list(startRow, endRow);
+//		
+//		
+//		String spageNum = request.getParameter("pageNum");
+////		String email = request.getParameter("email");
+////		System.out.println(email);
+//		int pageNum=1;
+//		if(spageNum!=null) {
+//			pageNum=Integer.parseInt(spageNum);
+//		}
+//		int startRow=(pageNum-1)*10+1;
+//		int endRow=(pageNum-1)*10+10;		
+//		int pageCnt=(int)Math.ceil(itemdao.getCount()/10.0);
+//		int startPage=((pageNum-1)/10)*10+1;
+//		int endPage=startPage+9;
+//		if(endPage>pageCnt) {
+//			endPage=pageCnt;
+//		}		
 		ArrayList<ItemVo> list=itemdao.list(startRow,endRow);
 		
 //		int flag=0;

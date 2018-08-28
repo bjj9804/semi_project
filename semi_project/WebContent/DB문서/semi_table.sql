@@ -73,12 +73,18 @@ CREATE TABLE itemsize
 );
 CREATE TABLE Look
 (
-	num number(3,0) PRIMARY KEY NOT NULL,
-	lookCode varchar2(20) NOT NULL,
-	code varchar2(20) NOT NULL,
+	lookCode varchar2(20) PRIMARY KEY NOT NULL,--룩이아닌상품등록할때는0으로통일할까여
 	lookFront varchar2(40),
 	lookBack varchar2(40)
 );
+
+CREATE TABLE lookItem
+(
+	num number(10,0) PRIMARY KEY NOT NULL,
+	lookCode varchar2(20) NOT NULL,
+	code varchar2(20) NOT NULL	
+);
+
 CREATE TABLE noticeBoard
 (
 	num number(7,0) PRIMARY KEY NOT NULL,
@@ -197,7 +203,7 @@ ALTER TABLE reviewboard
 ;
 
 
-CREATE SEQUENCE look_seq;
+CREATE SEQUENCE lookItem_seq;
 
 CREATE SEQUENCE buy_seq;
 
