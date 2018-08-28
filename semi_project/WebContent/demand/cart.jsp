@@ -16,35 +16,61 @@
 			
 			<h3>담긴 상품</h3>	
 				<table border="1" width="800" align="center">
-					<tr>						
-						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+					<tr>					
+						<c:choose>
+							<c:when test="${!empty list }">
+								<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+							</c:when>
+						</c:choose>
 						<th>이미지</th> 
 						<th>상품정보</th> 
 						<th>판매가</th> 
 						<th>수량</th> 
 						<th>합계</th>					
-					</tr>
-					<c:forEach var="vo" items="${list }">
-					<tr>
-						<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1()"></td>
-						<td>${vo[1] }</td> <!-- 이미지 -->
-						<td>${vo[2] }</td> <!-- 상품정보 -->
-						<td>${vo[3] }</td> <!-- 판매가 -->
-						<td>${vo[0].orderAmount }</td> <!-- 수량 -->
-						<td name="price">${vo[0].price }</td> <!-- 합계 -->
 					</tr>					
-					</c:forEach>						
+					<c:choose>
+						<c:when test="${empty list }">
+							<tr><td colspan="5">등록된 상품이 없습니다.</td></tr>							
+						</c:when>					
+						<c:otherwise>
+							<c:forEach var="vo" items="${list }">						
+								<tr>
+									<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1()"></td>
+									<td>${vo[1] }</td> <!-- 이미지 -->
+									<td>${vo[2] }</td> <!-- 상품정보 -->
+									<td>${vo[3] }</td> <!-- 판매가 -->
+									<td>${vo[0].orderAmount }</td> <!-- 수량 -->
+									<td name="price">${vo[0].price }</td> <!-- 합계 -->
+								</tr>	
+							</c:forEach>						
+						</c:otherwise>
+					</c:choose>
+					
 				</table>
-				<input type="button" value="내보내기" onclick="delete1('${email}')">
-				<br><br>
 				
-				결제예정금액<div id="totalPrice1"></div>
-				<input type="hidden" name="totalPrice">
-				<input type="hidden" name="email" value="${email }">
-				<input type="hidden" id="buyList" name="buyList">
-				<input type="button" value="선택상품주문" onclick="getBuyList('${email}')">			
-				<a href="javascript:history.go(-1)">쇼핑계속하기</a>
-			</form>
+				<c:choose>
+					<c:when test="${!empty list }">
+						<input type="button" value="내보내기" onclick="delete1('${email}')">
+						<br><br>
+						
+						결제예정금액<div id="totalPrice1"></div>
+						<input type="hidden" name="totalPrice">
+						<input type="hidden" name="email" value="${email }">
+						<input type="hidden" id="buyList" name="buyList">
+						<input type="button" value="선택상품주문" onclick="getBuyList('${email}')">		
+					</c:when>
+				</c:choose>					
+				</form>
+				<c:choose>
+					<c:when test="${check==1 }">
+						<br><a href="/semi_project/main/index.jsp">쇼핑계속하기</a>	
+					</c:when>
+					<c:otherwise>
+						<br><a href="javascript:history.go(-2)">쇼핑계속하기</a>	
+					</c:otherwise>
+				</c:choose>		
+								
+				
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

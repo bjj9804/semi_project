@@ -17,7 +17,7 @@
 					</c:if>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="/semi_project/jh/demand.do?cmd=showCart&email=${email }">cart</a></li>
+			<li><a href="/semi_project/jh/demand.do?cmd=showCart&check=1&email=${email }">cart</a></li>
 		</ul>
 	</div>
 	<div class="inner">
