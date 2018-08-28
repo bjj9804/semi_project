@@ -9,23 +9,35 @@
 </head>
 <script type="text/javascript">
 	window.onload=function(){
-		var file=document.getElementById("file");		
+		var file=document.getElementById("file");				
 		var filelist=document.getElementById("filelist");	
 		file.onclick=function(){
-			var div=document.createElement("div");
-			var file=document.createElement("input");
-			file.type="file";
-			file.name="imgSrc";
-			var imgType=document.createElement("input");
-			imgType.type="text";
-			imgType.name="imgType";			
-			
-			div.appendChild(imgType);
-			div.appendChild(file);
-			filelist.appendChild(div);
+			var fileCount=document.getElementById("fileCount").value;	
+			for(var i=1;i<=fileCount;i++){
+				var div=document.createElement("div");
+				var file=document.createElement("input");
+				file.type="file";
+				file.name="imgSrc"+i;
+				var imgType=document.createElement("input");
+				imgType.type="text";
+				imgType.name="imgType"+i;			
+				
+				div.appendChild(imgType);
+				div.appendChild(file);
+				filelist.appendChild(div);
+			}
 		}
 		
 	}
+	function check1(){
+		var look=document.getElementById("look");	
+		var lookCode=document.getElementById("lookCode");	
+		var lookCodeList=document.getElementsByName("lookCodeList");	
+		lookCode.innerHTML+=look.value+",";
+		lookCodeList.value=lookCode.innerHTML;
+	}
+	
+	
 </script>
 
 <body>
@@ -93,17 +105,26 @@
 					</tr>
 					<tr>
 						<th>룩코드</th>
-						<td><input type="text" name="lookCode"></td>
+						<td>
+							<select id="look" onclick="check1()">
+								<c:forEach var="vo" items="${list }">
+									<option value="${vo.lookCode }">${vo.lookCode }</option>
+								</c:forEach>
+							</select>							
+							<div id="lookCode"></div>
+						</td>
 					</tr>
 					<tr>
-						<th>이미지타입<br><input type="button" id="file" value="파일추가" ></th>
-						<td>
-							
+						<th>이미지타입</th>
+						<td>	
+							추가할 파일갯수<input type="text" size="2" id="fileCount" name="fileCount" >
+							<input type="button" id="file" value="파일추가" >												
 							<div id="filelist"></div>
 						</td>
 					</tr>					
 				</table>
-								
+					
+				<input type="hidden" name="lookCodeList">
 				<input type="hidden" name="cmd" value="itemInsert">
 				<input type="submit" value="등록">
 				<input type="reset" value="취소">

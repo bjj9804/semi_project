@@ -23,3 +23,44 @@ SELECT * FROM PAY;
 select *
 from pay
 where orderdate >= '18/08/01';
+
+select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= '18/8/1' and orderdate <= '18/08/31' order by orderdate desc;
+
+select * from pay;
+
+INSERT INTO PAY VALUES (15,SYSDATE,'구매완료','0','주소','test3@naver.com',19000,19000);
+INSERT INTO pay VALUES (16,sysdate,'구매완료','0','주소','test1@naver.com',58000,58000);
+INSERT INTO pay VALUES (17,sysdate,'구매완료','0','주소','test2@naver.com',23000,23000);
+INSERT INTO pay VALUES (18,sysdate,'구매완료','0','주소','test3@naver.com',74000,74000);
+INSERT INTO pay VALUES (19,sysdate,'구매완료','0','주소','test4@naver.com',35000,35000);
+INSERT INTO pay VALUES (20,sysdate,'구매완료','0','주소','test5@naver.com',87000,87000);
+commit;
+
+select * from pay;
+select * from pay where orderdate >= '2018/8/28';
+
+CREATE SEQUENCE PAY_seq;
+CREATE SEQUENCE BUY_seq;
+
+insert into pay values(21,sysdate,'배송준비중','BCcard','경기도','test1@naver.com',110000,110000);
+insert into pay values(22,sysdate,'배송준비중','BCcard','경기도','test3@naver.com',110000,110000);
+insert into pay values(23,sysdate,'배송준비중','BCcard','경기도','test4@naver.com',110000,110000);
+insert into pay values(24,sysdate,'배송준비중','BCcard','경기도','test2@naver.com',110000,110000);
+insert into pay values(25,sysdate,'배송준비중','BCcard','경기도','test5@naver.com',110000,110000);
+insert into pay values(26,sysdate,'배송준비중','BCcard','경기도','test1@naver.com',110000,110000);
+insert into pay values(27,sysdate,'배송준비중','BCcard','경기도','test2@naver.com',110000,110000);
+
+insert into item values('tee01',9900,'반팔티셔츠','화이트반팔티셔츠');
+
+insert into itemsize values('S','tee01',20);
+insert into itemsize values('M','tee01',50);
+
+insert into item values('pt01',25000,'바지','화이트바지');
+
+insert into itemsize values('S','pt01',20);
+insert into itemsize values('M','pt01',50);
+
+insert into buy values(BUY_SEQ.NEXTVAL,PAY_SEQ.CURRVAL,'pt01','M',2,25000);
+insert into buy values(BUY_SEQ.NEXTVAL,PAY_SEQ.CURRVAL,'tee01','S',5,9900);
+
+commit;

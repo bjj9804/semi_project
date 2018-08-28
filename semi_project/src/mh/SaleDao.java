@@ -31,7 +31,6 @@ public class SaleDao {
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
-				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");
@@ -109,7 +108,6 @@ public class SaleDao {
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
-				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");
@@ -145,17 +143,13 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where orderdate >= '?/?/1' and orderdate <= '?/?/?'";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, year);
-			pstmt.setInt(2, month);
-			pstmt.setInt(3, year);
-			pstmt.setInt(4, month);
-			pstmt.setInt(5, endDay);
+			pstmt.setString(1, year+"/"+month+"/"+1);
+			pstmt.setString(2, year+"/"+month+"/"+endDay);
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
-				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");
@@ -192,18 +186,13 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where orderdate >= '?/?/?' and orderdate <= '?/?/?'";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, year);
-			pstmt.setInt(2, month);
-			pstmt.setInt(3, startDay);
-			pstmt.setInt(4, year);
-			pstmt.setInt(5, month);
-			pstmt.setInt(6, endDay);
+			pstmt.setString(1, year+"/"+month+"/"+startDay);
+			pstmt.setString(2, year+"/"+month+"/"+endDay);
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
-				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");
@@ -240,15 +229,12 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where orderdate = '?/?/?'";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, year);
-			pstmt.setInt(2, month);
-			pstmt.setInt(3, day);
+			pstmt.setString(1, year+"/"+month+"/"+day);
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
-				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");
@@ -285,18 +271,13 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where orderdate >= '?/?/?' and orderdate <= '?/?/?'";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startyear);
-			pstmt.setInt(2, startmonth);
-			pstmt.setInt(3, startDay);
-			pstmt.setInt(4, endyear);
-			pstmt.setInt(5, endmonth);
-			pstmt.setInt(6, endDay);
+			pstmt.setString(1, startyear+"/"+startmonth+"/"+startDay);
+			pstmt.setString(2, endyear+"/"+endmonth+"/"+endDay);
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
-				System.out.println(rs.getInt("orderNum"));
 				int orderNum = rs.getInt("orderNum");
 				Date orderDate=rs.getDate("orderDate");
 				String state=rs.getString("state");
@@ -332,14 +313,10 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= '?/?/?' and orderdate <= '?/?/?' order by orderdate desc;";
+			String sql = "select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= ? and orderdate <= ? order by orderdate desc";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startyear);
-			pstmt.setInt(2, startmonth);
-			pstmt.setInt(3, startDay);
-			pstmt.setInt(4, endyear);
-			pstmt.setInt(5, endmonth);
-			pstmt.setInt(6, endDay);
+			pstmt.setString(1, startyear+"/"+startmonth+"/"+startDay);
+			pstmt.setString(2, endyear+"/"+endmonth+"/"+endDay);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				int tot = rs.getInt("tot");
