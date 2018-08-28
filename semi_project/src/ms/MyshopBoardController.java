@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import eb.QnaBoardDao;
 import eb.QnaBoardVo;
 
 @WebServlet("/myshopBoard.do")
@@ -26,6 +27,8 @@ public class MyshopBoardController extends HttpServlet {
 			reviewList(request, response);
 		}else if(cmd !=null && cmd.equals("reviewDetail")) {
 			reviewDetail(request, response);
+		}else if(cmd !=null && cmd.equals("qnaDetail")) {
+			qnaDetail(request, response);
 		}
 	}
 	
@@ -94,6 +97,15 @@ public class MyshopBoardController extends HttpServlet {
 		ReviewBoardVo vo = dao.detail(num);
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("/myshop/myreview_detail.jsp").forward(request, response);
+	}
+	
+	public void qnaDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num = Integer.parseInt(request.getParameter("num"));
+		QnaBoardDao dao = QnaBoardDao.getInstance();
+		int n=dao.hitup(num);
+		QnaBoardVo vo1 = dao.detail(num);
+		request.setAttribute("vo1", vo1);
+		request.getRequestDispatcher("/myshop/myqna_detail.jsp").forward(request, response);
 	}
 	
 	public void ReviewDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
