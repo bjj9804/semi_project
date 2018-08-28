@@ -8,43 +8,31 @@
 	<jsp:include page="/inc/header.jsp"/>
 </head>
 <script type="text/javascript">
-window.onload=function(){
-	var file=document.getElementById("file");		
-	var filelist=document.getElementById("filelist");	
-	file.onclick=function(){
-		var input=document.createElement("input");
-		input.type="file";
-		filelist.appendChild(file);
+	window.onload=function(){
+		var file=document.getElementById("file");		
+		var filelist=document.getElementById("filelist");	
+		file.onclick=function(){
+			var div=document.createElement("div");
+			var file=document.createElement("input");
+			file.type="file";
+			file.name="imgSrc";
+			var imgType=document.createElement("input");
+			imgType.type="text";
+			imgType.name="imgType";			
+			
+			div.appendChild(imgType);
+			div.appendChild(file);
+			filelist.appendChild(div);
+		}
+		
 	}
-	/*var img1=document.createElement("img");
-	var img2=document.createElement("img");
-	var img3=document.createElement("img");
-	btn.onclick=function(){			
-		img1.src="images/1.png";			
-		img2.src="images/2.png";			
-		img3.src="images/3.png";
-	}
-	imglist.appendChild(img1);
-	imglist.appendChild(img2);
-	imglist.appendChild(img3);
-	
-	img1.onmouseover=function(){
-		img1.border="2px solid black";
-	}
-	img2.onmouseover=function(){
-		img2.border="2px solid black";
-	}
-	img3.onmouseover=function(){
-		img3.border="2px solid black";
-	}*/
-}
 </script>
 
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/jj/item.do" method="post">
+			<form action="/semi_project/jh/item.do" method="post">
 			<h2>룩등록하기</h2>
 				<table>
 					<tr>
@@ -64,11 +52,13 @@ window.onload=function(){
 						</td>
 					</tr>					
 				</table>				
-				<input type="hidden" name="cmd" value="insert">
+				<input type="hidden" name="cmd" value="lookInsert">
 				<input type="submit" value="등록">
 				<input type="reset" value="취소">
 			</form>
-			<form action="/semi_project/jj/item.do" method="post">
+			
+			
+			<form action="/semi_project/jh/item.do" method="post">
 			<h2>상품등록하기</h2>
 				<table>
 					<tr>
@@ -106,14 +96,15 @@ window.onload=function(){
 						<td><input type="text" name="lookCode"></td>
 					</tr>
 					<tr>
-						<th>이미지타입</th>
+						<th>이미지타입<br><input type="button" id="file" value="파일추가" ></th>
 						<td>
-							<input type="button" id="file" value="파일추가" onclick="">
+							
 							<div id="filelist"></div>
 						</td>
 					</tr>					
-				</table>				
-				<input type="hidden" name="cmd" value="insert">
+				</table>
+								
+				<input type="hidden" name="cmd" value="itemInsert">
 				<input type="submit" value="등록">
 				<input type="reset" value="취소">
 			</form>
