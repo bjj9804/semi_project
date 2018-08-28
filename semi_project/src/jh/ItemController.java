@@ -1,6 +1,7 @@
 package jh;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +18,12 @@ public class ItemController extends HttpServlet{
 		
 		if(cmd!=null && cmd.equals("lookInsert")) {
 			lookInsert(request,response);
+		}else if(cmd!=null && cmd.equals("list")) {
+			list(request,response);
 		}else if(cmd!=null && cmd.equals("itemInsert")) {
 			itemInsert(request,response);
+		}else if(cmd!=null && cmd.equals("getLookCode")) {
+			getLookCode(request,response);
 		}
 	}
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +31,13 @@ public class ItemController extends HttpServlet{
 		String lookFront=request.getParameter("lookFront");
 		String lookBack=request.getParameter("lookBack");
 		
-		System.out.println(lookCode+","+lookFront+","+lookBack);
+		ItemDao dao=ItemDao.getInstance();
+		LookVo vo=new LookVo(lookCode, lookFront, lookBack);
+		if(dao.lookInsert(vo)>0) {
+			System.out.println("look테이블insert성공");
+		}else {
+			System.out.println("look테이블insert실패");
+		}
 		
 		
 	}
@@ -37,15 +48,32 @@ public class ItemController extends HttpServlet{
 		String description=request.getParameter("description");
 		String isize=request.getParameter("isize");
 		String amount=request.getParameter("amount");
-		String lookCode=request.getParameter("lookCode");
-		String imgSrc=request.getParameter("imgSrc");
-		String imgType=request.getParameter("imgType");
+		String lookCodeList=request.getParameter("lookCodeList");
 		
-		System.out.println(code+","+price+","+itemName+","+description+","+isize+","+amount+","+lookCode);
-		System.out.println(imgSrc);
-		System.out.println(imgType);
+		System.out.println(lookCodeList);
+		
+		int fileCount=Integer.parseInt(request.getParameter("fileCount"));
+		
+		ArrayList<String[]> list=new ArrayList<>();
+		for(int i=1;i<=fileCount;i++) {
+			String imgSrc=request.getParameter("imgSrc"+i);
+			String imgType=request.getParameter("imgType"+i);
+			System.out.println(imgSrc+","+imgType);
+			String[] img= {imgSrc,imgType};
+			list.add(img);
+		}
+		
+		ItemDao dao=ItemDao.getInstance();
+		
 		
 	}
-	
+	private void getLookCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ItemDao dao=ItemDao.getInstance();
+		ArrayList<LookVo> list=dao.getLookCode();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/item/item_insert.jsp").forward(request, response);
+		
+		
+	}
 	
 }
