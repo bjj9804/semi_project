@@ -34,45 +34,51 @@ public class DemandController extends HttpServlet{
 	}	
 	
 	private void cart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String contextPath=getServletContext().getContextPath();
 		String email=request.getParameter("email");
-		DemandDao dao=DemandDao.getInstance();
-		PayVo pvo=null;
-		BuyVo bvo=null;
+		if(email==null||email.equals("")) {
+			response.sendRedirect(contextPath + "/users/login.jsp");			
 		
-		int[] cartPayTbCh=dao.getCartNum(email);//(기존에있었는지없었는지유무,cartNum)
-		int check=cartPayTbCh[0];//0이면 장바구니정보 없음. 1이면 장바구니정보 있었음.
-								///0이면 payTb에 장바구니 생성.1이면 장바구니번호가져와 insert하기
-		int cartNum=cartPayTbCh[1];		
-		if(cartNum==0) {
-			System.out.println("cartNum오류");
-		}
-		String code=request.getParameter("code");
-		String isize=request.getParameter("isize");
-		int orderAmount=Integer.parseInt(request.getParameter("orderAmount"));
-		int o_price=dao.getItemVo(code).getPrice();//상품단품가격가져오기
-		int price=o_price*orderAmount;//상품단일가격*수량
-		
-		
-		if(check==0) {///0이면 payTb에 장바구니 생성하고 buyTb에도 상품insert시키기
-			pvo=new PayVo(cartNum, null, null, null, null, email, 0, 0);
-			bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price);
+		}else {		
+			DemandDao dao=DemandDao.getInstance();
+			PayVo pvo=null;
+			BuyVo bvo=null;
 			
-			if(dao.cart(pvo,bvo)>0) {//장바구니담기(buyTb,payTb에 insert됨)
-				System.out.println("장바구니담기 성공");
-			}else {
-				System.out.println("장바구니담기 실패!!!");
+			int[] cartPayTbCh=dao.getCartNum(email);//(기존에있었는지없었는지유무,cartNum)
+			int check=cartPayTbCh[0];//0이면 장바구니정보 없음. 1이면 장바구니정보 있었음.
+									///0이면 payTb에 장바구니 생성.1이면 장바구니번호가져와 insert하기
+			int cartNum=cartPayTbCh[1];		
+			if(cartNum==0) {
+				System.out.println("cartNum오류");
 			}
-		}else if(check==1) {///1이면 장바구니 생성하지 않고 가져다쓰기
-			bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price);
-			if(dao.buyInsert(bvo)>0) {
-				System.out.println("기존에 있던 장바구니에 상품 추가 성공");
-			}else {
-				System.out.println("기존에 있던 장바구니에 상품 추가 실패!!!");
+			String code=request.getParameter("code");
+			String isize=request.getParameter("isize");
+			int orderAmount=Integer.parseInt(request.getParameter("orderAmount"));
+			int o_price=dao.getItemVo(code).getPrice();//상품단품가격가져오기
+			int price=o_price*orderAmount;//상품단일가격*수량
+			
+			
+			if(check==0) {///0이면 payTb에 장바구니 생성하고 buyTb에도 상품insert시키기
+				pvo=new PayVo(cartNum, null, null, null, null, email, 0, 0);
+				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price);
+				
+				if(dao.cart(pvo,bvo)>0) {//장바구니담기(buyTb,payTb에 insert됨)
+					System.out.println("장바구니담기 성공");
+				}else {
+					System.out.println("장바구니담기 실패!!!");
+				}
+			}else if(check==1) {///1이면 장바구니 생성하지 않고 가져다쓰기
+				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price);
+				if(dao.buyInsert(bvo)>0) {
+					System.out.println("기존에 있던 장바구니에 상품 추가 성공");
+				}else {
+					System.out.println("기존에 있던 장바구니에 상품 추가 실패!!!");
+				}
 			}
+			////payTb의 총가격은 수정하지 않는걸로! 결제는이루어지지않았으니까 보여질때는 뿌려져서 더하는걸로!
+			request.setAttribute("email", email);
+			showCart(request, response);
 		}
-		////payTb의 총가격은 수정하지 않는걸로! 결제는이루어지지않았으니까 보여질때는 뿌려져서 더하는걸로!
-		request.setAttribute("email", email);
-		showCart(request, response);
 	}
 	private void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
@@ -140,23 +146,27 @@ public class DemandController extends HttpServlet{
 		request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
 	}
 	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String contextPath=getServletContext().getContextPath();
 		String email=request.getParameter("email");
-		DemandDao dao=DemandDao.getInstance();
-		ArrayList<Object[]> list=new ArrayList<>();
-		ArrayList<BuyVo> blist=dao.getBuyVo(email);
-		for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
-			String code=bvo.getCode();
-			LookVo lvo=dao.getLookVo(code);
-			String lookFront=lvo.getLookFront();
-			ItemVo ivo=dao.getItemVo(code);
-			String description=ivo.getDescription();
-			int price=ivo.getPrice();
-			Object[] ob= {bvo,lookFront,description,price};
-			list.add(ob);
+		if(email==null||email.equals("")) {
+			response.sendRedirect(contextPath + "/users/login.jsp");
+		}else {
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<Object[]> list=new ArrayList<>();
+			ArrayList<BuyVo> blist=dao.getBuyVo(email);
+			for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
+				String code=bvo.getCode();
+				LookVo lvo=dao.getLookVo(code);
+				String lookFront=lvo.getLookFront();
+				ItemVo ivo=dao.getItemVo(code);
+				String description=ivo.getDescription();
+				int price=ivo.getPrice();
+				Object[] ob= {bvo,lookFront,description,price};
+				list.add(ob);
+			}
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
 		}
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
-		
 	}
 	private void showOrderForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
