@@ -7,15 +7,6 @@
 	<jsp:include page="/inc/header.jsp"/>
 </head>
 <body>
-<%
-	String email=request.getParameter("email");
-	String flag1=request.getParameter("flag");
-	int flag=Integer.parseInt(flag1);
-	
-	session.setAttribute("email", email);
-	session.setAttribute("flag", flag);
-
-%>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
@@ -32,7 +23,7 @@
 
 
 
-	<c:if test="${email==vo.email || flag==0 }">
+	<c:if test="${email==vo1.email || flag==0 }">
 			<input type="button" value="글 삭제" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&num=${vo.num }'">
 			<input type="button" value="글 수정" onclick="javascript:location.href='../board/qna_update.jsp?num=${vo.num }'">
 	</c:if>

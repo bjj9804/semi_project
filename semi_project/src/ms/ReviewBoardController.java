@@ -189,6 +189,8 @@ public class ReviewBoardController extends HttpServlet {
 		request.setAttribute("pageNum", request.getAttribute("pageNum"));
 		if(cmd1.equals("update")) {
 			request.getRequestDispatcher("/board/review_update.jsp").forward(request, response);
+		}else if(cmd1.equals("myboard")) {
+			
 		}else {
 			request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
 		}

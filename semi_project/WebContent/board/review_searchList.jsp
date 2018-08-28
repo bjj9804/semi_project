@@ -21,7 +21,7 @@
 					<tr>
 						<td>${vo.num }</td>
 						<td>${vo.name }</td>
-						<td><a href="detail.do?num=${vo.num }">${vo.title }</a></td>
+						<td><a href="/semi_project/detail.do?num=${vo.num }">${vo.title }</a></td>
 					</tr>
 				</c:forEach>
 			</table>

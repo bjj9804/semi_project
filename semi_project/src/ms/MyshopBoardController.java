@@ -87,7 +87,7 @@ public class MyshopBoardController extends HttpServlet {
 		request.setAttribute("startPage1", startPage1);
 		request.setAttribute("endPage1", endPage1);
 		request.setAttribute("pageNum1", pageNum1);
-		request.getRequestDispatcher("/myshop/myreview_list.jsp").forward(request, response);
+		request.getRequestDispatcher("/myshop/myboard_list.jsp").forward(request, response);
 	}
 		//request.getRequestDispatcher("/myshop/myreview_list.jsp").forward(request, response);
 	public void reviewDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -145,35 +145,5 @@ public class MyshopBoardController extends HttpServlet {
 		}
 	}
 	//----------------------------qnaBoard--------------------------------------------------
-	
-//	protected void qnaList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-//		HttpSession session = request.getSession();
-//		
-//		
-//		String email = (String) session.getAttribute("email");
-//		int flag = (int) session.getAttribute("flag");
-//		String spageNum=request.getParameter("pageNum");
-//		int pageNum=1;
-//		if(spageNum!=null) {
-//			pageNum=Integer.parseInt(spageNum);
-//		}
-//		int startRow = pageNum * 5 - 4;
-//		int endRow = startRow + 4;
-//		MyshopBoardDao dao = MyshopBoardDao.getInstance();
-//		ArrayList<QnaBoardVo> list=dao.qnaList(email, startRow, endRow);
-//		int pageCount=(int)Math.ceil(dao.getQnaCount(email)/5.0);
-//		int startPage=((pageNum-1)/5*5)+1;
-//		int endPage=startPage+4;
-//		if(endPage>pageCount) {
-//			endPage=pageCount;
-//		}
-//		request.setAttribute("list1", list);
-//		request.setAttribute("email1", email);
-//		request.setAttribute("flag1", flag);
-//		request.setAttribute("pageCount1", pageCount);
-//		request.setAttribute("startPage1", startPage);
-//		request.setAttribute("endPage1", endPage);
-//		request.setAttribute("pageNum1", pageNum);
-//		request.getRequestDispatcher("/myshop/myqna_list.jsp").forward(request, response);
-//	}
+
 }

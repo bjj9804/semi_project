@@ -85,7 +85,7 @@ public class ReviewBoardDao {
 		try {
 			con = DBConnection.getConnection();
 			String sql="select NVL(count(num),0) cnt from reviewboard where height between" + 
-						height +" and " + height+10 + " and weight between "+weight+" and "+ weight+10;
+						(height-10) +" and " + height + " and weight between "+(weight-10)+" and "+ weight;
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -233,8 +233,8 @@ public class ReviewBoardDao {
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where height between " +height+" and "+height+10 
-					    + " and " + "weight between " +weight+" and "+weight+10+ "order by num desc) AA) where rnum>=? and rnum<=?";
+			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where height between " +(height-10)+" and "+height 
+					    + " and " + "weight between " +(weight-10)+" and "+weight+ "order by num desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
