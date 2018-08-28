@@ -5,34 +5,6 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
-	<script>
-	var xhr = null;
-	function emailcheck(){
-		var email1 = document.getElementById("email1");
-		var email2 = document.getElementById("email2");
-		var email = email1.value + email2.value;
-		if(email1.value == "" || email2.value == ""){
-			document.getElementById("echeck").innerHTML = "";
-			return;//메소드 끝내기
-		}
-		xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = emailcall;
-		xhr.open('get','/semi_project/mh/users.do?cmd=emailcheck&&email='+email,true);
-		xhr.send();
-	}
-	function emailcall(){
-		 if(xhr.readyState == 4 && xhr.status == 200){
-			 var text = xhr.responseText;
-			 var json = JSON.parse(text);
-			 var span = document.getElementById("echeck");
-			 if(json.using == true){
-				 span.innerHTML = ""
-			 }else{
-				 span.innerHTML = "가입하지 않은 이메일 입니다"
-			 }
-		 }
-	}
-	</script>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
