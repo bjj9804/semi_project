@@ -43,7 +43,6 @@ public class UsersController extends HttpServlet{
 		boolean using = dao.checkE(email);
 		JSONObject obj = new JSONObject();
 		obj.put("using", using);
-		
 		response.setContentType("text/plain;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		pw.println(obj.toString());

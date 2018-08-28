@@ -19,3 +19,7 @@ commit;
 
 SELECT * FROM USERS;
 SELECT * FROM PAY;
+
+select *
+from pay
+where orderdate >= '18/08/01';
