@@ -157,11 +157,14 @@ ALTER TABLE itemsize
 ;
 
 
-ALTER TABLE Look
+ALTER TABLE lookItem
 	ADD FOREIGN KEY (code)
 	REFERENCES item (code)
 ;
-
+ALTER TABLE lookItem
+	ADD FOREIGN KEY (lookCode)
+	REFERENCES look (lookCode)
+;
 
 ALTER TABLE buy
 	ADD FOREIGN KEY (isize, code)

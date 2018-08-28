@@ -145,6 +145,9 @@ public class DemandController extends HttpServlet{
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
 	}
+	
+	////////look테이블바꾸면서 수정해야함////////////////////////////////////////////////////
+/////////////////근데 룩코드나 코드에 따라서 sql문이 바뀌어지니깐 일단 그냥 두겠음//////////////
 	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String contextPath=getServletContext().getContextPath();
 		String email=request.getParameter("email");
@@ -168,6 +171,9 @@ public class DemandController extends HttpServlet{
 			request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
 		}
 	}
+	
+	////////////////////////look테이블바꾸면서 수정해야함..////////////////////////////
+	/////////////////근데 룩코드나 코드에 따라서 sql문이 바뀌어지니깐 일단 그냥 두겠음//////////////
 	private void showOrderForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		String buyList=request.getParameter("buyList");
