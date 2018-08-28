@@ -23,7 +23,7 @@
 				</tr>
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
 				<tr>
-						<td><input type="checkbox" class="chk" name="chk" value=${vo.itemName }/></td>
+						<td><input type="checkbox" class="chk" name="chk" value=${list[status.index].buyNum }/></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
@@ -40,7 +40,7 @@
 				</tr>
 				<tr>
 				<td colspan=3>
-				<input type="submit" value="반품신청" style="margin-left:30%">
+				<input type="submit" value="반품신청" onclick="change('${list[status.index].buyNum}')">
 				</td>
 				</tr>
 				</form>
@@ -69,6 +69,32 @@ $(".chk").click(function(){
 		$("#chk_all").prop("checked",false);
 	}	
 });
+//선택된 값 얻어오기
+function change(buyNum) {
+		var checkList = "";
+		var reasonList = "";
+		var chk = document.getElementsByName("check");
+		var rs = document.getElementsByName("reason");
+		for (var i = 1; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				checkList += chk[i].value + ",";
+				reasonList += rs[i].value + ",";
+			}
+		}
+		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
+		reasonList = reasonList.substring(0, reasonList.lastIndexOf(","));//맨끝 콤마 지우기
+
+		if (checkList == '') {
+			alert("반품할 대상을 선택하세요");
+			return false;
+		}
+		console.log(checkList);
+		if (confirm("반품하시겠습니까?")) {
+			location.href = "/semi_project/demand.do?checkList=" + checkList
+					+ "&cmd=buychange2&buyNum=" + buyNu
+					m +"&reasonList="+reasonList;
+		}
+	}
 
 
 </script>

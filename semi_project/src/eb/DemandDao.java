@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
-import jh.BuyVo;
+import eb.BuyVo;
 import jh.ItemVo;
 import jh.PayVo;
 import semi.db.DBConnection;
@@ -88,7 +88,8 @@ public class DemandDao {
 				String isize=rs.getString("isize");
 				int orderAmount=rs.getInt("orderAmount");
 				int price=rs.getInt("price");
-				BuyVo vo=new BuyVo(buyNum,orderNum,code.trim(),isize,orderAmount,price);
+				String state=rs.getString("state");
+				BuyVo vo=new BuyVo(buyNum,orderNum,code.trim(),isize,orderAmount,price,state);
 				list.add(vo);
 			}
 		return list;
@@ -370,6 +371,37 @@ public class DemandDao {
 				}
 			}
 		}
+		//교환할 상품 buy에서 삭제
+		public int buydelete(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+			con=DBConnection.getConnection();
+			String sql="delete from buy where orderNum=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException se){
+			System.out.println(se.getMessage());
+			return -1;				
+		}catch(ClassNotFoundException cn) {
+			cn.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+		
+		
 }
 	
 	

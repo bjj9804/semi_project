@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import jh.BuyVo;
+import eb.BuyVo;
 import jh.ItemVo;
 import jh.PayVo;
 import mh.UsersDao;
@@ -45,6 +45,8 @@ public class DeController extends HttpServlet {
 			refund(request,response);
 		}else if(cmd!=null && cmd.equals("insertrefund")) {
 			insertrefund(request,response);
+		}else if(cmd!=null && cmd.equals("buychange2")) {
+			buychange(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -124,9 +126,9 @@ public class DeController extends HttpServlet {
 			DemandDao dao=DemandDao.getInstance();
 			ArrayList<BuyVo> list=dao.detail(orderNum);
 			PayVo vo=dao.selectview(orderNum);
-			String state=vo.getState();
+			String state1=vo.getState();
 			request.setAttribute("list", list);
-			request.setAttribute("state", state);
+			request.setAttribute("state1", state1);
 			request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);	
 	}
 		//교환 정보 뿌려주기
@@ -145,6 +147,32 @@ public class DeController extends HttpServlet {
 			request.setAttribute("itemlist", itemlist);
 			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
 	}
+		//교환상품 받아와서 업데이트
+		protected void buychange2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int buyNum=Integer.parseInt(request.getParameter("buyNum"));
+			String checkList=request.getParameter("checkList");
+			String[] checkArray=checkList.split(",");
+			DemandDao dao=DemandDao.getInstance();
+			boolean bool=true;
+			for(int i=0;i<checkArray.length;i++) {
+				int num=Integer.parseInt(checkArray[i]);
+				if(dao.buydelete(num)<0) {
+					bool=false;
+				}
+			}	
+			ArrayList<BuyVo> list=dao.detail(orderNum);
+			ArrayList<ItemVo> itemlist=new ArrayList<>();
+			for(int i=0; i<list.size(); i++) {
+				BuyVo name=list.get(i);
+				String code=name.getCode();
+				ItemVo itemvo=dao.item(code);
+				itemlist.add(itemvo);
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("itemlist", itemlist);
+			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
+	}
+		
 		protected void refund(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();

@@ -22,7 +22,7 @@
 				
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
 				<tr>
-						<td><input type="checkbox" class="chk" name="chk" value=${vo.itemName }/></td>
+						<td><input type="checkbox" class="chk" name="chk" value=${list[status.index].buyNum }/></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
@@ -30,15 +30,13 @@
 				</tr>
 				<tr>
 				<td colspan=3>
-				<input type="submit" value="교환신청" style="margin-left:30%">
+				<input type="submit" value="교환신청" onclick="change('${list[status.index].buyNum}')">
 				</td>
 				</tr>
 				</form>
 			</table>
 		</div>
 	</div>
-	토네이도는 롯리데아에 있는 아이크스림 이름이라가합니다.
-	
 	<jsp:include page="/inc/footer.jsp" />
 </body>
 
@@ -61,6 +59,28 @@ $(".chk").click(function(){
 	}	
 });
 
+//선택된 값 얻어오기
+function change(buyNum) {
+		var checkList = "";
+		var chk = document.getElementsByName("check");
+		for (var i = 1; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				checkList += chk[i].value + ",";
+			}
+		
+		}
+		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
+
+		if (checkList == '') {
+			alert("교환할 대상을 선택하세요");
+			return false;
+		}
+		console.log(checkList);
+		if (confirm("교환하시겠습니까?")) {
+			location.href = "/semi_project/demand.do?checkList=" + checkList
+					+ "&cmd=buychange2&buyNum=" + buyNum;
+		}
+	}
 
 </script>
 
