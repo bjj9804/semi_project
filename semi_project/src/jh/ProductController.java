@@ -65,7 +65,7 @@ public class ProductController extends HttpServlet{
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
 //		request.setAttribute("email", email);
-		request.getRequestDispatcher("/product/product_list.jsp").forward(request, response);		
+		request.getRequestDispatcher("/product/product_look.jsp").forward(request, response);		
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");
@@ -79,7 +79,7 @@ public class ProductController extends HttpServlet{
 		request.setAttribute("itemimgvo", itemimgvo);
 		request.setAttribute("itemsizevo", itemsizevo);
 		request.setAttribute("lookvo", lookvo);
-		request.getRequestDispatcher("/product/product_detail.jsp").forward(request, response);		
+		request.getRequestDispatcher("/product/item_detail.jsp").forward(request, response);		
 
 		
 	
