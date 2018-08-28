@@ -74,7 +74,7 @@ CREATE TABLE itemsize
 CREATE TABLE Look
 (
 	lookCode varchar2(50) PRIMARY KEY NOT NULL,--룩이아닌상품등록할때는0으로통일할까여
-	lookFront varchar2(50),
+	lookFront varchar2(50),					   --네 아니면 룩아닌 상품들은 룩테이블이랑 연관을 안 시켜줘도 되지 않을까여?
 	lookBack varchar2(50)
 );
 

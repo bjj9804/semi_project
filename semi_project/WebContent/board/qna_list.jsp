@@ -39,7 +39,7 @@
 									&nbsp;&nbsp;
 							</c:forEach>
 							└
-						</c:if> <a href="qnalist.do?cmd=detail&cmd1=det&num=${vo.num }&grp=${vo.grp }&email=${originalEmail }&writer=${vo.email}&flag=${flag}">${vo.title }</a>
+						</c:if> <a href="qnalist.do?cmd=detail&cmd1=det&num=${vo.num }&grp=${vo.grp }&email=${originalEmail }&writer=${vo.email}&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td>${vo.hit }</td>
@@ -122,9 +122,7 @@
 			return false;
 		}
 		console.log(checkList);
-		if (confirm("삭제하시겠습니까?")) {
-			location.href = "qnalist.do?cmd=delete&num=" + num + "&checkList=" + checkList;
-		}
+		location.href = "/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&email=" + email + "&pageNum=" + pageNum;
 	}
 </script>
 </html>

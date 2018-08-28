@@ -48,7 +48,7 @@
 
 			<c:if test="${email==vo1.email || flag==0 }">
 				<input type="button" value="글 삭제"
-					onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&num=${vo.num }'">
+					onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&cmd2=myshop&num=${vo.num }&checkList=${vo.num }&cmd=delete&email=${email}&pageNum=${pageNum }'">
 				<input type="button" value="글 수정"
 					onclick="javascript:location.href='../board/qna_update.jsp?num=${vo.num }'">
 			</c:if>

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import mh.UsersDao;
 import mh.UsersVo;
-import ms.ReviewBoardDao;
 
 
 @WebServlet("/eb/qnalist.do")
@@ -178,8 +177,7 @@ public class QnaBoardController extends HttpServlet {
 		String checkList=request.getParameter("checkList");
 		String[] checkArray=checkList.split(",");
 		String cmd2 = request.getParameter("cmd2");
-		
-		ReviewBoardDao dao = ReviewBoardDao.getInstance();
+		QnaBoardDao dao = QnaBoardDao.getInstance();
 		boolean bool=true;
 		for(int i=0;i<checkArray.length;i++) {
 			int num=Integer.parseInt(checkArray[i]);
@@ -206,12 +204,13 @@ public class QnaBoardController extends HttpServlet {
 		QnaBoardDao dao = QnaBoardDao.getInstance();
 		QnaBoardVo vo = dao.detail(num);
 		String email = vo.getEmail(); 
+		String cmd2 = request.getParameter("cmd2");
 		//ServletContext sc=getServletContext();
 		//String email=(String)sc.getAttribute("email");
-		if(dao.update(num,title,content)>0) {
-			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
-		}else {
-			System.out.println("수정실패");
-		}
+		dao.update(num,title,content);
+		if(cmd2.equals("myshop"))
+			request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);
+		else
+			list(request, response);
 	}
 }

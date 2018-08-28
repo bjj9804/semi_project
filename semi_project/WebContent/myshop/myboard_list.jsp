@@ -89,7 +89,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/myshopBoard.do?cmd=qnaDetail&grp=${vo.grp }&email=${email }&num=${vo.num }&flag=${flag}">${vo.title }</a>
+								href="/semi_project/myshopBoard.do?cmd=qnaDetail&grp=${vo.grp }&pageNum=${pageNum1 }email=${email }&num=${vo.num }&flag=${flag}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
