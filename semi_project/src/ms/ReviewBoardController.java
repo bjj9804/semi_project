@@ -179,6 +179,7 @@ public class ReviewBoardController extends HttpServlet {
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
 		String cmd1 = request.getParameter("cmd1");
+		String cmd2 = request.getParameter("cmd2");
 		int flag=Integer.parseInt(request.getParameter("flag"));
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		int n=dao.hitup(num);
@@ -186,10 +187,9 @@ public class ReviewBoardController extends HttpServlet {
 		request.setAttribute("vo", vo);
 		request.setAttribute("flag", flag);
 		request.setAttribute("pageNum", request.getAttribute("pageNum"));
+		request.setAttribute("cmd2", cmd2);
 		if(cmd1.equals("update")) {
 			request.getRequestDispatcher("/board/review_update.jsp").forward(request, response);
-		}else if(cmd1.equals("myboard")) {
-			
 		}else {
 			request.getRequestDispatcher("/board/review_detail.jsp").forward(request, response);
 		}
@@ -200,6 +200,7 @@ public class ReviewBoardController extends HttpServlet {
 		String pageNum=request.getParameter("pageNum");
 		String checkList=request.getParameter("checkList");
 		String[] checkArray=checkList.split(",");
+		String cmd2 = request.getParameter("cmd2");
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
 		boolean bool=true;
 		for(int i=0;i<checkArray.length;i++) {
@@ -214,7 +215,10 @@ public class ReviewBoardController extends HttpServlet {
 		}
 		request.setAttribute("email", email);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
+		if(cmd2.equals("myshop"))
+			request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);
+		else
+			request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
 	}
 	
 	public void update(HttpServletRequest request, HttpServletResponse response)
@@ -236,14 +240,20 @@ public class ReviewBoardController extends HttpServlet {
 			String title = mr.getParameter("title");
 			String content = mr.getParameter("content");
 			String img = mr.getFilesystemName("img");
+			String exImg = vo1.getImg();
+			String cmd2 = request.getParameter("cmd2");
 			System.out.println(num + " " + title + " " + content + " " + img);
 			ReviewBoardVo vo = new ReviewBoardVo(num, vo1.getName(), vo1.getEmail(), title, content, vo1.getHeight(), vo1.getWeight(), vo1.getHit(), vo1.getRegdate(), img, vo1.getItemImg(), vo1.getCode());
 			int n = dao.update(vo);
 			if (n > 0) {
-				File f = new File(saveDir + "/" + vo.getImg());
+				File f = new File(saveDir + "/" + exImg);
 				if(f.exists()) {
-					if(f.delete())
-						list(request, response);
+					if(f.delete()) {
+						if(cmd2.equals("myshop"))
+							request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);
+						else
+							list(request, response);
+					}
 				}
 			}else {
 				System.out.println("¾ÈµÊ");

@@ -38,7 +38,7 @@ public class MyshopBoardController extends HttpServlet {
 	
 	public void reviewList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String) session.getAttribute("email");
-		int flag = (int) session.getAttribute("flag");
+		//int flag = (int) session.getAttribute("flag");
 		String spageNum = request.getParameter("pageNum");
 		String spageNum1 = request.getParameter("pageNum1");
 		int pageNum = 1;
@@ -99,7 +99,7 @@ public class MyshopBoardController extends HttpServlet {
 		request.setAttribute("vo", vo);
 		request.setAttribute("pageNum", request.getParameter("pageNum"));
 		if(cmd1.equals("det_update")) {
-			request.getRequestDispatcher("/board/review_update.jsp").forward(request, response);
+			request.getRequestDispatcher("/board/review_update.jsp?").forward(request, response);
 		}else {
 			request.getRequestDispatcher("/myshop/myreview_detail.jsp").forward(request, response);
 		}

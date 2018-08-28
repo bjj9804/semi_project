@@ -12,7 +12,7 @@
 		<div class="inner">
 			<c:if test="${flag==0}">
 				<input type="button" value="삭제"
-					onclick="delete1('${email}','${pageNum})">
+					onclick="delete1('${email}','${pageNum}')">
 				<table border="1" width="500">
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>

@@ -24,7 +24,7 @@
 					<c:forEach var="vo" items="${list }">
 						<tr>
 							<td><input type="checkbox" name="check" value="${vo.num }"
-								onclick="check1()"></td>
+								onclick="check()"></td>
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
@@ -76,7 +76,7 @@
 					onclick="delete1('${email}','${pageNum1})">
 				<table border="1" width="500">
 					<tr>
-						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+						<th><input type="checkbox" name="check1" onclick="checkAll1()"></th>
 						<th>글번호</th>
 						<th>작성자</th>
 						<th>글제목</th>
@@ -84,7 +84,7 @@
 					</tr>
 					<c:forEach var="vo" items="${list1 }">
 						<tr>
-							<td><input type="checkbox" name="check" value="${vo.num }"
+							<td><input type="checkbox" name="check1" value="${vo.num }"
 								onclick="check1()"></td>
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
@@ -146,8 +146,28 @@
 			}
 		}
 	}
-	function check1() {
+	function checkAll1() {
+		var chk = document.getElementsByName("check1");
+		if (chk[0].checked == true) {
+			for (var i = 1; i < chk.length; i++) {
+				chk[i].checked = true;
+			}
+		} else {
+			for (var i = 1; i < chk.length; i++) {
+				chk[i].checked = false;
+			}
+		}
+	}
+	function check() {
 		var chk = document.getElementsByName("check");
+		for (var i = 1; i < chk.length; i++) {
+			if (chk[i].checked == false) {
+				chk[0].checked = false;
+			}
+		}
+	}
+	function check1() {
+		var chk = document.getElementsByName("check1");
 		for (var i = 1; i < chk.length; i++) {
 			if (chk[i].checked == false) {
 				chk[0].checked = false;

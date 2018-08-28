@@ -47,8 +47,8 @@
 				onclick="javascript:location.href='/semi_project/myshopBoard.do?cmd=reviewList&pageNum=${pageNum }&pageNum1=${pageNum }'"
 				style="margin-left: 5%">
 			<c:if test="${email==vo.email}">
-				<a href="/semi_project/myshopBoard.do?num=${vo.num }&cmd=reviewDetail&cmd1=det_update&flag=${flag}&pageNum=${pageNum}">수정</a>
-				<a href="/semi_project/myshopBoard.do?checkList=${vo.num }&cmd=delete&email=${email }&pageNum=${pageNum}">삭제</a>			
+				<a href="/semi_project/reviewBoard.do?num=${vo.num }&cmd=detail&cmd1=update&cmd2=myshop&flag=${flag}&pageNum=${pageNum}">수정</a>
+				<a href="/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&cmd2=myshop&email=${email }&pageNum=${pageNum}">삭제</a>			
 			
 			</c:if>
 		</div>

@@ -379,11 +379,12 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt=null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="update reviewboard set title = ?, content = ? where num = ?";
+			String sql="update reviewboard set title = ?, content = ?, img = ? where num = ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setInt(3, vo.getNum());
+			pstmt.setString(3, vo.getImg());
+			pstmt.setInt(4, vo.getNum());
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
