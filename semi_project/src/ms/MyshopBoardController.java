@@ -111,9 +111,8 @@ public class MyshopBoardController extends HttpServlet {
 		int grp = Integer.parseInt(request.getParameter("grp"));
 		QnaBoardDao dao = QnaBoardDao.getInstance();
 		MyshopBoardDao mydao = MyshopBoardDao.getInstance();
-		ArrayList<QnaBoardVo> replist = new ArrayList<>();
-		replist = mydao.qnaRepList(grp);
-		int n=dao.hitup(num);
+		ArrayList<QnaBoardVo> replist = mydao.qnaRepList(grp);
+		dao.hitup(num);
 		QnaBoardVo vo1 = dao.detail(num);
 		request.setAttribute("vo1", vo1);
 		request.setAttribute("replist", replist);
