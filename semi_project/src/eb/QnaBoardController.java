@@ -65,6 +65,7 @@ public class QnaBoardController extends HttpServlet {
 			endPage=pageCount;
 		}
 		//sc.setAttribute("email", email);
+		request.setAttribute("", num);
 		request.setAttribute("list", list);
 		request.setAttribute("originalEmail", originalEmail);
 		request.setAttribute("name", name);
@@ -172,15 +173,25 @@ public class QnaBoardController extends HttpServlet {
 	
 	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 
 		int num=Integer.parseInt(request.getParameter("num"));
+		String checkList=request.getParameter("checkList");
+		String[] checkArr=checkList.split(",");
 		QnaBoardDao dao=QnaBoardDao.getInstance();
-		int n=dao.delete(num);
-		
+		boolean bool=true;
+		for(int i=0;i<checkArr.length;i++) {
+			int num1=Integer.parseInt(checkArr[i]);
+			if(dao.delete(num1)<0) {
+				bool=false;
+			}
+		}	
+		if(bool==false) {
+			System.out.println("삭제 실패");
+			return;
+		}
 		//ServletContext sc=getServletContext();
 		String email=dao.detail(num).getEmail();
 		System.out.println(email);
-		if(n>0) {
 			request.getRequestDispatcher("/eb/qnalist.do?cmd=list&email="+email).forward(request, response);
-		}
+
 	}
 	
 	protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{ 

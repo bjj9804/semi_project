@@ -13,14 +13,24 @@
 		<div class="inner">
 	<h1>Q&A BOARD</h1>
 			<table border="1" width="800" bordercolor="black">
-				<tr>
+			<tr>
+			<c:if test="${flag==0}">	
+				<input type="button" value="삭제"
+					onclick="delete1('${num }')">
+					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+			</c:if>
 					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>조회수</th>
 				</tr>
+			
 				<c:forEach var="vo" items="${list }">
 					<tr>
+						<c:if test="${flag==0}">
+						<td><input type="checkbox" name="check" value="${vo.num }"
+								onclick="check1()"></td>
+						</c:if>
 						<td>${vo.num }</td>
 						
 						<td>
@@ -75,4 +85,46 @@
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	function checkAll() {
+		var chk = document.getElementsByName("check");
+		if (chk[0].checked == true) {
+			for (var i = 1; i < chk.length; i++) {
+				chk[i].checked = true;
+			}
+		} else {
+			for (var i = 1; i < chk.length; i++) {
+				chk[i].checked = false;
+			}
+		}
+	}
+	function check1() {
+		var chk = document.getElementsByName("check");
+		for (var i = 1; i < chk.length; i++) {
+			if (chk[i].checked == false) {
+				chk[0].checked = false;
+			}
+		}
+	}
+	function delete1(num) {
+		var checkList = "";
+		var chk = document.getElementsByName("check");
+		for (var i = 1; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				checkList += chk[i].value + ",";
+			}
+		
+		}
+		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
+
+		if (checkList == '') {
+			alert("삭제할 대상을 선택하세요");
+			return false;
+		}
+		console.log(checkList);
+		if (confirm("삭제하시겠습니까?")) {
+			location.href = "qnalist.do?cmd=delete&num=" + num + "&checkList=" + checkList;
+		}
+	}
+</script>
 </html>
