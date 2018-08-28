@@ -43,16 +43,13 @@
 					<th>사진</th>
 					<td><img src="/semi_project/Upload/${vo.img}"></td>
 			</table>
-			<input type="button" value="review 목록"
-				onclick="javascript:location.href='/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${pageNum }'"
+			<input type="button" value="My Review 목록"
+				onclick="javascript:location.href='/semi_project/myshopBoard.do?cmd=reviewList&pageNum=${pageNum }&pageNum1=${pageNum }'"
 				style="margin-left: 5%">
 			<c:if test="${email==vo.email}">
-				<input type="button" value="수정"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=update&num=${vo.num}'"
-					style="margin-left: 5%">
-				<input type="button" value="삭제"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=delete&email=${email}&pageNum=${pageNum }'"
-					style="margin-left: 5%">
+				<a href="/semi_project/myshopBoard.do?num=${vo.num }&cmd=reviewDetail&cmd1=det_update&flag=${flag}&pageNum=${pageNum}">수정</a>
+				<a href="/semi_project/myshopBoard.do?checkList=${vo.num }&cmd=delete&email=${email }&pageNum=${pageNum}">삭제</a>			
+			
 			</c:if>
 		</div>
 	</div>

@@ -10,7 +10,7 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/reviewBoard.do?cmd=update&email=${email }" method="post" 
+			<form action="/semi_project/reviewBoard.do?cmd=update&email=${email }&num=${vo.num}" method="post" 
 			enctype="multipart/form-data">
 				height<select name="height">
 					<option value="0">입력안함</option>
@@ -43,10 +43,11 @@
 					</tr>
 					<tr>
 						<td>리뷰사진</td>
-						<td><input type="file" name="img" value="vo.img"></td>
+						<td><input type="file" name="img" value="${vo.img}"></td>
 					</tr>
 				</table>
 				<input type="submit" value="작성">
+				<input type="reset" value="취소">
 			</form>
 		</div>
 	</div>

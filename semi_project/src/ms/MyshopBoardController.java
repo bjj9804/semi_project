@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import eb.QnaBoardDao;
 import eb.QnaBoardVo;
+import jh.NoticeBoardDao;
+import jh.NoticeBoardVo;
 
 @WebServlet("/myshopBoard.do")
 public class MyshopBoardController extends HttpServlet {
@@ -37,7 +39,6 @@ public class MyshopBoardController extends HttpServlet {
 	public void reviewList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String) session.getAttribute("email");
 		int flag = (int) session.getAttribute("flag");
-		System.out.println(email + " " + flag);
 		String spageNum = request.getParameter("pageNum");
 		String spageNum1 = request.getParameter("pageNum1");
 		int pageNum = 1;
@@ -91,20 +92,31 @@ public class MyshopBoardController extends HttpServlet {
 	}
 		//request.getRequestDispatcher("/myshop/myreview_list.jsp").forward(request, response);
 	public void reviewDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num=Integer.parseInt(request.getParameter("num"));
+		String cmd1=request.getParameter("cmd1");	
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		int n=dao.hitup(num);
 		ReviewBoardVo vo = dao.detail(num);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("/myshop/myreview_detail.jsp").forward(request, response);
+		request.setAttribute("pageNum", request.getParameter("pageNum"));
+		if(cmd1.equals("det_update")) {
+			request.getRequestDispatcher("/board/review_update.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/myshop/myreview_detail.jsp").forward(request, response);
+		}
 	}
 	
 	public void qnaDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
+		String email = request.getParameter("email");
+		int grp = Integer.parseInt(request.getParameter("grp"));
 		QnaBoardDao dao = QnaBoardDao.getInstance();
+		MyshopBoardDao mydao = MyshopBoardDao.getInstance();
+		ArrayList<QnaBoardVo> replist = new ArrayList<>();
+		replist = mydao.qnaRepList(grp);
 		int n=dao.hitup(num);
 		QnaBoardVo vo1 = dao.detail(num);
 		request.setAttribute("vo1", vo1);
+		request.setAttribute("replist", replist);
 		request.getRequestDispatcher("/myshop/myqna_detail.jsp").forward(request, response);
 	}
 	
@@ -127,7 +139,7 @@ public class MyshopBoardController extends HttpServlet {
 		}
 		request.setAttribute("email", email);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
+		request.getRequestDispatcher("semi_project/myBoard.do?cmd=reviewList").forward(request, response);
 	}
 	
 	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

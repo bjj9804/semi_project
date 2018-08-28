@@ -125,7 +125,35 @@ public class MyshopBoardDao {
 			}
 		}
 	}
-
+	
+	public ArrayList<Integer> getQnaRep(String email) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = DBConnection.getConnection();
+			String sql="select grp from qnaboard where email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			ArrayList<Integer> list = new ArrayList<>();
+			while(rs.next()) {
+				int grp = rs.getInt("grp");
+				list.add(grp);
+			}
+			return list;
+		}catch(SQLException | ClassNotFoundException | NamingException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public ArrayList<QnaBoardVo> qnaList(String email, int startRow, int endRow) {
 		String sql = "select * from( select AA.*, rownum rnum from ( select * from qnaboard where email=? and lev=0 order by num desc) AA) where rnum>=? and rnum<=?";
 		Connection con = null;
@@ -176,4 +204,55 @@ public class MyshopBoardDao {
 			}
 		}
 	}
+	
+	public ArrayList<QnaBoardVo> qnaRepList(int grp) {
+		//String sql = "select * from( select AA.*, rownum rnum from ( select * from qnaboard where grp=? lev>0 order by num desc) AA) where rnum>=? and rnum<=?";
+		String sql = "select * from qnaboard where grp=? and lev>0 order by num asc";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, grp);
+			rs = pstmt.executeQuery();
+
+			ArrayList<QnaBoardVo> list = new ArrayList<>();
+			while (rs.next()) {
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				String email = rs.getString("email");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int lev = rs.getInt("lev");
+				int step = rs.getInt("step");
+				int hit = rs.getInt("hit");
+				Date regdate = rs.getDate("regdate");
+				QnaBoardVo vo = new QnaBoardVo(num, name, email, title, content, grp, lev, step, hit, regdate);
+				list.add(vo);
+			}
+			return list;
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		} catch (ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
 }
