@@ -39,26 +39,26 @@
 				<div>
 					<c:if test="${startPage!=1 }">
 						<a
-							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}">[이전]</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 						<c:choose>
 							<c:when test="${pageNum==i }">
 								<%--현재페이지인 경우 --%>
 								<a
-									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span
+									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }&search=${param.search}&keyword=${param.keyword}"><span
 									style="color: red">[${i }]</span></a>
 							</c:when>
 							<c:otherwise>
 								<a
-									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span
+									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }&search=${param.search}&keyword=${param.keyword}"><span
 									style="color: #555">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${endPage!=pageCnt }">
 						<a
-							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
+							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${endPage+1 }&search=${param.search}&keyword=${param.keyword}">[다음]</a>
 					</c:if>
 				</div>
 			</c:if>
@@ -84,26 +84,26 @@
 				<div>
 					<c:if test="${startPage!=1 }">
 						<a
-							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}">[이전]</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 						<c:choose>
 							<c:when test="${pageNum==i }">
 								<%--현재페이지인 경우 --%>
 								<a
-									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span
+									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }&search=${param.search}&keyword=${param.keyword}"><span
 									style="color: red">[${i }]</span></a>
 							</c:when>
 							<c:otherwise>
 								<a
-									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }"><span
+									href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${i }&search=${param.search}&keyword=${param.keyword}"><span
 									style="color: #555">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${endPage!=pageCnt }">
 						<a
-							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
+							href="/semi_project/jh/notice.do?cmd=list&email=${email }&pageNum=${endPage+1 }&search=${param.search}&keyword=${param.keyword}">[다음]</a>
 					</c:if>
 				</div>
 			</c:if>
