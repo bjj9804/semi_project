@@ -29,7 +29,9 @@
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
 			<td>${vo.state }</td>
+			<c:if test="${vo.state=='배송준비중' }">
 			<td><input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'"></td>
+			</c:if>
 			</tr>
 			</c:forEach>
 			</table>

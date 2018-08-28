@@ -21,9 +21,9 @@ DROP TABLE Users CASCADE CONSTRAINTS;
 CREATE TABLE coupon
 (
 	couponNum number(10,0) PRIMARY KEY NOT NULL,
-	couponName varchar2(30) NOT NULL,
+	couponName varchar2(100) NOT NULL,
 	email varchar2(30) NOT NULL,
-	couponState varchar2(20),
+	couponState varchar2(50),
 	offerDate date,
 	endDate date	
 );
@@ -32,8 +32,8 @@ CREATE TABLE BUY
 (
 	buyNum number(10,0) PRIMARY KEY NOT NULL,
 	orderNum number(10,0),
-	code varchar2(20),
-	isize varchar2(15),
+	code varchar2(50),
+	isize varchar2(30),
 	orderAmount number(3,0),
 	Price number(10,0)
 );
@@ -42,9 +42,9 @@ CREATE TABLE PAY
 (
 	orderNum number(10,0) PRIMARY KEY NOT NULL,
 	orderDate date,
-	state varchar2(15),
-	method varchar2(30),
-	addr varchar2(100),
+	state varchar2(30),
+	method varchar2(80),
+	addr varchar2(250),
 	email varchar2(30) NOT NULL,
 	totalPrice number(10,0),
 	payMoney number(10,0)
@@ -52,37 +52,37 @@ CREATE TABLE PAY
 
 CREATE TABLE item
 (
-	code varchar2(20) PRIMARY KEY NOT NULL,
+	code varchar2(50) PRIMARY KEY NOT NULL,
 	price number(10,0),
-	itemName varchar2(30),
-	description varchar2(200)	
+	itemName varchar2(100),
+	description varchar2(400)	
 );
 CREATE TABLE itemImg
 (
-	imgType varchar2(20) NOT NULL,
-	code varchar2(20) NOT NULL,
-	imgSrc varchar2(40),
+	imgType varchar2(50) NOT NULL,
+	code varchar2(50) NOT NULL,
+	imgScr varchar2(100),
 	PRIMARY KEY (imgType, code)
 );
 CREATE TABLE itemsize
 (
-	isize varchar2(15) NOT NULL,
-	code varchar2(20) NOT NULL,
+	isize varchar2(30) NOT NULL,
+	code varchar2(50) NOT NULL,
 	amount number(3,0),
 	PRIMARY KEY (isize,code)
 );
 CREATE TABLE Look
 (
-	lookCode varchar2(20) PRIMARY KEY NOT NULL,--룩이아닌상품등록할때는0으로통일할까여
-	lookFront varchar2(40),
-	lookBack varchar2(40)
+	lookCode varchar2(50) PRIMARY KEY NOT NULL,--룩이아닌상품등록할때는0으로통일할까여
+	lookFront varchar2(50),
+	lookBack varchar2(50)
 );
 
 CREATE TABLE lookItem
 (
 	num number(10,0) PRIMARY KEY NOT NULL,
-	lookCode varchar2(20) NOT NULL,
-	code varchar2(20) NOT NULL	
+	lookCode varchar2(50) NOT NULL,
+	code varchar2(50) NOT NULL	
 );
 
 CREATE TABLE noticeBoard
@@ -90,8 +90,8 @@ CREATE TABLE noticeBoard
 	num number(7,0) PRIMARY KEY NOT NULL,
 	name varchar2(15),
 	email varchar2(30) NOT NULL,
-	title varchar2(40),
-	content varchar2(200),	
+	title varchar2(100),
+	content varchar2(800),	
 	hit number(3,0),
 	regdate date
 );
@@ -102,8 +102,8 @@ CREATE TABLE qnaboard
 	num number(7,0) PRIMARY KEY NOT NULL,
 	name varchar2(20),
 	email varchar2(30) NOT NULL,	
-	title varchar2(40),
-	content varchar2(200),
+	title varchar2(100),
+	content varchar2(800),
 	grp number(7,0),
 	lev number(3,0),
 	step number(3,0),
@@ -117,15 +117,15 @@ CREATE TABLE reviewboard
 	num number(7,0) PRIMARY KEY NOT NULL,
 	name varchar2(20),
 	email varchar2(30) NOT NULL,
-	title varchar2(40),
-	content varchar2(200),
+	title varchar2(100),
+	content varchar2(800),
 	height number(4,0),
 	weight number(3,0),
 	hit number(3,0),
 	regdate date,
-	img varchar2(40),
-	itemImg varchar2(40),
-	code varchar2(20)
+	img varchar2(50),
+	itemImg varchar2(50),
+	code varchar2(50)
 );
 
 CREATE TABLE Users
@@ -135,7 +135,7 @@ CREATE TABLE Users
 	question number(5,0),
 	answer varchar2(30),
 	phone varchar2(20),
-	addr varchar2(100),
+	addr varchar2(250),
 	name varchar2(20),
 	regdate date,
 	coupon number(10,0),
