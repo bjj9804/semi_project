@@ -1,6 +1,7 @@
 package jh;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -18,12 +19,12 @@ public class ItemController extends HttpServlet{
 		
 		if(cmd!=null && cmd.equals("lookInsert")) {
 			lookInsert(request,response);
-		}else if(cmd!=null && cmd.equals("list")) {
-			list(request,response);
 		}else if(cmd!=null && cmd.equals("itemInsert")) {
 			itemInsert(request,response);
-		}else if(cmd!=null && cmd.equals("getLookCode")) {
-			getLookCode(request,response);
+		}else if(cmd!=null && cmd.equals("lookCode")) {
+			lookCode(request,response);
+		}else if(cmd!=null && cmd.equals("list")) {
+			list(request,response);
 		}
 	}
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,11 +34,16 @@ public class ItemController extends HttpServlet{
 		
 		ItemDao dao=ItemDao.getInstance();
 		LookVo vo=new LookVo(lookCode, lookFront, lookBack);
+		
 		if(dao.lookInsert(vo)>0) {
-			System.out.println("look테이블insert성공");
+			System.out.println("lookInsert성공");
 		}else {
-			System.out.println("look테이블insert실패");
+			System.out.println("lookInsert실패");
 		}
+		
+		lookCode(request,response);
+		//request.getRequestDispatcher("/item/item_insert.jsp").forward(request, response);
+		
 		
 		
 	}
@@ -47,33 +53,44 @@ public class ItemController extends HttpServlet{
 		String itemName=request.getParameter("itemName");
 		String description=request.getParameter("description");
 		String isize=request.getParameter("isize");
-		String amount=request.getParameter("amount");
-		String lookCodeList=request.getParameter("lookCodeList");
+		String amount=request.getParameter("amount");				
+		String lookList=request.getParameter("lookList");
+		String[] lookArray=lookList.split(",");	
 		
-		System.out.println(lookCodeList);
-		
-		int fileCount=Integer.parseInt(request.getParameter("fileCount"));
-		
-		ArrayList<String[]> list=new ArrayList<>();
-		for(int i=1;i<=fileCount;i++) {
-			String imgSrc=request.getParameter("imgSrc"+i);
-			String imgType=request.getParameter("imgType"+i);
-			System.out.println(imgSrc+","+imgType);
-			String[] img= {imgSrc,imgType};
-			list.add(img);
-		}
 		
 		ItemDao dao=ItemDao.getInstance();
+		dao.itemInsert(code,price,itemName,description,isize,amount);
+		
+		int fileCount=Integer.parseInt(request.getParameter("fileCount"));
+		for(int i=1;i<=fileCount;i++) {			
+			String imgType=request.getParameter("imgType"+i);
+			String imgSrc=request.getParameter("imgSrc"+i);
+			dao.itemInsert2(imgType,code,imgSrc);			
+		}
+		
+		for(int i=0;i<lookArray.length;i++) {
+			dao.itemInsert3(lookArray[i],code);
+		}
+		
+		list(request,response);
 		
 		
 	}
-	private void getLookCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ItemDao dao=ItemDao.getInstance();
+	private void lookCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		jh.ItemDao dao=ItemDao.getInstance();
 		ArrayList<LookVo> list=dao.getLookCode();
 		request.setAttribute("list", list);
+		
 		request.getRequestDispatcher("/item/item_insert.jsp").forward(request, response);
 		
 		
 	}
-	
+	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ItemDao dao=ItemDao.getInstance();
+		ArrayList<ItemDto> list=dao.list();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/item/item_list.jsp").forward(request, response);
+		
+		
+	}
 }

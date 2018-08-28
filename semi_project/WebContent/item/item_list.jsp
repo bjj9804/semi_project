@@ -28,8 +28,7 @@
 					<th>수량</th>
 					<th>룩번호</th>
 					<th>룩코드</th>
-					<th>룩앞면</th>
-					<th>룩뒷면</th>
+					
 				</tr>
 				<c:forEach var="vo" items="${list }">
 				<tr>
@@ -43,12 +42,11 @@
 					<td>${vo.amount }</td>
 					<td>${vo.num }</td>
 					<td>${vo.lookCode }</td>
-					<td>${vo.lookFront }</td>
-					<td>${vo.lookBack }</td>
+					
 				</tr>
 				</c:forEach>
 			</table>
-			<a href="/semi_project/jh/item.do?cmd=getLookCode">상품등록</a>
+			<a href="/semi_project/jh/item.do?cmd=lookCode">상품등록</a>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

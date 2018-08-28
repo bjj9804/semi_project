@@ -29,14 +29,52 @@
 		}
 		
 	}
-	function check1(){
-		var look=document.getElementById("look");	
-		var lookCode=document.getElementById("lookCode");	
-		var lookCodeList=document.getElementsByName("lookCodeList");	
-		lookCode.innerHTML+=look.value+",";
-		lookCodeList.value=lookCode.innerHTML;
+	
+	var xhr=null;
+	function lookInsert(){
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=lookInsertOk;
+		xhr.open('post','/semi_project/jh/item.do?cmd=lookInsert',true);
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		
+		var lookCode=document.getElementById("lookCode").value;
+		var lookFront=document.getElementById("lookFront").scr;
+		var lookBack=document.getElementById("lookBack").scr;
+		var param="cmd=lookInsert&lookCode="+lookCode+"&lookFront="+lookFront+"&lookBack"+lookBack;
+		xhr.send(param);
+	}
+	function lookInsertOk(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var xml=xhr.responseXML;
+			var code=xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+			if(code=='success'){
+				alert("룩에 대한 정보가 성공적으로 저장되었습니다.");
+			}else{
+				alert("룩에 대한 정보가 저장에 실패하였습니다...");
+			}
+		}
 	}
 	
+	function itemInsert(){
+		var itemInfo=document.itemInfo;
+		var str="";
+		var lookList=document.getElementsByName("lookList")[0];
+		var lookCode=document.getElementsByName("lookCode");
+		var bool=false;
+		for(i=0;i<lookCode.length;i++){
+			if(lookCode[i].checked==true){
+				str+=lookCode[i].value+",";
+				bool=true;
+			}
+		}
+		if(bool==true){
+			lookList.value=str.substring(0,str.lastIndexOf(","));
+			itemInfo.submit();
+		}else{
+			alert("룩코드를 선택해주세요");
+		}
+		
+	}
 	
 </script>
 
@@ -70,7 +108,7 @@
 			</form>
 			
 			
-			<form action="/semi_project/jh/item.do" method="post">
+			<form name="itemInfo" action="/semi_project/jh/item.do" method="post">
 			<h2>상품등록하기</h2>
 				<table>
 					<tr>
@@ -102,18 +140,7 @@
 					<tr>
 						<th>수량</th>
 						<td><input type="text" name="amount"></td>
-					</tr>
-					<tr>
-						<th>룩코드</th>
-						<td>
-							<select id="look" onclick="check1()">
-								<c:forEach var="vo" items="${list }">
-									<option value="${vo.lookCode }">${vo.lookCode }</option>
-								</c:forEach>
-							</select>							
-							<div id="lookCode"></div>
-						</td>
-					</tr>
+					</tr>					
 					<tr>
 						<th>이미지타입</th>
 						<td>	
@@ -121,12 +148,21 @@
 							<input type="button" id="file" value="파일추가" >												
 							<div id="filelist"></div>
 						</td>
+					</tr>	
+					<tr>
+						<th>룩코드 선택하기</th>
+						<td>
+							<c:forEach var="vo" items="${list }">
+								<input type="checkbox" name="lookCode" value="${vo.lookCode }">
+								<span>${vo.lookCode }</span>
+							</c:forEach>
+						</td>
 					</tr>					
 				</table>
 					
-				<input type="hidden" name="lookCodeList">
+				<input type="hidden" name="lookList">
 				<input type="hidden" name="cmd" value="itemInsert">
-				<input type="submit" value="등록">
+				<input type="button" value="등록" onclick="itemInsert()">
 				<input type="reset" value="취소">
 			</form>
 		</div>
