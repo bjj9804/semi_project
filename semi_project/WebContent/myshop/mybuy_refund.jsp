@@ -78,12 +78,12 @@ function refund() {
 		var reasonList = "";
 		var chk = document.getElementsByName("chk");
 		console.log(chk[1].value);
-		var rs = document.getElementsByName("reason");
-
+		var rs = document.getElementsByName("reason")[0];
+		
 		for (var i = 0; i < chk.length; i++) {
 			if (chk[i].checked) {
 				checkList += chk[i].value + ",";
-				reasonList += rs[i].value + ",";
+				reasonList += rs.value + ",";
 			}
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
