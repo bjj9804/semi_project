@@ -2,6 +2,7 @@ package mh;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,7 +35,15 @@ public class UsersController extends HttpServlet{
 			findpwd(request,response);
 		}else if(cmd != null && cmd.equals("emailcheck")) {
 			emailcheck(request,response);
+		}else if(cmd != null && cmd.equals("userslist")) {
+			userslist(request,response);
 		}
+	}
+	protected void userslist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		UsersDao dao = UsersDao.getInstance();
+		ArrayList<UsersVo> list = dao.userslist();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("../admin/userlist.jsp").forward(request, response);
 	}
 	protected void emailcheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String email = request.getParameter("email");
@@ -47,9 +56,6 @@ public class UsersController extends HttpServlet{
 		PrintWriter pw = response.getWriter();
 		pw.println(obj.toString());
 		pw.close();
-	}
-	protected void check(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
 	}
 	protected void findid(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
@@ -111,7 +117,9 @@ public class UsersController extends HttpServlet{
 		if(!email.equals("")) {//로그인을 하고 들어온 경우
 			UsersDao usersDao=UsersDao.getInstance();
 			UsersVo vo=usersDao.select(email);
-			flag=vo.getFlag();//관리자인지 회원인지
+			if(vo != null) {
+				flag=vo.getFlag();//관리자인지 회원인지
+			}
 		}else {//로그인을 안하고 들어온경우
 			flag=1;
 		}				

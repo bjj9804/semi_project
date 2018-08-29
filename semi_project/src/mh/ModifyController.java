@@ -23,6 +23,8 @@ public class ModifyController extends HttpServlet{
 			profile(request,response);
 		}else if(cmd != null && cmd.equals("delete")) {
 			delete(request,response);
+		}else if(cmd != null && cmd.equals("admindelete")) {
+			admindelete(request,response);
 		}
 	}
 	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,6 +40,20 @@ public class ModifyController extends HttpServlet{
 		session.invalidate();
 		String contextPath = getServletContext().getContextPath();
 		request.getRequestDispatcher(contextPath + "/myshop/deleteok.jsp").forward(request, response);
+	}
+	protected void admindelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = request.getParameter("email");
+		UsersDao dao = UsersDao.getInstance();
+		int n = dao.delete(email);
+		if(n>0) {
+			request.setAttribute("deleteMsg", "success");
+		}else {
+			request.setAttribute("deleteMsg", "fail");
+		}
+		HttpSession session = request.getSession();
+		session.invalidate();
+		String contextPath = getServletContext().getContextPath();
+		request.getRequestDispatcher(contextPath + "/admin/userlist.jsp").forward(request, response);
 	}
 	protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String)request.getSession().getAttribute("email");

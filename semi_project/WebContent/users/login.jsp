@@ -44,8 +44,7 @@
 									<option value="@empas.com">empas.com</option>
 									<option value="@paran.com">paran.com</option>
 								</select>
-									<span id="echeck" style="color:red"> </span>
-								<br><br>
+								<br>
 								비밀번호 <input type="password" name="pwd"><br>
 								<input type="checkbox" name="idCheck"><label>로그인 상태 유지</label><br>
 								<input type="checkbox" name="pwdCheck"><label>아이디 기억하기</label><br>
