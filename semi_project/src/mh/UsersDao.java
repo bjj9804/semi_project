@@ -311,7 +311,35 @@ public class UsersDao {
 		}
 		return -1;
 	}
-	
+	public int couponcnt(String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select count(email) cnt from coupon where couponState='사용가능' group by email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+		} catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return 0;
+	}
 	public int coupongift(String email, String couponName) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

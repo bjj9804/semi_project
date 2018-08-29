@@ -39,7 +39,17 @@ public class UsersController extends HttpServlet{
 			userslist(request,response);
 		}else if(cmd != null && cmd.equals("coupongift")) {
 			coupongift(request,response);
+		}else if(cmd != null && cmd.equals("couponcnt")) {
+			couponcnt(request,response);
 		}
+	}
+	protected void couponcnt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		UsersDao dao = UsersDao.getInstance();
+		int cnt = dao.couponcnt(email);
+		dao.couponcnt(email);
+		request.setAttribute("cnt", cnt);
+		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
 	}
 	protected void coupongift(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String email = request.getParameter("email");
@@ -99,7 +109,9 @@ public class UsersController extends HttpServlet{
 		}
 	}
 	protected void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email1") + request.getParameter("email2");
+		String email1 = request.getParameter("email1");
+		String email2 = request.getParameter("email2");
+		String email = email1 + email2;
 		String password = request.getParameter("pwd");
 		int question = Integer.parseInt(request.getParameter("question"));
 		String answer = request.getParameter("answer");
