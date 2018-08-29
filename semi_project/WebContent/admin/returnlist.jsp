@@ -34,10 +34,10 @@
 			</table>
 			<br>
 			<c:if test="${vo.state == '교환대기중' }">
-			<input type="button" value="교환완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'"><br>
+			<input type="button" value="교환완료" onclick=""><br>
 			</c:if>
 			<c:if test="${vo.state == '반품대기중' }">
-			<input type="button" value="반품완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'"><br>
+			<input type="button" value="반품완료" onclick="'"><br>
 			</c:if>
 		</div>
 	</div>
