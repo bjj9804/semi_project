@@ -493,8 +493,31 @@ public class DemandDao {
 				}
 			}
 		}
-	
-		
+		//반품신청하면 pay테이블의 state도 반품대기중으로 변경해줌
+		public int refundup1(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="update pay set state=? where orderNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, "반품대기중");
+				pstmt.setInt(2, num);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		//pay테이블의 state가 반품대기중인걸 찾아서 buy테이블과 조인해서 정보 뿌려주기
 }
 	
 	

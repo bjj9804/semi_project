@@ -198,22 +198,24 @@ public class DeController extends HttpServlet {
 			String reasonList=request.getParameter("reasonList");
 			String[] checkArr=checkList.split(",");
 			String[] reasonArr=reasonList.split(",");
-			
+			int orderNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();
 			for(int i=0;i<checkArr.length;i++) {
 				int buyNum=Integer.parseInt(checkArr[i]);
 				String reason=reasonArr[i];
 				int n=dao.buystatechange(buyNum);
 				int a=dao.returninsert(reason, buyNum);
+				int b=dao.refundup1(orderNum);
 				if(n>0 & a>0) {
 					System.out.println("상태변경,리턴테이블삽입 모두 성공");
 				}else {
 					System.out.println("뭔가잘못됨...");
 				//dao.buy테이블에서 state를 반품신청으로 바꾸는 메소드(buyNum);
 				//dao.return테이블로 인서트하는 메소드(buyNum,reasonArr[i]);
+					//pay테이블의 state를 반품대기중으로 바꾸는 메소드
+					
 				}
 			}	
-			int orderNum=Integer.parseInt(request.getParameter("num"));
 			//PayVo vo=dao.ordernumselect(buyNum);
 			//int orderNum=vo.getOrderNum();
 			PayVo vo=dao.selectview(orderNum);
