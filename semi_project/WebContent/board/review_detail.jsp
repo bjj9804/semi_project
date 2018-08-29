@@ -5,7 +5,6 @@
 <html lang="ko">
 <head>
 <jsp:include page="/inc/header.jsp" />
-
 </head>
 <body>
 <%
