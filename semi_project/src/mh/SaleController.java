@@ -32,6 +32,8 @@ public class SaleController extends HttpServlet{
 			selectlist(request,response);
 		}else if(cmd != null && cmd.equals("userdetail")) {
 			userdetail(request,response);
+		}else if(cmd != null && cmd.equals("itemlist")) {
+			itemlist(request,response);
 		}
 	}
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -110,5 +112,11 @@ public class SaleController extends HttpServlet{
 		request.setAttribute("list", list);
 		request.setAttribute("email", email);
 		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
+	}
+	protected void itemlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		SaleDao dao = SaleDao.getInstance();
+		ArrayList<ItemlistVo> list = dao.itemlist();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("../sale/sale_itemlist.jsp").forward(request, response);
 	}
 }

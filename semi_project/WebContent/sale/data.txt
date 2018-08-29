@@ -55,3 +55,11 @@ SELECT * FROM PAY;
 select * from pay where orderdate >= '18/08/01';
 
 select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= '18/8/1' and orderdate <= '18/08/31' order by orderdate desc;
+
+CREATE OR REPLACE TRIGGER JOIN_COUPON
+AFTER INSERT ON BUY
+FOR EACH ROW
+BEGIN
+	INSERT INTO COUPON VALUES();
+END;
+/
