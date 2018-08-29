@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 @WebServlet("/jh/item.do")
-public class ItemController extends HttpServlet{
+public class ItemController_jj extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -48,6 +50,15 @@ public class ItemController extends HttpServlet{
 		
 	}
 	private void itemInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		ServletContext context = getServletContext(); // 어플리케이션에 대한 정보를 ServletContext 객체가 갖음
+		String saveDir = context.getRealPath("Upload"); // 절대경로를 가져옴
+		System.out.println("절대경로 >> " + saveDir);
+
+		int maxSize = 3 * 1024 * 1024;
+		String encoding = "utf-8";		
+		
+		
 		String code=request.getParameter("code");
 		String price=request.getParameter("price");
 		String itemName=request.getParameter("itemName");

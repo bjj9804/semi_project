@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import jj.ItemVo;
 import semi.db.DBConnection;
 
-public class ItemDao {
-	private static ItemDao instance=new ItemDao();
-	private ItemDao() {}
-	public static ItemDao getInstance() {
+public class ItemDao_jh {
+	private static ItemDao_jh instance=new ItemDao_jh();
+	private ItemDao_jh() {}
+	public static ItemDao_jh getInstance() {
 		return instance;
 	}
 	
