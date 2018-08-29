@@ -16,7 +16,6 @@ public class ItemController extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");		
 		String contextPath=getServletContext().getContextPath();
-		
 		if(cmd!=null && cmd.equals("lookInsert")) {
 			lookInsert(request,response);
 		}else if(cmd!=null && cmd.equals("itemInsert")) {
