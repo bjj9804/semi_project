@@ -16,7 +16,7 @@
 			<tr>
 			<c:if test="${flag==0}">	
 				<input type="button" value="삭제"
-					onclick="delete1('${num }')">
+					onclick="delete1('${email}', '${pageNum }')">
 					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 			</c:if>
 					<th>글번호</th>

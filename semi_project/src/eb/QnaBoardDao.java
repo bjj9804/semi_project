@@ -311,14 +311,44 @@ public class QnaBoardDao {
 			}
 		}		
 	}
-	public int delete(int num) {
+	public int getGrp(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select grp from qnaboard where num = ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("grp");
+		}catch(SQLException se){
+			System.out.println(se.getMessage());
+			return -1;				
+		}catch(ClassNotFoundException cn) {
+			cn.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int delete(int grp){
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 		con=DBConnection.getConnection();
-		String sql="delete from qnaboard where num=?";
+		String sql="delete from qnaboard where grp = ?";
 		pstmt=con.prepareStatement(sql);
-		pstmt.setInt(1, num);
+		pstmt.setInt(1, grp);
 		int n=pstmt.executeUpdate();
 		return n;
 	}catch(SQLException se){

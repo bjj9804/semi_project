@@ -181,16 +181,12 @@ public class QnaBoardController extends HttpServlet {
 		String[] checkArray=checkList.split(",");
 		String cmd2 = request.getParameter("cmd2");
 		QnaBoardDao dao = QnaBoardDao.getInstance();
-		boolean bool=true;
 		for(int i=0;i<checkArray.length;i++) {
 			int num=Integer.parseInt(checkArray[i]);
-			if(dao.delete(num)<0) {
-				bool=false;
-			}
-		}
-		if(bool==false) {
-			System.out.println("삭제 실패");
-			return;
+			System.out.println(num);
+			int grp = dao.getGrp(num);
+			System.out.println(grp);
+			dao.delete(grp);
 		}
 		request.setAttribute("email", email);
 		request.setAttribute("pageNum", pageNum);

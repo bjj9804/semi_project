@@ -214,6 +214,7 @@ public class ReviewBoardController extends HttpServlet {
 			return;
 		}
 		request.setAttribute("email", email);
+		System.out.println(pageNum);
 		request.setAttribute("pageNum", pageNum);
 		if(cmd2.equals("myshop"))
 			request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);

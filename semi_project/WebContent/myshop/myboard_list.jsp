@@ -73,7 +73,7 @@
 	<br><br>
 	<h1>My Q&A</h1>
 				<input type="button" value="삭제"
-					onclick="delete2('${email}','${pageNum1})">
+					onclick="delete2('${email}','${pageNum1}')">
 				<table border="1" width="500">
 					<tr>
 						<th><input type="checkbox" name="check1" onclick="checkAll1()"></th>
@@ -166,6 +166,7 @@
 			}
 		}
 	}
+	
 	function check1() {
 		var chk = document.getElementsByName("check1");
 		for (var i = 1; i < chk.length; i++) {
@@ -174,7 +175,9 @@
 			}
 		}
 	}
+	
 	function delete1(email, pageNum) {
+		console.log("함수 실행");
 		var checkList = "";
 		var chk = document.getElementsByName("check");
 		for (var i = 1; i < chk.length; i++) {
@@ -209,7 +212,8 @@
 			return false;
 		}
 		if (confirm("삭제하시겠습니까?")) {
-			location.href ="/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&cmd2=myshop&email=" + email + "&pageNum1=" + pageNum1";
+			location.href = "/semi_project/eb/qnalist.do?checkList=" + checkList
+			+ "&cmd=delete&cmd2=myshop&email=" + email + "&pageNum=" + pageNum1;	
 		}
 	}
 </script>
