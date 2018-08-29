@@ -9,11 +9,10 @@ public class ItemDto {
 	private String imgScr;
 	private String isize;
 	private int amount;
-	private int num;
-	private String lookCode;
+	
 	public ItemDto() {}
 	public ItemDto(String code, int price, String itemName, String description, String imgType, String imgScr,
-			String isize, int amount, int num, String lookCode) {
+			String isize, int amount) {
 		super();
 		this.code = code;
 		this.price = price;
@@ -23,9 +22,7 @@ public class ItemDto {
 		this.imgScr = imgScr;
 		this.isize = isize;
 		this.amount = amount;
-		this.num = num;
-		this.lookCode = lookCode;
-	}
+		}
 	public String getCode() {
 		return code;
 	}
@@ -74,18 +71,7 @@ public class ItemDto {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	public String getLookCode() {
-		return lookCode;
-	}
-	public void setLookCode(String lookCode) {
-		this.lookCode = lookCode;
-	}
+	
 	
 	
 }

@@ -16,7 +16,7 @@
 			<tr>
 			<c:if test="${flag==0}">	
 				<input type="button" value="삭제"
-					onclick="delete1('${num }')">
+					onclick="delete1('${email}', '${pageNum }')">
 					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 			</c:if>
 					<th>글번호</th>
@@ -106,7 +106,7 @@
 			}
 		}
 	}
-	function delete1(num) {
+	function delete1(email, pageNum) {
 		var checkList = "";
 		var chk = document.getElementsByName("check");
 		for (var i = 1; i < chk.length; i++) {
@@ -122,7 +122,7 @@
 			return false;
 		}
 		console.log(checkList);
-		location.href = "/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&email=" + email + "&pageNum=" + pageNum;
+		location.href = "/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&cmd2=board&email=" + email + "&pageNum=" + pageNum;
 	}
 </script>
 </html>

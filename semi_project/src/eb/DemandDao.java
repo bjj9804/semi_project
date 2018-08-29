@@ -400,7 +400,100 @@ public class DemandDao {
 			}
 		}
 	}
-		
+	//반품신청으로 buy테이블의 상태 변경
+		public int buystatechange(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="update buy set state=? where buyNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, "반품대기중");
+				pstmt.setInt(2, num);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		//return테이블로 반품상품 insert
+		public int returninsert(String reason,int buyNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="insert into return_buy values(?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, buyNum);
+				pstmt.setString(2, reason);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		//buynum으로 pay테이블검색해서 정보뽑아오기
+		public PayVo ordernumselect(int buyNum) {
+			String sql="select p.*" + 
+					"from buy b,pay p" + 
+					"where b.ordernum=p.ordernum and b.buyNum=?";
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				con=DBConnection.getConnection();
+				pstmt=con.prepareStatement(sql);	
+				pstmt.setInt(1, buyNum);
+				rs=pstmt.executeQuery();
+				PayVo vo = null;
+				while(rs.next()) {
+					int orderNum=rs.getInt("orderNum");
+					Date orderDate=rs.getDate("orderdate");
+					String state=rs.getString("state");
+					String method=rs.getString("method");
+					String addr=rs.getString("addr");
+					String email=rs.getString("email");
+					int totalPrice=rs.getInt("totalprice");
+					int payMoney=rs.getInt("paymoney");
+					vo=new PayVo(orderNum, orderDate, state, method, addr, email, totalPrice, payMoney);	
+				}
+				return vo;
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+				return null;
+			}catch(ClassNotFoundException cn) {
+				System.out.println(cn.getMessage());
+				return null;
+			} catch (NamingException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(rs!=null) rs.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	
 		
 }
 	

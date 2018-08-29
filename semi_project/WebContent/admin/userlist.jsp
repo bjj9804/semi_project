@@ -16,27 +16,27 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<h2>${email } 판매내역 리스트</h2>
-			<ul class="admin_menu">
-				<li><a href="/semi_project/mh/sale.do?cmd=salelist">전체보기</a></li>
-				<li><a href="/semi_project/mh/sale.do?cmd=userlist">회원별</a></li>
-				<li><a href="/semi_project/mh/sale.do?cmd=daylist">날짜별</a></li>
-				<li><a href="/semi_project/mh/sale.do?cmd=itemlist">상품별</a></li>
-			</ul>
+			<h1>회원관리</h1>
 			<div class="dd">
 				<table>
 					<tr>
-						<th>회원이메일</th>
-						<th>구매가격</th>
-						<th>구매상태</th>
-						<th>구매날짜</th>
+						<th>이메일</th>
+						<th>전화번호</th>
+						<th>주소</th>
+						<th>이름</th>
+						<th>가입일</th>
+						<th>쿠폰</th>
+						<th>탈퇴</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
 						<td>${vo.email }</td>
-						<td>${vo.payMoney }</td>
-						<td>${vo.state }</td>
-						<td>${vo.orderDate }</td>
+						<td>${vo.phone }</td>
+						<td>${vo.addr }</td>
+						<td>${vo.name }</td>
+						<td>${vo.regdate }</td>
+						<td><a href="#">${vo.coupon }</a></td>
+						<td><a href="/semi_project/mh/myshopmodify.do?cmd=admindelete&&email=${vo.email }">탈퇴</a></td>
 					</tr>
 					</c:forEach>
 				</table>

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
@@ -25,7 +26,7 @@ public class UsersDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,1)";
+			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,0,1)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
@@ -66,6 +67,7 @@ public class UsersDao {
 			if(rs.next()) {
 				return true;
 			}
+			return false;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 		}catch(ClassNotFoundException clfe) {
@@ -82,6 +84,45 @@ public class UsersDao {
 			}
 		}
 		return false;
+	}
+	//전체조회
+	public ArrayList<UsersVo> userslist() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from users";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			ArrayList<UsersVo> list = new ArrayList<>();
+			while(rs.next()) {
+				String email=rs.getString("email");
+				String password=rs.getString("password");
+				int question = rs.getInt("question");
+				String answer = rs.getString("answer");
+				String phone=rs.getString("phone");
+				String addr=rs.getString("addr");
+				String name=rs.getString("name");
+				Date regdate=rs.getDate("regdate");
+				int coupon=rs.getInt("coupon");
+				int flag=rs.getInt("flag");
+				UsersVo vo=new UsersVo(email, password, question, answer, phone, addr, name, regdate, coupon, flag);
+				list.add(vo);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
 	public UsersVo select(String email) {
