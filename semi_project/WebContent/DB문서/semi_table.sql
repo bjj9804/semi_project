@@ -193,7 +193,6 @@ ALTER TABLE pay
 	REFERENCES users (email)
 ;
 
-
 ALTER TABLE coupon
 	ADD FOREIGN KEY (email)
 	REFERENCES Users (email)
