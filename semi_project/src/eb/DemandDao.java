@@ -493,7 +493,74 @@ public class DemandDao {
 				}
 			}
 		}
-	
+		//반품신청하면 pay테이블의 state도 반품대기중으로 변경해줌
+		public int refundup1(int num) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="update pay set state=? where orderNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, "반품대기중");
+				pstmt.setInt(2, num);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		//pay테이블의 state가 반품대기중인걸 찾아서 buy테이블과 조인해서 정보 뿌려주기]
+		
+		public ArrayList<BuyVo> refundlist() {
+			String sql="select * from buy where state='반품대기중' or state='반품완료' or state='교환대기중' or state='교환완료'";
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				con=DBConnection.getConnection();
+				pstmt=con.prepareStatement(sql);	
+				rs=pstmt.executeQuery();
+				ArrayList<BuyVo> list=new ArrayList<>();
+				while(rs.next()) {
+					int buyNum=rs.getInt("buyNum");
+					int orderNum=rs.getInt("orderNum");
+					String code=rs.getString("code");
+					String isize=rs.getString("isize");
+					int orderAmount=rs.getInt("orderAmount");
+					int price=rs.getInt("price");
+					String state=rs.getString("state");
+					BuyVo vo=new BuyVo(buyNum,orderNum,code.trim(),isize,orderAmount,price,state);
+					list.add(vo);
+				}
+			return list;
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+				return null;
+			}catch(ClassNotFoundException cn) {
+				System.out.println(cn.getMessage());
+				return null;
+			} catch (NamingException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(rs!=null) rs.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
 		
 }
 	

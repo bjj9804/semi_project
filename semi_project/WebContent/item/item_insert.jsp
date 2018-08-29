@@ -17,7 +17,7 @@
 				var div=document.createElement("div");
 				var file=document.createElement("input");
 				file.type="file";
-				file.name="imgSrc"+i;
+				file.name="imgScr"+i;
 				var imgType=document.createElement("input");
 				imgType.type="text";
 				imgType.name="imgType"+i;			

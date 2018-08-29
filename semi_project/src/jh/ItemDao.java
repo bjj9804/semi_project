@@ -40,6 +40,51 @@ public class ItemDao {
 			}
 		}
 	}
+	public int imgDelete(String code,String imgType) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="delete from itemimg where code=? and imgType=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			pstmt.setString(2, imgType);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int lookItemDelete(String code,String lookCode) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="delete from lookItem where code=? and lookCode=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			pstmt.setString(2, lookCode);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
 	public ArrayList<LookVo> getLookCode() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -71,6 +116,146 @@ public class ItemDao {
 			}
 		}
 	}
+	public LookVo getLook(String lookCode) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from look where lookCode=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, lookCode);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String lookFront=rs.getString("lookFront");
+				String lookBack=rs.getString("lookBack");
+				LookVo vo=new LookVo(lookCode, lookFront, lookBack);
+				return vo;
+			}
+			return null;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int lookUpdate(String lookCode,String lookFront,String lookBack,String check) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="";
+			if(check.equals("1")) {//front수정
+				sql="update look set lookFront=? where lookCode=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, lookFront);
+				pstmt.setString(2, lookCode);
+			}else {//back수정
+				sql="update look set lookBack=? where lookCode=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, lookBack);
+				pstmt.setString(2, lookCode);
+			}			
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public ArrayList<LookItemVo> getLookItem(String lookCode) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<LookItemVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from lookitem where lookCode=? order by code asc";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, lookCode);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				int num=rs.getInt("num");
+				String code=rs.getString("code");
+				LookItemVo vo=new LookItemVo(num, lookCode, code);
+				list.add(vo);
+			}
+			return list;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int itemUpdate(String code,String price,String itemName,String description) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="update item set price=?,itemName=?,description=? where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, price);
+			pstmt.setString(2, itemName);
+			pstmt.setString(3, description);
+			pstmt.setString(4, code);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public int amountUpdate(String code,String isize,String amount) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="update itemsize set amount=? where code=? and isize=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, amount);
+			pstmt.setString(2, code);
+			pstmt.setString(3, isize);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
 	public int itemInsert(String code,String price,String itemName,String description,String isize,String amount) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -103,7 +288,7 @@ public class ItemDao {
 			}
 		}
 	}
-	public int itemInsert2(String imgType,String code,String imgSrc) {
+	public int itemInsert2(String imgType,String code,String imgScr) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -112,7 +297,7 @@ public class ItemDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, imgType);
 			pstmt.setString(2, code);
-			pstmt.setString(3, imgSrc);
+			pstmt.setString(3, imgScr);
 			return pstmt.executeUpdate();
 			
 		}catch(Exception e) {
