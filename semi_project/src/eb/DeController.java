@@ -3,7 +3,6 @@ package eb;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +14,7 @@ import javax.servlet.http.HttpSession;
 import eb.BuyVo;
 import jh.ItemVo;
 import jh.PayVo;
-import mh.UsersDao;
-import mh.UsersVo;
+
 
 @WebServlet("/demand.do")
 public class DeController extends HttpServlet {
@@ -47,6 +45,8 @@ public class DeController extends HttpServlet {
 			buychange2(request,response);
 		}else if(cmd!=null && cmd.equals("refund2")) {
 			refund2(request,response);
+		}else if(cmd!=null && cmd.equals("returnlist")) {
+			returnlist(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -224,6 +224,13 @@ public class DeController extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("state1", state1);
 			request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);	
+	}
+		//관리자페이지에 교환/환불리스트뿌려주기
+		protected void returnlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<BuyVo> list=dao.refundlist();
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);	
 	}
 		
 		
