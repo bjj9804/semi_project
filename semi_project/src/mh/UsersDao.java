@@ -92,7 +92,7 @@ public class UsersDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from users";
+			String sql = "select * from users where flag = 1";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<UsersVo> list = new ArrayList<>();
@@ -270,9 +270,9 @@ public class UsersDao {
 			pstmt.setString(4, vo.getAddr());
 			pstmt.setString(5, vo.getEmail());
 			return pstmt.executeUpdate();
-		}catch(SQLException se) {
+		} catch(SQLException se) {
 			System.out.println(se.getMessage());
-		}catch(ClassNotFoundException clfe) {
+		} catch(ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -295,14 +295,45 @@ public class UsersDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			return pstmt.executeUpdate();
-		} catch (ClassNotFoundException | SQLException | NamingException e) {
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+		} catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+		} catch (NamingException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			try {
 				if(pstmt != null) pstmt.close();
 				if(con != null) con.close();
-			}catch(SQLException e) {
-				e.printStackTrace();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return -1;
+	}
+	
+	public int coupongift(String email, String couponName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "insert into coupon values(COUPON_SEQ.NEXTVAL,?,?,'사용가능',SYSDATE,ADD_MONTHS(SYSDATE,12))";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, couponName);
+			pstmt.executeUpdate();
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+		} catch(ClassNotFoundException clfe) {
+			clfe.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
 			}
 		}
 		return -1;

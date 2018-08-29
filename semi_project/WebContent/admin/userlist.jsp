@@ -26,6 +26,7 @@
 						<th>이름</th>
 						<th>가입일</th>
 						<th>쿠폰</th>
+						<th>쿠폰지급</th>
 						<th>탈퇴</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
@@ -35,10 +36,25 @@
 						<td>${vo.addr }</td>
 						<td>${vo.name }</td>
 						<td>${vo.regdate }</td>
-						<td><a href="#">${vo.coupon }</a></td>
+						<td>${vo.coupon }</td>
+						<td>
+							<form method="post" action="/semi_project/mh/users.do?cmd=coupongift&&email=${vo.email }">
+								<select name="couponGift">
+									<option value="vip쿠폰(10%)">vip쿠폰(10%)</option>
+									<option value="이벤트당첨쿠폰(5%)">이벤트당첨쿠폰(5%)</option>
+									<option value="랜덤쿠폰(5%)">랜덤쿠폰(5%)</option>
+									<option value="여름시즌쿠폰(5%)">여름시즌쿠폰(5%)</option>
+									<option value="겨울시즌쿠폰(5%)">겨울시즌쿠폰(5%)</option>
+								</select>
+								<input type="submit" value="지급">
+							</form>
+						</td>
 						<td><a href="/semi_project/mh/myshopmodify.do?cmd=admindelete&&email=${vo.email }">탈퇴</a></td>
 					</tr>
 					</c:forEach>
+				</table>
+				<table>
+					<tr></tr>
 				</table>
 			</div>
 		</div>

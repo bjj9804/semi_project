@@ -37,7 +37,16 @@ public class UsersController extends HttpServlet{
 			emailcheck(request,response);
 		}else if(cmd != null && cmd.equals("userslist")) {
 			userslist(request,response);
+		}else if(cmd != null && cmd.equals("coupongift")) {
+			coupongift(request,response);
 		}
+	}
+	protected void coupongift(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		String couponName = request.getParameter("couponGift");
+		UsersDao dao = UsersDao.getInstance();
+		dao.coupongift(email, couponName);
+		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
 	}
 	protected void userslist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		UsersDao dao = UsersDao.getInstance();
