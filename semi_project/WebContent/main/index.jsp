@@ -19,6 +19,7 @@
 				<img src="../images/main/look_1.jpg">
 			</a>
 		</div>
+	
 	</div>
 	<div id="section2" class="section">
 	</div>

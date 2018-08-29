@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jj.ItemDao;
+import jh.ItemDao_jh;
 import jj.ItemVo;
 import ms.ItemImgVo;
 @WebServlet("/jh/product.do")
@@ -29,42 +29,11 @@ public class ProductController extends HttpServlet{
 	}
 	
 	private void lookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ItemDao itemdao=ItemDao.getInstance();
-////		itemdao.list(startRow, endRow);
-//		
-//		
-//		String spageNum = request.getParameter("pageNum");
-////		String email = request.getParameter("email");
-////		System.out.println(email);
-//		int pageNum=1;
-//		if(spageNum!=null) {
-//			pageNum=Integer.parseInt(spageNum);
-//		}
-//		int startRow=(pageNum-1)*10+1;
-//		int endRow=(pageNum-1)*10+10;		
-//		int pageCnt=(int)Math.ceil(itemdao.getCount()/10.0);
-//		int startPage=((pageNum-1)/10)*10+1;
-//		int endPage=startPage+9;
-//		if(endPage>pageCnt) {
-//			endPage=pageCnt;
-//		}		
-		ArrayList<ItemVo> list=itemdao.list(startRow,endRow);
+		ItemDao_jh itemdao=ItemDao_jh.getInstance();
 		
-//		int flag=0;
-//		if(!email.equals("")) {//로그인을 하고 들어온 경우
-//			UsersDao usersDao=UsersDao.getInstance();
-//			UsersVo vo=usersDao.select(email);
-//			flag=vo.getFlag();//관리자인지 회원인지			
-//		}else {//로그인을 안하고 들어온경우
-//			flag=1;
-//		}
-//		request.setAttribute("flag", flag);		
+		ArrayList<ItemVo> list=ItemDao_jh.list();
+			 
 		request.setAttribute("list", list);
-		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("pageNum", pageNum);
-//		request.setAttribute("email", email);
 		request.getRequestDispatcher("/product/product_look.jsp").forward(request, response);		
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,8 +50,6 @@ public class ProductController extends HttpServlet{
 		request.setAttribute("lookvo", lookvo);
 		request.getRequestDispatcher("/product/item_detail.jsp").forward(request, response);		
 
-		
-	
 	}
 	
 }

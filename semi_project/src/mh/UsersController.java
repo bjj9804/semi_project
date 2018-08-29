@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
+import jh.CouponVo;
+
 @WebServlet("/mh/users.do")
 public class UsersController extends HttpServlet{
 	@Override
@@ -37,14 +39,47 @@ public class UsersController extends HttpServlet{
 			emailcheck(request,response);
 		}else if(cmd != null && cmd.equals("userslist")) {
 			userslist(request,response);
+		}else if(cmd != null && cmd.equals("coupongift")) {
+			coupongift(request,response);
+		}else if(cmd != null && cmd.equals("couponcnt")) {
+			couponcnt(request,response);
+		}else if(cmd != null && cmd.equals("couponlist")) {
+			couponlist(request,response);
 		}
 	}
+	//쿠폰리스트
+	protected void couponlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		UsersDao dao = UsersDao.getInstance();
+		ArrayList<CouponVo> list = dao.couponlist(email);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
+	}
+	//쿠폰갯수
+	protected void couponcnt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		UsersDao dao = UsersDao.getInstance();
+		int cnt = dao.couponcnt(email);
+		dao.couponcnt(email);
+		request.setAttribute("cnt", cnt);
+		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
+	}
+	//쿠폰지급
+	protected void coupongift(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		String couponName = request.getParameter("couponGift");
+		UsersDao dao = UsersDao.getInstance();
+		dao.coupongift(email, couponName);
+		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
+	}
+	//관리자의 회원관리
 	protected void userslist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		UsersDao dao = UsersDao.getInstance();
 		ArrayList<UsersVo> list = dao.userslist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../admin/userlist.jsp").forward(request, response);
 	}
+	//이메일 사용여부
 	protected void emailcheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String email = request.getParameter("email");
 		response.setContentType("text/xml;charset=utf-8");
@@ -57,6 +92,7 @@ public class UsersController extends HttpServlet{
 		pw.println(obj.toString());
 		pw.close();
 	}
+	//이메일찾기
 	protected void findid(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
@@ -73,6 +109,7 @@ public class UsersController extends HttpServlet{
 			request.getRequestDispatcher("../users/login.jsp").forward(request, response);
 		}
 	}
+	//비번찾기
 	protected void findpwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("id")+request.getParameter("email");
 		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
@@ -89,8 +126,11 @@ public class UsersController extends HttpServlet{
 			request.getRequestDispatcher("../users/login.jsp").forward(request, response);
 		}
 	}
+	//회원가입
 	protected void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email1") + request.getParameter("email2");
+		String email1 = request.getParameter("email1");
+		String email2 = request.getParameter("email2");
+		String email = email1 + email2;
 		String password = request.getParameter("pwd");
 		int question = Integer.parseInt(request.getParameter("question"));
 		String answer = request.getParameter("answer");
@@ -108,6 +148,7 @@ public class UsersController extends HttpServlet{
 		}
 		request.getRequestDispatcher("../users/joinCon.jsp").forward(request, response);
 	}
+	//로그인
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("id") + request.getParameter("email");
 		String pwd = request.getParameter("pwd");
@@ -136,6 +177,7 @@ public class UsersController extends HttpServlet{
 			rd.forward(request, response);
 		}
 	}
+	//로그아웃
 	protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();

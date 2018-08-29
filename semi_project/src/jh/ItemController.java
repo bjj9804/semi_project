@@ -16,7 +16,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import ms.ItemImgVo;
-@WebServlet("/jh/item.do")
+@WebServlet("/jh/item2.do")
 public class ItemController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,6 +55,7 @@ public class ItemController extends HttpServlet{
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String saveDir=getServletContext().getRealPath("/itemFile");
 		
+<<<<<<< HEAD
 		int maxSize = 3 * 1024 * 1024;
 		String encoding = "utf-8";
 
@@ -62,6 +63,10 @@ public class ItemController extends HttpServlet{
 		if (isMulti) {
 			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
 					new DefaultFileRenamePolicy());
+=======
+		ItemDao_jh dao=ItemDao_jh.getInstance();
+		LookVo vo=new LookVo(lookCode, lookFront, lookBack);
+>>>>>>> refs/remotes/origin/master
 		
 			String lookCode=mr.getParameter("lookCode");
 			String lookFront=mr.getFilesystemName("lookFront");
@@ -93,6 +98,7 @@ public class ItemController extends HttpServlet{
 			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
 					new DefaultFileRenamePolicy());		
 		
+<<<<<<< HEAD
 			String code=mr.getParameter("code");
 			String price=mr.getParameter("price");
 			String itemName=mr.getParameter("itemName");
@@ -119,11 +125,15 @@ public class ItemController extends HttpServlet{
 				}
 			}
 			list(request,response);
+=======
+		ItemDao_jh dao=ItemDao_jh.getInstance();
+		dao.itemInsert(code,price,itemName,description,isize,amount);
+>>>>>>> refs/remotes/origin/master
 		
 		}
 	}
 	private void lookCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		jh.ItemDao dao=ItemDao.getInstance();
+		jh.ItemDao_jh dao=ItemDao_jh.getInstance();
 		ArrayList<LookVo> list=dao.getLookCode();
 		request.setAttribute("list", list);
 		
@@ -132,7 +142,7 @@ public class ItemController extends HttpServlet{
 		
 	}
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ItemDao dao=ItemDao.getInstance();
+		ItemDao_jh dao=ItemDao_jh.getInstance();
 		ArrayList<ItemDto> list=dao.list();
 		ArrayList<LookVo> list1=dao.getLookCode();
 		request.setAttribute("list", list);
