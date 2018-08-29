@@ -13,7 +13,7 @@
 		<div class="inner">
 			<table border="1" width=900px bordercolor="black">
 				<h1>반품</h1>
-				<form action="demand.do?cmd=insertrefund" method="post" border="1" bordercolor="black">
+				<form action="demand.do?cmd=refund2" method="post" border="1" bordercolor="black">
 				<tr>
 					<td><input type="checkbox" class="chk" id="chk_all" name="chk"/></td>
 					<td>주문상품정보</td>
@@ -23,10 +23,11 @@
 				</tr>
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
 				<tr>
-						<td><input type="checkbox" class="chk" name="chk" value=${list[status.index].buyNum }/></td>
+						<td><input type="checkbox" class="chk" name="chk" value="${list[status.index].buyNum }"/></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
+						System.out.println("${list[status.index].buyNum }");
 				<td>
 				<select name="reason">
 					<option value="">반품사유</option>
@@ -40,7 +41,8 @@
 				</tr>
 				<tr>
 				<td colspan=3>
-				<input type="submit" value="반품신청" onclick="change('${list[status.index].buyNum}')">
+				<input type="button" value="반품신청" onclick="refund()">
+				
 				</td>
 				</tr>
 				</form>
@@ -70,29 +72,30 @@ $(".chk").click(function(){
 	}	
 });
 //선택된 값 얻어오기
-function change(buyNum) {
+function refund() {
+	console.log("함수실행");
 		var checkList = "";
 		var reasonList = "";
-		var chk = document.getElementsByName("check");
+		var chk = document.getElementsByName("chk");
+		console.log(chk[1].value);
 		var rs = document.getElementsByName("reason");
-		for (var i = 1; i < chk.length; i++) {
-			if (chk[i].checked == true) {
+		
+		for (var i = 0; i < chk.length; i++) {
+			if (chk[i].checked) {
 				checkList += chk[i].value + ",";
 				reasonList += rs[i].value + ",";
 			}
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
 		reasonList = reasonList.substring(0, reasonList.lastIndexOf(","));//맨끝 콤마 지우기
-
+		console.log(checkList+reasonList+"111");
 		if (checkList == '') {
 			alert("반품할 대상을 선택하세요");
 			return false;
 		}
 		console.log(checkList);
 		if (confirm("반품하시겠습니까?")) {
-			location.href = "/semi_project/demand.do?checkList=" + checkList
-					+ "&cmd=buychange2&buyNum=" + buyNu
-					m +"&reasonList="+reasonList;
+			location.href = "/semi_project/demand.do?cmd=refund2&checkList="+checkList+"&reasonList="+reasonList;
 		}
 	}
 
