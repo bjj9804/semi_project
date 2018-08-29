@@ -152,6 +152,8 @@ public class QnaBoardController extends HttpServlet {
 		System.out.println(email+","+name);
 		int flag=Integer.parseInt(request.getParameter("flag"));
 		String cmd1 = request.getParameter("cmd1");
+		String cmd2 = request.getParameter("cmd2");
+		System.out.println("controller: " + cmd2);
 		if(flag==0||email.equals(name)||email.equals(email1)) {
 			//관리자이거나 작성자와 email이 같거나 해당글의 최초글의 작성자가 같다면 상세내용 보여주기
 			QnaBoardVo vo=dao.detail(num);
@@ -161,6 +163,7 @@ public class QnaBoardController extends HttpServlet {
 				System.out.println("상세내용보기 실패!!");
 			}
 			request.setAttribute("vo", vo);
+			request.setAttribute("cmd2", cmd2);
 			if(cmd1.equals("update")) {
 				request.getRequestDispatcher("/board/qna_update.jsp").forward(request, response);
 			}else {
@@ -205,6 +208,7 @@ public class QnaBoardController extends HttpServlet {
 		QnaBoardVo vo = dao.detail(num);
 		String email = vo.getEmail(); 
 		String cmd2 = request.getParameter("cmd2");
+		System.out.println("update: " + cmd2);
 		//ServletContext sc=getServletContext();
 		//String email=(String)sc.getAttribute("email");
 		dao.update(num,title,content);

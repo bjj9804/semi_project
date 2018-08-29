@@ -12,7 +12,7 @@
 	<ul style="position: relative; margin-left: 500px; margin-top: 150px;">
 		<li style="font-size: 50px"><a
 			href="/semi_project/eb/qnalist.do?cmd=list" style="color: black">Q&A</a></li>
-		<form action="/semi_project/eb/qnalist.do?cmd=update" method="post">
+		<form action="/semi_project/eb/qnalist.do?cmd=update&cmd2=myshop&num=${vo.num }" method="post">
 			<input type="hidden" name="num" value="${param.num }"> <input
 				type="hidden" name="grp" value="${param.grp }"> <input
 				type="hidden" name="lev" value="${param.lev }"> <input

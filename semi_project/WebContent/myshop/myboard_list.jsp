@@ -28,7 +28,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/myshopBoard.do?cmd=reviewDetail&cmd1=detail&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
+								href="/semi_project/myshopBoard.do?cmd=reviewDetail&cmd1=detail&num=${vo.num }&pageNum=${pageNum}&pageNum1=${pageNum1}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
@@ -73,7 +73,7 @@
 	<br><br>
 	<h1>My Q&A</h1>
 				<input type="button" value="삭제"
-					onclick="delete1('${email}','${pageNum1})">
+					onclick="delete2('${email}','${pageNum1})">
 				<table border="1" width="500">
 					<tr>
 						<th><input type="checkbox" name="check1" onclick="checkAll1()"></th>
@@ -89,7 +89,7 @@
 							<td>${vo.num }</td>
 							<td>${vo.name }</td>
 							<td><a
-								href="/semi_project/myshopBoard.do?cmd=qnaDetail&grp=${vo.grp }&pageNum=${pageNum1 }email=${email }&num=${vo.num }&flag=${flag}">${vo.title }</a>
+								href="/semi_project/myshopBoard.do?cmd=qnaDetail&grp=${vo.grp }&pageNum=${pageNum }&pageNum1=${pageNum1 }&email=${email }&num=${vo.num }&flag=${flag}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
@@ -188,10 +188,28 @@
 			alert("삭제할 대상을 선택하세요");
 			return false;
 		}
-		console.log(checkList);	a
 		if (confirm("삭제하시겠습니까?")) {
 			location.href = "/semi_project/reviewBoard.do?checkList=" + checkList
-					+ "&cmd=delete&email=" + email + "&pageNum=" + pageNum;
+				+ "&cmd=delete&email=" + email + "&pageNum=" + pageNum;
+		}
+	}
+	
+	function delete2(email, pageNum1) {
+		var checkList = "";
+		var chk = document.getElementsByName("check1");
+		for (var i = 1; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				checkList += chk[i].value + ",";
+			}
+		}
+		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
+
+		if (checkList == '') {
+			alert("삭제할 대상을 선택하세요");
+			return false;
+		}
+		if (confirm("삭제하시겠습니까?")) {
+			location.href ="/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&cmd2=myshop&email=" + email + "&pageNum1=" + pageNum1";
 		}
 	}
 </script>

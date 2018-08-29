@@ -106,7 +106,7 @@
 			}
 		}
 	}
-	function delete1(num) {
+	function delete1(email, pageNum) {
 		var checkList = "";
 		var chk = document.getElementsByName("check");
 		for (var i = 1; i < chk.length; i++) {
@@ -122,7 +122,7 @@
 			return false;
 		}
 		console.log(checkList);
-		location.href = "/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&email=" + email + "&pageNum=" + pageNum;
+		location.href = "/semi_project/eb/qnalist.do?checkList=" + checkList + "&cmd=delete&cmd2=board&email=" + email + "&pageNum=" + pageNum;
 	}
 </script>
 </html>

@@ -84,7 +84,7 @@ public class ReviewBoardController extends HttpServlet {
 			String code = mr.getParameter("code");
 			ReviewBoardDao dao = ReviewBoardDao.getInstance();
 			ItemImgVo ivo = dao.getItemImg(code);
-			String itemImg = ivo.getImgSrc();
+			String itemImg = ivo.getImgScr();
 			ReviewBoardVo vo = new ReviewBoardVo(0, uvo.getName(), email, title, content, height, weight, 0, null, img, itemImg, code);
 			int n = dao.insert(vo);
 			if (n > 0) {

@@ -7,6 +7,10 @@
 <jsp:include page="/inc/header.jsp" />
 </head>
 <body>
+<%
+	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+	int pageNum1 = Integer.parseInt(request.getParameter("pageNum1"));
+%>
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
@@ -48,9 +52,9 @@
 
 			<c:if test="${email==vo1.email || flag==0 }">
 				<input type="button" value="글 삭제"
-					onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&cmd2=myshop&num=${vo.num }&checkList=${vo.num }&cmd=delete&email=${email}&pageNum=${pageNum }'">
+					onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&cmd2=myshop&num=${vo1.num }&checkList=${vo1.num }&cmd=delete&email=${email}&pageNum=<%=pageNum %>&pageNum1=<%=pageNum1%>'">
 				<input type="button" value="글 수정"
-					onclick="javascript:location.href='../board/qna_update.jsp?num=${vo.num }'">
+					onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=detail&cmd1=update&cmd2=myshop&num=${vo1.num }&grp=${vo1.grp }&email=${email }&name=${vo1.name }&flag=${flag }'">
 			</c:if>
 			<c:forEach var="vo" items="${replist }">
 				<table>
