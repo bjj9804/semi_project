@@ -6,7 +6,7 @@
 	<jsp:include page="/inc/header.jsp"/>
 	<script type="text/javascript">
 	
-		<!-- 이메일 사용가능 여부 -->
+		//이메일 사용가능 여부
 		
 		var xhr = null;
 		function emailcheck(){
@@ -35,7 +35,7 @@
 			 }
 		}
 		
-		<!-- 이메일 다시입력 확인 -->
+		//이메일 다시입력 확인
 		
 		function reemailOk(){
 			var email1 = document.getElementById("email1");
@@ -56,7 +56,7 @@
 			}
 		}
 		
-		<!-- 비밀번호 제약 -->
+		//비밀번호 제약
 		
 		function pwdcheck(){
 			var pwd = document.getElementById("pwd").value;
@@ -77,7 +77,7 @@
 			}
 		}
 		
-		<!-- 비밀번호 확인 -->
+		//비밀번호 확인
 		
 		function pwdcheck2(){
 			var pwd = document.getElementById("pwd").value;

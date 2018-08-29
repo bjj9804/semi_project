@@ -36,7 +36,7 @@
 						<td>${vo.addr }</td>
 						<td>${vo.name }</td>
 						<td>${vo.regdate }</td>
-						<td><input type="text" value="/semi_project/mh/users.do?cmd=couponcnt&&email=${vo.email }"></td>
+						<td>${vo.coupon }</td>
 						<td>
 							<form method="post" action="/semi_project/mh/users.do?cmd=coupongift&&email=${vo.email }">
 								<select name="couponGift">

@@ -26,7 +26,7 @@ public class UsersDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,0,1)";
+			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,1)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
@@ -317,7 +317,7 @@ public class UsersDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select count(email) cnt from coupon where couponState='사용가능' group by email=?";
+			String sql = "select count(*) cnt from coupon where couponState='사용가능' and email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
@@ -347,8 +347,8 @@ public class UsersDao {
 			con = DBConnection.getConnection();
 			String sql = "insert into coupon values(COUPON_SEQ.NEXTVAL,?,?,'사용가능',SYSDATE,ADD_MONTHS(SYSDATE,12))";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, email);
-			pstmt.setString(2, couponName);
+			pstmt.setString(1, couponName);
+			pstmt.setString(2, email);
 			pstmt.executeUpdate();
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());
