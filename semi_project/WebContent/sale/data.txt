@@ -63,3 +63,111 @@ BEGIN
 	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,'가입감사쿠폰(5%)',:NEW.email,'사용가능',SYSDATE,ADD_MONTHS(SYSDATE,12));
 END;
 /
+
+DROP TABLE buy CASCADE CONSTRAINTS;
+
+CREATE TABLE BUY
+(
+	buyNum number(10,0) PRIMARY KEY NOT NULL,
+	orderNum number(10,0),
+	code varchar2(50),
+	isize varchar2(30),
+	orderAmount number(3,0),
+	Price number(10,0),
+	state varchar2(50)
+);
+
+select * from coupon;
+
+select * from pay where state='구매완료' and ordernum in (select ordernum from buy where state is null);
+
+select ordernum from buy where state is null;
+
+select ordernum from buy;
+
+select AA.*, item.itemname
+from (select code, count(*) cnt, sum(price) tot
+from buy
+where state is null and ordernum in (select ordernum
+from pay
+where state='구매완료')
+group by code)AA,item
+where aa.code = item.code
+order by cnt desc;
+
+CREATE OR REPLACE TRIGGER JOIN_COUPON
+before INSERT ON USERS
+FOR EACH ROW
+BEGIN
+	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,'가입감사쿠폰(5%)',:NEW.email,'사용가능',SYSDATE,ADD_MONTHS(SYSDATE,12));
+END;
+/
+
+create or replace TRIGGER update_coupon
+AFTER UPDATE ON COUPON
+FOR EACH ROW
+BEGIN
+	UPDATE USERS SET COUPON = COUPON-1 WHERE EMAIL = :new.email;
+END;
+/
+
+select trigger_name from user_triggers;
+desc user_triggers;
+
+select  TRIGGER_NAME,  STATUS  from user_triggers;
+
+desc coupon;
+
+select count(email) cnt from coupon where couponState='사용가능' group by email=?;
+select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= '18/8/1' and orderdate <= '18/08/31' order by orderdate desc;
+
+DROP TABLE coupon CASCADE CONSTRAINTS;
+
+CREATE TABLE coupon
+(
+	couponNum number(10,0) PRIMARY KEY NOT NULL,
+	couponName varchar2(100) NOT NULL,
+	email varchar2(30) NOT NULL,
+	couponState varchar2(50),
+	offerDate date,
+	endDate date	
+);
+
+desc user_triggers;
+
+drop trigger COUPON_UP;
+
+CREATE SEQUENCE coupon_seq;
+
+select * from coupon;
+DELETE FROM COUPON WHERE COUPONNUM=1;
+
+CREATE OR REPLACE TRIGGER COUPON_UP
+AFTER INSERT ON COUPON
+FOR EACH ROW
+BEGIN
+	UPDATE USERS SET COUPON = COUPON+1 WHERE EMAIL = :new.email;
+END;
+/
+
+
+insert into users values('이메일5','패스워드',6,'sad','010','주소','이름',sysdate,0,1);
+select * from coupon;
+select * from users;
+desc users;
+delete from users where email='이메일2';
+
+create or replace TRIGGER update_coupon
+AFTER UPDATE ON COUPON
+FOR EACH ROW
+BEGIN
+	UPDATE COUPON SET COUPONSTATE = '사용완료' WHERE COUPONNUM = :OLD.COUPONNUM;
+END;
+/
+
+select count(*) cnt from coupon where couponState='사용가능' and email='test1@naver.com';
+select * from users where flag = 1;
+
+UPDATE COUPON SET COUPONSTATE = '사용완료' WHERE COUPONNUM = ?;
+
+COMMIT;
