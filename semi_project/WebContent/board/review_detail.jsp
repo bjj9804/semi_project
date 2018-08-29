@@ -8,7 +8,6 @@
 </head>
 <body>
 <%
-
 	int pageNum =Integer.parseInt(request.getParameter("pageNum"));
 %>
 	<jsp:include page="/inc/gnb.jsp" />
