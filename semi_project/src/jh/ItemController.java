@@ -10,14 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import ms.ItemImgVo;
 @WebServlet("/jh/item.do")
 public class ItemController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String cmd=request.getParameter("cmd");		
-		String contextPath=getServletContext().getContextPath();
+		String cmd=request.getParameter("cmd");	
+		
 		
 		if(cmd!=null && cmd.equals("lookInsert")) {
 			lookInsert(request,response);
@@ -48,53 +53,74 @@ public class ItemController extends HttpServlet{
 		}
 	}
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String lookCode=request.getParameter("lookCode");
-		String lookFront=request.getParameter("lookFront");
-		String lookBack=request.getParameter("lookBack");
+		String saveDir=getServletContext().getRealPath("/itemFile");
 		
-		ItemDao dao=ItemDao.getInstance();
-		LookVo vo=new LookVo(lookCode, lookFront, lookBack);
+		int maxSize = 3 * 1024 * 1024;
+		String encoding = "utf-8";
+
+		boolean isMulti = ServletFileUpload.isMultipartContent(request);
+		if (isMulti) {
+			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
+					new DefaultFileRenamePolicy());
 		
-		if(dao.lookInsert(vo)>0) {
-			System.out.println("lookInsert성공");
-		}else {
-			System.out.println("lookInsert실패");
+			String lookCode=mr.getParameter("lookCode");
+			String lookFront=mr.getFilesystemName("lookFront");
+			String lookBack=mr.getFilesystemName("lookBack");
+			
+			ItemDao dao=ItemDao.getInstance();
+			LookVo vo=new LookVo(lookCode, lookFront, lookBack);
+			
+			if(dao.lookInsert(vo)>0) {
+				System.out.println("lookInsert성공");
+			}else {
+				System.out.println("lookInsert실패");
+			}
+			
+			lookCode(request,response);
+			//request.getRequestDispatcher("/item/item_insert.jsp").forward(request, response);
+			
+		
 		}
-		
-		lookCode(request,response);
-		//request.getRequestDispatcher("/item/item_insert.jsp").forward(request, response);
-		
-		
-		
 	}
 	private void itemInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String code=request.getParameter("code");
-		String price=request.getParameter("price");
-		String itemName=request.getParameter("itemName");
-		String description=request.getParameter("description");
-		String isize=request.getParameter("isize");
-		String amount=request.getParameter("amount");				
-		String lookList=request.getParameter("lookList");
-		String[] lookArray=lookList.split(",");	
+		String saveDir=getServletContext().getRealPath("itemFile");
 		
+		int maxSize = 3 * 1024 * 1024;
+		String encoding = "utf-8";
+
+		boolean isMulti = ServletFileUpload.isMultipartContent(request);
+		if (isMulti) {
+			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
+					new DefaultFileRenamePolicy());		
 		
-		ItemDao dao=ItemDao.getInstance();
-		dao.itemInsert(code,price,itemName,description,isize,amount);
+			String code=mr.getParameter("code");
+			String price=mr.getParameter("price");
+			String itemName=mr.getParameter("itemName");
+			String description=mr.getParameter("description");
+			String isize=mr.getParameter("isize");
+			String amount=mr.getParameter("amount");				
+			String lookList=mr.getParameter("lookList");
+			String[] lookArray=lookList.split(",");	
+			
+			
+			ItemDao dao=ItemDao.getInstance();
+			dao.itemInsert(code,price,itemName,description,isize,amount);
+			
+			int fileCount=Integer.parseInt(mr.getParameter("fileCount"));
+			for(int i=1;i<=fileCount;i++) {			
+				String imgType=mr.getParameter("imgType"+i);
+				String imgScr=mr.getFilesystemName("imgScr"+i);
+				dao.itemInsert2(imgType,code,imgScr);			
+			}
+			
+			if(!lookList.equals("")&& lookList!=null) {
+				for(int i=0;i<lookArray.length;i++) {
+					dao.itemInsert3(lookArray[i],code);
+				}
+			}
+			list(request,response);
 		
-		int fileCount=Integer.parseInt(request.getParameter("fileCount"));
-		for(int i=1;i<=fileCount;i++) {			
-			String imgType=request.getParameter("imgType"+i);
-			String imgScr=request.getParameter("imgScr"+i);
-			dao.itemInsert2(imgType,code,imgScr);			
 		}
-		
-		for(int i=0;i<lookArray.length;i++) {
-			dao.itemInsert3(lookArray[i],code);
-		}
-		
-		list(request,response);
-		
-		
 	}
 	private void lookCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		jh.ItemDao dao=ItemDao.getInstance();
@@ -117,7 +143,7 @@ public class ItemController extends HttpServlet{
 	}
 	private void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");
-		
+		System.out.println(code);
 		ItemDao dao=ItemDao.getInstance();
 		ItemVo itemvo= dao.getItem(code);
 		ArrayList<ItemImgVo> imgList=dao.getItemImg(code);		
@@ -152,16 +178,27 @@ public class ItemController extends HttpServlet{
 	}
 	private void imgUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");
-		int fileCount=Integer.parseInt(request.getParameter("fileCount"));
-		ItemDao dao=ItemDao.getInstance();
-		for(int i=1;i<=fileCount;i++) {			
-			String imgType=request.getParameter("imgType"+i);
-			String imgScr=request.getParameter("imgScr"+i);
-			dao.itemInsert2(imgType,code,imgScr);			
-		}
+		String saveDir=getServletContext().getRealPath("itemFile");
 		
-		request.setAttribute("code", code);
-		itemDetail(request,response);
+		int maxSize = 3 * 1024 * 1024;
+		String encoding = "utf-8";
+		
+		boolean isMulti = ServletFileUpload.isMultipartContent(request);
+		if (isMulti) {
+			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
+					new DefaultFileRenamePolicy());	
+		
+			//String code=mr.getParameter("code");
+			int fileCount=Integer.parseInt(mr.getParameter("fileCount"));
+			ItemDao dao=ItemDao.getInstance();
+			for(int i=1;i<=fileCount;i++) {			
+				String imgType=mr.getParameter("imgType"+i);
+				String imgScr= mr.getFilesystemName("imgScr"+i);
+				dao.itemInsert2(imgType,code,imgScr);			
+			}
+			request.setAttribute("code", code);
+			itemDetail(request,response);
+		}
 		
 	}
 	private void amountUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -250,21 +287,31 @@ public class ItemController extends HttpServlet{
 			
 	}
 	private void lookImgUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String lookFront=request.getParameter("lookFront");
-		String lookBack=request.getParameter("lookBack");
 		String lookCode=request.getParameter("lookCode");
-		String check=request.getParameter("check");
-		ItemDao dao=ItemDao.getInstance();
+		String saveDir=getServletContext().getRealPath("itemFile");
 		
-		if(check.equals("1")) {//lookFront가 들어온 경우
-			lookBack="";
-		}else {//lookFront가 들어온 경우
-			lookFront="";
-		}
-		dao.lookUpdate(lookCode,lookFront,lookBack,check);
+		int maxSize = 3 * 1024 * 1024;
+		String encoding = "utf-8";
+
+		boolean isMulti = ServletFileUpload.isMultipartContent(request);
+		if (isMulti) {
+			MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, encoding,
+					new DefaultFileRenamePolicy());	
 		
-		request.setAttribute("lookCode", lookCode);
-		lookDetail(request, response);
+			String lookFront=mr.getFilesystemName("lookFront");
+			String lookBack=mr.getFilesystemName("lookBack");
+			String check=mr.getParameter("check");
+			ItemDao dao=ItemDao.getInstance();
 			
+			if(check.equals("1")) {//lookFront가 들어온 경우
+				lookBack="";
+			}else {//lookFront가 들어온 경우
+				lookFront="";
+			}
+			dao.lookUpdate(lookCode,lookFront,lookBack,check);
+			
+			request.setAttribute("lookCode", lookCode);
+			lookDetail(request, response);
+		}
 	}
 }
