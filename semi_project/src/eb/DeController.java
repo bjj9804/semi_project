@@ -187,6 +187,7 @@ public class DeController extends HttpServlet {
 			}
 			request.setAttribute("list", list);
 			request.setAttribute("itemlist", itemlist);
+			request.setAttribute("orderNum", orderNum);
 			request.getRequestDispatcher("/myshop/mybuy_refund.jsp").forward(request, response);	
 	}
 		
@@ -212,9 +213,10 @@ public class DeController extends HttpServlet {
 				//dao.return테이블로 인서트하는 메소드(buyNum,reasonArr[i]);
 				}
 			}	
-			int buyNum=Integer.parseInt(request.getParameter("num"));
-			PayVo vo=dao.ordernumselect(buyNum);
-			int orderNum=vo.getOrderNum();
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			//PayVo vo=dao.ordernumselect(buyNum);
+			//int orderNum=vo.getOrderNum();
+			PayVo vo=dao.selectview(orderNum);
 			String state1=vo.getState();
 			ArrayList<BuyVo> list=dao.detail(orderNum);
 			request.setAttribute("list", list);

@@ -21,13 +21,14 @@
 					<td>사이즈</td>
 					<td>반품사유</td>
 				</tr>
+				
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
+				<c:if test="${list[status.index].state == '' || list[status.index].state == null}">
 				<tr>
 						<td><input type="checkbox" class="chk" name="chk" value="${list[status.index].buyNum }"/></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
-						System.out.println("${list[status.index].buyNum }");
 				<td>
 				<select name="reason">
 					<option value="">반품사유</option>
@@ -37,11 +38,12 @@
 					<option value="기타">기타</option>
 				</select>
 				</td>
+				</c:if>
 				</c:forEach>
 				</tr>
 				<tr>
 				<td colspan=3>
-				<input type="button" value="반품신청" onclick="refund()">
+				<input type="button" value="반품신청" onclick="refund(${orderNum })">
 				
 				</td>
 				</tr>
@@ -72,7 +74,7 @@ $(".chk").click(function(){
 	}	
 });
 //선택된 값 얻어오기
-function refund() {
+function refund(orderNum) {
 	console.log("함수실행");
 		var checkList = "";
 		var reasonList = "";
@@ -94,7 +96,7 @@ function refund() {
 		}
 		console.log(checkList);
 		if (confirm("반품하시겠습니까?")) {
-			location.href = "/semi_project/demand.do?cmd=refund2&checkList="+checkList+"&reasonList="+reasonList;
+			location.href = "/semi_project/demand.do?cmd=refund2&checkList="+checkList+"&reasonList="+reasonList+"&num="+orderNum;
 		}
 	}
 
