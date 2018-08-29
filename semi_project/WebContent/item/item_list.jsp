@@ -12,6 +12,40 @@
 		#content .inner a{display:block; width:100px; height:30px; line-height:30px; background-color:#222; color:#fff; text-align:center; margin:20px auto}
 	</style>
 </head>
+<script type="text/javascript">
+
+	function write1(event){
+		var t=event.target;
+		t.readOnly=false;
+	}
+	var xhr=null;
+	function amountUpdate(code,isize){
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=updateOk;
+		xhr.open('post','/semi_project/jh/item.do?cmd=amountUpdate',true);
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		var amount=document.getElementById("amount").value;
+		var param="code="+code+"&isize="+isize+"&amount="+amount;
+		xhr.send(param);		
+	}
+	function updateOk(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var xml=xhr.responseXML;
+			var code=xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+			if(code=='success'){
+				alert("상품정보가 수정되었습니다.");				
+			}else{
+				alert("변경실패!");
+			}
+			var aa=document.getElementById("amount");
+			aa.readOnly=true;
+		}
+	}
+	</script>
+	
+
+
+
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
@@ -27,8 +61,7 @@
 					<th>아이템사이즈</th>
 					<th>수량</th>
 					<th>수정</th>
-					<th>삭제</th>
-				</tr>
+					</tr>
 				<c:forEach var="vo" items="${list }">
 				<tr>
 					<td><a href="/semi_project/jh/item.do?cmd=itemDetail&code=${vo.code }">${vo.code }</a></td>
@@ -36,24 +69,19 @@
 					<td>${vo.itemName }</td>
 					<td>${vo.description }</td>
 					<td>${vo.isize }</td>
-					<td>${vo.amount }</td>
-					<td><input type="button" value="수량변경"></td>
-					<td><input type="button" value="삭제"></td>
-				</tr>
+					<td><input type="text" name="amount" value="${vo.amount }" readonly="readonly" ondblclick="write1(event)"></td>
+					<td><input type="button" value="수량변경" onclick="amountUpdate('${vo.code}','${vo.isize }')"></td>
+					</tr>
 				</c:forEach>
 			</table>
-			
+			<br>
+			<h2>[ LOOK INFO ]</h2>
 			<table align="center">
 				<tr>
-					<th>룩코드</th>
-					<th>상품코드</th>
-				</tr>
 				<c:forEach var="vo" items="${list1 }">
-				<tr>
-					<td>${vo.lookCode }</td>
-					<td>${vo.code }</td>
-				</tr>
+					<td><a href="/semi_project/jh/item.do?cmd=lookDetail&lookCode=${vo.lookCode }">${vo.lookCode }</a></td>
 				</c:forEach>
+				</tr>
 			</table>
 			
 			
