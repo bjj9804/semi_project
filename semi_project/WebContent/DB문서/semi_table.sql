@@ -221,7 +221,7 @@ CREATE SEQUENCE lookItem_seq;
 
 CREATE SEQUENCE buy_seq;
 
-CREATE SEQUENCE coupon_seq;
+CREATE SEQUENCE coupon_seq; 
 
 
 CREATE OR REPLACE TRIGGER item_amount
