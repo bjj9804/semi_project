@@ -197,7 +197,6 @@ public class DeController extends HttpServlet {
 			String reasonList=request.getParameter("reasonList");
 			String[] checkArr=checkList.split(",");
 			String[] reasonArr=reasonList.split(",");
-
 			DemandDao dao=DemandDao.getInstance();
 			for(int i=0;i<checkArr.length;i++) {
 				int buyNum=Integer.parseInt(checkArr[i]);

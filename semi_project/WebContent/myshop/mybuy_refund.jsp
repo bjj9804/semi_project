@@ -79,7 +79,7 @@ function refund() {
 		var chk = document.getElementsByName("chk");
 		console.log(chk[1].value);
 		var rs = document.getElementsByName("reason");
-		
+
 		for (var i = 0; i < chk.length; i++) {
 			if (chk[i].checked) {
 				checkList += chk[i].value + ",";
