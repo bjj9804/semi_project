@@ -35,14 +35,15 @@ CREATE TABLE BUY
 	code varchar2(50),
 	isize varchar2(30),
 	orderAmount number(3,0),
-	Price number(10,0)
+	Price number(10,0),
+	state varchar2(50)
 );
 
 CREATE TABLE PAY
 (
 	orderNum number(10,0) PRIMARY KEY NOT NULL,
 	orderDate date,
-	state varchar2(30),
+	state varchar2(50),
 	method varchar2(80),
 	addr varchar2(250),
 	email varchar2(30) NOT NULL,
@@ -142,6 +143,12 @@ CREATE TABLE Users
 	flag number(1,0)	
 );
 
+CREATE TABLE RETURN_BUY
+(
+	buyNum number(10,0) PRIMARY KEY NOT NULL,
+	REASON VARCHAR2(20)
+);
+
 
 /* Create Foreign Keys */
 
@@ -174,6 +181,11 @@ ALTER TABLE buy
 ALTER TABLE buy
 	ADD FOREIGN KEY (orderNum)
 	REFERENCES pay (orderNum)
+;
+
+ALTER TABLE return_buy
+	ADD FOREIGN KEY (buyNum)
+	REFERENCES buy (buyNum)
 ;
 
 ALTER TABLE pay
