@@ -60,20 +60,13 @@
 		var str="";
 		var lookList=document.getElementsByName("lookList")[0];
 		var lookCode=document.getElementsByName("lookCode");
-		var bool=false;
 		for(i=0;i<lookCode.length;i++){
 			if(lookCode[i].checked==true){
 				str+=lookCode[i].value+",";
-				bool=true;
 			}
 		}
-		if(bool==true){
-			lookList.value=str.substring(0,str.lastIndexOf(","));
-			itemInfo.submit();
-		}else{
-			alert("룩코드를 선택해주세요");
-		}
-		
+		lookList.value=str.substring(0,str.lastIndexOf(","));
+		itemInfo.submit();
 	}
 	
 </script>

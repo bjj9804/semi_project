@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jj.ItemVo;
+import ms.ItemImgVo;
 import semi.db.DBConnection;
 
 public class ItemDao {
@@ -148,6 +149,74 @@ public class ItemDao {
 			}
 		}
 	}
+	public jh.ItemVo getItem(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from item where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int price=rs.getInt("price");
+				String itemName=rs.getString("itemName");
+				String description=rs.getString("description");
+				
+				jh.ItemVo vo=new jh.ItemVo(code, price, itemName, description);
+				return vo;
+			}
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+	}
+	public ArrayList<ItemImgVo> getItemImg(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<ItemImgVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from itemimg where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String imgType=rs.getString("imgType");
+				String imgScr=rs.getString("imgScr");
+				
+				ItemImgVo vo=new ItemImgVo(imgType, code, imgScr);
+				list.add(vo);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
 	public ArrayList<ItemDto> list() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -156,28 +225,61 @@ public class ItemDao {
 		try {
 			con=DBConnection.getConnection();
 			String sql="select * from "
-					+ "item,itemimg,itemsize,lookItem "
-					+ "where item.code=itemimg.code "
-					+ "and item.code=itemsize.code "
-					+ "and item.code=lookItem.code ";
-			pstmt=con.prepareStatement(sql);
+					+ "item,itemsize "
+					+ "where item.code=itemsize.code "
+					+ "order by item.code asc,itemsize.isize";
+					pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				String code = rs.getString("code");
 				int price = rs.getInt("price");
 				String itemName = rs.getString("itemName");
 				String description = rs.getString("description");
-				String imgType = rs.getString("imgType");
-				String imgScr = rs.getString("imgScr");
+				//String imgType = rs.getString("imgType");
+				//String imgScr = rs.getString("imgScr");
 				String isize = rs.getString("isize");
 				int amount = rs.getInt("amount");
-				int num = rs.getInt("num");
-				String lookCode = rs.getString("lookCode");
-				
-				ItemDto dto=new ItemDto(code, price, itemName, description, imgType, imgScr, isize, amount, num, lookCode);
+
+				ItemDto dto=new ItemDto(code, price, itemName, description, null, null, isize, amount);
 				list.add(dto);
 			}
 			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public ArrayList<LookDto> list1() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<LookDto> list1=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from look,lookItem "
+					+ "where look.lookCode=lookItem.lookCode "
+					+ "order by lookitem.lookCode asc,lookitem.code asc";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String lookCode = rs.getString("lookCode");
+				String lookFront = rs.getString("lookFront");
+				String lookBack = rs.getString("lookBack");
+				int num = rs.getInt("num");
+				String code = rs.getString("code");
+				
+				LookDto dto=new LookDto(lookCode, lookFront, lookBack, num, code);
+				list1.add(dto);
+			}
+			return list1;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;

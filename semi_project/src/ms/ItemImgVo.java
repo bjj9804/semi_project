@@ -3,15 +3,15 @@ package ms;
 public class ItemImgVo {
 	private String imgType;
 	private String code;
-	private String imgSrc;
+	private String imgScr;
 	
 	public ItemImgVo() {}
 
-	public ItemImgVo(String imgType, String code, String imgSrc) {
+	public ItemImgVo(String imgType, String code, String imgScr) {
 		super();
 		this.imgType = imgType;
 		this.code = code;
-		this.imgSrc = imgSrc;
+		this.imgScr = imgScr;
 	}
 
 	public String getImgType() {
@@ -30,12 +30,12 @@ public class ItemImgVo {
 		this.code = code;
 	}
 
-	public String getImgSrc() {
-		return imgSrc;
+	public String getImgScr() {
+		return imgScr;
 	}
 
-	public void setImgSrc(String imgSrc) {
-		this.imgSrc = imgSrc;
+	public void setImgScr(String imgScr) {
+		this.imgScr = imgScr;
 	}
 	
 	

@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import ms.ItemImgVo;
 @WebServlet("/jh/item.do")
 public class ItemController extends HttpServlet{
 	@Override
@@ -25,6 +27,8 @@ public class ItemController extends HttpServlet{
 			lookCode(request,response);
 		}else if(cmd!=null && cmd.equals("list")) {
 			list(request,response);
+		}else if(cmd!=null && cmd.equals("itemDetail")) {
+			itemDetail(request,response);
 		}
 	}
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -88,8 +92,23 @@ public class ItemController extends HttpServlet{
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ItemDao dao=ItemDao.getInstance();
 		ArrayList<ItemDto> list=dao.list();
+		ArrayList<LookDto> list1=dao.list1();
 		request.setAttribute("list", list);
+		request.setAttribute("list1", list1);
 		request.getRequestDispatcher("/item/item_list.jsp").forward(request, response);
+		
+		
+	}
+	private void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code=request.getParameter("code");
+		
+		ItemDao dao=ItemDao.getInstance();
+		ItemVo itemvo= dao.getItem(code);
+		ArrayList<ItemImgVo> imgList=dao.getItemImg(code);		
+		
+		request.setAttribute("itemvo", itemvo);
+		request.setAttribute("imgList", imgList);
+		request.getRequestDispatcher("/item/item_update.jsp").forward(request, response);
 		
 		
 	}

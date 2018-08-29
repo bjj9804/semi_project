@@ -16,37 +16,49 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
+			<a href="/semi_project/jh/item.do?cmd=lookCode">상품등록</a>
+			
 			<table align="center">
 				<tr>
 					<th>상품코드</th>
 					<th>가격</th>
 					<th>상품명</th>
 					<th>상품설명</th>
-					<th>이미지타입</th>
-					<th>이미지경로</th>
 					<th>아이템사이즈</th>
 					<th>수량</th>
-					<th>룩번호</th>
-					<th>룩코드</th>
-					
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
 				<c:forEach var="vo" items="${list }">
 				<tr>
-					<td>${vo.code }</td>
+					<td><a href="/semi_project/jh/item.do?cmd=itemDetail&code=${vo.code }">${vo.code }</a></td>
 					<td>${vo.price }</td>
 					<td>${vo.itemName }</td>
 					<td>${vo.description }</td>
-					<td>${vo.imgType }</td>
-					<td>${vo.imgScr }</td>
 					<td>${vo.isize }</td>
 					<td>${vo.amount }</td>
-					<td>${vo.num }</td>
-					<td>${vo.lookCode }</td>
-					
+					<td><input type="button" value="수량변경"></td>
+					<td><input type="button" value="삭제"></td>
 				</tr>
 				</c:forEach>
 			</table>
-			<a href="/semi_project/jh/item.do?cmd=lookCode">상품등록</a>
+			
+			<table align="center">
+				<tr>
+					<th>룩코드</th>
+					<th>상품코드</th>
+				</tr>
+				<c:forEach var="vo" items="${list1 }">
+				<tr>
+					<td>${vo.lookCode }</td>
+					<td>${vo.code }</td>
+				</tr>
+				</c:forEach>
+			</table>
+			
+			
+			
+			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
