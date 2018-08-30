@@ -10,17 +10,16 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-		<c:choose>
-		<c:if test="${cmd1=='runway' }">
+		<c:if test="${cmd=='runway' }">
 			<h1>R U N W A Y</h1>
 		</c:if>
-		<c:if test="${cmd1=='women' }">
+		<c:if test="${cmd=='women' }">
 			<h1>W O M E N</h1>
 		</c:if>
-		<c:if test="${cmd1=='men' }">
+		<c:if test="${cmd=='men' }">
 			<h1>M E N</h1>
 		</c:if>
-		</c:choose>
+
 		
 		<c:choose>
 			<c:when test="${list==null }">

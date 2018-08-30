@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 
 import eb.BuyVo;
 import jh.ItemVo;
+import jh.ItemsizeVo;
 import jh.PayVo;
 import semi.db.DBConnection;
 
@@ -424,6 +425,31 @@ public class DemandDao {
 				}
 			}
 		}
+		//교환신청으로 buy테이블의 상태 변경
+				public int buystatechange2(int num) {
+					Connection con=null;
+					PreparedStatement pstmt=null;
+					try {
+						con=DBConnection.getConnection();
+						String sql="update buy set state=? where buyNum=?";
+						pstmt=con.prepareStatement(sql);
+						pstmt.setString(1, "교환대기중");
+						pstmt.setInt(2, num);
+						int n=pstmt.executeUpdate();
+						return n;
+					}catch(Exception e) {
+						e.printStackTrace();
+						return -1;
+					}finally {
+						try {
+							if(pstmt!=null) pstmt.close();
+							if(con!=null) con.close();		
+						}catch(SQLException se) {
+							se.printStackTrace();
+						}
+					}
+				}
+		
 		//return테이블로 반품상품 insert
 		public int returninsert(String reason,int buyNum) {
 			Connection con=null;
@@ -584,7 +610,48 @@ public class DemandDao {
 				}
 			}
 		}
-		
+		//buy넘버 받아와서 해당상품의 다른 사이즈 뿌려주기
+		public ArrayList<ItemsizeVo> retrunsize(int buyNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="select i.* " + 
+						"from (select code from buy where buynum=?) b, itemsize i " + 
+						"where b.code=i.code and i.isize!=(select i.isize from itemsize i, (select * " + 
+						"from buy where buynum=?) b where b.isize=i.isize and b.code=i.code)";
+				pstmt.setInt(1, buyNum);
+				pstmt.setInt(2, buyNum);
+				rs=pstmt.executeQuery();
+				ArrayList<ItemsizeVo> list=new ArrayList<>();
+				while(rs.next()) {
+					String isize=rs.getString("isize");
+					String code=rs.getString("code");
+					int amount=rs.getInt("amount");
+					ItemsizeVo vo=new ItemsizeVo(isize, code, amount);
+					list.add(vo);
+				}
+				return list;
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+				return null;
+			}catch(ClassNotFoundException cn) {
+				System.out.println(cn.getMessage());
+				return null;
+			} catch (NamingException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(rs!=null) rs.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 }
 	
 	
