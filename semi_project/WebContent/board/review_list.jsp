@@ -150,7 +150,7 @@
 		}
 	}
 	
-	function delete1(email, pageNum) {
+	function delete1(email, pageNum ) {
 		var checkList = "";
 		var chk = document.getElementsByName("check");
 		for (var i = 1; i < chk.length; i++) {
@@ -167,7 +167,7 @@
 		console.log(checkList);
 		if (confirm("삭제하시겠습니까?")) {
 			location.href = "/semi_project/reviewBoard.do?checkList=" + checkList
-					+ "&cmd=delete&email=" + email + "&pageNum=" + pageNum;
+					+ "&cmd=delete&cmd2=board&email=" + email + "&pageNum=" + pageNum;
 		}
 	}
 </script>
