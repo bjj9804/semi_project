@@ -10,10 +10,34 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<c:forEach var="vo" items="${list }">
-				${vo.price }<br>
-				${vo.itemName }
-			</c:forEach>			
+		<c:choose>
+		<c:if test="${cmd1=='runway' }">
+			<h1>R U N W A Y</h1>
+		</c:if>
+		<c:if test="${cmd1=='women' }">
+			<h1>W O M E N</h1>
+		</c:if>
+		<c:if test="${cmd1=='men' }">
+			<h1>M E N</h1>
+		</c:if>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${list==null }">
+				상품이 준비중입니다.
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="vo" items="${list }">
+					${vo.lookCode }<br>
+					<img src="/semi_project/itemFile/${vo.lookFront }">
+					<img src="/semi_project/itemFile/${vo.lookBack }">				
+					
+				</c:forEach>
+			</c:otherwise>	
+		</c:choose>
+		
+		
+		
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
