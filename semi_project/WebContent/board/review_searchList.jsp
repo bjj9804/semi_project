@@ -10,22 +10,8 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-		<table border="1" width="500">
-				<tr>
-					<th>글번호</th>
-					<th>작성자</th>
-					<th>글제목</th>
-					<th>삭제</th>
-				</tr>
-				<c:forEach var="vo" items="${list }">
-					<tr>
-						<td>${vo.num }</td>
-						<td>${vo.name }</td>
-						<td><a href="/semi_project/detail.do?num=${vo.num }">${vo.title }</a></td>
-					</tr>
-				</c:forEach>
-			</table>
-			<form action="/semi_project/reviewBoard.do?cmd=searchlist" method="post">
+		<form action="/semi_project/reviewBoard.do?cmd=searchlist"
+				method="post">
 				height <select name="height">
 					<option value="">입력안함</option>
 					<option value="140">~140</option>
@@ -45,39 +31,36 @@
 					<option value=80>70kg~80kg</option>
 					<option value=90>80kg~90kg</option>
 					<option value=100>90kg~</option>
-				</select> 
-				<input type="submit" value="리뷰보기">
-				
+				</select> <input type="submit" value="리뷰보기">
 			</form>
-			<div>
-				<c:choose>
-					<c:when test="${pageNum>4}">
-						<a href="/semi_project/reviewBoard.do?cmd=searchlist&pageNum=${startPage-1 }">[이전]</a>
-					</c:when>
-					<c:otherwise>
-			[이전]
-		</c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${startPage }" end="${endPage }">
-					<c:choose>
-						<c:when test="${pageNum==i }">
-							<a href="/semi_project/reviewBoard.do?cmd=searchlist&pageNum=${i }"><span style="color: red">[${i }]</span></a>
-						</c:when>
-						<c:otherwise>
-							<a href="/semi_project/reviewBoard.do?cmd=searchlist&pageNum=${i }"><span style="color: #555">[${i }]</span></a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${endPage<pageCount}">
-						<a href="/semi_project/reviewBoard.do?cmd=searchlist&pageNum=${endPage+1 }">[다음]</a>
-					</c:when>
-					<c:otherwise>
-			[다음]
-		</c:otherwise>
-				</c:choose>
+			<c:forEach var="vo" items="${list }">
+				<table>
+					<tr>
+						<th>작성자</th>
+						<td>${vo.name }</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td>${vo.title }</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td>${vo.content }</td>
+					</tr>
+					<tr>
+						<th>조회수</th>
+						<td>${vo.hit }</td>
+					</tr>
+					<tr>
+						<th>작성날짜</th>
+						<td>${vo.regdate }</td>
+					</tr>
+					<tr>
+						<th>사진</th> ${vo.img}
+						<td><img src="/semi_project/Upload/${vo.img}"></td>
+				</table>
+			</c:forEach>
 		</div>
-	</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />
 </body>
