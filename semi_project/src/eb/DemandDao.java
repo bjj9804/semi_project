@@ -119,12 +119,17 @@ public class DemandDao {
 	public int update(int num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
 		try {
 			con=DBConnection.getConnection();
 			String sql="update pay set state=? where orderNum=?";
+			String sql1="update buy set state=? where orderNum=?";
 			pstmt=con.prepareStatement(sql);
+			pstmt1=con.prepareStatement(sql1);
 			pstmt.setString(1, "배송중");
 			pstmt.setInt(2, num);
+			pstmt1.setString(1, "배송중");
+			pstmt1.setInt(2, num);
 			int n=pstmt.executeUpdate();
 			return n;
 		}catch(Exception e) {
@@ -189,12 +194,17 @@ public class DemandDao {
 		public int payconfirm(int num) {
 			Connection con=null;
 			PreparedStatement pstmt=null;
+			PreparedStatement pstmt1=null;
 			try {
 				con=DBConnection.getConnection();
 				String sql="update pay set state=? where orderNum=?";
+				String sql1="update buy set state=? where orderNum=?";
 				pstmt=con.prepareStatement(sql);
+				pstmt1=con.prepareStatement(sql1);
 				pstmt.setString(1, "구매완료");
 				pstmt.setInt(2, num);
+				pstmt1.setString(1, "구매완료");
+				pstmt1.setInt(2, num);
 				int n=pstmt.executeUpdate();
 				return n;
 			}catch(Exception e) {

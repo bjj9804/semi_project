@@ -26,18 +26,7 @@
 			<td>${vo.isize }</td>
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
-			<c:if test="${vo.state=='교환대기중' }">
 			<td>${vo.state }</td>
-			</c:if>
-			<c:if test="${vo.state=='반품대기중' }">
-			<td>${vo.state }</td>
-			</c:if>
-			<c:if test="${vo.state=='교환완료' }">
-			<td>${vo.state }</td>
-			</c:if>
-			<c:if test="${vo.state=='반품완료' }">
-			<td>${vo.state }</td>
-			</c:if>
 			<td>
 			<c:if test="${state1=='구매완료' }">
 			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰남겨</a><br>

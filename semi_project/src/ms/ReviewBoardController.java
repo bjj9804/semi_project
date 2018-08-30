@@ -200,29 +200,25 @@ public class ReviewBoardController extends HttpServlet {
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = getServletContext();
 		String saveDir = context.getRealPath("Upload");
+		System.out.println(saveDir);
 		String email = request.getParameter("email");
 		String pageNum = request.getParameter("pageNum");
 		String checkList = request.getParameter("checkList");
 		String[] checkArray = checkList.split(",");
 		String cmd2 = request.getParameter("cmd2");
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		boolean bool = true;
 		for (int i = 0; i < checkArray.length; i++) {
 			int num = Integer.parseInt(checkArray[i]);
 			ReviewBoardVo vo = dao.detail(num);
 			File f = new File(saveDir + "/" + vo.getImg());
 			if (f.exists()) {
-				if (f.delete())
+				if (f.delete()) {
 					System.out.println("기존파일 삭제");
-				dao.delete(num);
+					dao.delete(num);
+				}
 			}
 		}
-		if (bool == false) {
-			System.out.println("삭제 실패");
-			return;
-		}
 		request.setAttribute("email", email);
-		System.out.println(pageNum);
 		request.setAttribute("pageNum", pageNum);
 		if (cmd2.equals("myshop")) {
 			request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);

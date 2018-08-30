@@ -20,6 +20,10 @@ public class ProductController extends HttpServlet{
 		
 		if(cmd!=null && cmd.equals("lookList")) {
 			lookList(request,response);
+		}else if(cmd!=null && cmd.equals("showLookItem")) {
+			showLookItem(request,response);
+		}else if(cmd!=null && cmd.equals("itemDetail")) {
+			itemDetail(request,response);
 		}
 		
 	}
@@ -32,8 +36,46 @@ public class ProductController extends HttpServlet{
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/product/product_look.jsp").forward(request, response);
 	}
-
-	
+	private void showLookItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String lookCode=request.getParameter("lookCode");
+		ItemDao dao=ItemDao.getInstance();
+		
+		LookVo lvo=dao.getLook(lookCode);
+		
+		Object[] ob;
+		ArrayList<Object[]> obList=new ArrayList<>();
+		
+		ArrayList<LookItemVo> list=dao.getLookItem(lookCode);
+		for(LookItemVo vo:list) {
+			ob=new Object[2];
+			String code=vo.getCode();
+			//ArrayList<ItemImgVo> imgList=dao.getItemImg(code);
+			String[] img=dao.getSsum(code);
+			ob[0]=code;
+			ob[1]=img;
+			obList.add(ob);
+		}
+		request.setAttribute("list", obList);
+		request.setAttribute("lvo", lvo);
+		
+		
+		request.getRequestDispatcher("/product/product_lookItem.jsp").forward(request, response);
+	}
+	private void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code=request.getParameter("code");
+		ItemDao dao=ItemDao.getInstance();
+		ItemVo itemVo=dao.getItem(code);
+		ArrayList<ItemImgVo> imgList=dao.getItemImg(code);
+		ArrayList<ItemsizeVo> sizeList=dao.getItemsize(code);
+		
+		
+		request.setAttribute("item", itemVo);
+		request.setAttribute("img", imgList);
+		request.setAttribute("size", sizeList);
+		
+		
+		request.getRequestDispatcher("/product/product_view.jsp").forward(request, response);
+	}
 }
 
 

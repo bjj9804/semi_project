@@ -6,6 +6,7 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 </head>
+
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
@@ -27,10 +28,10 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="vo" items="${list }">
-					${vo.lookCode }<br>
-					<img src="/semi_project/itemFile/${vo.lookFront }">
-					<img src="/semi_project/itemFile/${vo.lookBack }">				
-					
+					${vo.lookCode }
+					<img src="/semi_project/itemFile/${vo.lookFront }" onclick="location.href='/semi_project/jh/product.do?cmd=showLookItem&lookCode=${vo.lookCode}'">
+					<img src="/semi_project/itemFile/${vo.lookBack }">		
+					<br>
 				</c:forEach>
 			</c:otherwise>	
 		</c:choose>

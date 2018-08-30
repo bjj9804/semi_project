@@ -25,11 +25,11 @@ public class ProductDao {
 			con=DBConnection.getConnection();
 			String sql="";
 			if(cmd1.equals("runway")) {
-				sql="select * from look where substr(lookcode,1,1)='r'";
+				sql="select * from look where substr(lookcode,1,1)='R'";
 			}else if(cmd1.equals("women")) {
-				sql="select * from look where substr(lookcode,1,1)='rw'";
+				sql="select * from look where substr(lookcode,1,2)='RW'";
 			}else if(cmd1.equals("men")) {
-				sql="select * from look where substr(lookcode,1,1)='rm'";
+				sql="select * from look where substr(lookcode,1,2)='RM'";
 			}
 			
 			pstmt=con.prepareStatement(sql);

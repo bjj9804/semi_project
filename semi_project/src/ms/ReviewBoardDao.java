@@ -118,8 +118,8 @@ public class ReviewBoardDao {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String imgType = rs.getString("imgtype");
-				String imgSrc = rs.getString("imgScr");
-				vo = new ItemImgVo(imgType, code, imgSrc);
+				String imgScr = rs.getString("imgsrc");
+				vo = new ItemImgVo(imgType, code, imgScr);
 			}
 			return vo;
 		}catch(SQLException se) {
