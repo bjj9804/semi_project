@@ -52,6 +52,7 @@ public class UsersController extends HttpServlet{
 		String email = (String)request.getSession().getAttribute("email");
 		UsersDao dao = UsersDao.getInstance();
 		ArrayList<CouponVo> list = dao.couponlist(email);
+		System.out.println(email);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../myshop/mycoupon.jsp").forward(request, response);
 	}
