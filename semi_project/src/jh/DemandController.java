@@ -59,7 +59,6 @@ public class DemandController extends HttpServlet{
 			int o_price=dao.getItemVo(code).getPrice();//상품단품가격가져오기
 			int price=o_price*orderAmount;//상품단일가격*수량
 			
-			
 			if(check==0) {///0이면 payTb에 장바구니 생성하고 buyTb에도 상품insert시키기
 				pvo=new PayVo(cartNum, null, null, null, null, email, 0, 0);
 				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price, null);

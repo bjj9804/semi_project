@@ -340,7 +340,7 @@ public class DemandDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?,)";
+			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?,'cart')";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, bvo.getOrderNum());
 			pstmt.setString(2, bvo.getCode());
@@ -420,7 +420,7 @@ public class DemandDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="update buy set orderNum=? where buyNum=?";
+			String sql="update buy set orderNum=?,state='배송준비중' where buyNum=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, orderNum);
 			pstmt.setInt(2, buyNum);
