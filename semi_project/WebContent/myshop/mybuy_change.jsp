@@ -12,7 +12,7 @@
 		<div class="inner">
 		<h1>교환</h1>
 			<table border="1" width=900px bordercolor="black">
-				<form action="" method="post" border="1" bordercolor="black">
+				<form action="demand.do?cmd=buychange2" method="post" border="1" bordercolor="black">
 				<tr>
 					<td><input type="checkbox" class="chk" id="chk_all" name="chk"/></td>
 					<td>주문상품명</td>
@@ -26,9 +26,11 @@
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
-				</c:forEach>
+				
 				</tr>
+				</c:forEach>
 				<tr>
+				
 				<td colspan=3>
 				<input type="submit" value="교환신청" onclick="change('${list[status.index].buyNum}')">
 				</td>
@@ -36,7 +38,8 @@
 				</form>
 			</table>
 		</div>
-	</div>
+	</div>.
+	
 	<jsp:include page="/inc/footer.jsp" />
 </body>
 
@@ -62,9 +65,9 @@ $(".chk").click(function(){
 //선택된 값 얻어오기
 function change(buyNum) {
 		var checkList = "";
-		var chk = document.getElementsByName("check");
+		var chk = document.getElementsByName("chk");
 		for (var i = 1; i < chk.length; i++) {
-			if (chk[i].checked == true) {
+			if (chk[i].checked) {
 				checkList += chk[i].value + ",";
 			}
 		

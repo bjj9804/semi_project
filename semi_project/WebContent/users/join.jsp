@@ -93,13 +93,26 @@
 				span.innerHTML = "비밀번호가 같지 않습니다.";
 			}
 		}
+		
+		function check(){
+			var email1 = document.getElementById("email1");
+			var email2 = document.getElementById("email2");
+			var reemail1 = document.getElementById("reemail1");
+			var reemail2 = document.getElementById("reemail2");
+			var pwd = document.getElementById("pwd");
+			var pwdok = document.getElementById("pwdok");
+			var question = document.getElementsByName("question")[0];
+			var answer = document.getElementsByName("answer")[0];
+			
+			
+		}
 	</script>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/mh/users.do?cmd=joinform" method="post">
+			<form action="/semi_project/mh/users.do?cmd=joinform" method="post" onsubmit="return check();">
 				<!-- 계정 세부정보 email,pwd 확인 -->
 				<table style="width: 800px;">
 					<tr>
@@ -236,9 +249,9 @@
 							필수 동의
 						</th>
 						<td>
-							<input type="checkbox"><label>GUCCI공식 온라인 스토어 이용약관</label><br>
-							<input type="checkbox"><label>개인정보 수집/이용에 관한 동의</label><br>
-							<input type="checkbox"><label>개인정도 국외 이전에 관한 동의</label><br>
+							<input type="checkbox" id="ck1" name="ck1"><label>GUCCI공식 온라인 스토어 이용약관</label><br>
+							<input type="checkbox" id="ck2" name="ck2"><label>개인정보 수집/이용에 관한 동의</label><br>
+							<input type="checkbox" id="ck3" name="ck3"><label>개인정도 국외 이전에 관한 동의</label><br>
 						</td>
 					</tr>
 				</table>
