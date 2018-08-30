@@ -374,7 +374,7 @@ public class UsersDao {
 		}
 		return -1;
 	}
-	
+	//쿠폰리스트
 	public ArrayList<CouponVo> couponlist(String email){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -382,7 +382,20 @@ public class UsersDao {
 		try {
 			con = DBConnection.getConnection();
 			String sql = "select * from conpon where email = ?";
-			pstmt = 
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			ArrayList<CouponVo> list = new ArrayList<>();
+			while(rs.next()) {
+				int couponNum = rs.getInt("couponNum");
+				String couponName = rs.getString("couponName");
+				String couponState = rs.getString("couponState");
+				Date offerDate = rs.getDate("offerDate");
+				Date endDate = rs.getDate("endDate");
+				CouponVo vo = new CouponVo(couponNum,couponName,email,couponState,offerDate,endDate);
+				list.add(vo);
+			}
+			return list;
 		} catch(SQLException se) {
 			System.out.println(se.getMessage());
 		} catch(ClassNotFoundException clfe) {

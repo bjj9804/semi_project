@@ -27,6 +27,7 @@ public class ModifyController extends HttpServlet{
 			admindelete(request,response);
 		}
 	}
+	//탈퇴하기
 	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		UsersDao dao = UsersDao.getInstance();
@@ -41,6 +42,7 @@ public class ModifyController extends HttpServlet{
 		String contextPath = getServletContext().getContextPath();
 		request.getRequestDispatcher(contextPath + "/myshop/deleteok.jsp").forward(request, response);
 	}
+	//관리자페이지에서 탈퇴시키기
 	protected void admindelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		UsersDao dao = UsersDao.getInstance();
@@ -55,6 +57,7 @@ public class ModifyController extends HttpServlet{
 		String contextPath = getServletContext().getContextPath();
 		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
 	}
+	//프로필보러갈때 비밀번호 확인하기
 	protected void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String)request.getSession().getAttribute("email");
 		String pwd = request.getParameter("pwd");
