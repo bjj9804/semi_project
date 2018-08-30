@@ -15,7 +15,7 @@ import jh.ItemVo;
 import jh.ItemsizeVo;
 import jh.PayVo;
 
-@WebServlet("/eb/demand.do")
+@WebServlet("/demand.do")
 public class DeController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -51,7 +51,7 @@ public class DeController extends HttpServlet {
 			refundcon(request, response);
 		}
 	}
-
+	//주문관리의 주문리스트
 	protected void paylist(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		DemandDao dao = DemandDao.getInstance();
@@ -60,7 +60,7 @@ public class DeController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/admin/demand.jsp").forward(request, response);
 	}
-
+	//주문관리에서 주문번호 누르면 나오는 buy
 	protected void buylist(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int orderNum = Integer.parseInt(request.getParameter("num"));
@@ -69,7 +69,7 @@ public class DeController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/admin/demand_detail.jsp").forward(request, response);
 	}
-
+	//관리자가 배송완료를 누르면 상태가 바뀜
 	protected void stateadmin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int orderNum = Integer.parseInt(request.getParameter("num"));
@@ -91,7 +91,7 @@ public class DeController extends HttpServlet {
 		request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
 
 	}
-
+	//구매자가 배송상태 업데이트(구매확정)
 	protected void stateconfirm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int orderNum = Integer.parseInt(request.getParameter("num"));
