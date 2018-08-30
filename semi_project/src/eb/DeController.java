@@ -226,6 +226,8 @@ public class DeController extends HttpServlet {
 		PayVo vo1 = dao.ordernumselect(buyNum);
 		int orderNum = vo1.getOrderNum();
 		int a = dao.payconfirm(orderNum);
+		//ArrayList<BuyVo> b= dao.detail(orderNum);
+		//buy테이블에 order넘을 넣으면 그것들의 상태랑 번호가 나오는 
 		ArrayList<BuyVo> list = dao.refundlist();
 		request.setAttribute("list", list);
 		request.setAttribute("n", n);
@@ -241,6 +243,7 @@ public class DeController extends HttpServlet {
 		DemandDao dao = DemandDao.getInstance();
 		ArrayList<BuyVo> list = dao.detail(orderNum);
 		ArrayList<ItemVo> itemlist = new ArrayList<>();
+		System.out.println(list.size() + "");
 		for (int i = 0; i < list.size(); i++) {
 			BuyVo name = list.get(i);
 			String code = name.getCode();
@@ -249,30 +252,38 @@ public class DeController extends HttpServlet {
 		}
 		request.setAttribute("list", list);
 		request.setAttribute("itemlist", itemlist);
+		request.setAttribute("orderNum", orderNum);
 		request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);
 	}
 
-	// 교환상품 받아와서 업데이트
+	// 교환상품의 다른 사이즈 뿌려주기
 	protected void buychange2(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String checkList = request.getParameter("checkList");
 		String[] checkArr = checkList.split(",");
 		DemandDao dao = DemandDao.getInstance();
-		ArrayList<ItemsizeVo> list = null;
+		ArrayList<ArrayList<ItemsizeVo>> list = new ArrayList<>();
 		int orderNum = Integer.parseInt(request.getParameter("orderNum"));
 		for (int i = 0; i < checkArr.length; i++) {
 			int buyNum = Integer.parseInt(checkArr[i]);
-			list = dao.retrunsize(buyNum);
+			list.add(dao.returnsize(buyNum));
 		}
-
+		
 		request.setAttribute("list", list);
+		request.setAttribute("checkList", checkList);
 		request.setAttribute("orderNum", orderNum);
 		request.getRequestDispatcher("/myshop/mybuy_change_choo.jsp").forward(request, response);
 	}
 
-	// 교환상품의 다른 사이즈 뿌려주기
-//	protected void buychange3(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-
-//	}
+	// 교환할 사이즈 받아와서 업데이트 시키기
+	protected void buychange3(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String isize = request.getParameter("isize");
+		int buyNum = Integer.parseInt(request.getParameter("buyNum"));
+		DemandDao dao = DemandDao.getInstance();
+		
+		
+		
+		
+	}
 }

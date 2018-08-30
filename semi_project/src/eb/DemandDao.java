@@ -131,7 +131,8 @@ public class DemandDao {
 			pstmt1.setString(1, "배송중");
 			pstmt1.setInt(2, num);
 			int n=pstmt.executeUpdate();
-			return n;
+			int a=pstmt1.executeUpdate();
+			return n & a;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;
@@ -206,7 +207,8 @@ public class DemandDao {
 				pstmt1.setString(1, "구매완료");
 				pstmt1.setInt(2, num);
 				int n=pstmt.executeUpdate();
-				return n;
+				int a=pstmt1.executeUpdate();
+				return n & a;
 			}catch(Exception e) {
 				e.printStackTrace();
 				return -1;
@@ -621,7 +623,7 @@ public class DemandDao {
 			}
 		}
 		//buy넘버 받아와서 해당상품의 다른 사이즈 뿌려주기
-		public ArrayList<ItemsizeVo> retrunsize(int buyNum) {
+		public ArrayList<ItemsizeVo> returnsize(int buyNum) {
 			Connection con=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
@@ -631,6 +633,7 @@ public class DemandDao {
 						"from (select code from buy where buynum=?) b, itemsize i " + 
 						"where b.code=i.code and i.isize!=(select i.isize from itemsize i, (select * " + 
 						"from buy where buynum=?) b where b.isize=i.isize and b.code=i.code)";
+				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, buyNum);
 				pstmt.setInt(2, buyNum);
 				rs=pstmt.executeQuery();
@@ -662,6 +665,32 @@ public class DemandDao {
 				}
 			}
 		}
+		//사이즈 받아와서 buy에서 사이즈 수정하기
+		public int resize(String isize, int buyNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="update buy set state=?,isize=? where buyNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, "교환신청중");
+				pstmt.setString(2, isize);
+				pstmt.setInt(3, buyNum);
+				int n=pstmt.executeUpdate();
+				return n;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return -1;
+			}finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(con!=null) con.close();		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
 }
 	
 	

@@ -89,12 +89,11 @@ function refund(orderNum) {
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
 		reasonList = reasonList.substring(0, reasonList.lastIndexOf(","));//맨끝 콤마 지우기
-		console.log(checkList+reasonList+"111");
 		if (checkList == '') {
 			alert("반품할 대상을 선택하세요");
 			return false;
 		}
-		console.log(checkList);
+
 		if (confirm("반품하시겠습니까?")) {
 			location.href = "/semi_project/demand.do?cmd=refund2&checkList="+checkList+"&reasonList="+reasonList+"&num="+orderNum;
 		}
