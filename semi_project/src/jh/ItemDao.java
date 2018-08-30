@@ -420,6 +420,7 @@ public class ItemDao {
 		}
 		
 	}
+	
 	public String[] getSsum(String code) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

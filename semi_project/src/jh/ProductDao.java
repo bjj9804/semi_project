@@ -55,5 +55,44 @@ public class ProductDao {
 			}
 		}
 	}
-	
+	public ArrayList<ItemVo> getItem(String mark) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<ItemVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="";
+			if(mark.equals("runway")) {
+				sql="select * from item where substr(code,1,1)='R'";
+			}else if(mark.equals("women")) {
+				sql="select * from item where substr(code,1,2)='RW'";
+			}else if(mark.equals("men")) {
+				sql="select * from item where substr(code,1,2)='RM'";
+			}
+			
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String code = rs.getString("code");
+				int price = rs.getInt("price");
+				String itemName = rs.getString("itemName");
+				String description = rs.getString("description");
+				ItemVo vo=new ItemVo(code, price, itemName, description);
+				list.add(vo);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 }
