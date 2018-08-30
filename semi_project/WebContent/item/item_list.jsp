@@ -26,7 +26,6 @@
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		var amount=document.getElementById("amount").value;
 		var param="code="+code+"&isize="+isize+"&amount="+amount;
-		alert();
 		xhr.send(param);	
 		
 	}
@@ -39,8 +38,12 @@
 			}else{
 				alert("변경실패!");
 			}
-			var aa=document.getElementById("amount");
-			aa.readOnly=true;
+			var aa=document.getElementsByName("amount");
+			for(var i=0;i<aa.length;i++){
+				if(aa[i].readOnly==false){
+					aa[i].readOnly=true;
+				}
+			}
 		}
 	}
 	</script>
@@ -71,7 +74,7 @@
 					<td>${vo.itemName }</td>
 					<td>${vo.description }</td>
 					<td>${vo.isize }</td>
-					<td><input type="text" id="amount" value="${vo.amount }" readonly="readonly" ondblclick="write1(event)"></td>
+					<td><input type="text" id="amount" name="amount" value="${vo.amount }" readonly="readonly" ondblclick="write1(event)"></td>
 					<td><input type="button" value="수량변경" onclick="amountUpdate('${vo.code}','${vo.isize }')"></td>
 				</tr>
 				</c:forEach>

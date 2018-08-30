@@ -11,11 +11,6 @@
 		table td{border:1px solid #ccc; padding:10px 0;}
 		.dd{width: 100%; text-align: center; margin-top: 20px;}
 	</style>
-	<script type="text/javascript">
-		function turnback(){
-			histroy.go(-1);
-		}
-	</script>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
@@ -29,7 +24,7 @@
 				<li><a href="/semi_project/mh/sale.do?cmd=itemlist">상품별</a></li>
 			</ul>
 			<div class="dd">
-				<a href="" onclick="turnback()">목록으로 돌아가기</a>
+				<a href="javascript:history.go(-1)">목록으로 돌아가기</a>
 				<table>
 					<tr>
 						<th>번호</th>

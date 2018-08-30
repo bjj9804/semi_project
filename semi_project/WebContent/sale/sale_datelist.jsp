@@ -6,19 +6,6 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 	<script type="text/javascript">
-		function addYear() {
-			var year = document.getElementById("year");
-			for(var i = 2018;i > 1918;i--){
-				year.innerHTML = year.innerHTML + "<option value="+i+">"+i+"</option>";
-			}
-		}
-		
-		function addMonth() {
-			var month = document.getElementById("month");
-			for(var i = 1;i <= 12;i++){
-				month.innerHTML = month.innerHTML + "<option value="+(i-1)+">"+i+"</option>";
-			}
-		}
 		function selectYear() {
 			var startyear = document.getElementById("startyear");
 			var endyear = document.getElementById("endyear");

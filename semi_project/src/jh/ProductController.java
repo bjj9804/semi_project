@@ -24,6 +24,8 @@ public class ProductController extends HttpServlet{
 			showLookItem(request,response);
 		}else if(cmd!=null && cmd.equals("itemDetail")) {
 			itemDetail(request,response);
+		}else if(cmd!=null && cmd.equals("showItem")) {
+			showItem(request,response);
 		}
 		
 	}
@@ -75,6 +77,28 @@ public class ProductController extends HttpServlet{
 		
 		
 		request.getRequestDispatcher("/product/product_view.jsp").forward(request, response);
+	}
+	private void showItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mark=request.getParameter("mark");
+		ProductDao pdao=ProductDao.getInstance();
+		ArrayList<ItemVo> list=pdao.getItem(mark);
+		ItemDao idao=ItemDao.getInstance();
+		
+		Object[] ob;
+		ArrayList<Object[]> obList=new ArrayList<>();
+		for(ItemVo vo:list) {
+			ob=new Object[2];
+			String code=vo.getCode();
+			String[] img=idao.getSsum(code);
+			ob[0]=code;
+			ob[1]=img;
+			obList.add(ob);
+		}
+		
+		request.setAttribute("list", obList);
+	
+		
+		request.getRequestDispatcher("/product/product_lookItem.jsp").forward(request, response);
 	}
 }
 

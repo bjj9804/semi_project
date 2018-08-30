@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -151,8 +152,11 @@ public class UsersController extends HttpServlet{
 	}
 	//로그인
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("id") + request.getParameter("email");
+		String id = request.getParameter("id");
+		String email1 = request.getParameter("email");
+		String email = id + email1;
 		String pwd = request.getParameter("pwd");
+		String auto = request.getParameter("auto");
 		UsersDao dao = UsersDao.getInstance();
 		boolean b = dao.login(email,pwd);
 		int flag=0;
@@ -162,10 +166,11 @@ public class UsersController extends HttpServlet{
 			if(vo != null) {
 				flag=vo.getFlag();//관리자인지 회원인지
 			}
-		}else {//로그인을 안하고 들어온경우
+		}else {//로그인을 안하고 들어온경우 
 			flag=1;
-		}				
-		//request.setAttribute("flag", flag);		
+		}
+		//request.setAttribute("flag", flag);
+		//세션에 저장하기
 		if(b){
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);

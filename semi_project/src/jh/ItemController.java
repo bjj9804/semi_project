@@ -42,6 +42,8 @@ public class ItemController extends HttpServlet{
 			lookCode(request,response);
 		}else if(cmd!=null && cmd.equals("lookDetail")) {
 			lookDetail(request,response);
+		}else if(cmd!=null && cmd.equals("lookDelete")) {
+			lookDelete(request,response);
 		}else if(cmd!=null && cmd.equals("list")) {
 			list(request,response);
 		}else if(cmd!=null && cmd.equals("lookItemDelete")) {
@@ -242,6 +244,26 @@ public class ItemController extends HttpServlet{
 		request.setAttribute("lvo", lvo);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/item/look_update.jsp").forward(request, response);
+			
+	}
+	private void lookDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String lookCode=request.getParameter("lookCode");
+		System.out.println(lookCode);
+		
+		ItemDao dao=ItemDao.getInstance();
+		int n=dao.lookDelete(lookCode);
+		
+		response.setContentType("text/xml;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		pw.println("<?xml version='1.0' encoding='utf-8'?>");
+		pw.print("<result>");
+		if(n>0) {
+			pw.println("<code>success</code>");
+		}else {
+			pw.println("<code>fail</code>");
+		}
+		pw.print("</result>");
+		pw.close();
 			
 	}
 	private void lookItemDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

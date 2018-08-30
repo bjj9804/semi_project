@@ -34,30 +34,30 @@
 			<li class="sub">
 				<a href="#">WOMEN</a>
 				<ul class="sub_menu sub2">
-					<li><a href="#">top</a></li>
-					<li><a href="#">pants</a></li>
-					<li><a href="#">skirts</a></li>
-					<li><a href="#">outer</a></li>
-					<li><a href="#">dresses</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">skirts</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">outer</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">dresses</a></li>
 				</ul>
 			</li>
 			<li class="sub">
 				<a href="#">MEN</a>
 				<ul class="sub_menu sub3">
-					<li><a href="#">top</a></li>
-					<li><a href="#">pants</a></li>
-					<li><a href="#">skirts</a></li>
-					<li><a href="#">outer</a></li>
-					<li><a href="#">dresses</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">skirts</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">outer</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">dresses</a></li>
 				</ul>
 			</li>
 			<li class="sub">
 				<a href="#">ACC</a>
 				<ul class="sub_menu sub3">
-					<li><a href="#">jewelry</a></li>
-					<li><a href="#">sunglasses</a></li>
-					<li><a href="#">bag</a></li>
-					<li><a href="#">shoes</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">jewelry</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">sunglasses</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">bag</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">shoes</a></li>
 				</ul>
 			</li>
 			<li><a href="/semi_project/eb/qnalist.do?cmd=list&email=${email }">Q&amp;A</a></li>

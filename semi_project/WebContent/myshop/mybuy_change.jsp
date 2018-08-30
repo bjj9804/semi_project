@@ -22,7 +22,7 @@
 				
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
 				<tr>
-						<td><input type="checkbox" class="chk" name="chk" value=${list[status.index].buyNum }/></td>
+						<td><input type="checkbox" class="chk" name="chk" value="${list[status.index].buyNum }"/></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.price }</td>
 						<td>${list[status.index].isize }</td>
@@ -32,7 +32,7 @@
 				<tr>
 				
 				<td colspan=3>
-				<input type="submit" value="교환신청" onclick="change(${orderNum })">
+				<input type="button" value="교환신청" onclick="change(${orderNum })">
 				</td>
 				</tr>
 				</form>
@@ -64,24 +64,22 @@ $(".chk").click(function(){
 
 //선택된 값 얻어오기
 function change(orderNum) {
+	console.log("함수실행");
 		var checkList = "";
 		var chk = document.getElementsByName("chk");
 		for (var i = 1; i < chk.length; i++) {
 			if (chk[i].checked) {
 				checkList += chk[i].value + ",";
 			}
-		
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
-
+		console.log(checkList+"123");
 		if (checkList == '') {
 			alert("교환할 대상을 선택하세요");
 			return false;
 		}
-		console.log(checkList);
 		if (confirm("교환하시겠습니까?")) {
-			location.href = "/semi_project/demand.do?checkList=" + checkList
-					+ "&cmd=buychange2&orderNum=" + orderNum;
+			location.href = "/semi_project/demand.do?checkList="+checkList+"&cmd=buychange2&orderNum="+orderNum;
 		}
 	}
 

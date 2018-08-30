@@ -39,6 +39,27 @@ public class ItemDao {
 			}
 		}
 	}
+	public int lookDelete(String lookCode) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="delete from look where lookcode=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, lookCode);			
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int imgDelete(String code,String imgType) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -399,6 +420,7 @@ public class ItemDao {
 		}
 		
 	}
+	
 	public String[] getSsum(String code) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

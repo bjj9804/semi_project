@@ -18,6 +18,7 @@
 			<td>사이즈</td>
 			<td>수량</td>
 			<td>상품가격</td>
+			<td>주문상태</td>
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
