@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import eb.BuyVo;
 import jj.ItemDao;
 import mh.UsersDao;
 import mh.UsersVo;
+import ms.ItemImgVo;
 @WebServlet("/jh/demand.do")
 public class DemandController extends HttpServlet{
 	@Override
@@ -60,7 +62,7 @@ public class DemandController extends HttpServlet{
 			
 			if(check==0) {///0이면 payTb에 장바구니 생성하고 buyTb에도 상품insert시키기
 				pvo=new PayVo(cartNum, null, null, null, null, email, 0, 0);
-				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price);
+				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price, null);
 				
 				if(dao.cart(pvo,bvo)>0) {//장바구니담기(buyTb,payTb에 insert됨)
 					System.out.println("장바구니담기 성공");
@@ -68,7 +70,7 @@ public class DemandController extends HttpServlet{
 					System.out.println("장바구니담기 실패!!!");
 				}
 			}else if(check==1) {///1이면 장바구니 생성하지 않고 가져다쓰기
-				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price);
+				bvo=new BuyVo(0, cartNum, code, isize, orderAmount, price, null);
 				if(dao.buyInsert(bvo)>0) {
 					System.out.println("기존에 있던 장바구니에 상품 추가 성공");
 				}else {
@@ -146,8 +148,7 @@ public class DemandController extends HttpServlet{
 		request.getRequestDispatcher("/myshop/mybuy_list.jsp").forward(request, response);
 	}
 	
-	////////look테이블바꾸면서 수정해야함////////////////////////////////////////////////////
-/////////////////근데 룩코드나 코드에 따라서 sql문이 바뀌어지니깐 일단 그냥 두겠음//////////////
+	
 	private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String contextPath=getServletContext().getContextPath();
 		String email=request.getParameter("email");
@@ -159,21 +160,18 @@ public class DemandController extends HttpServlet{
 			ArrayList<BuyVo> blist=dao.getBuyVo(email);
 			for(BuyVo bvo:blist) {//buyVo==>buyNum,orderNum,code,isize,orderAmount,price
 				String code=bvo.getCode();
-				LookVo lvo=dao.getLookVo(code);
-				String lookFront=lvo.getLookFront();
+				String imgFront=dao.getType(code);				
 				ItemVo ivo=dao.getItemVo(code);
 				String description=ivo.getDescription();
 				int price=ivo.getPrice();
-				Object[] ob= {bvo,lookFront,description,price};
+				Object[] ob= {bvo,imgFront,description,price};
 				list.add(ob);
 			}
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/demand/cart.jsp").forward(request, response);
 		}
-	}
+	}	
 	
-	////////////////////////look테이블바꾸면서 수정해야함..////////////////////////////
-	/////////////////근데 룩코드나 코드에 따라서 sql문이 바뀌어지니깐 일단 그냥 두겠음//////////////
 	private void showOrderForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		String buyList=request.getParameter("buyList");
@@ -186,11 +184,11 @@ public class DemandController extends HttpServlet{
 			int buyNum=Integer.parseInt(buyArray[i]);
 			BuyVo bvo=dao.getBuyVo(buyNum);
 			String code=bvo.getCode();
-			String lookFront=dao.getLookVo(code).getLookFront();
+			String imgFront=dao.getType(code);	
 			ItemVo ivo=dao.getItemVo(code);
 			String description=ivo.getDescription();
 			int price=ivo.getPrice();
-			Object[] ob= {bvo,lookFront,description,price};
+			Object[] ob= {bvo,imgFront,description,price};
 			list.add(ob);
 		}		
 		ArrayList<CouponVo> cvo=dao.getCoupon(email);		
