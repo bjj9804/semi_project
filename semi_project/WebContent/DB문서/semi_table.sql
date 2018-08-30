@@ -233,6 +233,14 @@ BEGIN
 END;
 /
 
+create or replace TRIGGER delete_look
+AFTER DELETE ON look
+FOR EACH ROW
+BEGIN
+	DELETE FROM lookitem WHERE lookcode = :OLD.lookcode;
+END;
+/
+
 create or replace TRIGGER JOIN_COUPON
 BEFORE INSERT ON USERS
 FOR EACH ROW

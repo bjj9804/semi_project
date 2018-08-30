@@ -52,6 +52,27 @@
 		}
 	}
 
+	var xhr2=null;
+	function lookDelete(lookCode){
+		xhr2=new XMLHttpRequest();
+		xhr2.onreadystatechange=delete1Ok;
+		xhr2.open('post','/semi_project/jh/item.do?cmd=lookDelete',true);
+		xhr2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");		
+		var param="lookCode="+lookCode;
+		xhr2.send(param);		
+	}
+	function delete1Ok(){
+		if(xhr2.readyState==4 && xhr2.status==200){
+			var xml=xhr2.responseXML;
+			var code=xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+			if(code=='success'){
+				alert("정상적으로 삭제되었습니다.");			
+			}else{
+				alert("삭제실패!");
+			}
+			history.go(-1);
+		}
+	}
 	
 	function update1(n){
 		var look=document.look;
@@ -63,6 +84,8 @@
 		}
 		look.submit();
 	}
+	
+	
 </script>
 
 <body>
@@ -90,7 +113,8 @@
 			</table>
 			상품코드입력<input type="text" id="code"><input type="button" value="룩아이템추가" onclick="insert1('${lvo.lookCode }')">
 
-
+			<br><br><br>
+			<input type="button" value="룩 해제하기" onclick="lookDelete('${lvo.lookCode }')">
 
 
 		</div>
