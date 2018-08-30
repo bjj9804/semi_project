@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import javax.naming.NamingException;
 
+import eb.BuyVo;
 import jh.PayVo;
 import semi.db.DBConnection;
 
@@ -359,6 +360,45 @@ public class SaleDao {
 				int cnt = rs.getInt("cnt");
 				String itemname = rs.getString("itemname");
 				ItemlistVo vo=new ItemlistVo(code,cnt,tot,itemname);
+				list.add(vo);
+			}
+			return list;
+		} catch(SQLException se) {
+			System.out.println(se.getMessage());
+		} catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return null;
+	}
+	//판매상세내역
+	public ArrayList<BuyVo> orderlist(int orderNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select * from buy where orderNum = ? and state is null and ordernum in (select ordernum from pay where state='구매완료');";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, orderNum);
+			rs = pstmt.executeQuery();
+			ArrayList<BuyVo> list = new ArrayList<>();
+			while(rs.next()) {
+				int buyNum = rs.getInt("buyNum");
+				String code = rs.getString("code");
+				String isize = rs.getString("isize");
+				int orderAmount = rs.getInt("orderAmount");
+				int price = rs.getInt("buyNum");
+				String state = rs.getString("state");
+				BuyVo vo= new BuyVo(buyNum,orderNum,code,isize,orderAmount,price,state);
 				list.add(vo);
 			}
 			return list;

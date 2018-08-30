@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import eb.BuyVo;
 import jh.PayVo;
 
 @WebServlet("/mh/sale.do")
@@ -34,6 +35,8 @@ public class SaleController extends HttpServlet{
 			userdetail(request,response);
 		}else if(cmd != null && cmd.equals("itemlist")) {
 			itemlist(request,response);
+		}else if(cmd != null && cmd.equals("orderlist")) {
+			orderlist(request,response);
 		}
 	}
 	//전체판매조회
@@ -126,5 +129,13 @@ public class SaleController extends HttpServlet{
 		ArrayList<ItemlistVo> list = dao.itemlist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../sale/sale_itemlist.jsp").forward(request, response);
+	}
+	//주문상품내역
+	protected void orderlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int orderNum = Integer.parseInt(request.getParameter("orderNum"));
+		SaleDao dao = SaleDao.getInstance();
+		ArrayList<BuyVo> list = dao.orderlist(orderNum);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("../sale/sale_orderlist.jsp").forward(request, response);
 	}
 }
