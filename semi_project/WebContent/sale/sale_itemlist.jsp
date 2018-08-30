@@ -34,9 +34,9 @@
 					<c:forEach var="vo" items="${list }">
 					<tr>
 						<td>${vo.code }</td>
-						<td>${vo.itemname }</td>
 						<td>${vo.cnt }</td>
 						<td>${vo.tot }</td>
+						<td>${vo.itemname }</td>
 					</tr>
 					</c:forEach>
 				</table>

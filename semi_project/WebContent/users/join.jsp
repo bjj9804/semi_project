@@ -103,8 +103,74 @@
 			var pwdok = document.getElementById("pwdok");
 			var question = document.getElementsByName("question")[0];
 			var answer = document.getElementsByName("answer")[0];
+			var name1 = document.getElementsByName("name1")[0];
+			var name2 = document.getElementsByName("name2")[0];
+			var phone1 = document.getElementsByName("phone1")[0];
+			var phone2 = document.getElementsByName("phone2")[0];
+			var phone3 = document.getElementsByName("phone3")[0];
+			var addr = document.getElementsByName("addr")[0];
 			
-			
+			if(email1.value == "" || email2.value == ""){
+				alert("아이디를 확인하세요");
+				email1.focus();
+				return false;
+			}
+			if(reemail1.value == "" || reemail2.value == ""){
+				alert("아이디를 다시 확인하세요");
+				reemail1.focus();
+				return false;
+			}
+			if(pwd.value == ""){
+				alert("비밀번호를 확인하세요");
+				pwd.focus();
+				return false;
+			}
+			if(pwdok.value == ""){
+				alert("비밀번호를 다시 확인하세요");
+				pwdok.focus();
+				return false;
+			}
+			if(question.value == ""){
+				alert("질문을 확인하세요");
+				question.focus();
+				return false;
+			}
+			if(answer.value == ""){
+				alert("답변을 확인하세요");
+				answer.focus();
+				return false;
+			}
+			var Ckcnt = 0;
+	        var arr_ckb = document.getElementsByName("ckb");
+	        for(var i=0;i<arr_ckb.length;i++){
+	            if(arr_ckb[i].checked == true) {
+	            	Ckcnt = Ckcnt+1;
+	            }
+	        }
+	        if(Ckcnt != 3){
+	            alert("약관에 동의 해주세요");
+	            return false;
+	        }
+			if(name1.value == ""){
+				alert("이름을 확인하세요");
+				name1.focus();
+				return false;
+			}
+			if(name2.value == ""){
+				alert("이름을 확인하세요");
+				name2.focus();
+				return false;
+			}
+			if(phone1.value == "" || phone2.value == "" || phone3.value == ""){
+				alert("전화번호를 확인하세요");
+				phone2.focus();
+				return false;
+			}
+			if(addr.value == ""){
+				alert("주소를 확인하세요");
+				addr.focus();
+				return false;
+			}
 		}
 	</script>
 </head>
@@ -125,7 +191,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="email1" id="email1" onkeyup="emailcheck()">
+							<input type="text" name="email1" id="email1" onkeyup="emailcheck()" placeholder="ID">
 						</td>
 						<td>
 							@
@@ -160,7 +226,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="emailok1" id="reemail1" onkeyup="reemailOk()">
+							<input type="text" name="emailok1" id="reemail1" onkeyup="reemailOk()" placeholder="ID">
 						</td>
 						<td>
 							@
@@ -198,9 +264,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td><input type="password" name="pwd" id="pwd" onkeyup="pwdcheck()"> </td>
+						<td><input type="password" name="pwd" id="pwd" onkeyup="pwdcheck()" placeholder="PASSWORD"> </td>
 						<td> </td>
-						<td><input type="password" name="pwdok" id="pwdok" onkeyup="pwdcheck2()"></td>
+						<td><input type="password" name="pwdok" id="pwdok" onkeyup="pwdcheck2()" placeholder="PASSWORD"></td>
 					</tr>
 					<tr>
 						<td>
@@ -239,7 +305,7 @@
 							</select>
 						</td>
 						<td> </td>
-						<td><input type="text" name="answer"></td>
+						<td><input type="text" name="answer" placeholder="ANSWER"></td>
 					</tr>
 				</table>
 				<!-- 필수 동의 -->
@@ -249,9 +315,9 @@
 							필수 동의
 						</th>
 						<td>
-							<input type="checkbox" id="ck1" name="ck1"><label>GUCCI공식 온라인 스토어 이용약관</label><br>
-							<input type="checkbox" id="ck2" name="ck2"><label>개인정보 수집/이용에 관한 동의</label><br>
-							<input type="checkbox" id="ck3" name="ck3"><label>개인정도 국외 이전에 관한 동의</label><br>
+							<input type="checkbox" name="ckb"><label>GUCCI공식 온라인 스토어 이용약관</label><br>
+							<input type="checkbox" name="ckb"><label>개인정보 수집/이용에 관한 동의</label><br>
+							<input type="checkbox" name="ckb"><label>개인정도 국외 이전에 관한 동의</label><br>
 						</td>
 					</tr>
 				</table>
@@ -266,10 +332,10 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="name1">
+							<input type="text" name="name1" placeholder="LAST NAME">
 						</td>
 						<td>
-							<input type="text" name="name2">
+							<input type="text" name="name2" placeholder="NAME">
 						</td>
 					</tr>
 					<tr>
@@ -283,8 +349,8 @@
 								<option value="011">011</option>
 								<option value="070">070</option>
 							</select>-
-							<input type="text" name="phone2">-
-							<input type="text" name="phone3">
+							<input type="text" name="phone2" placeholder="0000">-
+							<input type="text" name="phone3" placeholder="0000">
 						</td>
 					</tr>
 					<tr>
@@ -293,7 +359,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="text" name="addr">
+							<input type="text" name="addr" placeholder="ADDRRESS">
 						</td>
 					</tr>
 					<tr>
