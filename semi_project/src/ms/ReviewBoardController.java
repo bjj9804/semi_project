@@ -208,11 +208,11 @@ public class ReviewBoardController extends HttpServlet {
 		boolean bool = true;
 		for (int i = 0; i < checkArray.length; i++) {
 			int num = Integer.parseInt(checkArray[i]);
-			File f = new File(saveDir + "/" + img);
-			if (f.exists()) {
-				if (f.delete())
-					dao.delete(num);
-			}
+//			File f = new File(saveDir + "/" + );
+//			if (f.exists()) {
+//				if (f.delete())
+				dao.delete(num);
+//			}
 			if (bool == false) {
 				System.out.println("삭제 실패");
 				return;
