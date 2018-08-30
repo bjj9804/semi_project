@@ -27,9 +27,9 @@ public class ProductDao {
 			if(cmd1.equals("runway")) {
 				sql="select * from look where substr(lookcode,1,1)='R'";
 			}else if(cmd1.equals("women")) {
-				sql="select * from look where substr(lookcode,1,1)='RW'";
+				sql="select * from look where substr(lookcode,1,2)='RW'";
 			}else if(cmd1.equals("men")) {
-				sql="select * from look where substr(lookcode,1,1)='RM'";
+				sql="select * from look where substr(lookcode,1,2)='RM'";
 			}
 			
 			pstmt=con.prepareStatement(sql);
