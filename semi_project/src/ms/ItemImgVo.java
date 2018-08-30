@@ -6,7 +6,7 @@ public class ItemImgVo {
 	private String imgScr;
 	
 	public ItemImgVo() {}
-
+	
 	public ItemImgVo(String imgType, String code, String imgScr) {
 		super();
 		this.imgType = imgType;
