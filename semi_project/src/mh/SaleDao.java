@@ -386,7 +386,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from buy where orderNum = ? and state is null and ordernum in (select ordernum from pay where state='구매완료');";
+			String sql = "select * from buy where orderNum = ? and state is null and ordernum in (select ordernum from pay where state='구매완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, orderNum);
 			rs = pstmt.executeQuery();
