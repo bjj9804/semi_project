@@ -10,8 +10,9 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="<c:url value='/mh/users.do?cmd=logoutform'/>">Sign Out</a></li>
-					<li><a href="/semi_project/myshop/myshop_index.jsp">Mypage</a></li>
-
+					<c:if test="${flag==1 }">
+						<li><a href="/semi_project/myshop/myshop_index.jsp">Mypage</a></li>
+					</c:if>
 					<c:if test="${flag==0 }">
 						<li><a href="/semi_project/admin/index.jsp">admin</a></li>
 					</c:if>
