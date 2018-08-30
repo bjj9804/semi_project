@@ -636,7 +636,6 @@ public class DemandDao {
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, buyNum);
 				pstmt.setInt(2, buyNum);
-				pstmt.setInt(3, buyNum);
 				rs=pstmt.executeQuery();
 				ArrayList<ItemsizeVo> list=new ArrayList<>();
 				while(rs.next()) {
