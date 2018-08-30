@@ -166,7 +166,7 @@ public class UsersController extends HttpServlet{
 			if(vo != null) {
 				flag=vo.getFlag();//관리자인지 회원인지
 			}
-		}else {//로그인을 안하고 들어온경우
+		}else {//로그인을 안하고 들어온경우 
 			flag=1;
 		}
 		//request.setAttribute("flag", flag);
