@@ -381,7 +381,7 @@ public class UsersDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from conpon where email = ?";
+			String sql = "select * from coupon where email = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();

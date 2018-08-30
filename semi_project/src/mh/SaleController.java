@@ -36,18 +36,21 @@ public class SaleController extends HttpServlet{
 			itemlist(request,response);
 		}
 	}
+	//전체판매조회
 	protected void salelist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<PayVo> list = dao.salelist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
 	}
+	//회원별 판매조회
 	protected void userlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<SaleUserVo> list = dao.userlist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("../sale/sale_userlist.jsp").forward(request, response);
 	}
+	//월별 판매조회
 	protected void monthlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		Calendar cal = Calendar.getInstance();
@@ -60,6 +63,7 @@ public class SaleController extends HttpServlet{
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../sale/sale_datelist.jsp").forward(request, response);
 	}
+	//주별 판매조회
 	protected void weeklist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		Calendar cal = Calendar.getInstance();
@@ -78,6 +82,7 @@ public class SaleController extends HttpServlet{
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../sale/sale_datelist.jsp").forward(request, response);
 	}
+	//오늘 판매조회
 	protected void daylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		Calendar cal = Calendar.getInstance();
@@ -91,6 +96,7 @@ public class SaleController extends HttpServlet{
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../sale/sale_datelist.jsp").forward(request, response);
 	}
+	//선택날짜 판매조회
 	protected void selectlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		int startyear = Integer.parseInt(request.getParameter("startyear"));
@@ -105,6 +111,7 @@ public class SaleController extends HttpServlet{
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../sale/sale_datelist.jsp").forward(request, response);
 	}
+	//회원별 판매조회 자세히 보기
 	protected void userdetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		SaleDao dao = SaleDao.getInstance();
@@ -113,6 +120,7 @@ public class SaleController extends HttpServlet{
 		request.setAttribute("email", email);
 		request.getRequestDispatcher("../sale/sale_list.jsp").forward(request, response);
 	}
+	//상품별판매조회
 	protected void itemlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SaleDao dao = SaleDao.getInstance();
 		ArrayList<ItemlistVo> list = dao.itemlist();
