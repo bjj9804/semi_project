@@ -19,6 +19,7 @@
 			<td>수량</td>
 			<td>상품가격</td>
 			<td>상태</td>
+			<td> </td>
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
@@ -28,17 +29,17 @@
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
 			<td>${vo.state }</td>
-			</tr>
-		
-			</c:forEach>
-			</table>
-			<br>
 			<c:if test="${vo.state == '교환대기중' }">
-			<input type="button" value="교환완료" onclick=""><br>
+			<td><input type="button" value="교환완료" onclick=""></td>
 			</c:if>
 			<c:if test="${vo.state == '반품대기중' }">
-			<input type="button" value="반품완료" onclick="'"><br>
+			<td><input type="button" value="반품완료" onclick="javascript:location.href='demand.do?cmd=refundcon&num=${vo.buyNum}'"></td>
 			</c:if>
+			</tr>
+			</c:forEach>
+			
+			</table>
+			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

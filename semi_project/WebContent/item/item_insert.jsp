@@ -75,7 +75,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/jh/item.do" method="post">
+			<form action="/semi_project/jh/item.do?cmd=lookInsert" method="post" enctype="multipart/form-data">
 			<h2>룩등록하기</h2>
 				<table>
 					<tr>
@@ -95,13 +95,12 @@
 						</td>
 					</tr>					
 				</table>				
-				<input type="hidden" name="cmd" value="lookInsert">
 				<input type="submit" value="등록">
 				<input type="reset" value="취소">
 			</form>
 			
 			
-			<form name="itemInfo" action="/semi_project/jh/item.do" method="post">
+			<form name="itemInfo" action="/semi_project/jh/item.do?cmd=itemInsert" method="post" enctype="multipart/form-data">
 			<h2>상품등록하기</h2>
 				<table>
 					<tr>
@@ -154,7 +153,6 @@
 				</table>
 					
 				<input type="hidden" name="lookList">
-				<input type="hidden" name="cmd" value="itemInsert">
 				<input type="button" value="등록" onclick="itemInsert()">
 				<input type="reset" value="취소">
 			</form>

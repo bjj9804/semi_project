@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
+import eb.BuyVo;
+import ms.ItemImgVo;
 import semi.db.DBConnection;
 
 public class DemandDao {
@@ -227,23 +229,20 @@ public class DemandDao {
 			}
 		}
 	}
-	public LookVo getLookVo(String code) {
+	public String getType(String code) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="select * from look where code=?";
+			String sql="select imgScr from itemImg where code=? and imgType=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, code);
+			pstmt.setString(2, "front");
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				int num=rs.getInt("num");
-				String lookCode=rs.getString("lookCode");
-				String lookFront=rs.getString("lookFront");
-				String lookBack=rs.getString("lookBack");
-				LookVo vo=new LookVo(num, lookCode, lookCode, lookFront, lookBack);
-				return vo;
+				String imgScr=rs.getString("imgScr");
+				return imgScr;
 			}
 			return null;
 		}catch(Exception e) {
@@ -306,7 +305,7 @@ public class DemandDao {
 			pstmt1.setString(2, pvo.getEmail());			
 			int num=pstmt1.executeUpdate();		
 			
-			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?)";
+			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?,)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, bvo.getOrderNum());
 			pstmt.setString(2, bvo.getCode());
@@ -341,7 +340,7 @@ public class DemandDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?)";
+			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?,)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, bvo.getOrderNum());
 			pstmt.setString(2, bvo.getCode());
@@ -458,7 +457,7 @@ public class DemandDao {
 				String isize=rs.getString("isize");
 				int orderAmount=rs.getInt("orderAmount");
 				int price=rs.getInt("Price");
-				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price);
+				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price, null);
 				list.add(bvo);				
 			}
 			return list;
@@ -490,7 +489,7 @@ public class DemandDao {
 				String isize=rs.getString("isize");
 				int orderAmount=rs.getInt("orderAmount");
 				int price=rs.getInt("Price");
-				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price);
+				BuyVo bvo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price, null);
 				return bvo;				
 			}
 			return null;

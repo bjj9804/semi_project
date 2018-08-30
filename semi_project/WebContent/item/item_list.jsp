@@ -61,7 +61,7 @@
 					<th>아이템사이즈</th>
 					<th>수량</th>
 					<th>수정</th>
-					</tr>
+				</tr>
 				<c:forEach var="vo" items="${list }">
 				<tr>
 					<td><a href="/semi_project/jh/item.do?cmd=itemDetail&code=${vo.code }">${vo.code }</a></td>
@@ -71,7 +71,7 @@
 					<td>${vo.isize }</td>
 					<td><input type="text" name="amount" value="${vo.amount }" readonly="readonly" ondblclick="write1(event)"></td>
 					<td><input type="button" value="수량변경" onclick="amountUpdate('${vo.code}','${vo.isize }')"></td>
-					</tr>
+				</tr>
 				</c:forEach>
 			</table>
 			<br>
@@ -83,9 +83,7 @@
 				</c:forEach>
 				</tr>
 			</table>
-			
-			
-			
+
 			
 		</div>
 	</div>

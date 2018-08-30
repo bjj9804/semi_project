@@ -72,22 +72,23 @@
 			
 			
 			<h2>[ ${itemvo.code } ]이미지수정하기</h2>		
-			<form action="/semi_project/jh/item.do?cmd=imgUpdate" method="post">
+			<form action="/semi_project/jh/item.do?cmd=imgUpdate&code=${itemvo.code }" method="post" enctype="multipart/form-data">
 				<table width="500" align="center">
-				<tr><th>이미지타입</th><th>이미지경로</th><th>삭제</th></tr>
-				<c:forEach var="img" items="${imgList }">
-				<tr>
-					<td>${img.imgType }</td>
-					<td>${img.imgScr }</td>
-					<td><a href="/semi_project/jh/item.do?cmd=imgDelete&imgType=${img.imgType }&code=${img.code}">삭제</a></td>
-				</tr>			
-				</c:forEach>			
+					<tr><th>이미지타입</th><th>이미지</th><th>삭제</th></tr>
+					<c:forEach var="img" items="${imgList }">
+					<tr>
+						<td>${img.imgType }</td>
+						<td>
+							<img src="/semi_project/itemFile/${img.imgScr }">
+						</td>
+						<td><a href="/semi_project/jh/item.do?cmd=imgDelete&imgType=${img.imgType }&code=${img.code}">삭제</a></td>
+					</tr>			
+					</c:forEach>			
 				</table>	
 				<br>							
 				<div id="filelist"></div>
 				추가할 파일갯수<input type="text" size="2" id="fileCount" name="fileCount" >
 				<input type="button" id="file" value="파일추가" >	
-				<input type="hidden" name="code" value="${itemvo.code }">
 				<br><input type="submit" value="수정">
 			</form>	
 		</div>

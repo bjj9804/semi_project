@@ -47,6 +47,8 @@ public class DeController extends HttpServlet {
 			refund2(request,response);
 		}else if(cmd!=null && cmd.equals("returnlist")) {
 			returnlist(request,response);
+		}else if(cmd!=null && cmd.equals("refundcon")) {
+			refundcon(request,response);
 		}
 	}
 		protected void paylist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -232,7 +234,15 @@ public class DeController extends HttpServlet {
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);	
 	}
-		
-		
+		//관리자페이지에서 buy상태 반품완료로 업데이트하기
+		protected void refundcon(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int buyNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			int n=dao.refundup(buyNum);
+			ArrayList<BuyVo> list=dao.refundlist();
+			request.setAttribute("list", list);
+			request.setAttribute("n", n);
+			request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);	
+		}
 }
 

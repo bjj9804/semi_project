@@ -71,12 +71,11 @@
 		<div class="inner">
 			<h2>[ ${lvo.lookCode } ] 룩</h2>
 			<h3>이미지 변경</h3>
-			<form name="look" action="/semi_project/jh/item.do?cmd=lookImgUpdate" method="post">
-			<input type="hidden" name="lookCode" value="${lvo.lookCode }">
+			<form name="look" action="/semi_project/jh/item.do?cmd=lookImgUpdate&lookCode=${lvo.lookCode }" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="check" name="check">
-			룩 앞면 ${lvo.lookFront } <input type="file" name="lookFront" value="변경할 파일선택"> <input type="button" value="파일변경" onclick="update1('1')">	
+			룩 앞면 <img src="/semi_project/itemFile/${lvo.lookFront }"> <input type="file" name="lookFront" value="변경할 파일선택"> <input type="button" value="파일변경" onclick="update1('1')">	
 			<br>
-			룩 뒷면 ${lvo.lookBack } <input type="file" name="lookBack" value="변경할 파일선택"> <input type="button" value="파일변경" onclick="update1('2')">
+			룩 뒷면 <img src="/semi_project/itemFile/${lvo.lookBack }"> <input type="file" name="lookBack" value="변경할 파일선택"> <input type="button" value="파일변경" onclick="update1('2')">
 			</form>
 			
 			<h3>룩 아이템 변경</h3>
