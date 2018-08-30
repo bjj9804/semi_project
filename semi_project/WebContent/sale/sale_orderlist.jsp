@@ -26,19 +26,23 @@
 			<div class="dd">
 				<table>
 					<tr>
+						<th>번호</th>
 						<th>주문번호</th>
-						<th>회원이메일</th>
-						<th>구매가격</th>
-						<th>구매상태</th>
-						<th>구매날짜</th>
+						<th>상품코드</th>
+						<th>상품사이즈</th>
+						<th>주문수량</th>
+						<th>가격</th>
+						<th>주문상태</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
-						<td><a href="/semi_project/mh/sale.do?cmd=orderlist">${vo.orderNum }</a></td>
-						<td>${vo.email }</td>
-						<td>${vo.payMoney }</td>
+						<td>${vo.buyNum }</td>
+						<td>${vo.orderNum }</td>
+						<td>${vo.code }</td>
+						<td>${vo.isize }</td>
+						<td>${vo.orderAmount }</td>
+						<td>${vo.price }</td>
 						<td>${vo.state }</td>
-						<td>${vo.orderDate }</td>
 					</tr>
 					</c:forEach>
 				</table>
