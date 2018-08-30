@@ -263,13 +263,17 @@ public class DeController extends HttpServlet {
 		String[] checkArr = checkList.split(",");
 		DemandDao dao = DemandDao.getInstance();
 		ArrayList<ArrayList<ItemsizeVo>> list = new ArrayList<>();
+	//	ArrayList<ArrayList<ItemVo>> list2= new ArrayList<>();
 		int orderNum = Integer.parseInt(request.getParameter("orderNum"));
 		for (int i = 0; i < checkArr.length; i++) {
 			int buyNum = Integer.parseInt(checkArr[i]);
 			list.add(dao.returnsize(buyNum));
+		//	list2.add(dao.namesch(buyNum));
+			
 		}
-		
+		System.out.println(list.size());
 		request.setAttribute("list", list);
+		//request.setAttribute("list2", list2);
 		request.setAttribute("checkList", checkList);
 		request.setAttribute("orderNum", orderNum);
 		request.getRequestDispatcher("/myshop/mybuy_change_choo.jsp").forward(request, response);

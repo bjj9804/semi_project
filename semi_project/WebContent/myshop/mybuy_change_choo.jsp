@@ -17,16 +17,18 @@
 					<td><input type="checkbox" class="chk" id="chk_all" name="chk"/></td>
 					<td>교환할사이즈</td>
 				</tr>
-				
+
 				<c:forEach var="vo" items="${list }" varStatus="status">
 				<c:forEach var="v" items="${vo }" varStatus="status">
 				<tr>
+						
 						<td><input type="checkbox" class="chk" name="chk" value="${v.isize }"/></td>
 						<td>${v.isize }</td>
 						
 				</tr>
 				</c:forEach>
 				</c:forEach>
+
 				<tr>
 				<td colspan=3>
 				<input type="button" value="교환신청" onclick="change(${buyNum })">

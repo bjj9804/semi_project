@@ -636,6 +636,7 @@ public class DemandDao {
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, buyNum);
 				pstmt.setInt(2, buyNum);
+				pstmt.setInt(3, buyNum);
 				rs=pstmt.executeQuery();
 				ArrayList<ItemsizeVo> list=new ArrayList<>();
 				while(rs.next()) {
@@ -665,6 +666,54 @@ public class DemandDao {
 				}
 			}
 		}
+		
+		//buyNum으로 주문상품의 아이템명 가져오기
+		public ArrayList<ItemVo> namesch(int buyNum){
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				con=DBConnection.getConnection();
+				String sql="select i.*" + 
+						" from" + 
+						" (select i.code" + 
+						" from buy b, item i" + 
+						" where b.code=i.code and b.buynum=30) a, item i" + 
+						" where a.code=i.code";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, buyNum);
+				rs=pstmt.executeQuery();
+				ArrayList<ItemVo> list=new ArrayList<>();
+				while(rs.next()) {
+					String itemName=rs.getString("itemname");
+					String code=rs.getString("code");
+					String description=rs.getString("description");
+					int price=rs.getInt("price");
+					ItemVo vo=new ItemVo(code, price, itemName, description);
+					list.add(vo);
+			}
+			return list;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}catch(ClassNotFoundException cn) {
+			System.out.println(cn.getMessage());
+			return null;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(rs!=null) rs.close();
+				if(con!=null) con.close();		
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+		
+		
 		//사이즈 받아와서 buy에서 사이즈 수정하기
 		public int resize(String isize, int buyNum) {
 			Connection con=null;
