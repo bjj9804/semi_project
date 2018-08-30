@@ -353,7 +353,7 @@ public class SaleDao {
 						"select code, count(code) cnt, sum(price) tot" + 
 						"								from buy" + 
 						"								where state is null and ordernum in (select ordernum from pay where state='구매완료')" + 
-						"                                group by code;" + 
+						"                                group by code" + 
 								"group by code)AA,item" + 
 						"where aa.code = item.code" + 
 						"order by cnt desc";
