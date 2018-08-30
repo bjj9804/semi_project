@@ -117,7 +117,7 @@ public class SaleController extends HttpServlet{
 	//회원별 판매조회 자세히 보기
 	protected void userdetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
-		SaleDao dao = SaleDao.getInstance();
+		SaleDao dao = SaleDao.getInstance(); 
 		ArrayList<PayVo> list = dao.userdetail(email);
 		request.setAttribute("list", list);
 		request.setAttribute("email", email);
