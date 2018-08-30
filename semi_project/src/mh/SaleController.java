@@ -110,6 +110,7 @@ public class SaleController extends HttpServlet{
 		int endDay = Integer.parseInt(request.getParameter("endDay"));
 		ArrayList<PayVo> list = dao.selectlist(startyear, startmonth, startDay, endyear, endmonth, endDay);
 		DatelistVo vo = dao.totlist(startyear, startmonth, startDay, endyear, endmonth, endDay);
+		System.out.println(""+ startyear + startmonth + startDay + endyear + endmonth + endDay+"");
 		request.setAttribute("list", list);
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("../sale/sale_datelist.jsp").forward(request, response);

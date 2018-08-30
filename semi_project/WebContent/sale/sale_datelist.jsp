@@ -52,7 +52,7 @@
 		.dd{width: 100%; text-align: center; margin-top: 20px;}
 	</style>
 </head>
-<body onload="addYear();addMonth();showDate();selectYear();selectMonth();selectday()">
+<body onload="selectYear();selectMonth();selectday()">
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
@@ -72,7 +72,7 @@
 				</ul>
 				<div id="selectlistForm">
 					<form method="post" action="/semi_project/mh/sale.do?cmd=selectlist">
-						시작날짜
+						날짜 선택 
 						<select id="startyear" name="startyear">
 						</select>년
 						<select id="startmonth" name="startmonth">

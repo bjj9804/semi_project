@@ -4,9 +4,33 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script type="text/javascript">
-	
-		//이메일 사용가능 여부
+		function sample6_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                var fullAddr = '';
+	                var extraAddr = '';
+	                if (data.userSelectedType === 'R') {
+	                    fullAddr = data.roadAddress;
+	                } else {
+	                    fullAddr = data.jibunAddress;
+	                }
+	                if(data.userSelectedType === 'R'){
+	                    if(data.bname !== ''){
+	                        extraAddr += data.bname;
+	                    }
+	                    if(data.buildingName !== ''){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+	                }
+	                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+	                document.getElementById('sample6_address').value = fullAddr;
+	                document.getElementById('sample6_address2').focus();
+	            }
+	        }).open();
+	    }
 		
 		var xhr = null;
 		function emailcheck(){
@@ -359,7 +383,10 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="text" name="addr" placeholder="ADDRRESS">
+							<input type="text" id="sample6_postcode" name="addr" placeholder="우편번호">
+							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="sample6_address" name="addr1" placeholder="주소">
+							<input type="text" id="sample6_address2" name="addr2" placeholder="상세주소">
 						</td>
 					</tr>
 					<tr>

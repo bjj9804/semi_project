@@ -6,16 +6,21 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 	<script type="text/javascript">
-		/*function check(){
+		function check(){
 			var id = document.getElementsByName("id")[0];
 			var email = document.getElementsByName("email")[0];
+			
+			if(id.value == "admin" || id.value == "ADMIN"){
+				return true;
+				break;
+			}
 			
 			if(id.value == "" || email.value == ""){
 				alert("이메일을 작성해주세요");
 				id.focus();
 				return false;
 			}
-		}*/
+		}
 	</script>
 </head>
 <body>
@@ -40,6 +45,7 @@
 						</td>
 						<td>
 							<form method="post" action="<c:url value='../mh/users.do?cmd=login'/>" onsubmit="return check();">
+								
 								이메일 <input type="text" name="id">@
 								<select name="email" onchange="emailcheck()">
 									<option value="">옵션선택</option>

@@ -137,7 +137,7 @@ public class UsersController extends HttpServlet{
 		int question = Integer.parseInt(request.getParameter("question"));
 		String answer = request.getParameter("answer");
 		String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
-		String addr = request.getParameter("addr");
+		String addr = request.getParameter("addr1") + request.getParameter("addr2");
 		String name = request.getParameter("name1") + request.getParameter("name2");
 		
 		UsersDao dao = UsersDao.getInstance();
