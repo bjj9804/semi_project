@@ -17,7 +17,7 @@
 					<li><a href="/semi_project/demand.do?cmd=mylist&email=${email }">주문 배송 조회</a></li>
 					<li><a href="profile.jsp">정보 수정</a></li>
 					<li><a href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }">게시물</a></li>
-					<li><a href="/semi_project/mh/coupon.do?cmd=coupon&email=${email }">쿠폰</a></li>
+					<li><a href="/semi_project/mh/users.do?cmd=couponlist">쿠폰</a></li>
 				</ul>
 			</div>
 		</div>

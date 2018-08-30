@@ -49,11 +49,11 @@ public class UsersController extends HttpServlet{
 	}
 	//ÄíÆù¸®½ºÆ®
 	protected void couponlist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String email = request.getParameter("email");
+		String email = (String)request.getSession().getAttribute("email");
 		UsersDao dao = UsersDao.getInstance();
 		ArrayList<CouponVo> list = dao.couponlist(email);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
+		request.getRequestDispatcher("../myshop/mycoupon.jsp").forward(request, response);
 	}
 	//ÄíÆù°¹¼ö
 	protected void couponcnt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
