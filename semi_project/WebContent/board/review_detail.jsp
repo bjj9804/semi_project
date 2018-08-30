@@ -54,12 +54,12 @@
 					onclick="javascript:location.href='/semi_project/reviewBoard.do?cmd=detail&cmd1=update&num=${vo.num}&flag=${flag }'"
 					style="margin-left: 5%">
 				<input type="button" value="삭제"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&email=${email}&pageNum=<%=pageNum %>'"
+					onclick="javascript:location.href='/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&cmd2=board&email=${email}&pageNum=<%=pageNum %>'"
 					style="margin-left: 5%">
 			</c:if>
 			<c:if test="${flag==0 }">
 				<input type="button" value="삭제"
-					onclick="javascript:location.href='/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&email=${email}&pageNum=<%=pageNum %>'"
+					onclick="javascript:location.href='/semi_project/reviewBoard.do?checkList=${vo.num }&cmd=delete&cmd2=board&email=${email}&pageNum=<%=pageNum %>'"
 					style="margin-left: 5%">
 			</c:if>
 		</div>

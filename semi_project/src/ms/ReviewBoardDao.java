@@ -118,7 +118,7 @@ public class ReviewBoardDao {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String imgType = rs.getString("imgtype");
-				String imgSrc = rs.getString("imgSrc");
+				String imgSrc = rs.getString("imgScr");
 				vo = new ItemImgVo(imgType, code, imgSrc);
 			}
 			return vo;

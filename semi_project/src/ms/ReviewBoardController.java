@@ -78,6 +78,7 @@ public class ReviewBoardController extends HttpServlet {
 			int height = Integer.parseInt(mr.getParameter("height"));
 			int weight = Integer.parseInt(mr.getParameter("weight"));
 			String code = mr.getParameter("code");
+			System.out.println(code);
 			ReviewBoardDao dao = ReviewBoardDao.getInstance();
 			ItemImgVo ivo = dao.getItemImg(code);
 			String itemImg = ivo.getImgScr();
@@ -121,7 +122,7 @@ public class ReviewBoardController extends HttpServlet {
 			UsersVo vo = usersDao.select(email);
 			flag = vo.getFlag();// 관리자인지 회원인지
 		} else {// 로그인을 안하고 들어온경우
-	
+
 			flag = 1;
 		}
 		request.setAttribute("flag", flag);
@@ -208,24 +209,27 @@ public class ReviewBoardController extends HttpServlet {
 		boolean bool = true;
 		for (int i = 0; i < checkArray.length; i++) {
 			int num = Integer.parseInt(checkArray[i]);
-			File f = new File(saveDir + "/" + img);
+			ReviewBoardVo vo = dao.detail(num);
+			File f = new File(saveDir + "/" + vo.getImg());
 			if (f.exists()) {
 				if (f.delete())
-					dao.delete(num);
-			}
-			if (bool == false) {
-				System.out.println("삭제 실패");
-				return;
-			}
-			request.setAttribute("email", email);
-			System.out.println(pageNum);
-			request.setAttribute("pageNum", pageNum);
-			if (cmd2.equals("myshop")) {
-				request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);
-			} else {
-				request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
+					System.out.println("기존파일 삭제");
+				dao.delete(num);
 			}
 		}
+		if (bool == false) {
+			System.out.println("삭제 실패");
+			return;
+		}
+		request.setAttribute("email", email);
+		System.out.println(pageNum);
+		request.setAttribute("pageNum", pageNum);
+		if (cmd2.equals("myshop")) {
+			request.getRequestDispatcher("/myshopBoard.do?cmd=reviewList").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/reviewBoard.do?cmd=list").forward(request, response);
+		}
+
 	}
 
 	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
