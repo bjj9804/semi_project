@@ -15,22 +15,21 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table>
-				<tr>
-					<th>상품명</th>
-					<th>가격</th>
-					<th>상품앞면이미지</th>
-					<th>상품뒷면이미지</th>
-				</tr>
-				<c:forEach var="vo" items="${list }">
-				<tr>
-					<td><a href="/semi_project/jh/product.do?cmd=detail&code=${vo.code }">${vo.itemName }</a></td>
-					<td>${vo.price }원</td>
-					<td>${vo.lookFront }</td>
-					<td>${vo.lookBack }</td>
-				</tr>
-				</c:forEach>
-			</table>
+			${lvo.lookCode }
+			<img src="/semi_project/itemFile/${lvo.lookFront }">
+			<img src="/semi_project/itemFile/${lvo.lookBack }">
+			
+			<c:forEach var="ob" items="${list }">
+				${ob[0] }
+				<img src="/semi_project/itemFile/${ob[1][0] }" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
+				<img src="/semi_project/itemFile/${ob[1][1] }" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
+				
+					
+			</c:forEach>
+			
+			
+			
+			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

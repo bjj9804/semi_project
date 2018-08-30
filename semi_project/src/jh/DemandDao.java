@@ -305,18 +305,18 @@ public class DemandDao {
 			pstmt1.setString(2, pvo.getEmail());			
 			int num=pstmt1.executeUpdate();		
 			
-			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?,)";
+			String sql="insert into buy values(buy_seq.nextval,?,?,?,?,?,'cart')";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, bvo.getOrderNum());
 			pstmt.setString(2, bvo.getCode());
 			pstmt.setString(3, bvo.getIsize());
 			pstmt.setInt(4, bvo.getOrderAmount());
 			pstmt.setInt(5, bvo.getPrice());
-			num+=pstmt.executeUpdate();
+			int num1=pstmt.executeUpdate();
 			
 			con.commit();
 			
-			return num;
+			return num+num1;
 		}catch(Exception e) {
 			e.printStackTrace();
 			try {

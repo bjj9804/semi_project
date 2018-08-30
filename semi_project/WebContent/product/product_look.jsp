@@ -6,34 +6,38 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 </head>
+
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-		<c:if test="${cmd=='runway' }">
-			<h1>R U N W A Y</h1>
-		</c:if>
-		<c:if test="${cmd=='women' }">
-			<h1>W O M E N</h1>
-		</c:if>
-		<c:if test="${cmd=='men' }">
-			<h1>M E N</h1>
-		</c:if>
+			<c:if test="${cmd=='runway' }">
+				<h1>R U N W A Y</h1>
+			</c:if>
+			<c:if test="${cmd=='women' }">
+				<h1>W O M E N</h1>
+			</c:if>
+			<c:if test="${cmd=='men' }">
+				<h1>M E N</h1>
+			</c:if>
 
-		
-		<c:choose>
-			<c:when test="${list==null }">
-				상품이 준비중입니다.
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="vo" items="${list }">
-					${vo.lookCode }<br>
-					<img src="/semi_project/itemFile/${vo.lookFront }">
-					<img src="/semi_project/itemFile/${vo.lookBack }">				
-					
-				</c:forEach>
-			</c:otherwise>	
-		</c:choose>
+			<div class="look_list">
+				<c:choose>
+					<c:when test="${list==null }">
+						상품이 준비중입니다.
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="vo" items="${list }">
+							<div class="lookArea">
+								<span>
+									${vo.lookCode }
+								</span>
+								<img src="/semi_project/itemFile/${vo.lookFront }" onmouseover="this.src='/semi_project/itemFile/${vo.lookBack }'" onmouseout="this.src='/semi_project/itemFile/${vo.lookFront }'" onclick="location.href='/semi_project/jh/product.do?cmd=showLookItem&lookCode=${vo.lookCode}'" class="imgLook">
+							</div>	
+						</c:forEach>
+					</c:otherwise>	
+				</c:choose>
+			</div>
 		
 		
 		

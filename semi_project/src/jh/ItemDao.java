@@ -333,7 +333,7 @@ public class ItemDao {
 			}
 		}
 	}
-	public jh.ItemVo getItem(String code) {
+	public ItemVo getItem(String code) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -399,7 +399,80 @@ public class ItemDao {
 		}
 		
 	}
-	
+	public String[] getSsum(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
+		ResultSet rs=null;
+		ResultSet rs1=null;
+		String[] img=new String[2];
+		try {
+			con=DBConnection.getConnection();
+			String sql="select imgScr from itemimg where code=? and imgType='front'";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			String sql1="select imgScr from itemimg where code=? and imgType='back'";
+			pstmt1=con.prepareStatement(sql1);
+			pstmt1.setString(1, code);
+			rs1=pstmt1.executeQuery();
+			if(rs.next()) {
+				String front=rs.getString("imgScr");
+				img[0]=front;
+			}
+			if(rs1.next()) {
+				String back=rs1.getString("imgScr");
+				img[1]=back;
+			}
+			return img;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs1!=null) rs1.close();
+				if(pstmt1!=null) pstmt1.close();
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+	}
+	public ArrayList<ItemsizeVo> getItemsize(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<ItemsizeVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from itemsize where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String isize=rs.getString("isize");
+				int amount=rs.getInt("amount");				
+				ItemsizeVo vo=new ItemsizeVo(isize, code, amount);
+				list.add(vo);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+	}
 	
 	public ArrayList<ItemDto> list() {
 		Connection con=null;
@@ -477,4 +550,5 @@ public class ItemDao {
 			}
 		}
 	}
+	
 }
