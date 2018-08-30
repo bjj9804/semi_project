@@ -349,14 +349,12 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select AA.*, item.itemname" + 
-						"select code, count(code) cnt, sum(price) tot" + 
-						"								from buy" + 
-						"								where state is null and ordernum in (select ordernum from pay where state='구매완료')" + 
-						"                                group by code" + 
-								"group by code)AA,item" + 
-						"where aa.code = item.code" + 
-						"order by cnt desc";
+			String sql = "select AA.*, item.itemname"
+					+ "from (select code, count(code) cnt, sum(price) tot"
+							+ "from buy where state is null and ordernum in (select ordernum from pay where state='구매완료')"
+							+ "group by code)AA,item"
+					+ "where aa.code = item.code"
+					+ "order by cnt desc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<ItemlistVo> list = new ArrayList<>();
