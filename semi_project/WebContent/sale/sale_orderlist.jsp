@@ -31,7 +31,7 @@
 						<th>상품코드</th>
 						<th>상품사이즈</th>
 						<th>주문수량</th>
-						<th>가격</th>
+						<th>가격</th> 
 						<th>주문상태</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
