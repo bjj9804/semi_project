@@ -8,7 +8,7 @@ body{font-family: 'Noto Sans KR', 'Malgun Gothic', '¸¼Àº °íµñ', 'Dotum', 'µ¸¿ò',
   padding: 0;
   height: 100%;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
   /*perspective: 1px;*/
 }
 html {
