@@ -78,8 +78,7 @@ public class ItemController extends HttpServlet{
 			
 			lookCode(request,response);
 			//request.getRequestDispatcher("/item/item_insert.jsp").forward(request, response);
-			
-		
+					
 		}
 	}
 	private void itemInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

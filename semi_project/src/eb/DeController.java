@@ -239,10 +239,15 @@ public class DeController extends HttpServlet {
 			int buyNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();
 			int n=dao.refundup(buyNum);
+			PayVo vo1=dao.ordernumselect(buyNum);
+			int orderNum=vo1.getOrderNum();
+			int a=dao.payconfirm(orderNum);
 			ArrayList<BuyVo> list=dao.refundlist();
 			request.setAttribute("list", list);
 			request.setAttribute("n", n);
+			request.setAttribute("a", a);
 			request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);	
 		}
+
 }
 

@@ -450,8 +450,8 @@ public class DemandDao {
 		}
 		//buynum으로 pay테이블검색해서 정보뽑아오기
 		public PayVo ordernumselect(int buyNum) {
-			String sql="select p.*" + 
-					"from buy b,pay p" + 
+			String sql="select p.* " + 
+					"from buy b,pay p " + 
 					"where b.ordernum=p.ordernum and b.buyNum=?";
 			Connection con=null;
 			PreparedStatement pstmt=null;
