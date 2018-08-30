@@ -6,6 +6,7 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 </head>
+
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
@@ -28,8 +29,8 @@
 			<c:otherwise>
 				<c:forEach var="vo" items="${list }">
 					${vo.lookCode }<br>
-					<img src="/semi_project/itemFile/${vo.lookFront }">
-					<img src="/semi_project/itemFile/${vo.lookBack }">				
+					<img src="/semi_project/itemFile/${vo.lookFront }" onclick="location.href='/semi_project/jh/product.do?cmd=showLookItem&lookCode=${vo.lookCode}'">
+					<img src="/semi_project/itemFile/${vo.lookBack }">		
 					
 				</c:forEach>
 			</c:otherwise>	
