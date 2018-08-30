@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eb.BuyVo;
-import jj.ItemDao;
+
 import mh.UsersDao;
 import mh.UsersVo;
 import ms.ItemImgVo;
