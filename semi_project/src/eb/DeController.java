@@ -133,48 +133,8 @@ public class DeController extends HttpServlet {
 			request.setAttribute("state1", state1);
 			request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);	
 	}
-		//교환 정보 뿌려주기
-		protected void buychange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			int orderNum=Integer.parseInt(request.getParameter("num"));
-			DemandDao dao=DemandDao.getInstance();
-			ArrayList<BuyVo> list=dao.detail(orderNum);
-			ArrayList<ItemVo> itemlist=new ArrayList<>();
-			for(int i=0; i<list.size(); i++) {
-				BuyVo name=list.get(i);
-				String code=name.getCode();
-				ItemVo itemvo=dao.item(code);
-				itemlist.add(itemvo);
-			}
-			request.setAttribute("list", list);
-			request.setAttribute("itemlist", itemlist);
-			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
-	}
-		//교환상품 받아와서 업데이트
-		protected void buychange2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			int buyNum=Integer.parseInt(request.getParameter("buyNum"));
-			String checkList=request.getParameter("checkList");
-			String[] checkArray=checkList.split(",");
-			DemandDao dao=DemandDao.getInstance();
-			boolean bool=true;
-			for(int i=0;i<checkArray.length;i++) {
-				int num=Integer.parseInt(checkArray[i]);
-				if(dao.buydelete(num)<0) {
-					bool=false;
-				}
-			}	
-			ArrayList<BuyVo> list=dao.detail(buyNum);
-			ArrayList<ItemVo> itemlist=new ArrayList<>();
-			for(int i=0; i<list.size(); i++) {
-				BuyVo name=list.get(i);
-				String code=name.getCode();
-				ItemVo itemvo=dao.item(code);
-				itemlist.add(itemvo);
-			}
-			request.setAttribute("list", list);
-			request.setAttribute("itemlist", itemlist);
-			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
-	}
-		//환불
+	//-------------------------환불--------------------------------
+		//구매자한테 환불할 상품 뿌려주기
 		protected void refund(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int orderNum=Integer.parseInt(request.getParameter("num"));
 			DemandDao dao=DemandDao.getInstance();
@@ -193,7 +153,7 @@ public class DeController extends HttpServlet {
 			request.getRequestDispatcher("/myshop/mybuy_refund.jsp").forward(request, response);	
 	}
 		
-		//환불
+		//구매자가 선택한 환불상품과 이유 가져와서 저장하고 업데이트시키기
 		protected void refund2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String checkList=request.getParameter("checkList");
 			System.out.println(checkList);
@@ -248,6 +208,50 @@ public class DeController extends HttpServlet {
 			request.setAttribute("a", a);
 			request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);	
 		}
-
+		
+		//--------------------교환------------------------
+		//구매자한테 교환 정보 뿌려주기
+		protected void buychange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			DemandDao dao=DemandDao.getInstance();
+			ArrayList<BuyVo> list=dao.detail(orderNum);
+			ArrayList<ItemVo> itemlist=new ArrayList<>();
+			for(int i=0; i<list.size(); i++) {
+				BuyVo name=list.get(i);
+				String code=name.getCode();
+				ItemVo itemvo=dao.item(code);
+				itemlist.add(itemvo);
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("itemlist", itemlist);
+			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
+	}
+		//교환상품 받아와서 업데이트
+		protected void buychange2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String checkList=request.getParameter("checkList");
+			String[] checkArr=checkList.split(",");
+			DemandDao dao=DemandDao.getInstance();
+			int orderNum=Integer.parseInt(request.getParameter("num"));
+			for(int i=0;i<checkArr.length;i++) {
+				int buyNum=Integer.parseInt(checkArr[i]);
+				int n=dao.buystatechange(buyNum);
+				int b=dao.refundup1(orderNum);
+				if(n>0) {
+					System.out.println("상태변경,리턴테이블삽입 모두 성공");
+				}else {
+					System.out.println("뭔가잘못됨...");
+			ArrayList<BuyVo> list=dao.detail(buyNum);
+			ArrayList<ItemVo> itemlist=new ArrayList<>();
+			for(int a=0; a<list.size(); a++) {
+				BuyVo name=list.get(i);
+				String code=name.getCode();
+				ItemVo itemvo=dao.item(code);
+				itemlist.add(itemvo);
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("itemlist", itemlist);
+			request.getRequestDispatcher("/myshop/mybuy_change.jsp").forward(request, response);	
+	}
 }
-
+		}
+}
