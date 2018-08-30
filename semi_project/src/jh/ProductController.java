@@ -31,10 +31,10 @@ public class ProductController extends HttpServlet{
 	private void lookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ItemDao_jh itemdao=ItemDao_jh.getInstance();
 		
-		ArrayList<ItemVo> list=ItemDao_jh.list();
+		ArrayList<ItemDto> list = itemdao.list();
 			 
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/product/product_look.jsp").forward(request, response);		
+		request.getRequestDispatcher("/product/product_look.jsp").forward(request, response);
 	}
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");

@@ -171,10 +171,10 @@ public class ItemDao_jh {
 				String imgScr = rs.getString("imgScr");
 				String isize = rs.getString("isize");
 				int amount = rs.getInt("amount");
-				int num = rs.getInt("num");
-				String lookCode = rs.getString("lookCode");
+				//int num = rs.getInt("num");
+				//String lookCode = rs.getString("lookCode");
 				
-				ItemDto dto=new ItemDto(code, price, itemName, description, imgType, imgScr, isize, amount, num, lookCode);
+				ItemDto dto=new ItemDto(code, price, itemName, description, imgType, imgScr, isize, amount);
 				list.add(dto);
 			}
 			return list;
