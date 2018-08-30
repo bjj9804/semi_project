@@ -11,12 +11,17 @@
 		table td{border:1px solid #ccc; padding:10px 0;}
 		.dd{width: 100%; text-align: center; margin-top: 20px;}
 	</style>
+	<script type="text/javascript">
+		function turnback(){
+			histroy.go(-1);
+		}
+	</script>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<h2>판매 전체 리스트</h2>
+			<h2>주문상세내역</h2>
 			<ul class="admin_menu">
 				<li><a href="/semi_project/mh/sale.do?cmd=salelist">전체보기</a></li>
 				<li><a href="/semi_project/mh/sale.do?cmd=userlist">회원별</a></li>
@@ -24,6 +29,7 @@
 				<li><a href="/semi_project/mh/sale.do?cmd=itemlist">상품별</a></li>
 			</ul>
 			<div class="dd">
+				<a href="" onclick="turnback()">목록으로 돌아가기</a>
 				<table>
 					<tr>
 						<th>번호</th>

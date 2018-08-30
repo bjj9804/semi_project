@@ -34,7 +34,7 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
-						<td><a href="/semi_project/mh/sale.do?cmd=orderlist&orderNum=${vo.orderNum }">${vo.orderNum }</a></td>
+						<td><a href="/semi_project/mh/sale.do?cmd=orderlist&&orderNum=${vo.orderNum }">${vo.orderNum }</a></td>
 						<td>${vo.email }</td>
 						<td>${vo.payMoney }</td>
 						<td>${vo.state }</td>

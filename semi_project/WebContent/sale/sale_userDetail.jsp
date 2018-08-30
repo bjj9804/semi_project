@@ -26,6 +26,7 @@
 			<div class="dd">
 				<table>
 					<tr>
+						<th>주문번호</th>
 						<th>회원이메일</th>
 						<th>구매가격</th>
 						<th>구매상태</th>
@@ -33,6 +34,7 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
+						<td><a href="/semi_project/mh/sale.do?cmd=orderlist&&orderNum=${vo.orderNum }">${vo.orderNum }</a></td>
 						<td>${vo.email }</td>
 						<td>${vo.payMoney }</td>
 						<td>${vo.state }</td>
