@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import jj.ItemVo;
 import semi.db.DBConnection;
 
 public class ItemDao_jh {
