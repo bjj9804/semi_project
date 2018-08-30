@@ -32,7 +32,7 @@
 				<tr>
 				
 				<td colspan=3>
-				<input type="submit" value="교환신청" onclick="change('${list[status.index].buyNum}')">
+				<input type="submit" value="교환신청" onclick="change(${orderNum })">
 				</td>
 				</tr>
 				</form>
@@ -63,7 +63,7 @@ $(".chk").click(function(){
 });
 
 //선택된 값 얻어오기
-function change(buyNum) {
+function change(orderNum) {
 		var checkList = "";
 		var chk = document.getElementsByName("chk");
 		for (var i = 1; i < chk.length; i++) {
@@ -81,7 +81,7 @@ function change(buyNum) {
 		console.log(checkList);
 		if (confirm("교환하시겠습니까?")) {
 			location.href = "/semi_project/demand.do?checkList=" + checkList
-					+ "&cmd=buychange2&buyNum=" + buyNum;
+					+ "&cmd=buychange2&orderNum=" + orderNum;
 		}
 	}
 
