@@ -20,24 +20,50 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table>
-				<tr><th>글번호</th><td>${vo.num }</td></tr>
-				<tr><th>작성자</th><td>${vo.name }</td></tr>
-				<tr><th>이메일</th><td>${vo.email }</td></tr>
-				<tr><th>제목</th><td>${vo.title }</td></tr>
-				<tr><th>내용</th><td>${vo.content }</td></tr>
-				<tr><th>조회수</th><td>${vo.hit }</td></tr>
-				<tr><th>작성날짜</th><td>${vo.regdate }</td></tr>
+			<h2>Q&amp;A</h2>
+			<table class="board_view">
+				<colgroup>
+					<col style="width:20%">
+					<col style="width:30%">
+					<col style="width:20%">
+					<col style="width:30%">
+				</colgroup>
+				<tr>
+					<th>글번호</th>
+					<td>${vo.num }</td>
+					<th>작성자</th>
+					<td>${vo.name }</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>${vo.email }</td>
+					<th>조회수</th>
+					<td>${vo.hit }</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td>${vo.title }</td>
+					<th>작성날짜</th>
+					<td>${vo.regdate }</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td colspan="3">
+						<div class="table_con">
+							${vo.content }
+						</div>
+					</td>
+				</tr>
 			</table>
 			<input type="button" value="Q&A 목록" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=list&email=${email}'" style="margin-left:5%">
 
 
 
-	<c:if test="${email==vo.email || flag==0 }">
-			<input type="button" value="답글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num}&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'">
-			<input type="button" value="글 삭제" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&cmd2=del&num=${vo.num }&checkList=${vo.num }&cmd=delete&email=${email}&pageNum=<%=pageNum%>'">
-			<input type="button" value="글 수정" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=detail&cmd1=update&num=${vo.num }&grp=${vo.grp }&email=${email }&name=${vo.name }&flag=${flag }'">
-	</c:if>
+			<c:if test="${email==vo.email || flag==0 }">
+					<input type="button" value="답글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num}&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'">
+					<input type="button" value="글 삭제" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&cmd2=del&num=${vo.num }&checkList=${vo.num }&cmd=delete&email=${email}&pageNum=<%=pageNum%>'">
+					<input type="button" value="글 수정" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=detail&cmd1=update&num=${vo.num }&grp=${vo.grp }&email=${email }&name=${vo.name }&flag=${flag }'">
+			</c:if>
 
 		</div>
 	</div>

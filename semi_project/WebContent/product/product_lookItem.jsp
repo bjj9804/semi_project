@@ -16,15 +16,11 @@
 	<div id="content">
 		<div class="inner">
 			${lvo.lookCode }
-			<img src="/semi_project/itemFile/${lvo.lookFront }">
-			<img src="/semi_project/itemFile/${lvo.lookBack }">
+			<img src="/semi_project/itemFile/${lvo.lookFront }" onmouseover="this.src='/semi_project/itemFile/${lvo.lookBack }'" onmouseout="this.src='/semi_project/itemFile/${lvo.lookFront }'">
 			
 			<c:forEach var="ob" items="${list }">
 				${ob[0] }
-				<img src="/semi_project/itemFile/${ob[1][0] }" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
-				<img src="/semi_project/itemFile/${ob[1][1] }" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
-				
-					
+				<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][0] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][1] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
 			</c:forEach>
 			
 			

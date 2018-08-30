@@ -11,14 +11,20 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-	<h1>Q&A BOARD</h1>
-			<table border="1" width="800" bordercolor="black">
-			<tr>
-			<c:if test="${flag==0}">	
-				<input type="button" value="삭제"
-					onclick="delete1('${email}', '${pageNum }')">
+			<h2>Q&amp;A</h2>
+			<table class="board_list">
+				<colgroup>
+					<col style="width:5%">
+					<col style="width:10%">
+					<col>
+					<col style="width:15%">
+					<col style="width:15%">
+				</colgroup>
+				<tr>
+				<c:if test="${flag==0}">	
+					<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')">
 					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
-			</c:if>
+				</c:if>
 					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
@@ -46,37 +52,43 @@
 					</tr>
 				</c:forEach>
 			</table>
-	<c:choose>
-		<c:when test="${startPage>10 }">
-		<a href="qnalist.do?cmd=list&pageNum=${startPage-1 }&email=${originalEmail}"><span style="color:black">[이전]</span></a>
-		</c:when>
-		<c:otherwise>
-		<span style="color:gray">[이전]</span>
-		</c:otherwise>
-	</c:choose>
-	
-	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-	<c:choose>
-		<c:when test="${pageNum==i }">
-		<a href="qnalist.do?cmd=list&pageNum=${i }&email=${originalEmail}"><span style="color:black">[${i }]</span></a>
-		</c:when>
-		<c:otherwise>
-		<a href="qnalist.do?cmd=list&pageNum=${i }&email=${originalEmail}"><span style="color:gray">[${i }]</span></a>
-		</c:otherwise>
-	</c:choose>
-	</c:forEach>
-	
-	<c:choose>
-		<c:when test="${endPage<pageCount }">
-		<a href="qnalist.do?cmd=list&pageNum=${endPage+1 }&email=${originalEmail}"><span style="color:black">[다음]</span></a>
-		</c:when>
-		<c:otherwise>
+			
+			<div class="pagination">
+				<c:choose>
+					<c:when test="${startPage>10 }">
+						<a href="qnalist.do?cmd=list&pageNum=${startPage-1 }&email=${originalEmail}" class="prev">
+							이전
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:;" class="prev">이전</a>
+					</c:otherwise>
+				</c:choose>
 		
-		<span style="color:gray">[다음]</span>
-		<br>
-		</c:otherwise>
-	</c:choose>
-
+				<c:forEach var="i" begin="${startPage }" end="${endPage }">
+					<c:choose>
+						<c:when test="${pageNum==i }">
+							<a href="qnalist.do?cmd=list&pageNum=${i }&email=${originalEmail}" class="on">
+								${i }
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a href="qnalist.do?cmd=list&pageNum=${i }&email=${originalEmail}">
+								${i }
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+		
+				<c:choose>
+					<c:when test="${endPage<pageCount }">
+						<a href="qnalist.do?cmd=list&pageNum=${endPage+1 }&email=${originalEmail}" class="next">다음</a>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:;" class="next">다음</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		<c:if test="${not empty originalEmail}">
 			<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
