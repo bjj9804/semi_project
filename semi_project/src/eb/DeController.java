@@ -15,7 +15,7 @@ import jh.ItemVo;
 import jh.ItemsizeVo;
 import jh.PayVo;
 
-@WebServlet("/demand.do")
+@WebServlet("/eb/demand.do")
 public class DeController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

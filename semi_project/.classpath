@@ -10,6 +10,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/bjj98/Desktop/java-json.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
