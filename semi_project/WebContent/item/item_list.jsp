@@ -26,7 +26,9 @@
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		var amount=document.getElementById("amount").value;
 		var param="code="+code+"&isize="+isize+"&amount="+amount;
-		xhr.send(param);		
+		alert();
+		xhr.send(param);	
+		
 	}
 	function updateOk(){
 		if(xhr.readyState==4 && xhr.status==200){
@@ -69,7 +71,7 @@
 					<td>${vo.itemName }</td>
 					<td>${vo.description }</td>
 					<td>${vo.isize }</td>
-					<td><input type="text" name="amount" value="${vo.amount }" readonly="readonly" ondblclick="write1(event)"></td>
+					<td><input type="text" id="amount" value="${vo.amount }" readonly="readonly" ondblclick="write1(event)"></td>
 					<td><input type="button" value="수량변경" onclick="amountUpdate('${vo.code}','${vo.isize }')"></td>
 				</tr>
 				</c:forEach>
