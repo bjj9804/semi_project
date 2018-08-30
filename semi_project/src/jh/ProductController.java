@@ -29,10 +29,10 @@ public class ProductController extends HttpServlet{
 	}
 	
 	private void lookList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ItemDao_jh itemdao=ItemDao_jh.getInstance();
+		ItemDao itemdao=ItemDao.getInstance();
 		
 		ArrayList<ItemDto> list = itemdao.list();
-			 
+		System.out.println(list.size());
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/product/product_look.jsp").forward(request, response);
 	}

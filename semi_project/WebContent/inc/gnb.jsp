@@ -24,7 +24,7 @@
 		<h1><a href="/semi_project/main/index.jsp"><img src="/semi_project/images/main/logo.png" alt="구찌"></a></h1>
 		<ul class="gnb">
 			<li class="sub">
-				<a href="#" class="">RUNWAY</a>
+				<a href="/semi_project/jh/product.do?cmd=lookList" class="">RUNWAY</a>
 				<ul class="sub_menu sub1">
 					<li><a href="#">Women Fall Winter 2018</a></li>
 					<li><a href="#">Men Fall Winter 2018</a></li>
@@ -33,7 +33,7 @@
 			<li class="sub">
 				<a href="#">WOMEN</a>
 				<ul class="sub_menu sub2">
-					<li><a href="/semi_project/jh/product.do?cmd=lookList">top</a></li>
+					<li><a href="#">top</a></li>
 					<li><a href="#">pants</a></li>
 					<li><a href="#">skirts</a></li>
 					<li><a href="#">outer</a></li>
