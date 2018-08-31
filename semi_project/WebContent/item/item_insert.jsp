@@ -55,6 +55,31 @@
 		}
 	}
 	
+	var xhr1=null;
+	function checkCode(){
+		xhr1=new XMLHttpRequest();
+		xhr1.onreadystatechange=checkOk;
+		xhr1.open('post','/semi_project/jh/item.do?cmd=checkCode',true);
+		xhr1.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		
+		var code=document.getElementById("code").value;		
+		var param="code="+code;
+		xhr1.send(param);
+	}
+	function checkOk(){
+		if(xhr1.readyState==4 && xhr1.status==200){
+			var xml=xhr1.responseXML;
+			var code=xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+			if(code=='success'){
+				alert("사용가능한 코드입니다.");
+			}else{
+				alert("이미 등록된 코드입니다.");
+			}
+		}
+	}
+	
+	
+	
 	function itemInsert(){
 		var itemInfo=document.itemInfo;
 		var str="";
@@ -105,7 +130,7 @@
 				<table>
 					<tr>
 						<th>상품코드</th>
-						<td><input type="text" name="code"></td>
+						<td><input type="text" id="code" name="code"><input type="button" value="코드중복검사" onclick="checkCode()"></td>
 					</tr>
 					<tr>
 						<th>가격</th>

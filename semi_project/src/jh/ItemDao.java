@@ -641,5 +641,31 @@ public class ItemDao {
 			}
 		}
 	}
-	
+	public String checkCode(String code) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select * from item where code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return "exist";
+			}
+			return "notExist";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();			
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 }
