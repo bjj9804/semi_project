@@ -148,6 +148,7 @@ public class QnaBoardController extends HttpServlet {
 			throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
 		int grp = Integer.parseInt(request.getParameter("grp"));
+		System.out.print(grp);
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
 		QnaBoardDao dao = QnaBoardDao.getInstance();
@@ -167,6 +168,7 @@ public class QnaBoardController extends HttpServlet {
 			}
 			request.setAttribute("vo", vo);
 			request.setAttribute("cmd2", cmd2);
+			request.setAttribute("grp", grp);
 			if (cmd1.equals("update")) {
 				request.getRequestDispatcher("/board/qna_update.jsp").forward(request, response);
 			} else {

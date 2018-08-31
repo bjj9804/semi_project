@@ -112,13 +112,13 @@ public class ReviewBoardDao {
 		ItemImgVo vo = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from itemImg where code = ?";
+			String sql = "select * from itemImg where imgtype = 'front' and code = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String imgType = rs.getString("imgtype");
-				String imgScr = rs.getString("imgsrc");
+				String imgScr = rs.getString("imgscr");
 				vo = new ItemImgVo(imgType, code, imgScr);
 			}
 			return vo;

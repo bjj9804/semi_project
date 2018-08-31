@@ -28,7 +28,7 @@
     -->
      <Resource auth="Container" 
           name="jdbc/orcl" 
-          driverClassName="oracle.jdbc.driver.OracleDriver" 
+          driverClassName="oracle.jdbc.OracleDriver" 
           type="javax.sql.DataSource" 
           url="jdbc:oracle:thin:@192.168.1.41:1521:XE" 
           username="semiproject"
@@ -37,5 +37,5 @@
           maxActive="50" 
           maxIdle="20"
           maxWait="5000" 
-          testOnBorrow="true" />
+          />
 </Context>
