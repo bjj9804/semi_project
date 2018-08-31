@@ -15,7 +15,7 @@
 		<form action="/semi_project/jh/demand.do?cmd=cart" method="post">
 			<table width="800">
 				<tr>
-					<th>상품명111</th>
+					<th>상품명</th>
 					<th>가격</th>
 					<th>상품설명</th>
 					<th>사이즈</th>
