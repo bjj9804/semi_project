@@ -71,12 +71,20 @@ public class ProductDao {
 		try {
 			con=DBConnection.getConnection();
 			String sql="";
-			if(mark.equals("runway")) {
-				sql="select * from item where substr(code,1,1)='R'";
-			}else if(mark.equals("women")) {
-				sql="select * from item where substr(code,1,2)='RW'";
-			}else if(mark.equals("men")) {
-				sql="select * from item where substr(code,1,2)='RM'";
+			if(mark.equals("w")) {
+				sql="select * from item "
+					+ "where code in "
+					+ "(select code from "						
+					+ "(select substr(lookcode,1,1) sub, code from item) "
+					+ "where sub='w')";
+			}else if(mark.equals("m")) {
+				sql="select * from item "
+					+ "where code in "
+					+ "(select code from "						
+					+ "(select substr(lookcode,1,1) sub, code from item) "
+					+ "where sub='m')";
+			}else if(mark.equals("ac")) {
+				sql="select * from item where substr(code,1,2)='ac'";
 			}
 			
 			pstmt=con.prepareStatement(sql);

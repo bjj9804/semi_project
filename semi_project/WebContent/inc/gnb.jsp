@@ -32,7 +32,7 @@
 				</ul>
 			</li>
 			<li class="sub">
-				<a href="#">WOMEN</a>
+				<a href="/semi_project/product/product_women.jsp">WOMEN</a>
 				<ul class="sub_menu sub2">
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
@@ -42,7 +42,7 @@
 				</ul>
 			</li>
 			<li class="sub">
-				<a href="#">MEN</a>
+				<a href="/semi_project/product/product_men.jsp">MEN</a>
 				<ul class="sub_menu sub3">
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
@@ -52,7 +52,7 @@
 				</ul>
 			</li>
 			<li class="sub">
-				<a href="#">ACC</a>
+				<a href="/semi_project/product/product_acc.jsp">ACC</a>
 				<ul class="sub_menu sub3">
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">jewelry</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">sunglasses</a></li>
