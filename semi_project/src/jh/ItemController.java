@@ -56,7 +56,7 @@ public class ItemController extends HttpServlet{
 	}
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String saveDir=getServletContext().getRealPath("/itemFile");
-		
+		System.out.println("아이템사진 경로: " + saveDir);
 		int maxSize = 3 * 1024 * 1024;
 		String encoding = "utf-8";
 
