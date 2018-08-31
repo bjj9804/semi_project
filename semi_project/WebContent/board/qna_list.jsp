@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
@@ -11,22 +11,20 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<h2>Q&amp;A1111</h2>
-			<c:if test="${flag==0}">
-				<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')" class="btn_del">
-			</c:if>
+			<h2>Q&amp;A</h2>
 			<table class="board_list">
 				<colgroup>
 					<col style="width:5%">
-					<col style="width:10%">
 					<col>
+					<col style="width:10%">
 					<col style="width:15%">
 					<col style="width:15%">
 				</colgroup>
 				<tr>
-					<c:if test="${flag==0}">	
-						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
-					</c:if>
+				<c:if test="${flag==0}">	
+					<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')">
+					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+				</c:if>
 					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
@@ -91,11 +89,10 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<c:if test="${not empty originalEmail}">
-				<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" class="btn_write">
-			</c:if>			
 		</div>
-
+		<c:if test="${not empty originalEmail}">
+			<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
+		</c:if>
 
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
