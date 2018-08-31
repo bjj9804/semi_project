@@ -25,6 +25,6 @@
 	</div>
 	<div id="section3" class="section">
 	</div>
-	<jsp:include page="/inc/footer.jsp"/>
+	<jsp:include page="/inc/footer.jsp"/> 
 </body>
 </html>

@@ -61,14 +61,7 @@
 					</c:when>
 				</c:choose>					
 				</form>
-				<c:choose>
-					<c:when test="${check==1 }">
-						<br><a href="/semi_project/main/index.jsp">쇼핑계속하기</a>	
-					</c:when>
-					<c:otherwise>
-						<br><a href="javascript:history.go(-2)">쇼핑계속하기</a>	
-					</c:otherwise>
-				</c:choose>		
+				<br><a href="/semi_project/main/index.jsp">쇼핑계속하기</a>
 								
 				
 		</div>

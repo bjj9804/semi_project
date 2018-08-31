@@ -1,7 +1,11 @@
 /build/
 .classpath
 <<<<<<< HEAD
+<<<<<<< HEAD
 /bin/
 =======
 *.jar
 >>>>>>> refs/remotes/origin/master
+=======
+*.jar
+>>>>>>> branch 'master' of https://github.com/bjj9804/semi_project.git

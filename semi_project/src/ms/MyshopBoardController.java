@@ -19,7 +19,7 @@ import jh.NoticeBoardVo;
 public class MyshopBoardController extends HttpServlet {
 	//public ServletContext sc = getServletContext();
 	static HttpSession session = null;
-	@Override
+	@Override 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");

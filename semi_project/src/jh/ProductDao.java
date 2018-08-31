@@ -25,11 +25,19 @@ public class ProductDao {
 			con=DBConnection.getConnection();
 			String sql="";
 			if(cmd1.equals("runway")) {
-				sql="select * from look where substr(lookcode,1,1)='R'";
+				sql="select * from look "
+					+ "where lookCode in "
+					+ "(select lookcode from "						
+					+ "(select substr(lookcode,1,1) sub, lookcode from look) "
+					+ "where sub='r') order by lookcode desc";
 			}else if(cmd1.equals("women")) {
-				sql="select * from look where substr(lookcode,1,2)='RW'";
+				sql="select * from look "
+					+ "where lookCode in "
+					+ "(select lookcode from look where lookcode like '%w%') ";					
 			}else if(cmd1.equals("men")) {
-				sql="select * from look where substr(lookcode,1,2)='RM'";
+				sql="select * from look "
+					+ "where lookCode in "
+					+ "(select lookcode from look where lookcode like '%m%') ";				
 			}
 			
 			pstmt=con.prepareStatement(sql);
@@ -63,14 +71,26 @@ public class ProductDao {
 		try {
 			con=DBConnection.getConnection();
 			String sql="";
-			if(mark.equals("runway")) {
-				sql="select * from item where substr(code,1,1)='R'";
-			}else if(mark.equals("women")) {
-				sql="select * from item where substr(code,1,2)='RW'";
-			}else if(mark.equals("men")) {
-				sql="select * from item where substr(code,1,2)='RM'";
+			if(mark.equals("w")) {
+				sql="select * from item "
+					+ "where code in "
+					+ "(select code from "						
+					+ "(select substr(code,1,1) sub, code from item) "
+					+ "where sub='w')";
+			}else if(mark.equals("m")) {
+				sql="select * from item "
+					+ "where code in "
+					+ "(select code from "						
+					+ "(select substr(code,1,1) sub, code from item) "
+					+ "where sub='m')";
+			}else if(mark.equals("ac")) {
+				sql="select * from item "
+					+ "where code in "
+					+ "(select code from "						
+					+ "(select substr(code,1,2) sub, code from item) "
+					+ "where sub='ac')";
 			}
-			
+			System.out.println(mark);
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {

@@ -27,6 +27,7 @@
 						상품이 준비중입니다.
 					</c:when>
 					<c:otherwise>
+					<c:if test="${cmd!='runway' }">
 						<c:forEach var="vo" items="${list }">
 							<div class="lookArea">
 								<span>
@@ -35,6 +36,21 @@
 								<img src="/semi_project/itemFile/${vo.lookFront }" onmouseover="this.src='/semi_project/itemFile/${vo.lookBack }'" onmouseout="this.src='/semi_project/itemFile/${vo.lookFront }'" onclick="location.href='/semi_project/jh/product.do?cmd=showLookItem&lookCode=${vo.lookCode}'" class="imgLook">
 							</div>	
 						</c:forEach>
+					</c:if>
+					<c:if test="${cmd=='runway' }">						
+						<div class="lookArea">
+							<span>
+								${list[0].lookCode }
+							</span>
+							<img src="/semi_project/itemFile/${list[0].lookFront }" onmouseover="this.src='/semi_project/itemFile/${list[0].lookBack }'" onmouseout="this.src='/semi_project/itemFile/${list[0].lookFront }'" onclick="location.href='/semi_project/jh/product.do?cmd=lookList&cmd1=women'" class="imgLook">
+						</div>	
+						<div class="lookArea">
+							<span>
+								${list[1].lookCode }
+							</span>
+							<img src="/semi_project/itemFile/${list[1].lookFront }" onmouseover="this.src='/semi_project/itemFile/${list[1].lookBack }'" onmouseout="this.src='/semi_project/itemFile/${list[1].lookFront }'" onclick="location.href='/semi_project/jh/product.do?cmd=lookList&cmd1=men'" class="imgLook">
+						</div>	
+					</c:if>
 					</c:otherwise>	
 				</c:choose>
 			</div>

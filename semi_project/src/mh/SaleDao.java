@@ -27,7 +27,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where state='구매완료' and ordernum in (select ordernum from buy where state = '구매완료')";
+			String sql = "select * from pay where state='구매완료' and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료')";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
@@ -68,7 +68,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select email, sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and ordernum in (select ordernum from buy where state = '구매완료') group by email order by tot desc";
+			String sql = "select email, sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료') group by email order by tot desc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<SaleUserVo> list=new ArrayList<>();
@@ -104,7 +104,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where email=? and state='구매완료' and ordernum in (select ordernum from buy where state = '구매완료')";
+			String sql = "select * from pay where email=? and state='구매완료' and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
@@ -145,7 +145,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료')";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, year+"/"+month+"/"+1);
 			pstmt.setString(2, year+"/"+month+"/"+endDay);
@@ -188,7 +188,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료')";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, year+"/"+month+"/"+startDay);
 			pstmt.setString(2, year+"/"+month+"/"+endDay);
@@ -231,7 +231,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where state='구매완료' and orderdate >= ? and ordernum in (select ordernum from buy where state = '구매완료')";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, year+"/"+month+"/"+day);
 			rs = pstmt.executeQuery();
@@ -273,10 +273,11 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료')";
+			String sql = "select * from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, startyear+"/"+startmonth+"/"+startDay);
 			pstmt.setString(2, endyear+"/"+endmonth+"/"+endDay);
+			System.out.println(""+ startyear + startmonth + startDay + endyear + endmonth + endDay+"");
 			rs = pstmt.executeQuery();
 			ArrayList<PayVo> list = new ArrayList<>();
 			while(rs.next()) {
@@ -316,7 +317,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료') order by orderdate desc";
+			String sql = "select sum(payMoney) tot, count(email) cnt from pay where state='구매완료' and orderdate >= ? and orderdate <= ? and ordernum in (select ordernum from buy where state = '구매완료' or state = '교환완료') order by orderdate desc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, startyear+"/"+startmonth+"/"+startDay);
 			pstmt.setString(2, endyear+"/"+endmonth+"/"+endDay);
@@ -343,7 +344,7 @@ public class SaleDao {
 		}
 		return null;
 	}
-	//아이템별조회
+	//아이템별조회  or state = '교환완료'**
 	public ArrayList<ItemlistVo> itemlist() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -379,7 +380,7 @@ public class SaleDao {
 		}
 		return null;
 	}
-	//판매상세내역
+	//판매상세내역  or state = '교환완료'**
 	public ArrayList<BuyVo> orderlist(int orderNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

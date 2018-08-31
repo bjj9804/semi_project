@@ -5,6 +5,9 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
+	<style type="text/css">
+		*{}
+	</style>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
@@ -29,12 +32,31 @@
 				상품주문금액 : ${totalPrice }
 				<br><br>
 				
-			<h3>배송정보</h3>					
+			<h3>배송정보</h3>	
 				<table border="1" width="800" align="center">
-					<tr><th>배송지 선택</th>
-						<td><input type="radio" name="root" checked="checked" onclick="root1(1,'${usersvo.addr }','${usersvo.phone }')">회원정보와 동일
-							<input type="radio" name="root" onclick="root1(0)">새로운 배송지</td></tr>
-					<tr><th>주소</th><td><input type="text" id="addr" name="addr" value="${usersvo.addr }" readonly="readonly"></td></tr>
+					<tr>
+						<th>배송지 선택</th>
+						<td>
+							<input type="radio" name="root" checked="checked" onclick="root1(1,'${usersvo.addr }','${usersvo.phone }')">
+							회원정보와 동일
+							<input type="radio" name="root" onclick="root1(0)">새로운 배송지
+						</td>
+					</tr>
+					<tr id="oldAddr">
+						<th>주소</th>
+						<td>
+							<input type="text" id="addr" name="addr" value="${usersvo.addr }" readonly="readonly">
+						</td>
+					</tr>
+					<tr id="newAddr" style="display: none;">
+						<th>주소</th>
+						<td> 
+							<input type="text" id="sample6_postcode" name="addr" placeholder="우편번호">
+							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="sample6_address" name="addr1" placeholder="주소">
+							<input type="text" id="sample6_address2" name="addr2" placeholder="상세주소">
+						</td>
+					</tr>
 					<tr><th>전화번호</th><td><input type="text" id="phone" name="phone" value="${usersvo.phone }" readonly="readonly"></td></tr>
 					<tr><th>이메일</th><td><input type="text" id="email" name="email" value="${email }" readonly="readonly"></td></tr>
 					<!-- <tr><th>배송메시지</th><td>배송메시지</td></tr> -->
@@ -72,6 +94,7 @@
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
 </body>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 	function couponCheck(totalPrice){
 		var coupon=document.getElementById("coupon");
@@ -100,16 +123,22 @@
 		var root=document.getElementsByName("root");
 		var addr=document.getElementById("addr");
 		var phone=document.getElementById("phone");
+		var oldAddr = document.getElementById("oldAddr");
+		var newAddr = document.getElementById("newAddr");
 		if(num==1){
 			addr.value=a;
 			phone.value=p;
 			addr.readOnly=true;
 			phone.readOnly=true;
+			oldAddr.style.display = 'table-row';
+			newAddr.style.display = 'none';
 		}else{
 			addr.value="";
 			phone.value="";
 			addr.readOnly=false;
 			phone.readOnly=false;
+			oldAddr.style.display = 'none';
+			newAddr.style.display = 'table-row';
 		}
 	}
 	function checkAll(){
@@ -151,7 +180,31 @@
 			location.href="/semi_project/jh/notice.do?checkList="+checkList+"&cmd=delete&email="+email+"&pageNum="+pageNum;
 		}
 	}
-	
+	function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = '';
+                var extraAddr = '';
+                if (data.userSelectedType === 'R') {
+                    fullAddr = data.roadAddress;
+                } else {
+                    fullAddr = data.jibunAddress;
+                }
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('sample6_address').value = fullAddr;
+                document.getElementById('sample6_address2').focus();
+            }
+        }).open();
+    }
 </script>
 </html>
 

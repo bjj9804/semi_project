@@ -16,6 +16,75 @@ public class ItemDao {
 		return instance;
 	}
 	
+	public int runway(String lkCode) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select substr(lookcode,1,1) sub from look where lookCode=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, lkCode);
+			rs=pstmt.executeQuery();
+			
+			String sub="";
+			if(rs.next()) {
+				sub=rs.getString("sub");
+			}
+			String sql1="";
+			if(sub.equals("w")) {
+				sql1="update look set lookCode=substr(lookCode,2) "
+						+ "where lookCode in "
+						+ "(select lookcode from "
+						+ "(select substr(lookcode,1,2) sub, lookcode from look) "
+						+ "where sub='rw')";
+			}else if(sub.equals("m")) {
+				sql1="update look set lookCode=substr(lookCode,2) "
+						+ "where lookCode in "
+						+ "(select lookcode from "
+						+ "(select substr(lookcode,1,2) sub, lookcode from look) "
+						+ "where sub='rm')";
+			}
+			pstmt1=con.prepareStatement(sql1);
+			int n=pstmt1.executeUpdate();
+			if(n>0) {			
+				String sql2="update look set lookCode=concat('r',lookcode) where lookcode=?";
+				pstmt2=con.prepareStatement(sql2);
+				pstmt2.setString(1, lkCode);
+				if(pstmt2.executeUpdate()>0){
+					return 1;
+				}else {
+					return 0;
+				}
+			}else if(n==0) {
+				System.out.println("런웨이에 등록된 상품이 애초부터 없었음");
+				String sql2="update look set lookCode=concat('r',lookcode) where lookcode=?";
+				pstmt2=con.prepareStatement(sql2);
+				pstmt2.setString(1, lkCode);
+				if(pstmt2.executeUpdate()>0){
+					return 1;
+				}else {
+					return 0;
+				}
+			}
+			System.out.println("런웨이 뭔가 잘못됨");
+			return 0;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(rs!=null) rs.close();
+				if(pstmt1!=null) pstmt1.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int lookInsert(LookVo vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
