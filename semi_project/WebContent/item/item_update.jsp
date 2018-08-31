@@ -37,10 +37,11 @@
 		xhr.open('post','/semi_project/jh/item.do?cmd=itemUpdate',true);
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		var code=document.getElementById("code").value;
+		var code1=document.getElementById("code1").value;
 		var price=document.getElementById("price").value;
 		var itemName=document.getElementById("itemName").value;
 		var description=document.getElementById("description").value;
-		var param="code="+code+"&price="+price+"&itemName="+itemName+"&description="+description;
+		var param="code="+code+"&code1="+code1+"&price="+price+"&itemName="+itemName+"&description="+description;
 		xhr.send(param);		
 	}
 	function updateOk(){
@@ -62,6 +63,7 @@
 		<div class="inner">
 			<h2>[ ${itemvo.code } ] 상품정보수정</h2>
 			<table>
+			<tr><th>상품코드</th><td><input type="text" id="code1" value="${itemvo.code }"></td></tr>
 			<tr><th>가격</th><td><input type="text" id="price" value="${itemvo.price }"></td></tr>
 			<tr><th>상품명</th><td><input type="text" id="itemName" value="${itemvo.itemName }"></td></tr>
 			<tr><th>상세설명</th><td><textarea rows="5" cols="30" id="description" >${itemvo.description }</textarea></td></tr>

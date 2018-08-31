@@ -296,17 +296,18 @@ public class ItemDao {
 			}
 		}
 	}
-	public int itemUpdate(String code,String price,String itemName,String description) {
+	public int itemUpdate(String code,String code1,String price,String itemName,String description) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="update item set price=?,itemName=?,description=? where code=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, price);
-			pstmt.setString(2, itemName);
-			pstmt.setString(3, description);
-			pstmt.setString(4, code);
+			String sql="update item set code=?, price=?,itemName=?,description=? where code=?";
+			pstmt=con.prepareStatement(sql);			
+			pstmt.setString(1, code1);
+			pstmt.setString(2, price);
+			pstmt.setString(3, itemName);
+			pstmt.setString(4, description);
+			pstmt.setString(5, code);
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -320,7 +321,28 @@ public class ItemDao {
 			}
 		}
 	}
-	
+	public int lookCodeUpdate(String lookCode,String lookCode1) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="update look set lookcode=? where lookcode=?";
+			pstmt=con.prepareStatement(sql);			
+			pstmt.setString(1, lookCode1);
+			pstmt.setString(2, lookCode);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int amountUpdate(String code,String isize,String amount) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
