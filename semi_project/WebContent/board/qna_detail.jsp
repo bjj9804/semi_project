@@ -57,7 +57,7 @@
 			</table>
 			<div class="view_btn">
 				<input type="button" value="목록" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=list&email=${email}'" class="btn_list">
-				<c:if test="${email==vo.email || flag==0 || grp=vo.grp }">
+				<c:if test="${email==vo.email || flag==0}">
 					<input type="button" value="답글" onclick="javascript:location.href='../board/qna_insert.jsp?num=${vo.num}&grp=${vo.grp}&lev=${vo.lev}&step=${vo.step}'" class="btn_reply">
 					<input type="button" value="삭제" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=delete&cmd2=del&num=${vo.num }&checkList=${vo.num }&cmd=delete&email=${email}&pageNum=<%=pageNum%>'" class="btn_del">
 					<input type="button" value="수정" onclick="javascript:location.href='/semi_project/eb/qnalist.do?cmd=detail&cmd1=update&num=${vo.num }&grp=${vo.grp }&email=${email }&name=${vo.name }&flag=${flag }'" class="btn_edit">
