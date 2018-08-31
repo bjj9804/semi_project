@@ -15,8 +15,6 @@
 				<form action="demand.do?cmd=buychange3" method="post" border="1"
 					bordercolor="black">
 					<tr>
-						<td><input type="checkbox" class="chk" id="chk_all"
-							name="chk" /></td>
 						<td>교환할아이템명</td>
 						<td>교환할사이즈</td>
 					</tr>
@@ -66,15 +64,13 @@
 										<c:choose>
 											<c:when test="${v1.code ==v.code and a==1}">
 
-												<td><input type="checkbox" class="chk" name="chk"
-													value="${v1.code },${v.isize }" /></td>
+												
 												<td>${v1.itemName }</td>
 
 												<td><select name="size">
 														<c:forEach var="i" items="${vo }">
 
-															<option value="${i.isize }">${i.isize }</option>
-
+															<option value="${i.isize },${v1.itemName }">${i.isize }</option>
 
 														</c:forEach>
 												</select></td>
@@ -91,40 +87,44 @@
 
 						</c:forEach>
 					</c:forEach>
-					<tr>
-						<td colspan=3><input type="button" value="교환신청"
-							onclick="change()"></td>
-					</tr>
+			<tr>
+			console.log(${buyNum });
+						<td colspan=2><input type="button" value="교환신청" onclick="change1('${buyNum }')"></td>
 
+	
+			</tr>
 				</form>
 			</table>
 		</div>
 	</div>
-	.
+	
 
 	<jsp:include page="/inc/footer.jsp" />
 </body>
 
 <script type="text/javascript">
-	//선택된 값 얻어오기
-	function change() {
+	//선택된 사이즈값 , buyNum 얻어오기
+	function change1(buyNum) {
+		alert('tt' +buyNum)
 		console.log("함수실행");
-		var checkList = "";
-		var chk = document.getElementsByName("chk");
-		for (var i = 1; i < chk.length; i++) {
-			if (chk[i].checked) {
-				checkList += chk[i].value + "/";
-			}
+		console.log(buyNum);
+		var sizeList = "";
+		var buyList = "";
+		var size = document.getElementsByName("size");
+		for (var i = 0; i < size.length; i++) {
+				sizeList += size[i].value + "/";
+				buyList += buyNum[i].value + ",";
 		}
-		checkList = checkList.substring(0, checkList.lastIndexOf("/"));//맨끝 / 지우기
-		if (chk == '') {
+		sizeList = sizeList.substring(0, sizeList.lastIndexOf("/"));//맨끝 / 지우기
+		buyList = buyList.substring(0, buyList.lastIndexOf(","));//맨끝 / 지우기
+		if (size == '') {
 			alert("교환할 대상을 선택하세요");
 			return false;
 		}
-		console.log(isize);
+		console.log(size);
 		if (confirm("교환하시겠습니까?")) {
-			location.href = "/semi_project/demand.do?cmd=buychange3&isize="
-					+ isize + "&buyNum=" + buyNum;
+			location.href = "/semi_project/demand.do?cmd=buychange3&sizeList="
+					+ sizeList + "&buyList=" + encodeURI(buyNum);
 		}
 	}
 </script>

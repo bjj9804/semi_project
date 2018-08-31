@@ -724,6 +724,7 @@ public class DemandDao {
             pstmt.setString(1, "교환신청중");
             pstmt.setString(2, isize);
             pstmt.setInt(3, buyNum);
+            
             int n=pstmt.executeUpdate();
             return n;
          }catch(Exception e) {
@@ -738,6 +739,32 @@ public class DemandDao {
             }
          }
       }
+      
+      //교환할 사이즈 가져와서 buy테이블 업데이트하기
+      public int rebuy(String isize, int buyNum) {
+          Connection con=null;
+          PreparedStatement pstmt=null;
+          try {
+             con=DBConnection.getConnection();
+             String sql="update buy set state=?,isize=? where buyNum=?";
+             pstmt=con.prepareStatement(sql);
+             pstmt.setString(1, "교환신청중");
+             pstmt.setString(2, isize);
+             pstmt.setInt(3, buyNum);
+             int n=pstmt.executeUpdate();
+             return n;
+          }catch(Exception e) {
+             e.printStackTrace();
+             return -1;
+          }finally {
+             try {
+                if(pstmt!=null) pstmt.close();
+                if(con!=null) con.close();      
+             }catch(SQLException se) {
+                se.printStackTrace();
+             }
+          }
+       }
       
 }
    

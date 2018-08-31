@@ -43,7 +43,9 @@ public class DeController extends HttpServlet {
          refund(request, response);
       } else if (cmd != null && cmd.equals("buychange2")) {
          buychange2(request, response);
-      } else if (cmd != null && cmd.equals("refund2")) {
+      }else if (cmd != null && cmd.equals("buychange3")) {
+          buychange3(request, response);
+       } else if (cmd != null && cmd.equals("refund2")) {
          refund2(request, response);
       } else if (cmd != null && cmd.equals("returnlist")) {
          returnlist(request, response);
@@ -264,30 +266,61 @@ public class DeController extends HttpServlet {
       DemandDao dao = DemandDao.getInstance();
       ArrayList<ArrayList<ItemsizeVo>> list = new ArrayList<>();
       ArrayList<ArrayList<ItemVo>> list2= new ArrayList<>();
+      ArrayList<Integer> buyNum=new ArrayList<>();
       int orderNum = Integer.parseInt(request.getParameter("orderNum"));
       for (int i = 0; i < checkArr.length; i++) {
-         int buyNum = Integer.parseInt(checkArr[i]);
-         list.add(dao.returnsize(buyNum));
-         list2.add(dao.namesch(buyNum));
-         
+         int buyNum1 = Integer.parseInt(checkArr[i]);
+         list.add(dao.returnsize(buyNum1));
+         list2.add(dao.namesch(buyNum1));
+         buyNum.add(buyNum1);
       }
       System.out.println(list.size());
       request.setAttribute("list", list);
       request.setAttribute("list2", list2);
       request.setAttribute("checkList", checkList);
       request.setAttribute("orderNum", orderNum);
+      request.setAttribute("buyNum", buyNum);
       request.getRequestDispatcher("/myshop/mybuy_change_choo.jsp").forward(request, response);
    }
 
    // 교환할 사이즈 받아와서 업데이트 시키기
    protected void buychange3(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-      String isize = request.getParameter("isize");
-      int buyNum = Integer.parseInt(request.getParameter("buyNum"));
-      DemandDao dao = DemandDao.getInstance();
-      
-      
-      
-      
+	   String sizeList = request.getParameter("sizeList");
+	   String buyList = request.getParameter("buyList");
+
+	   String[] sizeArr = sizeList.split("/"); //[치마,s] / [바지,m] 이렇게 /로 잘라줌
+	   String[] buyArr = buyList.split(", ");
+
+	   buyArr[0]=buyArr[0].substring(1, buyArr[0].length());
+	   buyArr[buyArr.length-1]=buyArr[buyArr.length-1].substring(0, buyArr[buyArr.length-1].length()-1);
+
+	   DemandDao dao = DemandDao.getInstance();
+	   ArrayList<String> list=new ArrayList<>(); 
+	   ArrayList<String> size=new ArrayList<>();
+	   ArrayList<String> name=new ArrayList<>();
+	   ArrayList<Integer> buyNumList=new ArrayList<>();
+	   int buyNum=0;
+	   for(int i=0; i< sizeArr.length; i++) { //list에 [치마,s] [바지,m] 배열을 넣어줌
+		   String nameSize=sizeArr[i];
+		   list.add(nameSize);
+		   buyNumList.add(Integer.parseInt(buyArr[i]));
+	   }
+	   for(int a=0; a< list.size(); a++	) {
+		   String[] nsArr= list.get(a).split(","); //list에 있는 값을 ,로 나눠준다 [s] [치마] 
+			String name1=nsArr[1]; //두번째 값을 name배열에 넣는다
+			   name.add(name1);
+			   size.add(nsArr[0]); //첫번째 값을 size배열에 넣는다
+	   }
+	   for(int b=0; b<size.size(); b++) { //size를 이용해서 buy테이블의 isize와 배송상태를 업데이트 시킨다.
+		   int n=dao.resize(size.get(b), buyNumList.get(b));
+		   buyNum=buyNumList.get(b);
+		   System.out.println(buyNumList.get(b)+","+size.get(b));
+	   }
+	   PayVo vo=dao.ordernumselect(buyNum);
+	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
+	  request.setAttribute("list", list1);
+	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
+
    }
 }
