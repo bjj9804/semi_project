@@ -39,18 +39,18 @@ public class ItemDao {
 						+ "where lookCode in "
 						+ "(select lookcode from "
 						+ "(select substr(lookcode,1,2) sub, lookcode from look) "
-						+ "where sub='rw')";
+						+ "where sub='RW')";
 			}else if(sub.equals("m")) {
 				sql1="update look set lookCode=substr(lookCode,2) "
 						+ "where lookCode in "
 						+ "(select lookcode from "
 						+ "(select substr(lookcode,1,2) sub, lookcode from look) "
-						+ "where sub='rm')";
+						+ "where sub='RM')";
 			}
 			pstmt1=con.prepareStatement(sql1);
 			int n=pstmt1.executeUpdate();
 			if(n>0) {			
-				String sql2="update look set lookCode=concat('r',lookcode) where lookcode=?";
+				String sql2="update look set lookCode=concat('R',lookcode) where lookcode=?";
 				pstmt2=con.prepareStatement(sql2);
 				pstmt2.setString(1, lkCode);
 				if(pstmt2.executeUpdate()>0){
@@ -60,7 +60,7 @@ public class ItemDao {
 				}
 			}else if(n==0) {
 				System.out.println("런웨이에 등록된 상품이 애초부터 없었음");
-				String sql2="update look set lookCode=concat('r',lookcode) where lookcode=?";
+				String sql2="update look set lookCode=concat('R',lookcode) where lookcode=?";
 				pstmt2=con.prepareStatement(sql2);
 				pstmt2.setString(1, lkCode);
 				if(pstmt2.executeUpdate()>0){

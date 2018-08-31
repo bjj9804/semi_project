@@ -29,15 +29,15 @@ public class ProductDao {
 					+ "where lookCode in "
 					+ "(select lookcode from "						
 					+ "(select substr(lookcode,1,1) sub, lookcode from look) "
-					+ "where sub='r') order by lookcode desc";
+					+ "where sub='R') order by lookcode desc";
 			}else if(cmd1.equals("women")) {
 				sql="select * from look "
 					+ "where lookCode in "
-					+ "(select lookcode from look where lookcode like '%w%') ";					
+					+ "(select lookcode from look where lookcode like '%W%') ";					
 			}else if(cmd1.equals("men")) {
 				sql="select * from look "
 					+ "where lookCode in "
-					+ "(select lookcode from look where lookcode like '%m%') ";				
+					+ "(select lookcode from look where lookcode like '%M%') ";				
 			}
 			
 			pstmt=con.prepareStatement(sql);
@@ -76,19 +76,19 @@ public class ProductDao {
 					+ "where code in "
 					+ "(select code from "						
 					+ "(select substr(code,1,1) sub, code from item) "
-					+ "where sub='w')";
+					+ "where sub='W')";
 			}else if(mark.equals("m")) {
 				sql="select * from item "
 					+ "where code in "
 					+ "(select code from "						
 					+ "(select substr(code,1,1) sub, code from item) "
-					+ "where sub='m')";
+					+ "where sub='M')";
 			}else if(mark.equals("ac")) {
 				sql="select * from item "
 					+ "where code in "
 					+ "(select code from "						
 					+ "(select substr(code,1,2) sub, code from item) "
-					+ "where sub='ac')";
+					+ "where sub='AC')";
 			}
 			System.out.println(mark);
 			pstmt=con.prepareStatement(sql);
