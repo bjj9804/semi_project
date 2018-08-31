@@ -11,7 +11,7 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<h2>Q&amp;A</h2>
+			<h2>Q&amp;A11</h2>
 			<c:if test="${flag==0}">
 				<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')" class="btn_del">
 			</c:if>
