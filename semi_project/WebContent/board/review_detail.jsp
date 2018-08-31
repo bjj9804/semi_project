@@ -43,7 +43,7 @@
 					<td>${vo.regdate }</td>
 				</tr>
 				<tr>
-					<th>사진</th> ${vo.img}
+					<th>사진</th>
 					<td><img src="/semi_project/Upload/${vo.img}"></td>
 			</table>
 			<input type="button" value="review 목록"

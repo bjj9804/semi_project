@@ -12,6 +12,9 @@
 	<div id="content">
 		<div class="inner">
 			<h2>Q&amp;A</h2>
+			<c:if test="${flag==0}">
+				<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')" class="btn_del">
+			</c:if>
 			<table class="board_list">
 				<colgroup>
 					<col style="width:5%">
@@ -21,10 +24,9 @@
 					<col style="width:15%">
 				</colgroup>
 				<tr>
-				<c:if test="${flag==0}">	
-					<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')">
-					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
-				</c:if>
+					<c:if test="${flag==0}">	
+						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+					</c:if>
 					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
@@ -89,10 +91,11 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<c:if test="${not empty originalEmail}">
+				<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" class="btn_write">
+			</c:if>			
 		</div>
-		<c:if test="${not empty originalEmail}">
-			<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
-		</c:if>
+
 
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

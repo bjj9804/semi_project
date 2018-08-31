@@ -10,10 +10,17 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
+			<h2>Review</h2>
 			<c:if test="${flag==0}">
-				<input type="button" value="삭제"
-					onclick="delete1('${email}','${pageNum}')">
-				<table border="1" width="500">
+				<input type="button" value="삭제" onclick="delete1('${email}','${pageNum}')" class="btn_del">
+				<table class="board_list">
+					<colgroup>
+						<col style="width:5%">
+						<col style="width:10%">
+						<col style="width:15%">
+						<col>
+						<col style="width:10%">
+					</colgroup>
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 						<th>글번호</th>
@@ -34,44 +41,41 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<div>
+				<div class="pagination">
 					<c:choose>
 						<c:when test="${pageNum>10}">
-							<a
-								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }" class="prev">이전</a>
 						</c:when>
 						<c:otherwise>
-			[이전]
-		</c:otherwise>
+							<a href="javascrit:;" class="prev">이전</a>
+						</c:otherwise>
 					</c:choose>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 						<c:choose>
 							<c:when test="${pageNum==i }">
-								<a
-									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"><span
-									style="color: red">[${i }]</span></a>
+								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }" class="on">${i }</a>
 							</c:when>
 							<c:otherwise>
-								<a
-									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"><span
-									style="color: #555">[${i }]</span></a>
+								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }">${i }</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${endPage<pageCount}">
-							<a
-								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
+							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }" class="next">다음</a>
 						</c:when>
 						<c:otherwise>
-			[다음]
-		</c:otherwise>
+							<a href="javascript:;" class="next">다음</a>
+						</c:otherwise>
 					</c:choose>
 				</div>
 			</c:if>
 
+
+
+
 			<c:if test="${flag!=0}">
-				<table border="1" width="500">
+				<table class="board_list">
 					<tr>
 						<th>글번호</th>
 						<th>작성자</th>

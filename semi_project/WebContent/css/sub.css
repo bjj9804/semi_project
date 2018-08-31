@@ -31,10 +31,14 @@
 #content .inner .view_btn{margin-top:30px; font-size:0; text-align:center;}
 #content .inner .view_btn a{display:inline-block; vertical0-align:middle; font-size:14px; width:80px; height:30px; line-height:28px; margin-left:5px;}
 #content .inner .view_btn a:first-child{margin-left:0;}
-#content .inner .view_btn a.btn_del{background-color:#333; color:#fff;}
-#content .inner .view_btn a.btn_edit{border:1px solid #333; color:#333; background-color:#fff;}
-#content .inner .view_btn a.btn_list{background-color:#888; color:#fff;}
+#content .inner .view_btn .btn_del{background-color:#333; color:#fff;}
+#content .inner .view_btn .btn_edit{border:1px solid #333; color:#333; background-color:#fff;}
+#content .inner .view_btn .btn_list{background-color:#888; color:#fff;}
+#content .inner .view_btn .btn_reply{background-color:#fff; color:#333; border:1px solid #333;}
 #content .inner .view_btn .btn_write{display:inline-block; vertical0-align:middle; font-size:14px; width:80px; height:30px; line-height:28px; background-color:#333; color:#fff; border:0; cursor:pointer;}
+#content .inner .view_btn input{display:inline-block; vertical0-align:middle; font-size:14px; width:80px; height:30px; line-height:28px; margin-left:5px; border:0; cursor:pointer;}
+#content .inner .view_btn input:first-child{margin-left:0;}
+#content .inner .view_btn input.btn_list{background-color:#888; color:#fff; border:0;}
 
 #content .inner .board_write{width:100%; border-top:2px solid #000; text-align:center; margin-top:30px;}
 #content .inner .board_write td{padding:10px 0; border-bottom:1px solid #999}
@@ -48,3 +52,6 @@
 #content .inner .lookArea span{font-size:15px;}
 #content .inner .lookArea:first-child{margin-right:4%;}
 #content .inner .lookArea img{display:block; width:100%; cursor:pointer;}
+
+#content .inner > .btn_del{position:absolute; top:50px; left:0; font-size:14px; width:80px; height:30px; line-height:28px; background-color:#333; color:#fff; border:0; cursor:pointer;}
+#content .inner > .btn_write{position:absolute; bottom:0; right:0; font-size:14px; width:80px; height:30px; line-height:28px; background-color:#fff; border:1px solid #333; box-sizing:border-box; color:#333; cursor:pointer;}
