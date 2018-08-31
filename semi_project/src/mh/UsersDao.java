@@ -27,7 +27,7 @@ public class UsersDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,1)";
+			String sql = "insert into Users values(?,?,?,?,?,?,?,sysdate,1,0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());

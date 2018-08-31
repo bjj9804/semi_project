@@ -75,18 +75,22 @@ public class ProductDao {
 				sql="select * from item "
 					+ "where code in "
 					+ "(select code from "						
-					+ "(select substr(lookcode,1,1) sub, code from item) "
+					+ "(select substr(code,1,1) sub, code from item) "
 					+ "where sub='w')";
 			}else if(mark.equals("m")) {
 				sql="select * from item "
 					+ "where code in "
 					+ "(select code from "						
-					+ "(select substr(lookcode,1,1) sub, code from item) "
+					+ "(select substr(code,1,1) sub, code from item) "
 					+ "where sub='m')";
 			}else if(mark.equals("ac")) {
-				sql="select * from item where substr(code,1,2)='ac'";
+				sql="select * from item "
+					+ "where code in "
+					+ "(select code from "						
+					+ "(select substr(code,1,2) sub, code from item) "
+					+ "where sub='ac')";
 			}
-			
+			System.out.println(mark);
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
