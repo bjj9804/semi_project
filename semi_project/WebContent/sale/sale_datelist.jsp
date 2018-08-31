@@ -5,7 +5,21 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<%
+						String context = request.getContextPath();
+	%>
 	<script type="text/javascript">
+		function boardModify(bnum){
+			location.href="<%=context%>/boardList.do?mod=getInfo&bnum="+bnum;
+		}
+		
+		function boardDelete(bnum){
+			location.href="<%=context%>/boardList.do?mod=delete&bnum="+bnum;
+		}
+		
 		function selectYear() {
 			var startyear = document.getElementById("startyear");
 			var endyear = document.getElementById("endyear");
@@ -71,6 +85,7 @@
 					<li><a href="#" onclick="selectlist()">선택</a></li>
 				</ul>
 				<div id="selectlistForm">
+					<input type="text" id="sdate" name="sdate" value="${day}">
 					<form method="post" action="/semi_project/mh/sale.do?cmd=selectlist">
 						날짜 선택 
 						<select id="startyear" name="startyear">

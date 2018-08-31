@@ -94,7 +94,14 @@ public class DemandController extends HttpServlet{
 		}		
 		//String state=request.getParameter("state"); 
 		String method=request.getParameter("method");
-		String addr=request.getParameter("addr");		
+		
+		String addr="";
+		String addr1=request.getParameter("addr1"); 
+		if(addr1==null ||addr1.equals("")) {
+			addr=request.getParameter("addr");
+		}else {
+			addr=request.getParameter("addr1") + request.getParameter("addr2");	
+		}
 		String payMoney1=request.getParameter("payMoney");	
 		int payMoney=0;
 		int totalPrice=Integer.parseInt(request.getParameter("totalPrice"));
