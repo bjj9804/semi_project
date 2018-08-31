@@ -240,6 +240,16 @@ BEGIN
 	DELETE FROM lookitem WHERE lookcode = :OLD.lookcode;
 END;
 /
+CREATE OR REPLACE TRIGGER update_look
+AFTER update ON look
+FOR EACH ROW
+BEGIN
+	UPDATE lookitem SET lookcode = :new.lookcode WHERE lookcode = :old.lookcode;
+END;
+/
+
+
+
 
 create or replace TRIGGER JOIN_COUPON
 BEFORE INSERT ON USERS

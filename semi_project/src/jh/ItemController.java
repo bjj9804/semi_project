@@ -44,6 +44,8 @@ public class ItemController extends HttpServlet{
 			lookDetail(request,response);
 		}else if(cmd!=null && cmd.equals("lookDelete")) {
 			lookDelete(request,response);
+		}else if(cmd!=null && cmd.equals("runway")) {
+			runway(request,response);
 		}else if(cmd!=null && cmd.equals("list")) {
 			list(request,response);
 		}else if(cmd!=null && cmd.equals("lookItemDelete")) {
@@ -54,9 +56,28 @@ public class ItemController extends HttpServlet{
 			lookImgUpdate(request,response);
 		}
 	}
+	private void runway(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String lookCode=request.getParameter("lookCode");
+		ItemDao dao=ItemDao.getInstance();
+		int n=dao.runway(lookCode);
+		
+		response.setContentType("text/xml;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		pw.println("<?xml version='1.0' encoding='utf-8'?>");
+		pw.print("<result>");
+		if(n>0) {
+			pw.println("<code>success</code>");
+		}else {
+			pw.println("<code>fail</code>");
+		}
+		pw.print("</result>");
+		pw.close();		
+					
+		
+	}
 	private void lookInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String saveDir=getServletContext().getRealPath("/itemFile");
-		System.out.println("아이템사진 경로: " + saveDir);
+		
 		int maxSize = 3 * 1024 * 1024;
 		String encoding = "utf-8";
 

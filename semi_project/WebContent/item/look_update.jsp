@@ -74,6 +74,32 @@
 		}
 	}
 	
+	var xhr3=null;
+	function runway(lookCode){
+		xhr3=new XMLHttpRequest();
+		xhr3.onreadystatechange=runwayOk;
+		xhr3.open('post','/semi_project/jh/item.do?cmd=runway',true);
+		xhr3.setRequestHeader("Content-Type","application/x-www-form-urlencoded");		
+		var param="lookCode="+lookCode;
+		xhr3.send(param);		
+	}
+	function runwayOk(){
+		if(xhr3.readyState==4 && xhr3.status==200){
+			var xml=xhr3.responseXML;
+			var code=xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+			if(code=='success'){
+				alert("정상적으로 등록되었습니다.");			
+			}else{
+				alert("등록실패!");
+			}
+			history.go(-1);
+		}
+	}
+	
+	
+	
+	
+	
 	function update1(n){
 		var look=document.look;
 		var check=document.getElementById("check");
@@ -114,7 +140,8 @@
 			상품코드입력<input type="text" id="code"><input type="button" value="룩아이템추가" onclick="insert1('${lvo.lookCode }')">
 
 			<br><br><br>
-			<input type="button" value="룩 해제하기" onclick="lookDelete('${lvo.lookCode }')">
+			<input type="button" value="룩 삭제하기" onclick="lookDelete('${lvo.lookCode }')">
+			<input type="button" value="런웨이룩으로 등록하기" onclick="runway('${lvo.lookCode }')">
 
 
 		</div>
