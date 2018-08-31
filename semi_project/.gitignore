@@ -1,4 +1,7 @@
-*.jar
 /build/
 .classpath
+<<<<<<< HEAD
 /bin/
+=======
+*.jar
+>>>>>>> refs/remotes/origin/master
