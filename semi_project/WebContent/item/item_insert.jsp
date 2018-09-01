@@ -94,6 +94,38 @@
 		itemInfo.submit();
 	}
 	
+	
+	function size1(){
+		var small=document.getElementById("small");
+		var medium=document.getElementById("medium");
+		var large=document.getElementById("large");
+		var amountSmall=document.getElementsByName("amountSmall")[0].value;
+		var amountMedium=document.getElementsByName("amountMedium")[0].value;
+		var amountLarge=document.getElementsByName("amountLarge")[0].value;
+		var amountS=document.getElementById("amountS");
+		var amountM=document.getElementById("amountM");
+		var amountL=document.getElementById("amountL");
+		if(small.checked==true){
+			amountS.style.display="inline-block";
+		}else{
+			amountSmall.value="";
+			amountS.style.display="none";
+		}
+		if(medium.checked==true){
+			amountM.style.display="inline-block";
+		}else{
+			amountMedium.value="";
+			amountM.style.display="none";
+		}
+		if(large.checked==true){
+			amountL.style.display="inline-block";
+		}else{
+			amountLarge.value="";
+			amountL.style.display="none";
+		}
+	}
+	
+	
 </script>
 
 <body>
@@ -147,9 +179,13 @@
 					<tr>
 						<th>아이템사이즈</th>
 						<td>
-							SMALL 수량<input type="text" name="amountSmall"><br>
-							MEDIUM 수량<input type="text" name="amountMedium"><br>
-							LARGE 수량<input type="text" name="amountLarge"><br>							
+							<input type="checkbox" id="small" onclick="size1()">SMALL
+							<span id="amountS" style="display: none;"> 수량<input type="text" name="amountSmall"></span><br>
+							<input type="checkbox" id="medium" onclick="size1()">MEDIUM
+							<span id="amountM" style="display: none;"> 수량<input type="text" name="amountMedium"></span><br>
+							<input type="checkbox" id="large" onclick="size1()">LARGE
+							<span id="amountL" style="display: none;"> 수량<input type="text"  name="amountLarge"></span>
+												
 						</td>
 					</tr>								
 					<tr>
