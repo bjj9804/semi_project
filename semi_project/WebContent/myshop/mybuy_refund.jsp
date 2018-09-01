@@ -23,7 +23,7 @@
 				</tr>
 				
 				<c:forEach var="vo" items="${itemlist }" varStatus="status">
-				<c:if test="${list[status.index].state == '' || list[status.index].state == null}">
+				<c:if test="${list[status.index].state == '배송중' || list[status.index].state == null}">
 				<tr>
 						<td><input type="checkbox" class="chk" name="chk" value="${list[status.index].buyNum }"/></td>
 						<td>${vo.itemName }</td>

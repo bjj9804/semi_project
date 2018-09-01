@@ -221,7 +221,31 @@ public class DemandDao {
             }
          }
       }
-      
+    //배송상태 업데이트(pay테이블만.)
+      public int payconfirm2(int num) {
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         PreparedStatement pstmt1=null;
+         try {
+            con=DBConnection.getConnection();
+            String sql="update pay set state=? where orderNum=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1, "구매완료");
+            pstmt.setInt(2, num);
+            int n=pstmt.executeUpdate();
+            return n ;
+         }catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
    //배송전 주문취소(삭제)
       public int paycancel(int num) {
          Connection con=null;
@@ -422,7 +446,7 @@ public class DemandDao {
             con=DBConnection.getConnection();
             String sql="update buy set state=? where buyNum=?";
             pstmt=con.prepareStatement(sql);
-            pstmt.setString(1, "반품대기중");
+            pstmt.setString(1, "반품신청중");
             pstmt.setInt(2, num);
             int n=pstmt.executeUpdate();
             return n;
