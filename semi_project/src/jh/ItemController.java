@@ -163,14 +163,26 @@ public class ItemController extends HttpServlet{
 			String price=mr.getParameter("price");
 			String itemName=mr.getParameter("itemName");
 			String description=mr.getParameter("description");
-			String isize=mr.getParameter("isize");
-			String amount=mr.getParameter("amount");				
+			String amountSmall=mr.getParameter("amountSmall");				
+			String amountMedium=mr.getParameter("amountMedium");				
+			String amountLarge=mr.getParameter("amountLarge");				
 			String lookList=mr.getParameter("lookList");
 			String[] lookArray=lookList.split(",");	
 			
-			
 			ItemDao dao=ItemDao.getInstance();
-			dao.itemInsert(code,price,itemName,description,isize,amount);
+			dao.itemInsert(code,price,itemName,description);
+			
+			if(amountSmall!=null && !amountSmall.equals("") && !amountSmall.equals("0")) {
+				dao.itemInsert4("small",code,amountSmall);
+			}
+			if(amountMedium!=null && !amountMedium.equals("") && !amountMedium.equals("0")) {
+				dao.itemInsert4("medium",code,amountMedium);
+			}
+			if(amountLarge!=null && !amountLarge.equals("") && !amountLarge.equals("0")) {
+				dao.itemInsert4("large",code,amountLarge);
+			}
+			
+			
 			
 			int fileCount=Integer.parseInt(mr.getParameter("fileCount"));
 			for(int i=1;i<=fileCount;i++) {			

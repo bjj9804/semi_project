@@ -147,17 +147,11 @@
 					<tr>
 						<th>아이템사이즈</th>
 						<td>
-							<select name="isize">
-								<option value="small">S</option>
-								<option value="medium">M</option>
-								<option value="large">L</option>
-							</select>
+							SMALL 수량<input type="text" name="amountSmall"><br>
+							MEDIUM 수량<input type="text" name="amountMedium"><br>
+							LARGE 수량<input type="text" name="amountLarge"><br>							
 						</td>
-					</tr>
-					<tr>
-						<th>수량</th>
-						<td><input type="text" name="amount"></td>
-					</tr>					
+					</tr>								
 					<tr>
 						<th>이미지타입</th>
 						<td>	

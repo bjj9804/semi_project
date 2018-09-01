@@ -368,10 +368,9 @@ public class ItemDao {
 		}
 	}
 	
-	public int itemInsert(String code,String price,String itemName,String description,String isize,String amount) {
+	public int itemInsert(String code,String price,String itemName,String description) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		PreparedStatement pstmt1=null;
 		try {
 			con=DBConnection.getConnection();
 			String sql="insert into item values(?,?,?,?)";
@@ -380,14 +379,8 @@ public class ItemDao {
 			pstmt.setString(2, price);
 			pstmt.setString(3, itemName);
 			pstmt.setString(4, description);
-			pstmt.executeUpdate();
-			String sql1="insert into itemsize values(?,?,?)";
-			pstmt1=con.prepareStatement(sql1);
-			pstmt1.setString(1, isize);
-			pstmt1.setString(2, code);
-			pstmt1.setString(3, amount);
-			pstmt1.executeUpdate();
-			return 1;
+			return pstmt.executeUpdate();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;
@@ -433,6 +426,29 @@ public class ItemDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, lookCode);
 			pstmt.setString(2, code);
+			return pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int itemInsert4(String isize,String code,String amount) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="insert into itemsize values(?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, isize);
+			pstmt.setString(2, code);
+			pstmt.setString(3, amount);
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -598,7 +614,7 @@ public class ItemDao {
 			String sql="select * from "
 					+ "item,itemsize "
 					+ "where item.code=itemsize.code "
-					+ "order by item.code asc,itemsize.isize";
+					+ "order by item.code asc,itemsize.isize desc";
 					pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
