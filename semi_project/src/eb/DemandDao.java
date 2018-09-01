@@ -765,6 +765,30 @@ public class DemandDao {
              }
           }
        }
+    //관리자가 교환완료로 state업데이트하기
+      public int refundup2(int num) {
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         try {
+            con=DBConnection.getConnection();
+            String sql="update buy set state=? where buyNum=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1, "교환완료");
+            pstmt.setInt(2, num);
+            int n=pstmt.executeUpdate();
+            return n;
+         }catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
       
 }
    

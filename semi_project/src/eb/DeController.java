@@ -51,7 +51,9 @@ public class DeController extends HttpServlet {
          returnlist(request, response);
       } else if (cmd != null && cmd.equals("refundcon")) {
          refundcon(request, response);
-      }
+      }else if (cmd != null && cmd.equals("refundcon2")) {
+          refundcon2(request, response);
+       }
    }
    //주문관리의 주문리스트
    protected void paylist(HttpServletRequest request, HttpServletResponse response)
@@ -319,8 +321,23 @@ public class DeController extends HttpServlet {
 	   }
 	   PayVo vo=dao.ordernumselect(buyNum);
 	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
-	  request.setAttribute("list", list1);
+	   request.setAttribute("list", list1);
 	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
 
+   }
+   // 관리자페이지에서 buy상태 교환완료로 업데이트하기
+   protected void refundcon2(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      int buyNum = Integer.parseInt(request.getParameter("num"));
+      DemandDao dao = DemandDao.getInstance();
+      int n = dao.refundup(buyNum);
+      PayVo vo1 = dao.ordernumselect(buyNum);
+      int orderNum = vo1.getOrderNum();
+      int a = dao.payconfirm(orderNum);
+      ArrayList<BuyVo> list = dao.refundlist();
+      request.setAttribute("list", list);
+      request.setAttribute("n", n);
+      request.setAttribute("a", a);
+      request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 }
