@@ -221,6 +221,7 @@ public class DemandDao {
             }
          }
       }
+      
    //배송전 주문취소(삭제)
       public int paycancel(int num) {
          Connection con=null;
@@ -558,7 +559,7 @@ public class DemandDao {
       //pay테이블의 state가 반품대기중인걸 찾아서 buy테이블과 조인해서 정보 뿌려주기]
       
       public ArrayList<BuyVo> refundlist() {
-         String sql="select * from buy where state='반품대기중' or state='반품완료' or state='교환대기중' or state='교환완료'";
+         String sql="select * from buy where state='반품신청중' or state='반품완료' or state='교환신청중' or state='교환완료'";
          Connection con=null;
          PreparedStatement pstmt=null;
          ResultSet rs=null;

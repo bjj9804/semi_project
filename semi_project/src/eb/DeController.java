@@ -100,7 +100,7 @@ public class DeController extends HttpServlet {
          throws ServletException, IOException {
       int orderNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-      int n = dao.payconfirm(orderNum);
+      int n = dao.payconfirm(orderNum);   
       request.setAttribute("n", n);
       request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);
    }
@@ -226,10 +226,11 @@ public class DeController extends HttpServlet {
          throws ServletException, IOException {
       int buyNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-      int n = dao.refundup(buyNum);
+
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
       int a = dao.payconfirm(orderNum);
+      int n = dao.refundup(buyNum);
       //ArrayList<BuyVo> b= dao.detail(orderNum);
       //buy테이블에 order넘을 넣으면 그것들의 상태랑 번호가 나오는 
       ArrayList<BuyVo> list = dao.refundlist();
@@ -330,10 +331,10 @@ public class DeController extends HttpServlet {
          throws ServletException, IOException {
       int buyNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-      int n = dao.refundup(buyNum);
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
       int a = dao.payconfirm(orderNum);
+      int n = dao.refundup(buyNum);
       ArrayList<BuyVo> list = dao.refundlist();
       request.setAttribute("list", list);
       request.setAttribute("n", n);
