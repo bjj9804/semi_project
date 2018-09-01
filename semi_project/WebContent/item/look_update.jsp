@@ -140,7 +140,7 @@
 	<div id="content">
 		<div class="inner">
 			<h2>[ ${lvo.lookCode } ] 룩</h2>
-			<input type="text" id="lookCode1" value="${lvo.lookCode }"><input type="button" value="룩코드변경" onclick="lookCodeUpdate(' ${lvo.lookCode }')">
+			<input type="text" id="lookCode1" value="${lvo.lookCode }"><input type="button" value="룩코드변경" onclick="lookCodeUpdate('${lvo.lookCode }')">
 			<h3>이미지 변경</h3>
 			<form name="look" action="/semi_project/jh/item.do?cmd=lookImgUpdate&lookCode=${lvo.lookCode }" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="check" name="check">

@@ -34,13 +34,13 @@ public class ItemDao {
 				sub=rs.getString("sub");
 			}
 			String sql1="";
-			if(sub.equals("w")) {
+			if(sub.equals("W")) {
 				sql1="update look set lookCode=substr(lookCode,2) "
 						+ "where lookCode in "
 						+ "(select lookcode from "
 						+ "(select substr(lookcode,1,2) sub, lookcode from look) "
 						+ "where sub='RW')";
-			}else if(sub.equals("m")) {
+			}else if(sub.equals("M")) {
 				sql1="update look set lookCode=substr(lookCode,2) "
 						+ "where lookCode in "
 						+ "(select lookcode from "
@@ -326,8 +326,9 @@ public class ItemDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
+			System.out.println(lookCode+","+lookCode1);
 			String sql="update look set lookcode=? where lookcode=?";
-			pstmt=con.prepareStatement(sql);			
+			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, lookCode1);
 			pstmt.setString(2, lookCode);
 			return pstmt.executeUpdate();
