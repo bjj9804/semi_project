@@ -21,9 +21,35 @@
 				return false;
 			}
 		}
+		<%
+			String id = "";
+			String email1 = "";
+			Cookie[] cooks = request.getCookies();
+			System.out.println(cooks);
+			if(cooks != null){
+				for(Cookie cook : cooks){
+				System.out.println(cook.getName());
+					if(cook.getName().equals("id")){
+						id=cook.getValue();
+					}else if(cook.getName().equals("email1")){
+						email1=cook.getValue();
+					}
+				}
+			}
+		%>
+		function setEmail(){
+			var inputVal = "<%=email1 %>"; //받아온값
+			for(var i = 0; i < document.getElementById("emailSelect").options.length; i++)
+			{
+			  if(inputVal ==  document.getElementById("emailSelect").options[i].value)
+			  {
+			    document.getElementById("emailSelect").options[i].selected = true;
+			  }
+			}
+		}
 	</script>
 </head>
-<body>
+<body onload="setEmail();">
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
@@ -45,9 +71,8 @@
 						</td>
 						<td>
 							<form method="post" action="<c:url value='../mh/users.do?cmd=login'/>" onsubmit="return check();">
-								
-								이메일 <input type="text" name="id">@
-								<select name="email" onchange="emailcheck()">
+								이메일 <input type="text" name="id" value=<%=id %>>@
+								<select name="email" onchange="emailcheck()" id="emailSelect">
 									<option value="">옵션선택</option>
 									<option value="@naver.com">naver.com</option>
 									<option value="@hanmail.net">hanmail.net</option>
@@ -64,13 +89,17 @@
 								</select>
 								<br>
 								비밀번호 <input type="password" name="pwd"><br>
-								<input type="checkbox" name="idCheck"><label>로그인 상태 유지</label><br>
-								<input type="checkbox" name="pwdCheck"><label>아이디 기억하기</label><br>
+								
+								<input type="checkbox" name="autoCheck"><label>로그인 상태 유지</label><br>
+								<input type="checkbox" name="idCheck"><label>아이디 기억하기</label><br>
+								
 								<div style="font_size: 12px; color:red">${errMsg }</div>
 								<input type="submit" value="로그인"><br>
 								<input type="button" value="비밀번호찾기" onclick="getpwd()">
 								<input type="button" value="아이디찾기" onclick="getid()"><br>
 							</form>
+							
+							<!-- 아이디&비밀번호 찾기 -->
 							<div id="findpwd" style="display: none">
 								<form method="post" action="/semi_project/mh/users.do?cmd=findpwdform">
 									이메일

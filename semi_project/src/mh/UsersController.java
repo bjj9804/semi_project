@@ -156,7 +156,8 @@ public class UsersController extends HttpServlet{
 		String email1 = request.getParameter("email");
 		String email = id + email1;
 		String pwd = request.getParameter("pwd");
-		String auto = request.getParameter("auto");
+		String autoCheck = request.getParameter("autoCheck");
+		String idCheck = request.getParameter("idCheck");
 		UsersDao dao = UsersDao.getInstance();
 		boolean b = dao.login(email,pwd);
 		int flag=0;
@@ -172,6 +173,36 @@ public class UsersController extends HttpServlet{
 		//request.setAttribute("flag", flag);
 		//세션에 저장하기
 		if(b){
+			if(autoCheck != null) {
+				Cookie cook = new Cookie("email", email);
+				cook.setMaxAge(60*60*24*365);//일년동안 자유이용ㅎㅎ
+				cook.setPath("/");
+				response.addCookie(cook);
+			}else {
+				Cookie cook = new Cookie("email", null);
+				cook.setMaxAge(0);//일년동안 자유이용ㅎㅎ
+				cook.setPath("/");
+				response.addCookie(cook);
+			}
+			if(idCheck != null) {
+				Cookie cookid = new Cookie("id", id);
+				cookid.setMaxAge(60*60*24*365);//일년동안 자유이용ㅎㅎ
+				cookid.setPath("/");
+				response.addCookie(cookid);
+				Cookie cookemail = new Cookie("email1", email1);
+				cookemail.setMaxAge(60*60*24*365);//일년동안 자유이용ㅎㅎ
+				cookemail.setPath("/");
+				response.addCookie(cookemail);
+			}else {
+				Cookie cookid = new Cookie("id", null);
+				cookid.setMaxAge(0);//일년동안 자유이용ㅎㅎ
+				cookid.setPath("/");
+				response.addCookie(cookid);
+				Cookie cookemail = new Cookie("email1", null);
+				cookemail.setMaxAge(0);//일년동안 자유이용ㅎㅎ
+				cookemail.setPath("/");
+				response.addCookie(cookemail);
+			}
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 			session.setAttribute("flag", flag);
@@ -185,8 +216,13 @@ public class UsersController extends HttpServlet{
 	}
 	//로그아웃
 	protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("logout");
 		HttpSession session = request.getSession();
 		session.invalidate();
+		Cookie cook = new Cookie("email", null);
+		cook.setMaxAge(0);//일년동안 자유이용ㅎㅎ
+		cook.setPath("/");
+		response.addCookie(cook);
 		String contextPath = getServletContext().getContextPath();
 		response.sendRedirect(contextPath + "/main/index.jsp");
 	}
