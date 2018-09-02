@@ -24,7 +24,7 @@
 					</colgroup>
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
-						<th>글번호</th>
+						<th></th>
 						<th>작성자</th>
 						<th>글제목</th>
 						<th>조회수</th>
@@ -33,7 +33,7 @@
 						<tr>
 							<td><input type="checkbox" name="check" value="${vo.num }"
 								onclick="check1()"></td>
-							<td>${vo.num }</td>
+							<td><img src="/semi_project/itemFile/${vo.itemImg}"></td>
 							<td>${vo.name }</td>
 							<td><a
 								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
@@ -85,15 +85,16 @@
 			<c:if test="${flag!=0}">
 				<table class="board_list">
 					<tr>
-						<th>글번호</th>
+						<th></th>
 						<th>작성자</th>
 						<th>글제목</th>
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
-							<td>${vo.num }</td>
+							<td><img src="/semi_project/itemFile/${vo.itemImg}"></td>
 							<td>${vo.name }</td>
+							<td>${vo.title }</td>
 							<td><a
 								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&email=${email }&flag=${flag}&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
 							</td>
