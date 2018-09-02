@@ -39,12 +39,12 @@
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
 			<td>${vo.state }</td>
-			<td>${realist[status.index].reason }</td>
+			<td>${realist[status.index].reason }
 			<c:if test="${vo.state == '교환신청중' }">
-			<td><input type="button" value="교환완료" onclick="javascript:location.href='demand.do?cmd=refundcon2&num=${vo.buyNum}'"></td>
+			<input type="button" value="교환완료" onclick="javascript:location.href='demand.do?cmd=refundcon2&num=${vo.buyNum}'"></td>
 			</c:if>
 			<c:if test="${vo.state == '반품신청중' }">
-			<td><input type="button" value="반품완료" onclick="javascript:location.href='demand.do?cmd=refundcon&num=${vo.buyNum}'"></td>
+			<br><input type="button" value="반품완료" onclick="javascript:location.href='demand.do?cmd=refundcon&num=${vo.buyNum}'"></td>
 			</c:if>
 			</tr>
 			</c:forEach>

@@ -246,6 +246,30 @@ public class DemandDao {
             }
          }
       }
+      //배송상태 업데이트(buy테이블만.)
+      public int payconfirm4(int num) {
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         try {
+            con=DBConnection.getConnection();
+            String sql="update buy set state=? where buynum=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1, "구매완료");
+            pstmt.setInt(2, num);
+            int n=pstmt.executeUpdate();
+            return n ;
+         }catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
     //배송상태 업데이트(pay테이블만.) 반품완료로.
       public int payconfirm3(int num) {
          Connection con=null;
@@ -616,6 +640,49 @@ public class DemandDao {
             }
          }
       }
+      
+    //buynum으로 buy테이블검색해서 정보뽑아오기
+      public BuyVo buydetail(int buyNum) {
+         String sql="select * from buy where buyNum=?";
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         ResultSet rs=null;
+         try {
+            con=DBConnection.getConnection();
+            pstmt=con.prepareStatement(sql);   
+            pstmt.setInt(1, buyNum);
+            rs=pstmt.executeQuery();
+            BuyVo vo = null;
+            while(rs.next()) {
+               int orderNum=rs.getInt("orderNum");
+               String state=rs.getString("state");
+               String code=rs.getString("code");
+               String isize=rs.getString("isize");
+               int orderAmount=rs.getInt("orderamount");
+               int price=rs.getInt("price");
+               vo=new BuyVo(buyNum, orderNum, code, isize, orderAmount, price, state) ;
+            }
+            return vo;
+         }catch(SQLException se) {
+            System.out.println(se.getMessage());
+            return null;
+         }catch(ClassNotFoundException cn) {
+            System.out.println(cn.getMessage());
+            return null;
+         } catch (NamingException e) {
+            e.printStackTrace();
+            return null;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(rs!=null) rs.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
+      
       //반품신청하면 pay테이블의 state도 반품대기중으로 변경해줌
       public int refundup1(int num) {
          Connection con=null;
@@ -849,6 +916,33 @@ public class DemandDao {
          }
       }
       
+    //사이즈 받아와서 buy에서 수량 수정하기
+      public int reamount(String isize, int buyNum) {
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         try {
+            con=DBConnection.getConnection();
+            String sql="update buy set state=?,isize=? where buyNum=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1, "교환신청중");
+            pstmt.setString(2, isize);
+            pstmt.setInt(3, buyNum);
+            
+            int n=pstmt.executeUpdate();
+            return n;
+         }catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
+      
       //교환할 사이즈 가져와서 buy테이블 업데이트하기
       public int rebuy(String isize, int buyNum) {
           Connection con=null;
@@ -884,6 +978,31 @@ public class DemandDao {
             pstmt=con.prepareStatement(sql);
             pstmt.setString(1, "교환완료");
             pstmt.setInt(2, num);
+            int n=pstmt.executeUpdate();
+            return n;
+         }catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
+    //교환했을때 바꾼 아이템 수량 재고에서 빼주기
+      public int reamount2(int amount, String code, String isize) {
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         try {
+            con=DBConnection.getConnection();
+            String sql="update itemsize set amount=amount-? where code=? and isize=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setInt(1, amount);
+            pstmt.setString(2, code);
+            pstmt.setString(2, isize);
             int n=pstmt.executeUpdate();
             return n;
          }catch(Exception e) {
