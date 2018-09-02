@@ -39,12 +39,12 @@
 			<td><input type="button" value="교환" onclick="javascript:location.href='demand.do?cmd=buychange&num=${vo.orderNum}'"></td>
 			<td><input type="button" value="반품" onclick="javascript:location.href='demand.do?cmd=refund&num=${vo.orderNum}'"></td>
 			</c:if>
-			<c:if test="${vo.state=='교환신청중' }">
+			<!--<c:if test="${vo.state=='교환신청중' }">
 			<td><input type="button" value="반품" onclick="javascript:location.href='demand.do?cmd=refund&num=${vo.orderNum}'"></td>
 			</c:if>
 			<c:if test="${vo.state=='반품신청중' }">
 			<td><input type="button" value="교환" onclick="javascript:location.href='demand.do?cmd=buychange&num=${vo.orderNum}'"></td>
-			</c:if>
+			</c:if> --!>
 			<!-- 구매확정이 완료되면 교환,환불버튼이 안보이고 리뷰남기기버튼이 보인다.. -->
 			
 			</tr>
