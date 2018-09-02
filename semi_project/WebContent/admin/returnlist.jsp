@@ -19,6 +19,7 @@
 			<td>수량</td>
 			<td>상품가격</td>
 			<td>상태</td>
+			<td>반품사유</td>
 			<td> </td>
 			</tr>
 			<c:forEach var="vo" items="${list }">
@@ -29,6 +30,7 @@
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
 			<td>${vo.state }</td>
+			<
 			<c:if test="${vo.state == '교환신청중' }">
 			<td><input type="button" value="교환완료" onclick="javascript:location.href='demand.do?cmd=refundcon2&num=${vo.buyNum}'"></td>
 			</c:if>

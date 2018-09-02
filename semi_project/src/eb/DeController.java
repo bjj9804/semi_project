@@ -337,7 +337,7 @@ public class DeController extends HttpServlet {
       ArrayList<BuyVo> list2=dao.detail(orderNum);
       String buystate="";
       boolean x=true;
-      for(int i=0; i<list2.size(); i++) {
+      for(int i=0; i<list2.size(); i++) { //하나라도 구매취소교환반품이있으면 pay안바꿈
     	  buystate=list2.get(i).getState();
     	  if(buystate.equals("구매취소") || buystate.equals("교환신청중") || buystate.equals("반품신청중") || buystate.equals("반품완료")) {
     		  x=false;
