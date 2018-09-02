@@ -24,6 +24,7 @@
 						</c:choose>
 						<th>이미지</th> 
 						<th>상품정보</th> 
+						<th>사이즈</th> 
 						<th>판매가</th> 
 						<th>수량</th> 
 						<th>합계</th>					
@@ -38,6 +39,7 @@
 									<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1()"></td>
 									<td>${vo[1] }</td> <!-- 이미지 -->
 									<td>${vo[2] }</td> <!-- 상품정보 -->
+									<td>${vo[0].isize }</td> <!-- 상품사이즈 -->
 									<td>${vo[3] }</td> <!-- 판매가 -->
 									<td>${vo[0].orderAmount }</td> <!-- 수량 -->
 									<td name="price">${vo[0].price }</td> <!-- 합계 -->

@@ -248,6 +248,17 @@ BEGIN
 END;
 /
 
+CREATE OR REPLACE TRIGGER update_item
+AFTER update ON item
+FOR EACH ROW
+BEGIN
+	UPDATE lookitem SET code = :new.code WHERE code = :old.code;
+	UPDATE buy SET code = :new.code WHERE code = :old.code;
+	UPDATE itemimg SET code = :new.code WHERE code = :old.code;
+	UPDATE itemsize SET code = :new.code WHERE code = :old.code;
+	UPDATE reviewboard SET code = :new.code WHERE code = :old.code;
+END;
+/
 
 
 
@@ -298,5 +309,6 @@ BEGIN
 	UPDATE ITEMSIZE SET AMOUNT=AMOUNT+:NEW.ORDERAMOUNT WHERE CODE=:NEW.CODE AND ISIZE=:NEW.ISIZE AND :NEW.ORDERNUM>0;
 END;
 /
+
 
 

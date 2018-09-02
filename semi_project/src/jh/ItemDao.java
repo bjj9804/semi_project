@@ -34,13 +34,13 @@ public class ItemDao {
 				sub=rs.getString("sub");
 			}
 			String sql1="";
-			if(sub.equals("w")) {
+			if(sub.equals("W")) {
 				sql1="update look set lookCode=substr(lookCode,2) "
 						+ "where lookCode in "
 						+ "(select lookcode from "
 						+ "(select substr(lookcode,1,2) sub, lookcode from look) "
 						+ "where sub='RW')";
-			}else if(sub.equals("m")) {
+			}else if(sub.equals("M")) {
 				sql1="update look set lookCode=substr(lookCode,2) "
 						+ "where lookCode in "
 						+ "(select lookcode from "
@@ -296,17 +296,18 @@ public class ItemDao {
 			}
 		}
 	}
-	public int itemUpdate(String code,String price,String itemName,String description) {
+	public int itemUpdate(String code,String code1,String price,String itemName,String description) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConnection();
-			String sql="update item set price=?,itemName=?,description=? where code=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, price);
-			pstmt.setString(2, itemName);
-			pstmt.setString(3, description);
-			pstmt.setString(4, code);
+			String sql="update item set code=?, price=?,itemName=?,description=? where code=?";
+			pstmt=con.prepareStatement(sql);			
+			pstmt.setString(1, code1);
+			pstmt.setString(2, price);
+			pstmt.setString(3, itemName);
+			pstmt.setString(4, description);
+			pstmt.setString(5, code);
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -320,7 +321,29 @@ public class ItemDao {
 			}
 		}
 	}
-	
+	public int lookCodeUpdate(String lookCode,String lookCode1) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			System.out.println(lookCode+","+lookCode1);
+			String sql="update look set lookcode=? where lookcode=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, lookCode1);
+			pstmt.setString(2, lookCode);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 	public int amountUpdate(String code,String isize,String amount) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -345,10 +368,9 @@ public class ItemDao {
 		}
 	}
 	
-	public int itemInsert(String code,String price,String itemName,String description,String isize,String amount) {
+	public int itemInsert(String code,String price,String itemName,String description) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		PreparedStatement pstmt1=null;
 		try {
 			con=DBConnection.getConnection();
 			String sql="insert into item values(?,?,?,?)";
@@ -357,14 +379,8 @@ public class ItemDao {
 			pstmt.setString(2, price);
 			pstmt.setString(3, itemName);
 			pstmt.setString(4, description);
-			pstmt.executeUpdate();
-			String sql1="insert into itemsize values(?,?,?)";
-			pstmt1=con.prepareStatement(sql1);
-			pstmt1.setString(1, isize);
-			pstmt1.setString(2, code);
-			pstmt1.setString(3, amount);
-			pstmt1.executeUpdate();
-			return 1;
+			return pstmt.executeUpdate();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;
@@ -410,6 +426,29 @@ public class ItemDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, lookCode);
 			pstmt.setString(2, code);
+			return pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {				
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();				
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public int itemInsert4(String isize,String code,String amount) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="insert into itemsize values(?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, isize);
+			pstmt.setString(2, code);
+			pstmt.setString(3, amount);
 			return pstmt.executeUpdate();			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -575,7 +614,7 @@ public class ItemDao {
 			String sql="select * from "
 					+ "item,itemsize "
 					+ "where item.code=itemsize.code "
-					+ "order by item.code asc,itemsize.isize";
+					+ "order by item.code asc,itemsize.isize desc";
 					pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {

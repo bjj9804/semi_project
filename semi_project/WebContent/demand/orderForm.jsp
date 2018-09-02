@@ -18,11 +18,12 @@
 			<form action="/semi_project/jh/demand.do?cmd=order" method="post">
 			<h3>주문내역</h3>				
 				<table border="1" width="800" align="center">
-					<tr><th>이미지</th><th>상품정보</th><th>판매가</th><th>수량</th><th>합계</th></tr>
+					<tr><th>이미지</th><th>상품정보</th><th>사이즈</th><th>판매가</th><th>수량</th><th>합계</th></tr>
 					<c:forEach var="vo" items="${list }">
 					<tr>
 						<td>${vo[1] }</td>
 						<td>${vo[2] }</td>
+						<td>${vo[0].isize }</td>
 						<td>${vo[3] }</td>
 						<td>${vo[0].orderAmount }</td>
 						<td>${vo[0].price }</td>

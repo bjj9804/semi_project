@@ -43,13 +43,17 @@ public class DeController extends HttpServlet {
          refund(request, response);
       } else if (cmd != null && cmd.equals("buychange2")) {
          buychange2(request, response);
-      } else if (cmd != null && cmd.equals("refund2")) {
+      }else if (cmd != null && cmd.equals("buychange3")) {
+          buychange3(request, response);
+       } else if (cmd != null && cmd.equals("refund2")) {
          refund2(request, response);
       } else if (cmd != null && cmd.equals("returnlist")) {
          returnlist(request, response);
       } else if (cmd != null && cmd.equals("refundcon")) {
          refundcon(request, response);
-      }
+      }else if (cmd != null && cmd.equals("refundcon2")) {
+          refundcon2(request, response);
+       }
    }
    //주문관리의 주문리스트
    protected void paylist(HttpServletRequest request, HttpServletResponse response)
@@ -96,7 +100,7 @@ public class DeController extends HttpServlet {
          throws ServletException, IOException {
       int orderNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-      int n = dao.payconfirm(orderNum);
+      int n = dao.payconfirm(orderNum);   
       request.setAttribute("n", n);
       request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);
    }
@@ -209,11 +213,20 @@ public class DeController extends HttpServlet {
    }
 
    // 관리자페이지에 교환/환불리스트뿌려주기
-   protected void returnlist(HttpServletRequest request, HttpServletResponse response)
+
+protected void returnlist(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
       DemandDao dao = DemandDao.getInstance();
       ArrayList<BuyVo> list = dao.refundlist();
+      ArrayList<Return_buyVo> realist=new ArrayList<>();
+      for(int i=0; i<list.size(); i++){
+    	  BuyVo vo2=list.get(i);
+    	  int buynum = vo2.getBuyNum();
+    		Return_buyVo vo=dao.reason(buynum);
+    		realist.add(vo);
+      }
       request.setAttribute("list", list);
+      request.setAttribute("realist", realist);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 
@@ -222,16 +235,29 @@ public class DeController extends HttpServlet {
          throws ServletException, IOException {
       int buyNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-      int n = dao.refundup(buyNum);
+
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
-      int a = dao.payconfirm(orderNum);
+      int n = dao.refundup(buyNum);
+      ArrayList<BuyVo> list2=dao.detail(orderNum);
+      String buystate="";
+      boolean x=true;
+      for(int i=0; i<list2.size(); i++) { //하나라도 구매취소교환반품이있으면 pay안바꿈
+    	  buystate=list2.get(i).getState();
+    	  if(buystate.equals("구매취소") || buystate.equals("교환신청중") || buystate.equals("반품신청중") || buystate.equals("반품완료")) {
+    		  x=false;
+    	  }
+      }
+      if(x=true) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
+    	  int a = dao.payconfirm3(orderNum);
+      }
+      
+      
       //ArrayList<BuyVo> b= dao.detail(orderNum);
       //buy테이블에 order넘을 넣으면 그것들의 상태랑 번호가 나오는 
       ArrayList<BuyVo> list = dao.refundlist();
       request.setAttribute("list", list);
       request.setAttribute("n", n);
-      request.setAttribute("a", a);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 
@@ -264,30 +290,91 @@ public class DeController extends HttpServlet {
       DemandDao dao = DemandDao.getInstance();
       ArrayList<ArrayList<ItemsizeVo>> list = new ArrayList<>();
       ArrayList<ArrayList<ItemVo>> list2= new ArrayList<>();
+      ArrayList<Integer> buyNum=new ArrayList<>();
       int orderNum = Integer.parseInt(request.getParameter("orderNum"));
       for (int i = 0; i < checkArr.length; i++) {
-         int buyNum = Integer.parseInt(checkArr[i]);
-         list.add(dao.returnsize(buyNum));
-         list2.add(dao.namesch(buyNum));
-         
+         int buyNum1 = Integer.parseInt(checkArr[i]);
+         list.add(dao.returnsize(buyNum1));
+         list2.add(dao.namesch(buyNum1));
+         buyNum.add(buyNum1);
       }
       System.out.println(list.size());
       request.setAttribute("list", list);
       request.setAttribute("list2", list2);
       request.setAttribute("checkList", checkList);
       request.setAttribute("orderNum", orderNum);
+      request.setAttribute("buyNum", buyNum);
       request.getRequestDispatcher("/myshop/mybuy_change_choo.jsp").forward(request, response);
    }
 
    // 교환할 사이즈 받아와서 업데이트 시키기
    protected void buychange3(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-      String isize = request.getParameter("isize");
-      int buyNum = Integer.parseInt(request.getParameter("buyNum"));
+	   String sizeList = request.getParameter("sizeList");
+	   String buyList = request.getParameter("buyList");
+
+	   String[] sizeArr = sizeList.split("/"); //[치마,s] / [바지,m] 이렇게 /로 잘라줌
+	   String[] buyArr = buyList.split(", ");
+
+	   buyArr[0]=buyArr[0].substring(1, buyArr[0].length());
+	   buyArr[buyArr.length-1]=buyArr[buyArr.length-1].substring(0, buyArr[buyArr.length-1].length()-1);
+
+	   DemandDao dao = DemandDao.getInstance();
+	   ArrayList<String> list=new ArrayList<>(); 
+	   ArrayList<String> size=new ArrayList<>();
+	   ArrayList<String> name=new ArrayList<>();
+	   ArrayList<Integer> buyNumList=new ArrayList<>();
+	   int buyNum=0;
+	   for(int i=0; i< sizeArr.length; i++) { //list에 [치마,s] [바지,m] 배열을 넣어줌
+		   String nameSize=sizeArr[i];
+		   list.add(nameSize);
+		   buyNumList.add(Integer.parseInt(buyArr[i]));
+	   }
+	   for(int a=0; a< list.size(); a++	) {
+		   String[] nsArr= list.get(a).split(","); //list에 있는 값을 ,로 나눠준다 [s] [치마] 
+			String name1=nsArr[1]; //두번째 값을 name배열에 넣는다
+			   name.add(name1);
+			   size.add(nsArr[0]); //첫번째 값을 size배열에 넣는다
+	   }
+	   for(int b=0; b<size.size(); b++) { //size를 이용해서 buy테이블의 isize와 배송상태를 업데이트 시킨다.
+		   int n=dao.resize(size.get(b), buyNumList.get(b));
+		   buyNum=buyNumList.get(b);
+		   System.out.println(buyNumList.get(b)+","+size.get(b));
+	   }
+	   int a=dao.refundup3(buyNum);
+	   PayVo vo=dao.ordernumselect(buyNum);
+	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
+	   request.setAttribute("list", list1);
+	   request.setAttribute("a", a);
+	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
+
+   }
+   // 관리자페이지에서 buy상태 교환완료로 업데이트하기
+   protected void refundcon2(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      int buyNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
+      PayVo vo1 = dao.ordernumselect(buyNum);
+      int orderNum = vo1.getOrderNum();
+      int b=dao.refundup2(buyNum);//buy테이블의상태를 교환완료로바꿈
+      //해당 buynum의 ordernum과 같은 buynum들을 찾아서 그것들의 상태를 뽑아와서 모두 '교환완료'라면 pay테이블의 상태를 구매완료로 한다.
+      ArrayList<BuyVo> list2=dao.detail(orderNum);
+      String buystate="";
+      boolean x=true;
+      for(int i=0; i<list2.size(); i++) { //하나라도 구매취소교환반품이있으면 pay안바꿈
+    	  buystate=list2.get(i).getState();
+    	  if(buystate.equals("구매취소") || buystate.equals("교환신청중") || buystate.equals("반품신청중") || buystate.equals("반품완료")) {
+    		  x=false;
+    	  }
+      }
+      if(x=true) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
+    	  int a = dao.payconfirm2(orderNum);
+      }
       
-      
-      
-      
+      int n = dao.refundup3(buyNum);
+      ArrayList<BuyVo> list = dao.refundlist();
+      request.setAttribute("list", list);
+      request.setAttribute("n", n);
+      request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 }

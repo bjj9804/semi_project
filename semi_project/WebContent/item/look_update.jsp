@@ -96,7 +96,28 @@
 		}
 	}
 	
-	
+	var xhr4=null;
+	function lookCodeUpdate(lookCode){
+		xhr4=new XMLHttpRequest();
+		xhr4.onreadystatechange=lookCodeUpdateOk;
+		xhr4.open('post','/semi_project/jh/item.do?cmd=lookCodeUpdate',true);
+		xhr4.setRequestHeader("Content-Type","application/x-www-form-urlencoded");		
+		var lookCode1=document.getElementById("lookCode1").value;
+		var param="lookCode="+lookCode+"&lookCode1="+lookCode1;
+		xhr4.send(param);		
+	}
+	function lookCodeUpdateOk(){
+		if(xhr4.readyState==4 && xhr4.status==200){
+			var xml=xhr4.responseXML;
+			var code=xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+			if(code=='success'){
+				alert("정상적으로 변경되었습니다.");			
+			}else{
+				alert("변경실패!");
+			}
+			history.go(-1);
+		}
+	}
 	
 	
 	
@@ -119,6 +140,7 @@
 	<div id="content">
 		<div class="inner">
 			<h2>[ ${lvo.lookCode } ] 룩</h2>
+			<input type="text" id="lookCode1" value="${lvo.lookCode }"><input type="button" value="룩코드변경" onclick="lookCodeUpdate('${lvo.lookCode }')">
 			<h3>이미지 변경</h3>
 			<form name="look" action="/semi_project/jh/item.do?cmd=lookImgUpdate&lookCode=${lvo.lookCode }" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="check" name="check">

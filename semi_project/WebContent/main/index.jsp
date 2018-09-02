@@ -6,6 +6,18 @@
 	<jsp:include page="/inc/header.jsp"/>
 </head>
 <body>
+	<%
+		Cookie[] cooks = request.getCookies();
+		System.out.println(cooks);
+		if(cooks != null){
+			for(Cookie cook : cooks){
+		System.out.println(cook.getName()+","+cook.getValue());
+				if(cook.getName().equals("email")){
+					session.setAttribute("email", cook.getValue());
+				}
+			}
+		}
+	%>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="title" class="section">
 		<video autoplay	loop id="myVideo">

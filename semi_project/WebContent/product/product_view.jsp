@@ -6,13 +6,24 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 </head>
+<script type="text/javascript">
+	function cart(){
+		var frm=document.frm;
+		var zero=document.getElementById("isize").value;
+		if(zero=='0'){
+			alert('품절된 상품입니다.');
+		}else{
+			frm.submit();
+		}
+	}
 
+</script>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
 		<%String sessionE=(String)session.getAttribute("email"); %>
-		<form action="/semi_project/jh/demand.do?cmd=cart" method="post">
+		<form name="frm" action="/semi_project/jh/demand.do?cmd=cart" method="post">
 			<table width="800">
 				<tr>
 					<th>상품명</th>
@@ -26,9 +37,14 @@
 					<td>${item.price }</td>
 					<td>${item.description }</td>
 					<td>
-						<select name="isize">
+						<select id="isize" name="isize">
 							<c:forEach var="svo" items="${size}">
+							<c:if test="${svo.amount==0 }">
+								<option value="0">${svo.isize }------품절</option>
+							</c:if>
+							<c:if test="${svo.amount!=0 }">
 								<option value="${svo.isize }">${svo.isize } (${svo.amount })개 남음</option>
+							</c:if>
 							</c:forEach>
 						</select>
 					</td>
@@ -50,7 +66,7 @@
 			
 			<input type="hidden" name="code" value="${item.code }">
 			<input type="hidden" name="email" value="${email }">
-			<br><input type="submit" value="상품담기">
+			<br><input type="button" value="상품담기" onclick="cart()">
 		</form>
 		
 		

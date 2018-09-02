@@ -56,8 +56,31 @@ public class ItemController extends HttpServlet{
 			lookImgUpdate(request,response);
 		}else if(cmd!=null && cmd.equals("checkCode")) {
 			checkCode(request,response);
+		}else if(cmd!=null && cmd.equals("lookCodeUpdate")) {
+			lookCodeUpdate(request,response);
 		}
 	}
+	private void lookCodeUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String lookCode=request.getParameter("lookCode");
+		String lookCode1=request.getParameter("lookCode1");
+		ItemDao dao=ItemDao.getInstance();
+		int n=dao.lookCodeUpdate(lookCode,lookCode1);
+		
+		response.setContentType("text/xml;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		pw.println("<?xml version='1.0' encoding='utf-8'?>");
+		pw.print("<result>");
+		if(n>0) {
+			pw.println("<code>success</code>");
+		}else {
+			pw.println("<code>fail</code>");
+		}
+		pw.print("</result>");
+		pw.close();		
+					
+		
+	}
+	
 	private void runway(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String lookCode=request.getParameter("lookCode");
 		ItemDao dao=ItemDao.getInstance();
@@ -140,14 +163,26 @@ public class ItemController extends HttpServlet{
 			String price=mr.getParameter("price");
 			String itemName=mr.getParameter("itemName");
 			String description=mr.getParameter("description");
-			String isize=mr.getParameter("isize");
-			String amount=mr.getParameter("amount");				
+			String amountSmall=mr.getParameter("amountSmall");				
+			String amountMedium=mr.getParameter("amountMedium");				
+			String amountLarge=mr.getParameter("amountLarge");				
 			String lookList=mr.getParameter("lookList");
 			String[] lookArray=lookList.split(",");	
 			
-			
 			ItemDao dao=ItemDao.getInstance();
-			dao.itemInsert(code,price,itemName,description,isize,amount);
+			dao.itemInsert(code,price,itemName,description);
+			
+			if(amountSmall!=null && !amountSmall.equals("") && !amountSmall.equals("0")) {
+				dao.itemInsert4("small",code,amountSmall);
+			}
+			if(amountMedium!=null && !amountMedium.equals("") && !amountMedium.equals("0")) {
+				dao.itemInsert4("medium",code,amountMedium);
+			}
+			if(amountLarge!=null && !amountLarge.equals("") && !amountLarge.equals("0")) {
+				dao.itemInsert4("large",code,amountLarge);
+			}
+			
+			
 			
 			int fileCount=Integer.parseInt(mr.getParameter("fileCount"));
 			for(int i=1;i<=fileCount;i++) {			
@@ -199,12 +234,13 @@ public class ItemController extends HttpServlet{
 	}
 	private void itemUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");
+		String code1=request.getParameter("code1");
 		String price=request.getParameter("price");
 		String itemName=request.getParameter("itemName");
 		String description=request.getParameter("description");
 		
 		ItemDao dao=ItemDao.getInstance();
-		int n=dao.itemUpdate(code,price,itemName,description);
+		int n=dao.itemUpdate(code,code1,price,itemName,description);
 		
 		response.setContentType("text/xml;charset=utf-8");
 		PrintWriter pw=response.getWriter();

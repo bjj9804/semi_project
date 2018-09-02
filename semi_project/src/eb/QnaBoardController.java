@@ -152,7 +152,6 @@ public class QnaBoardController extends HttpServlet {
 		String name = request.getParameter("name");
 		QnaBoardDao dao = QnaBoardDao.getInstance();
 		String email1 = dao.getEmail(grp);
-		System.out.println(email + "," + name);
 		int flag = Integer.parseInt(request.getParameter("flag"));
 		String cmd1 = request.getParameter("cmd1");
 		String cmd2 = request.getParameter("cmd2");

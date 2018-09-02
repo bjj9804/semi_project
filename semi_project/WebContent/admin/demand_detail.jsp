@@ -18,6 +18,7 @@
 			<td>사이즈</td>
 			<td>수량</td>
 			<td>상품가격</td>
+			<td>상태</td>
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
@@ -26,6 +27,7 @@
 			<td>${vo.isize }</td>
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
+			<td>${vo.state }</td>
 			</tr>
 		
 			</c:forEach>
