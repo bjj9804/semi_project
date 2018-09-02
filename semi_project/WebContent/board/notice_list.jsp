@@ -22,6 +22,7 @@
 				</div>
 			</form>
 			<c:if test="${flag==0}">
+				<input type="button" value="삭제" onclick="delete1('${email}','${pageNum}')" class="btn_del">
 				<table class="board_list">
 					<colgroup>
 						<col style="width:5%;">
@@ -51,7 +52,6 @@
 					</c:forEach>
 				</table>
 				<div class="btn_wrap">
-					<input type="button" value="삭제" onclick="delete1('${email}','${pageNum}')" class="btn_del">
 					<input type="button" value="글작성" onclick="location.href='/semi_project/board/notice_insert.jsp'" class="btn_write">
 				</div>
 				<div class="pagination">

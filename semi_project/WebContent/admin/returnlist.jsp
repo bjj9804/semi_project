@@ -10,17 +10,26 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
 			<h1>교환/환불 리스트</h1>
+			<table class="board_list">
+			<colgroup>
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+			</colgroup>
 			<tr>
-			<td>주문번호</td>
-			<td>상품코드</td>
-			<td>사이즈</td>
-			<td>수량</td>
-			<td>상품가격</td>
-			<td>상태</td>
-			<td>반품사유</td>
-			<td> </td>
+			<th>주문번호</th>
+			<th>상품코드</th>
+			<th>사이즈</th>
+			<th>수량</th>
+			<th>상품가격</th>
+			<th>상태</th>
+			<th>반품사유</th>
+			<th></th>
 			</tr>
 			<c:forEach var="vo" items="${list }" varStatus="status">
 			<tr>
