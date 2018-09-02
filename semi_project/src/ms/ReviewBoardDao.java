@@ -112,13 +112,13 @@ public class ReviewBoardDao {
 		ItemImgVo vo = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from itemImg where code = ?";
+			String sql = "select * from itemImg where code = ? and imgtype='front'";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String imgType = rs.getString("imgtype");
-				String imgScr = rs.getString("imgsrc");
+				String imgScr = rs.getString("imgscr");
 				vo = new ItemImgVo(imgType, code, imgScr);
 			}
 			return vo;
@@ -178,14 +178,52 @@ public class ReviewBoardDao {
 		}
 	}
 	
-	public ArrayList<ReviewBoardVo> list(int startRow, int endRow) {
+	public int getSearchCount1(String search, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConnection();
+			String sql="select NVL(count(num),0) cnt from reviewboard where "+ search +" like '%"+keyword+"%'";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}else {
+				return 0;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	public ArrayList<ReviewBoardVo> list(int startRow, int endRow, String search, String keyword) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String sql;
+		if(search!=null) {
+			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where "+search+ " like '%"+keyword+"%'" +" order by num desc) AA) where rnum>=? and rnum<=?";
+		}else {
+			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
+		}
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
+			//String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);

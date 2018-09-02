@@ -30,8 +30,7 @@
 			<td>${vo.state }</td>
 			<td>
 			<c:if test="${state1=='구매완료' }">
-			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰남겨</a><br>
-			<td><input type="button" value="리뷰남기기" onclick="javascript:location.href='/semi_project/board/review_insert.jsp?code='+${vo.code}"></td>
+			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br>
 			</c:if>
 			</td>
 			</tr>

@@ -9,11 +9,12 @@
 <body>
 <%
 	String code = request.getParameter("code");
+	System.out.print(code);
 %>
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/reviewBoard.do?cmd=insert&email=${email }" method="post" 
+			<form action="/semi_project/reviewBoard.do?cmd=insert&email=${email }&code=<%=code %>" method="post" 
 			enctype="multipart/form-data">
 				height<select name="height">
 					<option value="0">입력안함</option>
@@ -50,7 +51,6 @@
 					</tr>
 				</table>
 				<input type="submit" value="작성">
-				<input type="hidden" name="code" value=<%=code %>>
 			</form>
 		</div>
 	</div>

@@ -12,14 +12,15 @@
 		<div class="inner">
 			<h2>Review</h2>
 			<c:if test="${flag==0}">
-				<input type="button" value="삭제" onclick="delete1('${email}','${pageNum}')" class="btn_del">
+				<input type="button" value="삭제"
+					onclick="delete1('${email}','${pageNum}')" class="btn_del">
 				<table class="board_list">
 					<colgroup>
-						<col style="width:5%">
-						<col style="width:10%">
-						<col style="width:15%">
+						<col style="width: 5%">
+						<col style="width: 10%">
+						<col style="width: 15%">
 						<col>
-						<col style="width:10%">
+						<col style="width: 10%">
 					</colgroup>
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
@@ -44,7 +45,9 @@
 				<div class="pagination">
 					<c:choose>
 						<c:when test="${pageNum>10}">
-							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }" class="prev">이전</a>
+							<a
+								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }"
+								class="prev">이전</a>
 						</c:when>
 						<c:otherwise>
 							<a href="javascrit:;" class="prev">이전</a>
@@ -53,16 +56,21 @@
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 						<c:choose>
 							<c:when test="${pageNum==i }">
-								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }" class="on">${i }</a>
+								<a
+									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"
+									class="on">${i }</a>
 							</c:when>
 							<c:otherwise>
-								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }">${i }</a>
+								<a
+									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }">${i }</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${endPage<pageCount}">
-							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }" class="next">다음</a>
+							<a
+								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }"
+								class="next">다음</a>
 						</c:when>
 						<c:otherwise>
 							<a href="javascript:;" class="next">다음</a>
@@ -128,6 +136,15 @@
 					</c:choose>
 				</div>
 			</c:if>
+			<form action="/semi_project/reviewBoard.do?cmd=list&email=${email }" method="post">
+				<select name="search">
+					<option value="name">작성자</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+				</select> 
+				<input type="text" name="keyword"> <input type="submit"
+					value="검색">
+			</form>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />
@@ -153,13 +170,13 @@
 			}
 		}
 	}
-	
-	function delete1(email, pageNum ) {
+
+	function delete1(email, pageNum) {
 		var checkList = "";
 		var chk = document.getElementsByName("check");
 		for (var i = 1; i < chk.length; i++) {
 			if (chk[i].checked == true) {
-				checkList += chk[i].value + ",";	
+				checkList += chk[i].value + ",";
 			}
 		}
 		checkList = checkList.substring(0, checkList.lastIndexOf(","));//맨끝 콤마 지우기
@@ -170,8 +187,9 @@
 		}
 		console.log(checkList);
 		if (confirm("삭제하시겠습니까?")) {
-			location.href = "/semi_project/reviewBoard.do?checkList=" + checkList
-					+ "&cmd=delete&cmd2=board&email=" + email + "&pageNum=" + pageNum;
+			location.href = "/semi_project/reviewBoard.do?checkList="
+					+ checkList + "&cmd=delete&cmd2=board&email=" + email
+					+ "&pageNum=" + pageNum;
 		}
 	}
 </script>

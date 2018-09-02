@@ -96,6 +96,14 @@ public class ReviewBoardController extends HttpServlet {
 	public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
 		System.out.println(spageNum);
+		String search = null;
+		String keyword = null;
+		if(request.getParameter("search") !=null){
+			search = request.getParameter("search");
+			keyword = request.getParameter("keyword");
+			request.getSession().setAttribute("search", search);
+			request.getSession().setAttribute("keyword", keyword);
+		}
 		int pageNum = 1;
 		if (spageNum != null) {
 			pageNum = Integer.parseInt(spageNum);
@@ -105,8 +113,13 @@ public class ReviewBoardController extends HttpServlet {
 		int startRow = pageNum * 10 - 9;
 		int endRow = startRow + 9;
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		ArrayList<ReviewBoardVo> list = dao.list(startRow, endRow);
-		int pageCount = (int) Math.ceil(dao.getCount() / 10.0);
+		ArrayList<ReviewBoardVo> list = dao.list(startRow, endRow, search, keyword);
+		int pageCount;
+		if(search!=null) {
+			pageCount = (int)Math.ceil(dao.getSearchCount1(search, keyword)/10.0);
+		}else {
+			pageCount = (int)Math.ceil(dao.getCount()/10.0);
+		}
 		int startPage = ((pageNum - 1) / 10 * 10) + 1;
 		// int startPage = (pageNum/10)*10-9;
 		// 끝페이지번호
@@ -158,7 +171,7 @@ public class ReviewBoardController extends HttpServlet {
 		int startRow = pageNum * 10 - 9;
 		int endRow = startRow + 9;
 		ReviewBoardDao dao = ReviewBoardDao.getInstance();
-		ArrayList<ReviewBoardVo> list = dao.searchlist(startRow, endRow, height, weight);
+		ArrayList<ReviewBoardVo> searchlist = dao.searchlist(startRow, endRow, height, weight);
 		int pageCount = 0;
 		if (height != 0 || weight != 0) {
 			pageCount = (int) Math.ceil(dao.getSearchCount(height, weight) / 10.0);
@@ -170,12 +183,12 @@ public class ReviewBoardController extends HttpServlet {
 		if (endPage > pageCount) {
 			endPage = pageCount;
 		}
-		request.setAttribute("list", list);
+		request.setAttribute("searchlist", searchlist);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/board/review_searchList.jsp").forward(request, response);
+		request.getRequestDispatcher("/product_lookItem/.jsp").forward(request, response);
 	}
 
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

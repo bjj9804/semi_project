@@ -23,10 +23,6 @@
 				${ob[0] }
 				<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][0] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][1] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
 			</c:forEach>
-			
-			
-			
-			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
