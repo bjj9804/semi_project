@@ -31,7 +31,9 @@ public class DeController extends HttpServlet {
          mylist(request, response);
       } else if (cmd != null && cmd.equals("stateconfirm")) {
          stateconfirm(request, response);
-      } else if (cmd != null && cmd.equals("cancel")) {
+      }else if (cmd != null && cmd.equals("stateconfirm2")) {
+         stateconfirm2(request, response);
+       } else if (cmd != null && cmd.equals("cancel")) {
          cancel(request, response);
       } else if (cmd != null && cmd.equals("change")) {
          change(request, response);
@@ -247,7 +249,7 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
     	  }
       }
       if(x=true) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
-    	  int a = dao.payconfirm3(orderNum);
+    	  int a = dao.payconfirm2(orderNum);
       }
       
       
@@ -349,6 +351,7 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
 	   }
 	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
 	   int a=dao.refundup3(vo.getOrderNum());
+	   System.out.println(a+"이거되나요?");
 	   request.setAttribute("list", list1);
 	   request.setAttribute("a", a);
 	   request.setAttribute("n", n);
@@ -384,4 +387,30 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
       request.setAttribute("b", b);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
+ //구매자가 배송상태 업데이트(구매확정)-buy만//그리구 pay도 구매완료
+   protected void stateconfirm2(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      int buyNum = Integer.parseInt(request.getParameter("num"));
+      DemandDao dao = DemandDao.getInstance();
+      int n = dao.payconfirm4(buyNum);
+      //buy업데이트하면서 상태체크해서모두 구매완료나 교환완료면 pay도 구매완료로 업데이트시켜주기.
+      PayVo vo1 = dao.ordernumselect(buyNum);
+      int orderNum = vo1.getOrderNum();
+      ArrayList<BuyVo> list2=dao.detail(orderNum);
+      String buystate="";
+      int x=0;
+      for(int i=0; i<list2.size(); i++) { //하나라도 구매취소교환반품이있으면 pay안바꿈
+    	  buystate=list2.get(i).getState();
+    	  System.out.println(list2.get(i).getState()+"/");
+    	  if(buystate.equals("구매취소") || buystate.equals("교환신청중") || buystate.equals("배송중") || buystate.equals("반품신청중") || buystate.equals("반품완료")) {
+    		  x=1;
+    	  }
+      }
+      if(x==0) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
+    	  int a = dao.payconfirm2(orderNum);
+      }
+      request.setAttribute("n", n);
+      request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);
+   }
+   
 }

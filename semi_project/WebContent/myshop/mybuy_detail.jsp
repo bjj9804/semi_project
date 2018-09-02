@@ -34,7 +34,7 @@
 			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br>
 			</c:if>
 			<c:if test="${vo.state=='배송중' }">
-			<input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm&num=${vo.orderNum}'">
+			<input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm2&num=${vo.buyNum}'">
 			</c:if>
 			</td>
 			</tr>
