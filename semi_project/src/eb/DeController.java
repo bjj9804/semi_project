@@ -213,11 +213,20 @@ public class DeController extends HttpServlet {
    }
 
    // 관리자페이지에 교환/환불리스트뿌려주기
-   protected void returnlist(HttpServletRequest request, HttpServletResponse response)
+
+protected void returnlist(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
       DemandDao dao = DemandDao.getInstance();
       ArrayList<BuyVo> list = dao.refundlist();
+      ArrayList<Return_buyVo> realist=new ArrayList<>();
+      for(int i=0; i<list.size(); i++){
+    	  BuyVo vo2=list.get(i);
+    	  int buynum = vo2.getBuyNum();
+    		Return_buyVo vo=dao.reason(buynum);
+    		realist.add(vo);
+      }
       request.setAttribute("list", list);
+      request.setAttribute("realist", realist);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 
@@ -229,14 +238,26 @@ public class DeController extends HttpServlet {
 
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
-      int a = dao.payconfirm(orderNum);
       int n = dao.refundup(buyNum);
+      ArrayList<BuyVo> list2=dao.detail(orderNum);
+      String buystate="";
+      boolean x=true;
+      for(int i=0; i<list2.size(); i++) { //하나라도 구매취소교환반품이있으면 pay안바꿈
+    	  buystate=list2.get(i).getState();
+    	  if(buystate.equals("구매취소") || buystate.equals("교환신청중") || buystate.equals("반품신청중") || buystate.equals("반품완료")) {
+    		  x=false;
+    	  }
+      }
+      if(x=true) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
+    	  int a = dao.payconfirm3(orderNum);
+      }
+      
+      
       //ArrayList<BuyVo> b= dao.detail(orderNum);
       //buy테이블에 order넘을 넣으면 그것들의 상태랑 번호가 나오는 
       ArrayList<BuyVo> list = dao.refundlist();
       request.setAttribute("list", list);
       request.setAttribute("n", n);
-      request.setAttribute("a", a);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 
@@ -320,9 +341,11 @@ public class DeController extends HttpServlet {
 		   buyNum=buyNumList.get(b);
 		   System.out.println(buyNumList.get(b)+","+size.get(b));
 	   }
+	   int a=dao.refundup3(buyNum);
 	   PayVo vo=dao.ordernumselect(buyNum);
 	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
 	   request.setAttribute("list", list1);
+	   request.setAttribute("a", a);
 	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
 
    }
@@ -333,6 +356,7 @@ public class DeController extends HttpServlet {
       DemandDao dao = DemandDao.getInstance();
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
+      int b=dao.refundup2(buyNum);//buy테이블의상태를 교환완료로바꿈
       //해당 buynum의 ordernum과 같은 buynum들을 찾아서 그것들의 상태를 뽑아와서 모두 '교환완료'라면 pay테이블의 상태를 구매완료로 한다.
       ArrayList<BuyVo> list2=dao.detail(orderNum);
       String buystate="";
@@ -346,7 +370,8 @@ public class DeController extends HttpServlet {
       if(x=true) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
     	  int a = dao.payconfirm2(orderNum);
       }
-      int n = dao.refundup2(buyNum);
+      
+      int n = dao.refundup3(buyNum);
       ArrayList<BuyVo> list = dao.refundlist();
       request.setAttribute("list", list);
       request.setAttribute("n", n);

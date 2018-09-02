@@ -246,6 +246,30 @@ public class DemandDao {
             }
          }
       }
+    //배송상태 업데이트(pay테이블만.) 반품완료로.
+      public int payconfirm3(int num) {
+         Connection con=null;
+         PreparedStatement pstmt=null;
+         try {
+            con=DBConnection.getConnection();
+            String sql="update pay set state=? where orderNum=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1, "반품완료");
+            pstmt.setInt(2, num);
+            int n=pstmt.executeUpdate();
+            return n ;
+         }catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+         }finally {
+            try {
+               if(pstmt!=null) pstmt.close();
+               if(con!=null) con.close();      
+            }catch(SQLException se) {
+               se.printStackTrace();
+            }
+         }
+      }
    //배송전 주문취소(삭제)
       public int paycancel(int num) {
          Connection con=null;
@@ -347,7 +371,7 @@ public class DemandDao {
             }
          }
       }
-   //상품 교환
+   //상품 배송중
       public int change(int num) {
          Connection con=null;
          PreparedStatement pstmt=null;
@@ -470,7 +494,7 @@ public class DemandDao {
                   con=DBConnection.getConnection();
                   String sql="update buy set state=? where buyNum=?";
                   pstmt=con.prepareStatement(sql);
-                  pstmt.setString(1, "교환대기중");
+                  pstmt.setString(1, "교환신청중");
                   pstmt.setInt(2, num);
                   int n=pstmt.executeUpdate();
                   return n;
@@ -511,6 +535,42 @@ public class DemandDao {
             }
          }
       }
+      //buynum을 넣으면 반품사유를 내보내줌.
+      public Return_buyVo reason(int buyNum) {
+          String sql="select * from return_buy where buynum=?";
+          Connection con=null;
+          PreparedStatement pstmt=null;
+          ResultSet rs=null;
+          Return_buyVo vo=null;
+          try {
+             con=DBConnection.getConnection();
+             pstmt=con.prepareStatement(sql);   
+             pstmt.setInt(1, buyNum);
+             rs=pstmt.executeQuery();
+             while(rs.next()) {
+             String reason=rs.getString("reason");
+             vo=new Return_buyVo(buyNum, reason);
+             }
+             return vo;
+          }catch(SQLException se) {
+             System.out.println(se.getMessage());
+             return null;
+          }catch(ClassNotFoundException cn) {
+             System.out.println(cn.getMessage());
+             return null;
+          } catch (NamingException e) {
+             e.printStackTrace();
+             return null;
+          }finally {
+             try {
+                if(pstmt!=null) pstmt.close();
+                if(rs!=null) rs.close();
+                if(con!=null) con.close();      
+             }catch(SQLException se) {
+                se.printStackTrace();
+             }
+          }
+       }
       //buynum으로 pay테이블검색해서 정보뽑아오기
       public PayVo ordernumselect(int buyNum) {
          String sql="select p.* " + 
@@ -564,7 +624,7 @@ public class DemandDao {
             con=DBConnection.getConnection();
             String sql="update pay set state=? where orderNum=?";
             pstmt=con.prepareStatement(sql);
-            pstmt.setString(1, "반품대기중");
+            pstmt.setString(1, "반품신청중");
             pstmt.setInt(2, num);
             int n=pstmt.executeUpdate();
             return n;
@@ -647,6 +707,30 @@ public class DemandDao {
             }
          }
       }
+      //구매자-교환신청중으로 보이기pay
+      public int refundup3(int num) {
+          Connection con=null;
+          PreparedStatement pstmt=null;
+          try {
+             con=DBConnection.getConnection();
+             String sql="update pay set state=? where buyNum=?";
+             pstmt=con.prepareStatement(sql);
+             pstmt.setString(1, "교환신청중");
+             pstmt.setInt(2, num);
+             int n=pstmt.executeUpdate();
+             return n;
+          }catch(Exception e) {
+             e.printStackTrace();
+             return -1;
+          }finally {
+             try {
+                if(pstmt!=null) pstmt.close();
+                if(con!=null) con.close();      
+             }catch(SQLException se) {
+                se.printStackTrace();
+             }
+          }
+       }
       //buy넘버 받아와서 해당상품의 다른 사이즈 뿌려주기
       public ArrayList<ItemsizeVo> returnsize(int buyNum) {
          Connection con=null;
