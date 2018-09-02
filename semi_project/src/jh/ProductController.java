@@ -120,7 +120,6 @@ public class ProductController extends HttpServlet{
 			obj.put("height", vo.getHeight());
 			obj.put("weight", vo.getWeight());
 			obj.put("hit", vo.getHit());
-			obj.put("regdate", vo.getRegdate());
 			obj.put("img", vo.getImg());
 			obj.put("itemImg", vo.getItemImg());
 			obj.put("code", vo.getCode());
