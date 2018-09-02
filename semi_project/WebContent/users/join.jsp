@@ -200,7 +200,7 @@
 	<style>
 		#joinWrap{margin: auto; width: 80%; padding: 20px; border: solid 1px #ccc; background: #fff; margin-bottom: 30px;}
 		#joinWrap h1{text-align: center;}
-		#joinWrap table{margin: auto; margin: 20px; width: 800px; border: solid 1px #ccc;}
+		#joinWrap table{margin: 20px auto; width: 800px; border: solid 1px #ccc;}
 		#joinWrap table tr td{padding: 10px; }
 		#joinwrap table tr th{width: 300px;}
 	</style>
@@ -214,11 +214,12 @@
 				<form action="/semi_project/mh/users.do?cmd=joinform" method="post" onsubmit="return check();">
 					<!-- 계정 세부정보 email,pwd 확인 -->
 					<table>
+						<colgroup>
+							<col style="">
+						</colgroup>
 						<tr>
-							<th rowspan="12">계정 세부 정보</th>
-						</tr>
-						<tr>
-							<td colspan="3">이메일 주소</td>
+							<th rowspan="11">계정 세부 정보</th>
+							<td colspan="4">이메일 주소</td>
 						</tr>
 						<tr>
 							<td>
@@ -246,12 +247,12 @@
 							<td>
 						</tr>
 						<tr>
-							<td colspan="3">
+							<td colspan="4">
 								<span id="echeck" style="color:red"> </span>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3">이메일 주소 다시 입력</td>
+							<td colspan="4">이메일 주소 다시 입력</td>
 						</tr>
 						<tr>
 							<td>
@@ -279,7 +280,7 @@
 							<td>
 						</tr>
 						<tr>
-							<td colspan="3">
+							<td colspan="4">
 								<span id="echeck2" style="color:red"> </span>
 							</td>
 						</tr>
@@ -288,6 +289,7 @@
 								비밀번호
 							</td>
 							<td> </td>
+							<td> </td>
 							<td>
 								비밀번호 다시 입력
 							</td>
@@ -295,12 +297,14 @@
 						<tr>
 							<td><input type="password" name="pwd" id="pwd" onkeyup="pwdcheck()" placeholder="PASSWORD"> </td>
 							<td> </td>
+							<td> </td>
 							<td><input type="password" name="pwdok" id="pwdok" onkeyup="pwdcheck2()" placeholder="PASSWORD"></td>
 						</tr>
 						<tr>
 							<td>
 								<span id="pwdcheck" style="color:red"></span>
 							</td>
+							<td></td>
 							<td></td>
 							<td>
 								<span id="pwdcheck2" style="color:red"></span>
@@ -310,7 +314,8 @@
 							<td>
 								이메일/비밀번호 찾기 질문
 							</td>
-							<td> </td>
+							<td></td>
+							<td></td>
 							<td>
 								답변
 							</td>
@@ -333,6 +338,7 @@
 									<option value="12">방 벽지 색깔은?</option>	
 								</select>
 							</td>
+							<td> </td>
 							<td> </td>
 							<td><input type="text" name="answer" placeholder="ANSWER"></td>
 						</tr>

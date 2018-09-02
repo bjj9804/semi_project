@@ -25,18 +25,21 @@
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 						<th></th>
-						<th>작성자</th>
+						<th>작성자11</th>
 						<th>글제목</th>
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
-							<td><input type="checkbox" name="check" value="${vo.num }"
-								onclick="check1()"></td>
-							<td><img src="/semi_project/itemFile/${vo.itemImg}"></td>
+							<td>
+								<input type="checkbox" name="check" value="${vo.num }" onclick="check1()">
+							</td>
+							<td>
+								<img src="/semi_project/itemFile/${vo.itemImg}" class="review_img">
+							</td>
 							<td>${vo.name }</td>
-							<td><a
-								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
+							<td>
+								<a href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
@@ -87,12 +90,12 @@
 					<tr>
 						<th></th>
 						<th>작성자</th>
-						<th>글제목</th>
+						<th>글제목11</th>
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
-							<td><img src="/semi_project/itemFile/${vo.itemImg}"></td>
+							<td><img src="/semi_project/itemFile/${vo.itemImg}" style="display:block; width:100%;"></td>
 							<td>${vo.name }</td>
 							<td>${vo.title }</td>
 							<td><a

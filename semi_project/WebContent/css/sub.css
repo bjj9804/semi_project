@@ -3,6 +3,7 @@
 #content .inner .board_list{width:100%; border-top:2px solid #000; text-align:center; margin-top:50px;}
 #content .inner .board_list th{height:48px; border-bottom:1px solid #999; background-color:#fff;} 
 #content .inner .board_list td{height:48px; border-bottom:1px solid #999;}
+#content .inner .board_list td img{display:block; width:100%;}
 
 #content .inner .btn_wrap{position:absolute; right:0; bottom:0; font-size:0;}
 #content .inner .btn_wrap input[type=button]{display:inline-block; vertical-align:middle; width:85px; height:35px; cursor:pointer;}
