@@ -46,7 +46,7 @@
 							<c:forEach var="vo" items="${list }">						
 								<tr>
 									<td><input type="checkbox" name="check" value="${vo[0].buyNum }" onclick="check1()"></td>
-									<td>${vo[1] }</td> <!-- 이미지 -->
+									<td><img src="/semi_project/itemFile/${vo[1] }"></td> <!-- 이미지 -->
 									<td>${vo[2] }</td> <!-- 상품정보 -->
 									<td>${vo[0].isize }</td> <!-- 상품사이즈 -->
 									<td>${vo[3] }</td> <!-- 판매가 -->

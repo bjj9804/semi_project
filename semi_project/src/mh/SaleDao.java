@@ -397,7 +397,7 @@ public class SaleDao {
 				String code = rs.getString("code");
 				String isize = rs.getString("isize");
 				int orderAmount = rs.getInt("orderAmount");
-				int price = rs.getInt("buyNum");
+				int price = rs.getInt("price");
 				String state = rs.getString("state");
 				BuyVo vo= new BuyVo(buyNum,orderNum,code,isize,orderAmount,price,state);
 				list.add(vo);
