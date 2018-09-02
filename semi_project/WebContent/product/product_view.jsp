@@ -21,12 +21,21 @@
 	function getList() {
 		//var height = document.height;
 		//var weight = document.weight;
-		var frm1 = document.frm1;
-		frm1.submit();
+		//var frm1 = document.frm1;
+		//frm1.submit();
+		var height = document.getElementById("height").value;
+		var weight = document.getElementById("weight").value;
+		var code = document.getElementById("code").value;
 		xhr1 = new XMLHttpRequest();
 		xhr1.onreadystatechange = listOk;
-		xhr1.open('get', '/semi_project/jh/product.do?cmd=itemDetailSearch', true);
-		xhr1.send();
+		xhr1.open('post', 'product.do?cmd=itemDetailSearch', true);
+		xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		console.log(height + " " + weight + " " + code);
+		var param = "height=" + height + "&weight=" + weight + "&code=" + code;
+		//post요청시 파라미터를 send메소드를 통해 보낸다
+		xhr1.send(param);
+		//xhr1.open('get', '/semi_project/jh/product.do?cmd=itemDetailSearch&height='+height + '&weight='+ weight+'&code='+code, true);
+		//xhr1.send();
 	}
 	
 	function listOk() {
@@ -47,7 +56,7 @@
 	}
 	function removeAll() { 
 		var searchlist = document.getElementById("searchlist");
-		var nodes = searchist.childNodes;
+		var nodes = searchlist.childNodes;
 		for(var i=nodes.length-1;i>=0;i--){
 			var child = nodes.item(i);
 			searchist.removeChild(child);
@@ -105,10 +114,7 @@
 			<input type="hidden" name="email" value="${email }">
 			<br><input type="button" value="상품담기" onclick="cart()">
 		</form>
-		
-		<form action="/semi_project/jh/product.do?cmd=itemDetail"
-				method="post" name="frm1">
-				height <select name="height">
+				height <select id="height">
 					<option value="">입력안함</option>
 					<option value="140">~140</option>
 					<option value=150>140~150</option>
@@ -118,7 +124,7 @@
 					<option value=190>180~190</option>
 					<option value=200>190~200</option>
 					<option value=210>200~</option>
-				</select> &nbsp; &nbsp; weight <select name="weight">
+				</select> &nbsp; &nbsp; weight <select id="weight">
 					<option value="">입력안함</option>
 					<option value="40">~40kg</option>
 					<option value=50>40kg~50kg</option>
@@ -127,10 +133,10 @@
 					<option value=80>70kg~80kg</option>
 					<option value=90>80kg~90kg</option>
 					<option value=100>90kg~</option>
-				</select> <input type="button" value="리뷰보기" onclick="getList()">
-				<input type="hidden" name="code" value="${item.code }">
-				<>
-			</form><br>
+				</select> 
+				<input type="hidden" id="code" value="${item.code }">
+				<input type="button" value="리뷰보기" onclick="getList()">
+				<br>
 		<div id="searchlist"></div>
 		</div>
 	</div>

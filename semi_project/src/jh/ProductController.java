@@ -107,7 +107,7 @@ public class ProductController extends HttpServlet{
 			request.getSession().setAttribute("weight", weight);
 		}
 		String code=request.getParameter("code");
-		System.out.println(code + " " + height +" " + weight);
+		System.out.println(code + "11" + height + "11" + weight);
 		ReviewBoardDao redao = ReviewBoardDao.getInstance();
 		ArrayList<ReviewBoardVo> list = redao.searchlist(1, 10, height, weight, code);
 		JSONArray arr = new JSONArray();
