@@ -340,13 +340,20 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
 			   
 	   }
 	   PayVo vo=null;
+	   BuyVo vo1=null;
+	   int amount=0;
 	   int n=0;
+	   int x=0;
+	   String code=null;
 	   for(int b=0; b<size.size(); b++) { //size를 이용해서 buy테이블의 isize와 배송상태를 업데이트 시킨다.
 		   n=dao.resize(size.get(b), buyNumList.get(b));
-		   System.out.println(size.get(b)+"//"+buyNumList.get(b));
 		   buyNum=buyNumList.get(b);
+		   vo1=dao.buydetail(buyNum);
+		   amount=vo1.getOrderAmount();
+		   code=vo1.getCode();
+		   System.out.println(amount+","+code+","+size.get(b));//이거왜안찍히지?
+		   x=dao.reamount2(amount,code,size.get(b));//실행안됨
 		   vo=dao.ordernumselect(buyNum);
-		   System.out.println(buyNum+"//");
 		   System.out.println(vo.getAddr()+vo.getState());
 	   }
 	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
@@ -358,7 +365,7 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
 	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
    }
    
-   // 관리자페이지에서 buy상태 교환완료로 업데이트하기
+// 관리자페이지에서 buy상태 교환완료로 업데이트하기
    protected void refundcon2(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
       int buyNum = Integer.parseInt(request.getParameter("num"));

@@ -39,7 +39,8 @@
 			<td>${vo.state }
 			
 			<c:if test="${vo.state=='구매완료' || vo.state=='교환완료'}">
-			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br>
+			<!-- <a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br> -->
+			<br><input type="button" value="리뷰작성" onclick="javascript:location.href='/semi_project/board/review_insert.jsp?code=${vo.code }'">
 			</c:if>
 			<c:if test="${vo.state=='배송중' }">
 			<input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm2&num=${vo.buyNum}'">
