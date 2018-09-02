@@ -22,7 +22,7 @@
 		</ul>
 	</div>
 	<div class="inner">
-		<h1><a href="/semi_project/main/index.jsp"><img src="/semi_project/images/main/logo.png" alt="구찌"></a></h1>
+		<h1><a href="/semi_project/main/index.jsp"><img src="/semi_project/images/main/logo.jpg" alt="파발"></a></h1>
 		<ul class="gnb">
 			<li class="sub">
 				<a href="/semi_project/jh/product.do?cmd=lookList&cmd1=runway" class="">RUNWAY</a>
