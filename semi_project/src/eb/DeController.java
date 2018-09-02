@@ -148,10 +148,10 @@ public class DeController extends HttpServlet {
       int orderNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
       ArrayList<BuyVo> list = dao.detail(orderNum);
-      PayVo vo = dao.selectview(orderNum);
-      String state1 = vo.getState();
+      //PayVo vo = dao.selectview(orderNum);
+     // String state1 = vo.getState();
       request.setAttribute("list", list);
-      request.setAttribute("state1", state1);
+     // request.setAttribute("state1", state1);
       request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
    }
 
@@ -336,16 +336,15 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
 			   name.add(name1);
 			   size.add(nsArr[0]); //첫번째 값을 size배열에 넣는다
 	   }
+	   PayVo vo=null;
 	   for(int b=0; b<size.size(); b++) { //size를 이용해서 buy테이블의 isize와 배송상태를 업데이트 시킨다.
 		   int n=dao.resize(size.get(b), buyNumList.get(b));
 		   buyNum=buyNumList.get(b);
-		   System.out.println(buyNumList.get(b)+","+size.get(b));
+		   int a=dao.refundup3(buyNum);
+		   vo=dao.ordernumselect(buyNum);
 	   }
-	   int a=dao.refundup3(buyNum);
-	   PayVo vo=dao.ordernumselect(buyNum);
 	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
 	   request.setAttribute("list", list1);
-	   request.setAttribute("a", a);
 	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
    }
    
@@ -373,10 +372,9 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
     	  int a = dao.payconfirm2(orderNum);
       }
       
-      int n = dao.refundup3(buyNum);
       ArrayList<BuyVo> list = dao.refundlist();
       request.setAttribute("list", list);
-      request.setAttribute("n", n);
+      request.setAttribute("b", b);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
 }

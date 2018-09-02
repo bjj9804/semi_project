@@ -149,7 +149,7 @@ public class DemandDao {
    
    //나(회원) 주문확인
    public ArrayList<PayVo> mylist(String email) {
-      String sql="select * from pay where email=?";
+      String sql="select * from pay where email=? and ordernum>0";
       Connection con=null;
       PreparedStatement pstmt=null;
       ResultSet rs=null;

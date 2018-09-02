@@ -19,6 +19,7 @@
 			<td>수량</td>
 			<td>상품가격</td>
 			<td>주문상태</td>
+			
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
@@ -29,8 +30,11 @@
 			<td>${vo.price }</td>
 			<td>${vo.state }</td>
 			<td>
-			<c:if test="${state1=='구매완료' }">
+			<c:if test="${vo.state=='구매완료' || vo.state=='교환완료'}">
 			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br>
+			</c:if>
+			<c:if test="${vo.state=='배송중' }">
+			<input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm&num=${vo.orderNum}'">
 			</c:if>
 			</td>
 			</tr>
