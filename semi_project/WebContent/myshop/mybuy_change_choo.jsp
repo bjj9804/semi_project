@@ -88,7 +88,7 @@
 						</c:forEach>
 					</c:forEach>
 			<tr>
-			console.log(${buyNum });
+
 						<td colspan=2><input type="button" value="교환신청" onclick="change1('${buyNum }')"></td>
 
 	
@@ -105,9 +105,6 @@
 <script type="text/javascript">
 	//선택된 사이즈값 , buyNum 얻어오기
 	function change1(buyNum) {
-		alert('tt' +buyNum)
-		console.log("함수실행");
-		console.log(buyNum);
 		var sizeList = "";
 		var buyList = "";
 		var size = document.getElementsByName("size");

@@ -11,9 +11,13 @@
 		<div class="inner">
 			<!-- 본인 비밀번호 확인 받고 수정들어가기 -->
 			<form method="post" action="/semi_project/mh/myshopmodify.do?cmd=profileView">
-				본인확인을 위해 비밀번호를 입력하세요.<br>
-				<input type="password" name="pwd"><br>
-				<input type="submit" value="확인">
+				<div class="edit_form">
+					<p>
+						본인확인을 위해 비밀번호를 입력하세요.
+					</p>
+					<input type="password" name="pwd" class="">
+					<input type="submit" value="확인">
+				</div>
 			</form>
 			<div>
 				<h3>${errMsg }</h3>

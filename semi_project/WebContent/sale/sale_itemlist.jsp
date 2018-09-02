@@ -5,12 +5,6 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
-	<style type="text/css">
-		.dd table{width:100%; text-align:center;}
-		.dd table th{border:1px solid #ccc; padding:10px 0;}
-		.dd table td{border:1px solid #ccc; padding:10px 0;}
-		.dd{width: 100%; text-align: center; margin-top: 20px;}
-	</style>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
@@ -23,24 +17,28 @@
 				<li><a href="/semi_project/mh/sale.do?cmd=daylist">날짜별</a></li>
 				<li><a href="/semi_project/mh/sale.do?cmd=itemlist">상품별</a></li>
 			</ul>
-			<div class="dd">
-				<table>
-					<tr>
-						<th>상품코드</th>
-						<th>상품명</th>
-						<th>총판매수</th>
-						<th>총판매액</th>
-					</tr>
-					<c:forEach var="vo" items="${list }">
-					<tr>
-						<td>${vo.code }</td>
-						<td>${vo.cnt }</td>
-						<td>${vo.tot }</td>
-						<td>${vo.itemname }</td>
-					</tr>
-					</c:forEach>
-				</table>
-			</div>
+			<table class="board_list">
+				<colgroup>
+					<col style="width:25%;">
+					<col style="width:25%;">
+					<col style="width:25%;">
+					<col style="width:25%;">
+				</colgroup>
+				<tr>
+					<th>상품코드</th>
+					<th>상품명</th>
+					<th>총판매수</th>
+					<th>총판매액</th>
+				</tr>
+				<c:forEach var="vo" items="${list }">
+				<tr>
+					<td>${vo.code }</td>
+					<td>${vo.cnt }</td>
+					<td>${vo.tot }</td>
+					<td>${vo.itemname }</td>
+				</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

@@ -312,7 +312,7 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
          throws ServletException, IOException {
 	   String sizeList = request.getParameter("sizeList");
 	   String buyList = request.getParameter("buyList");
-
+	   
 	   String[] sizeArr = sizeList.split("/"); //[치마,s] / [바지,m] 이렇게 /로 잘라줌
 	   String[] buyArr = buyList.split(", ");
 
@@ -347,8 +347,8 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
 	   request.setAttribute("list", list1);
 	   request.setAttribute("a", a);
 	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
-
    }
+   
    // 관리자페이지에서 buy상태 교환완료로 업데이트하기
    protected void refundcon2(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
@@ -357,6 +357,8 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
       int b=dao.refundup2(buyNum);//buy테이블의상태를 교환완료로바꿈
+      //buy테이블의 buynum으로 새로교환된 아이템 코드랑 사이즈랑 수량을 뽑아와서
+      //itemsize테이블에서 수량을 빼준다.
       //해당 buynum의 ordernum과 같은 buynum들을 찾아서 그것들의 상태를 뽑아와서 모두 '교환완료'라면 pay테이블의 상태를 구매완료로 한다.
       ArrayList<BuyVo> list2=dao.detail(orderNum);
       String buystate="";

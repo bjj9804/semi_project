@@ -10,30 +10,39 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
-			<h1>주문서</h1>
-			<tr>
-			<td>주문번호</td>
-			<td>주문자이메일</td>
-			<td>배송지</td>
-			<td>총가격</td>
-			<td>실결제가</td>
-			<td>배송상태</td>
-			<td>   </td>
-			</tr>
-			<c:forEach var="vo" items="${list }">
-			<tr>
-			<td><a href="demand.do?cmd=buylist&num=${vo.orderNum}">${vo.orderNum }</a></td>
-			<td>${vo.email }</td>
-			<td>${vo.addr }</td>
-			<td>${vo.totalPrice }</td>
-			<td>${vo.payMoney }</td>
-			<td>${vo.state }</td>
-			<c:if test="${vo.state=='배송준비중' }">
-			<td><input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'"></td>
-			</c:if>
-			</tr>
-			</c:forEach>
+			<h2>주문서</h2>
+			<table class="board_list">
+				<colgroup>
+					<col style="width:15%;">
+					<col>
+					<col style="width:15%;">
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col style="width:10%;">
+				</colgroup>
+				<tr>
+					<th>주문번호</th>
+					<th>주문자이메일</th>
+					<th>배송지</th>
+					<th>총가격</th>
+					<th>실결제가</th>
+					<th>배송상태</th>
+				</tr>
+				<c:forEach var="vo" items="${list }">
+					<tr>
+						<td><a href="demand.do?cmd=buylist&num=${vo.orderNum}">${vo.orderNum }</a></td>
+						<td>${vo.email }</td>
+						<td>${vo.addr }</td>
+						<td>${vo.totalPrice }</td>
+						<td>${vo.payMoney }</td>
+						<td>
+							${vo.state }<br>
+							<c:if test="${vo.state=='배송준비중' }">
+								<input type="button" value="배송완료" onclick="javascript:location.href='demand.do?cmd=stateadmin&num=${vo.orderNum}'">
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>

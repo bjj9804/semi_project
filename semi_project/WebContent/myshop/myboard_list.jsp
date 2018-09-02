@@ -10,71 +10,75 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-		<h1>My Review</h1>
-				<input type="button" value="삭제"
-					onclick="delete1('${email}','${pageNum})">
-				<table border="1" width="500">
+			<h2>My Review</h2>
+			<input type="button" value="삭제" onclick="delete1('${email}','${pageNum})" class="btn_del">
+			<table class="board_list">
+				<colgroup>
+					<col style="width:5%;">
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col>
+					<col style="width:10%">
+				</colgroup>
+				<tr>
+					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
+					<th>글번호</th>
+					<th>작성자</th>
+					<th>글제목</th>
+					<th>조회수</th>
+				</tr>
+				<c:forEach var="vo" items="${list }">
 					<tr>
-						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
-						<th>글번호</th>
-						<th>작성자</th>
-						<th>글제목</th>
-						<th>조회수</th>
+						<td><input type="checkbox" name="check" value="${vo.num }"
+							onclick="check()"></td>
+						<td>${vo.num }</td>
+						<td>${vo.name }</td>
+						<td><a
+							href="/semi_project/myshopBoard.do?cmd=reviewDetail&cmd1=detail&num=${vo.num }&pageNum=${pageNum}&pageNum1=${pageNum1}">${vo.title }</a>
+						</td>
+						<td>${vo.hit }</td>
 					</tr>
-					<c:forEach var="vo" items="${list }">
-						<tr>
-							<td><input type="checkbox" name="check" value="${vo.num }"
-								onclick="check()"></td>
-							<td>${vo.num }</td>
-							<td>${vo.name }</td>
-							<td><a
-								href="/semi_project/myshopBoard.do?cmd=reviewDetail&cmd1=detail&num=${vo.num }&pageNum=${pageNum}&pageNum1=${pageNum1}">${vo.title }</a>
-							</td>
-							<td>${vo.hit }</td>
-						</tr>
-					</c:forEach>
-				</table>
-				<div>
+				</c:forEach>
+			</table>
+			<div class="pagination">
+				<c:choose>
+					<c:when test="${pageNum>10}">
+						<a href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum=${startPage-1 }" class="prev">이전</a>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:;" class="prev">이전</a>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:choose>
-						<c:when test="${pageNum>10}">
-							<a
-								href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+						<c:when test="${pageNum==i }">
+							<a href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }" class="on">${i }</a>
 						</c:when>
 						<c:otherwise>
-			[이전]
-		</c:otherwise>
+							<a href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }">${i }</a>
+						</c:otherwise>
 					</c:choose>
-					<c:forEach var="i" begin="${startPage }" end="${endPage }">
-						<c:choose>
-							<c:when test="${pageNum==i }">
-								<a
-									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
-									style="color: red">[${i }]</span></a>
-							</c:when>
-							<c:otherwise>
-								<a
-									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${i }"><span
-									style="color: #555">[${i }]</span></a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${endPage<pageCount}">
-							<a
-								href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${endPage+1 }">[다음]</a>
-						</c:when>
-						<c:otherwise>
-			[다음]
-		</c:otherwise>
-					</c:choose>
-				</div>
-	<br><br>
-	<br><br>
-	<br><br>
-	<h1>My Q&A</h1>
-				<input type="button" value="삭제"
-					onclick="delete2('${email}','${pageNum1}')">
-				<table border="1" width="500">
+				</c:forEach>
+				<c:choose>
+					<c:when test="${endPage<pageCount}">
+						<a href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum=${endPage+1 }" class="next">다음</a>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:;" class="next">다음</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div style="position:relative">
+				<h2>My Q&amp;A</h2>
+				<input type="button" value="삭제" onclick="delete2('${email}','${pageNum1}')" class="btn_del1">
+				<table class="board_list">
+					<colgroup>
+						<col style="width:5%;">
+						<col style="width:10%;">
+						<col style="width:15%;">
+						<col>
+						<col style="width:10%">
+					</colgroup>
 					<tr>
 						<th><input type="checkbox" name="check1" onclick="checkAll1()"></th>
 						<th>글번호</th>
@@ -95,41 +99,36 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<div>
+				<div class="pagination">
 					<c:choose>
 						<c:when test="${pageNum1>10}">
-							<a
-								href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum1=${startPage1-1 }">[이전]</a>
+							<a href="/semi_project/myshopBoard?cmd=reviewList&email=${email }&pageNum1=${startPage1-1 }" class="prev">이전</a>
 						</c:when>
 						<c:otherwise>
-			[이전]
-		</c:otherwise>
+							<a href="#" class="prev">이전</a>
+						</c:otherwise>
 					</c:choose>
 					<c:forEach var="i" begin="${startPage1 }" end="${endPage1 }">
 						<c:choose>
 							<c:when test="${pageNum1==i }">
-								<a
-									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${i }"><span
-									style="color: red">[${i }]</span></a>
+								<a href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${i }" class="on">${i }</a>
 							</c:when>
 							<c:otherwise>
-								<a
-									href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${i }"><span
-									style="color: #555">[${i }]</span></a>
+								<a href="myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${i }">${i }</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${endPage1<pageCount1}">
-							<a
-								href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${endPage1+1 }">[다음]</a>
+							<a href="/semi_project/myshopBoard.do?cmd=reviewList&email=${email }&pageNum1=${endPage1+1 }" class="next">다음</a>
 						</c:when>
 						<c:otherwise>
-			[다음]
-		</c:otherwise>
+							<a href="javascript:;" class="next">다음</a>
+						</c:otherwise>
 					</c:choose>
 				</div>
-						</div>
+			</div>
+		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />
 </body>

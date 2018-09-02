@@ -34,30 +34,41 @@
 				</select> <input type="submit" value="리뷰보기">
 			</form>
 			<c:forEach var="vo" items="${list }">
-				<table>
+				<table class="board_list">
+					<colgroup>
+						<col style="width:20%;">
+						<col style="width:30%;">
+						<col style="width:20%;">
+						<col style="width:30%;">
+					</colgroup>
 					<tr>
 						<th>작성자</th>
 						<td>${vo.name }</td>
-					</tr>
-					<tr>
 						<th>제목</th>
 						<td>${vo.title }</td>
 					</tr>
 					<tr>
-						<th>내용</th>
-						<td>${vo.content }</td>
-					</tr>
-					<tr>
 						<th>조회수</th>
 						<td>${vo.hit }</td>
-					</tr>
-					<tr>
 						<th>작성날짜</th>
 						<td>${vo.regdate }</td>
 					</tr>
 					<tr>
-						<th>사진</th> ${vo.img}
-						<td><img src="/semi_project/Upload/${vo.img}"></td>
+						<th>내용</th>
+						<td colspan="3">
+							<div class="table_con">
+								${vo.content }
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>사진</th>
+						<td colspan="3">
+							<div class="table_con">
+								<img src="/semi_project/Upload/${vo.img}">
+							</div>
+						</td>
+					</tr>
 				</table>
 			</c:forEach>
 		</div>

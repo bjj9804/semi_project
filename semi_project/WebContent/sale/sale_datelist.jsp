@@ -60,10 +60,6 @@
 		#cal{display: none;}
 		#dateList{margin-top: 20px; }
 		#dateList li{display:inline-block;}
-		.dd table{width:100%; text-align:center;}
-		.dd table th{border:1px solid #ccc; padding:10px 0;}
-		.dd table td{border:1px solid #ccc; padding:10px 0;}
-		.dd{width: 100%; text-align: center; margin-top: 20px;}
 	</style>
 </head>
 <body onload="selectYear();selectMonth();selectday()">
@@ -79,9 +75,9 @@
 			</ul>
 			<div id="dateList">
 				<ul>
-					<li><a href="/semi_project/mh/sale.do?cmd=daylist">오늘 판매량</a></li> | 
-					<li><a href="/semi_project/mh/sale.do?cmd=weeklist">이번주 판매량</a></li> | 
-					<li><a href="/semi_project/mh/sale.do?cmd=monthlist">이번달 판매량</a></li> | 
+					<li><a href="/semi_project/mh/sale.do?cmd=daylist">오늘 판매량</a> | </li>
+					<li><a href="/semi_project/mh/sale.do?cmd=weeklist">이번주 판매량</a> | </li>
+					<li><a href="/semi_project/mh/sale.do?cmd=monthlist">이번달 판매량</a> | </li>
 					<li><a href="#" onclick="selectlist()">선택</a></li>
 				</ul>
 				<div id="selectlistForm">
@@ -104,8 +100,7 @@
 						<input type="submit" value="조회">
 					</form>
 				</div>
-				<div class="dd">
-				<table>
+				<table class="board_list">
 					<tr>
 						<th>총판매액</th>
 						<th>총판매수</th>
@@ -115,7 +110,7 @@
 						<td>${vo.cnt }</td>
 					</tr>
 				</table>
-				<table>
+				<table class="board_list">
 					<tr>
 						<th>회원이메일</th>
 						<th>구매가격</th>
@@ -131,7 +126,6 @@
 					</tr>
 					</c:forEach>
 				</table>
-			</div>
 			</div>
 		</div>
 	</div>

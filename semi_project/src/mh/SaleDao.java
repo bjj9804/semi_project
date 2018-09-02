@@ -351,7 +351,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select AA.code, item.itemname, AA.cnt, AA.tot from (select code, count(code) cnt, sum(price) tot from buy where state = '구매완료' and ordernum in (select ordernum from pay where state='구매완료') group by code) AA,item where AA.code = item.code order by cnt desc";
+			String sql = "select AA.code, item.itemname, AA.cnt, AA.tot from (select code, count(code) cnt, sum(price) tot from buy where (state = '구매완료' or state = '교환완료') and ordernum in (select ordernum from pay where state='구매완료') group by code) AA,item where AA.code = item.code order by cnt desc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<ItemlistVo> list = new ArrayList<>();
@@ -387,7 +387,7 @@ public class SaleDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from buy where orderNum = ? and state = '구매완료' and ordernum in (select ordernum from pay where state='구매완료')";
+			String sql = "select * from buy where orderNum = ? and (state = '구매완료' or state = '교환완료') and ordernum in (select ordernum from pay where state='구매완료')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, orderNum);
 			rs = pstmt.executeQuery();
