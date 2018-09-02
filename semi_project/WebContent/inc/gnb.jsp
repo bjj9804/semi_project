@@ -46,16 +46,13 @@
 				<ul class="sub_menu sub3">
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">skirts</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">outer</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">dresses</a></li>
 				</ul>
 			</li>
 			<li class="sub">
 				<a href="/semi_project/product/product_acc.jsp">ACC</a>
 				<ul class="sub_menu sub3">
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">jewelry</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">sunglasses</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">accessories</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">bag</a></li>
 					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">shoes</a></li>
 				</ul>
