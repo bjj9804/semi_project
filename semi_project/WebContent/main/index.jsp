@@ -23,7 +23,7 @@
 		<video autoplay	loop id="myVideo">
 			<source	src="../images/video/main.mp4" type="video/mp4">
 		</video>
-		<p class="main_tit">Gucci FALL/WINTER 201811</p>
+		<p class="main_tit">Gucci FALL/WINTER 2018</p>
 	</div>
 	<div id="section1" class="section"> 
 		<div class="main_content">
