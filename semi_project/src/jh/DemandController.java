@@ -84,7 +84,6 @@ public class DemandController extends HttpServlet{
 	private void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		String couponNumSt=request.getParameter("couponNum");
-		System.out.println(couponNumSt);
 		DemandDao dao=DemandDao.getInstance();		
 		int cartNum=dao.getCartNum(email)[2];
 		

@@ -118,13 +118,13 @@
 			percent=0;
 			payMoney.value=totalPrice;
 		}else{
-			payMoney.value=totalPrice-totalPrice*percent*0.01;
+			payMoney.value=totalPrice-Math.round(totalPrice*percent*0.01);
 		}
 		
 		var sale=document.getElementById("sale");
 			
-		sale.innerHTML=totalPrice*percent*0.01;
-		payMoney1.innerHTML=totalPrice-totalPrice*percent*0.01;		
+		sale.innerHTML=Math.round(totalPrice*percent*0.01);
+		payMoney1.innerHTML=totalPrice-Math.round(totalPrice*percent*0.01);		
 		
 	}
 	function root1(num,a,p){
