@@ -77,20 +77,79 @@ public class ProductDao {
 					+ "(select code from "						
 					+ "(select substr(code,1,1) sub, code from item) "
 					+ "where sub='W')";
+			}else if(mark.equals("wtop")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('WTE','WSH','WKN','WSW'))";
+			}else if(mark.equals("wpants")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('WPT'))";
+			}else if(mark.equals("wskirts")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('WSK'))";
+			}else if(mark.equals("wouter")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('WJK','WCO','WCD'))";
+			}else if(mark.equals("wdresses")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('WDR'))";
 			}else if(mark.equals("m")) {
 				sql="select * from item "
 					+ "where code in "
 					+ "(select code from "						
 					+ "(select substr(code,1,1) sub, code from item) "
 					+ "where sub='M')";
+			}else if(mark.equals("mtop")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('MTE','MSH','MKN','MSW'))";
+			}else if(mark.equals("mpants")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('MPT'))";
+			}else if(mark.equals("mouter")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,1,3) sub, code from item) "
+						+ "where sub in ('MJK','MCO','MCD'))";
 			}else if(mark.equals("ac")) {
 				sql="select * from item "
 					+ "where code in "
 					+ "(select code from "						
-					+ "(select substr(code,1,2) sub, code from item) "
+					+ "(select substr(code,2,2) sub, code from item) "
 					+ "where sub='AC')";
+			}else if(mark.equals("bg")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,2,2) sub, code from item) "
+						+ "where sub='BG')";
+			}else if(mark.equals("su")) {
+				sql="select * from item "
+						+ "where code in "
+						+ "(select code from "						
+						+ "(select substr(code,2,2) sub, code from item) "
+						+ "where sub='SU')";
 			}
-			System.out.println(mark);
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {

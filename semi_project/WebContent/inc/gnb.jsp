@@ -34,27 +34,27 @@
 			<li class="sub">
 				<a href="/semi_project/product/product_women.jsp">WOMEN</a>
 				<ul class="sub_menu sub2">
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">skirts</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">outer</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">dresses</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=wtop">top</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=wpants">pants</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=wskirts">skirts</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=wouter">outer</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=wdresses">dresses</a></li>
 				</ul>
 			</li>
 			<li class="sub">
 				<a href="/semi_project/product/product_men.jsp">MEN</a>
 				<ul class="sub_menu sub3">
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">top</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">pants</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">outer</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=mtop">top</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=mpants">pants</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=mouter">outer</a></li>
 				</ul>
 			</li>
 			<li class="sub">
 				<a href="/semi_project/product/product_acc.jsp">ACC</a>
 				<ul class="sub_menu sub3">
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">accessories</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">bag</a></li>
-					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=">shoes</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=ac">accessories</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=bg">bag</a></li>
+					<li><a href="/semi_project/jh/product.do?cmd=showItem&mark=su">shoes</a></li>
 				</ul>
 			</li>
 			<li><a href="/semi_project/eb/qnalist.do?cmd=list&email=${email }">Q&amp;A</a></li>
