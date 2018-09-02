@@ -39,6 +39,7 @@
 								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
+							
 						</tr>
 					</c:forEach>
 				</table>
