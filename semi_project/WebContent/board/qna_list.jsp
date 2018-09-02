@@ -11,16 +11,15 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<h2>Q&amp;A1111</h2>
+			<h2>Q&amp;A</h2>
 			<c:if test="${flag==0}">
 				<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')" class="btn_del">
 			</c:if>
-			<h2>Q&amp;A</h2>
 			<table class="board_list">
 				<colgroup>
 					<col style="width:5%">
-					<col>
 					<col style="width:10%">
+					<col>
 					<col style="width:15%">
 					<col style="width:15%">
 				</colgroup>

@@ -5,12 +5,6 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
-	<style type="text/css">
-		table{width:100%; text-align:center;}
-		table th{border:1px solid #ccc; padding:10px 0;}
-		table td{border:1px solid #ccc; padding:10px 0;}
-		.dd{width: 100%; text-align: center; margin-top: 20px;}
-	</style>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
@@ -23,26 +17,31 @@
 				<li><a href="/semi_project/mh/sale.do?cmd=daylist">날짜별</a></li>
 				<li><a href="/semi_project/mh/sale.do?cmd=itemlist">상품별</a></li>
 			</ul>
-			<div class="dd">
-				<table>
-					<tr>
-						<th>주문번호</th>
-						<th>회원이메일</th>
-						<th>구매가격</th>
-						<th>구매상태</th>
-						<th>구매날짜</th>
-					</tr>
-					<c:forEach var="vo" items="${list }">
-					<tr>
-						<td><a href="/semi_project/mh/sale.do?cmd=orderlist&&orderNum=${vo.orderNum }">${vo.orderNum }</a></td>
-						<td>${vo.email }</td>
-						<td>${vo.payMoney }</td>
-						<td>${vo.state }</td>
-						<td>${vo.orderDate }</td>
-					</tr>
-					</c:forEach>
-				</table>
-			</div>
+			<table class="board_list">
+				<colgroup>
+					<col style="width:width:15%">
+					<col>
+					<col style="width:width:10%">
+					<col style="width:width:15%;">
+					<col style="width:width:10%;">
+				</colgroup>
+				<tr>
+					<th>주문번호</th>
+					<th>회원이메일</th>
+					<th>구매가격</th>
+					<th>구매상태</th>
+					<th>구매날짜</th>
+				</tr>
+				<c:forEach var="vo" items="${list }">
+				<tr>
+					<td><a href="/semi_project/mh/sale.do?cmd=orderlist&&orderNum=${vo.orderNum }">${vo.orderNum }</a></td>
+					<td>${vo.email }</td>
+					<td>${vo.payMoney }</td>
+					<td>${vo.state }</td>
+					<td>${vo.orderDate }</td>
+				</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

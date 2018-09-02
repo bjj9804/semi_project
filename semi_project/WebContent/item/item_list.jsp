@@ -5,12 +5,6 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
-	<style type="text/css">
-		table{width:100%; text-align:center;}
-		table th{border:1px solid #ccc; padding:10px 0;}
-		table td{border:1px solid #ccc; padding:10px 0;}
-		#content .inner a{display:block; width:100px; height:30px; line-height:30px; background-color:#222; color:#fff; text-align:center; margin:20px auto}
-	</style>
 </head>
 <script type="text/javascript">
 
@@ -55,9 +49,18 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<a href="/semi_project/jh/item.do?cmd=lookCode">상품등록</a>
+			<a href="/semi_project/jh/item.do?cmd=lookCode" class="btn_write1">상품등록</a>
 			
-			<table align="center">
+			<table class="board_write">
+				<colgroup>
+					<col style="width:10%;">
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col>
+					<col style="width:10%;">
+					<col style="width:10%;">
+					<col style="width:10%;">
+				</colgroup>
 				<tr>
 					<th>상품코드</th>
 					<th>가격</th>
@@ -81,13 +84,14 @@
 			</table>
 			<br>
 			<h2>[ LOOK INFO ]</h2>
-			<table align="center">
-				<tr>
+			<ul class="look_list">
 				<c:forEach var="vo" items="${list1 }">
-					<td><a href="/semi_project/jh/item.do?cmd=lookDetail&lookCode=${vo.lookCode }">${vo.lookCode }</a></td>
+					<li>
+						<a href="/semi_project/jh/item.do?cmd=lookDetail&lookCode=${vo.lookCode }">${vo.lookCode }</a>
+					</li>
 				</c:forEach>
-				</tr>
-			</table>
+			</ul>
+
 
 			
 		</div>
