@@ -235,7 +235,6 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
          throws ServletException, IOException {
       int buyNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
       int n = dao.refundup(buyNum);
