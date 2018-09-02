@@ -62,20 +62,31 @@
 	<div id="content">
 		<div class="inner">
 			<h2>[ ${itemvo.code } ] 상품정보수정</h2>
-			<table>
+			<table class="board_write">
+			<colgroup>
+				<col style="width:20%;">
+				<col>
+			</colgroup>
 			<tr><th>상품코드</th><td><input type="text" id="code1" value="${itemvo.code }"></td></tr>
 			<tr><th>가격</th><td><input type="text" id="price" value="${itemvo.price }"></td></tr>
 			<tr><th>상품명</th><td><input type="text" id="itemName" value="${itemvo.itemName }"></td></tr>
 			<tr><th>상세설명</th><td><textarea rows="5" cols="30" id="description" >${itemvo.description }</textarea></td></tr>
 			</table>
-			<input type="hidden" id="code" value="${itemvo.code }">
-			<input type="button" value="수정" onclick="itemUpdate()">
+			<div class="view_btn">  
+				<input type="hidden" id="code" value="${itemvo.code }">
+				<input type="button" value="수정" onclick="itemUpdate()" class="btn_edit">
+			</div>
 			
 			
 			
 			<h2>[ ${itemvo.code } ]이미지수정하기</h2>		
 			<form action="/semi_project/jh/item.do?cmd=imgUpdate&code=${itemvo.code }" method="post" enctype="multipart/form-data">
-				<table width="500" align="center">
+				<table class="board_list">
+					<colgroup>
+						<col style="33.33%">
+						<col style="33.33%">
+						<col style="33.33%">
+					</colgroup>
 					<tr><th>이미지타입</th><th>이미지</th><th>삭제</th></tr>
 					<c:forEach var="img" items="${imgList }">
 					<tr>
@@ -91,7 +102,9 @@
 				<div id="filelist"></div>
 				추가할 파일갯수<input type="text" size="2" id="fileCount" name="fileCount" >
 				<input type="button" id="file" value="파일추가" >	
-				<br><input type="submit" value="수정">
+				<div class="view_btn">
+					<input type="submit" value="수정" class="btn_edit">
+				</div>
 			</form>	
 		</div>
 	</div>

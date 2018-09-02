@@ -142,15 +142,36 @@
 			<h2>[ ${lvo.lookCode } ] 룩</h2>
 			<input type="text" id="lookCode1" value="${lvo.lookCode }"><input type="button" value="룩코드변경" onclick="lookCodeUpdate('${lvo.lookCode }')">
 			<h3>이미지 변경</h3>
-			<form name="look" action="/semi_project/jh/item.do?cmd=lookImgUpdate&lookCode=${lvo.lookCode }" method="post" enctype="multipart/form-data">
+			
+			<form name="look" action="/semi_project/jh/item.do?cmd=lookImgUpdate&lookCode=${lvo.lookCode }" method="post" enctype="multipart/form-data">			
 			<input type="hidden" id="check" name="check">
-			룩 앞면 <img src="/semi_project/itemFile/${lvo.lookFront }"> <input type="file" name="lookFront" value="변경할 파일선택"> <input type="button" value="파일변경" onclick="update1('1')">	
-			<br>
-			룩 뒷면 <img src="/semi_project/itemFile/${lvo.lookBack }"> <input type="file" name="lookBack" value="변경할 파일선택"> <input type="button" value="파일변경" onclick="update1('2')">
+				<table class="board_write">
+					<colgroup>
+						<col style="width:20%">
+						<col style="width:40%">
+						<col style="width:40%">
+					</colgroup>
+					<tr>
+						<th>룩 앞면</th>
+						<td><img src="/semi_project/itemFile/${lvo.lookFront }"></td>
+						<td><input type="file" name="lookFront" value="변경할 파일선택"></td>
+						<td><input type="button" value="파일변경" onclick="update1('1')">	</td>
+					</tr>
+					<tr>
+						<th>룩 뒷면</th>
+						<td><img src="/semi_project/itemFile/${lvo.lookBack }"></td>
+						<td><input type="file" name="lookBack" value="변경할 파일선택"></td>
+						<td><input type="button" value="파일변경" onclick="update1('2')"></td>
+					</tr>
+				</table>
 			</form>
 			
-			<h3>룩 아이템 변경</h3>
-			<table width="300">
+			<h2>룩 아이템 변경</h2>
+			<table class="board_write">
+			<colgroup>
+				<col style="width:50%">
+				<col style="width:50%">
+			</colgroup>
 			<tr><th>상품코드</th><th>삭제</th></tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
