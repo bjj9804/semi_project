@@ -1002,7 +1002,7 @@ public class DemandDao {
             pstmt=con.prepareStatement(sql);
             pstmt.setInt(1, amount);
             pstmt.setString(2, code);
-            pstmt.setString(2, isize);
+            pstmt.setString(3, isize); // 실수로 2라고 썻나바여
             int n=pstmt.executeUpdate();
             return n;
          }catch(Exception e) {
