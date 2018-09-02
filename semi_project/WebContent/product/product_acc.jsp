@@ -11,7 +11,6 @@
 	<div id="content">
 		<div class="inner">
 			<img src="/semi_project/itemFile/2.png" onclick="location.href='/semi_project/jh/product.do?cmd=showItem&mark=ac'">
-			
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>

@@ -118,9 +118,6 @@ public class DeController extends HttpServlet {
       int n = dao.paycancel(orderNum);
       String email = (String) session.getAttribute("email");
       session.setAttribute("email", email);
-      // String email = vo.getEmail();
-      // System.out.println(vo.getEmail()+"111");
-
       request.setAttribute("email", email);
       request.setAttribute("n", n);
       request.setAttribute("a", a);
