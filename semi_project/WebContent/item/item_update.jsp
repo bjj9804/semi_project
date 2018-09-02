@@ -83,16 +83,16 @@
 			<form action="/semi_project/jh/item.do?cmd=imgUpdate&code=${itemvo.code }" method="post" enctype="multipart/form-data">
 				<table class="board_list">
 					<colgroup>
-						<col style="33.33%">
-						<col style="33.33%">
-						<col style="33.33%">
+						<col style="20%">
+						<col>
+						<col style="20%">
 					</colgroup>
 					<tr><th>이미지타입</th><th>이미지</th><th>삭제</th></tr>
 					<c:forEach var="img" items="${imgList }">
 					<tr>
 						<td>${img.imgType }</td>
 						<td>
-							<img src="/semi_project/itemFile/${img.imgScr }">
+							<img src="/semi_project/itemFile/${img.imgScr }" style="width:300px; margin:0 auto;">
 						</td>
 						<td><a href="/semi_project/jh/item.do?cmd=imgDelete&imgType=${img.imgType }&code=${img.code}">삭제</a></td>
 					</tr>			

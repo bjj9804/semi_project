@@ -70,7 +70,7 @@
 		<div class="inner">
 		<%String sessionE=(String)session.getAttribute("email"); %>
 		<form name="frm" action="/semi_project/jh/demand.do?cmd=cart" method="post">
-			<table width="800">
+			<table class="board_list">
 				<tr>
 					<th>상품명</th>
 					<th>가격</th>
@@ -106,7 +106,7 @@
 			<br>
 			<h2>상세이미지</h2>
 			<c:forEach var="imgvo" items="${img }">
-				<img src="/semi_project/itemFile/${imgvo.imgScr }">	<br>	
+				<img src="/semi_project/itemFile/${imgvo.imgScr }" style="width:500px;">	<br>	
 			</c:forEach>
 			
 			
