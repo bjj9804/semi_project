@@ -87,6 +87,12 @@
 
 			<c:if test="${flag!=0}">
 				<table class="board_list">
+					<colgroup>
+						<col style="width: 10%">
+						<col style="width: 15%">
+						<col>
+						<col style="width: 10%">
+					</colgroup>
 					<tr>
 						<th></th>
 						<th>작성자</th>
@@ -95,7 +101,7 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
-							<td><img src="/semi_project/itemFile/${vo.itemImg}" style="display:block; width:100%;"></td>
+							<td><img src="/semi_project/itemFile/${vo.itemImg}" class="review_img"></td>
 							<td>${vo.name }</td>
 							<td>${vo.title }</td>
 							<td><a
