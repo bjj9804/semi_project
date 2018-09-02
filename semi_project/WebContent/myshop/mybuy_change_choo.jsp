@@ -88,7 +88,6 @@
 						</c:forEach>
 					</c:forEach>
 			<tr>
-
 						<td colspan=2><input type="button" value="교환신청" onclick="change1('${buyNum }')"></td>
 
 	
