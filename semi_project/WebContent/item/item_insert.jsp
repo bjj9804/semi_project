@@ -134,7 +134,11 @@
 		<div class="inner">
 			<form action="/semi_project/jh/item.do?cmd=lookInsert" method="post" enctype="multipart/form-data">
 			<h2>룩등록하기</h2>
-				<table>
+				<table class="board_write">
+					<colgroup>
+						<col style="width:20%">
+						<col>
+					</colgroup>
 					<tr>
 						<th>룩코드</th>
 						<td><input type="text" name="lookCode"></td>
@@ -142,27 +146,42 @@
 					<tr>
 						<th>룩앞면이미지</th>
 						<td>
+							<div class="table_con">
 							<input type="file" name="lookFront">
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<th>룩뒷면이미지</th>
 						<td>
-							<input type="file" name="lookBack">
+							<div class="table_con">
+								<input type="file" name="lookBack">
+							</div>
 						</td>
 					</tr>					
-				</table>				
-				<input type="submit" value="등록">
-				<input type="reset" value="취소">
+				</table>		
+				<div class="view_btn">		
+					<input type="submit" value="등록" class="btn_del">
+					<input type="reset" value="취소" class="btn_edit">
+				</div>
 			</form>
 			
 			
 			<form name="itemInfo" action="/semi_project/jh/item.do?cmd=itemInsert" method="post" enctype="multipart/form-data">
 			<h2>상품등록하기</h2>
-				<table>
+				<table class="board_write">
+					<colgroup>
+						<col style="width:20%">
+						<col>
+					</colgroup>
 					<tr>
 						<th>상품코드</th>
-						<td><input type="text" id="code" name="code"><input type="button" value="코드중복검사" onclick="checkCode()"></td>
+						<td>
+							<div class="table_con">
+								<input type="text" id="code" name="code" style="display:inline-block; width:200px;">
+								<input type="button" value="코드중복검사" onclick="checkCode()" class="btn_chk">
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th>가격</th>
@@ -179,37 +198,54 @@
 					<tr>
 						<th>아이템사이즈</th>
 						<td>
-							<input type="checkbox" id="small" onclick="size1()">SMALL
-							<span id="amountS" style="display: none;"> 수량<input type="text" name="amountSmall"></span><br>
-							<input type="checkbox" id="medium" onclick="size1()">MEDIUM
-							<span id="amountM" style="display: none;"> 수량<input type="text" name="amountMedium"></span><br>
-							<input type="checkbox" id="large" onclick="size1()">LARGE
-							<span id="amountL" style="display: none;"> 수량<input type="text"  name="amountLarge"></span>
+							<div class="table_con">
+								<input type="checkbox" id="small" onclick="size1()"><span>SMALL</span>
+								<span id="amountS" style="display: none;">
+									<span>수량</span>
+									<input type="text" name="amountSmall">
+								</span>
+								<input type="checkbox" id="medium" onclick="size1()"><span>MEDIUM</span>
+								<span id="amountM" style="display: none;">
+									<span>수량</span>
+									<input type="text" name="amountMedium">
+								</span>
+								<input type="checkbox" id="large" onclick="size1()"><span>LARGE</span>
+								<span id="amountL" style="display: none;">
+									<span>수량</span>
+									<input type="text"  name="amountLarge">
+								</span>
+							</div>
 												
 						</td>
 					</tr>								
 					<tr>
 						<th>이미지타입</th>
 						<td>	
-							추가할 파일갯수<input type="text" size="2" id="fileCount" name="fileCount" >
-							<input type="button" id="file" value="파일추가" >												
-							<div id="filelist"></div>
+							<div class="table_con">
+								<span>추가할 파일갯수</span>
+								<input type="text" size="2" id="fileCount" name="fileCount" style="display:inline-block; width:200px;">
+								<input type="button" id="file" value="파일추가" class="btn_chk">												
+								<div id="filelist"></div>
+							</div>
 						</td>
 					</tr>	
 					<tr>
 						<th>룩코드 선택하기</th>
 						<td>
-							<c:forEach var="vo" items="${list }">
-								<input type="checkbox" name="lookCode" value="${vo.lookCode }">
-								<span>${vo.lookCode }</span>
-							</c:forEach>
+							<div class="table_con">
+								<c:forEach var="vo" items="${list }">
+									<input type="checkbox" name="lookCode" value="${vo.lookCode }">
+									<span>${vo.lookCode }</span>
+								</c:forEach>
+							</div>
 						</td>
 					</tr>					
 				</table>
-					
+				<div class="view_btn">
 				<input type="hidden" name="lookList">
-				<input type="button" value="등록" onclick="itemInsert()">
-				<input type="reset" value="취소">
+				<input type="button" value="등록" onclick="itemInsert()" class="btn_del">
+				<input type="reset" value="취소" class="btn_edit">
+				</div>
 			</form>
 		</div>
 	</div>

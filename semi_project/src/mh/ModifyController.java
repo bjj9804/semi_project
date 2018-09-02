@@ -88,6 +88,6 @@ public class ModifyController extends HttpServlet{
 		}else {
 			request.setAttribute("updateMsg", "fail");
 		}
-		request.getRequestDispatcher("../myshop/modifyok.jsp").forward(request, response);
+		request.getRequestDispatcher("../myshop/myshop_index.jsp").forward(request, response);
 	}
 }

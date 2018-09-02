@@ -101,50 +101,45 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<div>
+				<div class="pagination">
 					<c:choose>
 						<c:when test="${pageNum>10}">
-							<a
-								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
+							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }" class="prev">이전</a>
 						</c:when>
 						<c:otherwise>
-			[이전]
-		</c:otherwise>
+							<a href="javascript:;" class="prev">이전</a>
+						</c:otherwise>
 					</c:choose>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 						<c:choose>
 							<c:when test="${pageNum==i }">
-								<a
-									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"><span
-									style="color: red">[${i }]</span></a>
+								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }" class="on">${i }</a>
 							</c:when>
 							<c:otherwise>
-								<a
-									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"><span
-									style="color: #555">[${i }]</span></a>
+								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }">${i }</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${endPage<pageCount}">
-							<a
-								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
+							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }" class="next">다음</a>
 						</c:when>
 						<c:otherwise>
-			[다음]
-		</c:otherwise>
+							<a href="javascript:;" class="next">다음</a>
+						</c:otherwise>
 					</c:choose>
 				</div>
 			</c:if>
-			<form action="/semi_project/reviewBoard.do?cmd=list&email=${email }" method="post">
-				<select name="search">
-					<option value="name">작성자</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-				</select> 
-				<input type="text" name="keyword"> <input type="submit"
-					value="검색">
-			</form>
+			<div class="search_wrap">
+				<form action="/semi_project/reviewBoard.do?cmd=list&email=${email }" method="post">
+					<select name="search">
+						<option value="name">작성자</option>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+					</select> 
+					<input type="text" name="keyword"> <input type="submit" value="검색">
+				</form>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />

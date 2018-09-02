@@ -92,10 +92,10 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<c:if test="${not empty originalEmail}">
+				<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" class="btn_write">
+			</c:if>
 		</div>
-		<c:if test="${not empty originalEmail}">
-			<input type="button" value="글쓰기" onclick="javascript:location.href='../board/qna_insert.jsp'" style="margin-left:60%" >
-		</c:if>
 
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
