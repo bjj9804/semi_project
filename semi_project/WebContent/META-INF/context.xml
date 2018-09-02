@@ -30,11 +30,12 @@
           name="jdbc/orcl" 
           driverClassName="oracle.jdbc.driver.OracleDriver" 
           type="javax.sql.DataSource" 
-          url="jdbc:oracle:thin:@localhost:1521:XE" 
-          username="semi"
-          password="4444" 
+          url="jdbc:oracle:thin:@192.168.1.41:1521:XE" 
+          username="semiproject"
+          password="1004" 
           loginTimeout="10" 
           maxActive="50" 
           maxIdle="20"
-          maxWait="5000" />
+          maxWait="5000" 
+          testOnBorrow="true" />
 </Context>

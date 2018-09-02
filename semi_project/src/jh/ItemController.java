@@ -54,6 +54,8 @@ public class ItemController extends HttpServlet{
 			lookItemInsert(request,response);
 		}else if(cmd!=null && cmd.equals("lookImgUpdate")) {
 			lookImgUpdate(request,response);
+		}else if(cmd!=null && cmd.equals("checkCode")) {
+			checkCode(request,response);
 		}
 	}
 	private void runway(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,6 +68,25 @@ public class ItemController extends HttpServlet{
 		pw.println("<?xml version='1.0' encoding='utf-8'?>");
 		pw.print("<result>");
 		if(n>0) {
+			pw.println("<code>success</code>");
+		}else {
+			pw.println("<code>fail</code>");
+		}
+		pw.print("</result>");
+		pw.close();		
+					
+		
+	}
+	private void checkCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code=request.getParameter("code");
+		ItemDao dao=ItemDao.getInstance();
+		String str=dao.checkCode(code);
+		
+		response.setContentType("text/xml;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		pw.println("<?xml version='1.0' encoding='utf-8'?>");
+		pw.print("<result>");
+		if(str.equals("notExist")) {
 			pw.println("<code>success</code>");
 		}else {
 			pw.println("<code>fail</code>");

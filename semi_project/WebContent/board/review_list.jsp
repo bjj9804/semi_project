@@ -17,27 +17,26 @@
 					<colgroup>
 						<col style="width:5%">
 						<col style="width:10%">
-						<col>
 						<col style="width:15%">
+						<col>
 						<col style="width:10%">
 					</colgroup>
 					<tr>
-						<th>
-							<input type="checkbox" name="check" onclick="checkAll()">
-						</th>
+						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 						<th>글번호</th>
-						<th>글제목</th>
 						<th>작성자</th>
+						<th>글제목</th>
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
-							<td><input type="checkbox" name="check" value="${vo.num }" onclick="check1()"></td>
+							<td><input type="checkbox" name="check" value="${vo.num }"
+								onclick="check1()"></td>
 							<td>${vo.num }</td>
-							<td>
-								<a href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
-							</td>
 							<td>${vo.name }</td>
+							<td><a
+								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&num=${vo.num }&flag=${flag}&pageNum=${pageNum}">${vo.title }</a>
+							</td>
 							<td>${vo.hit }</td>
 						</tr>
 					</c:forEach>
@@ -77,55 +76,55 @@
 
 			<c:if test="${flag!=0}">
 				<table class="board_list">
-					<colgroup>
-						<col style="width:10%;">
-						<col>
-						<col style="width:15%;">
-						<col style="width:10%;">
-					</colgroup>
 					<tr>
 						<th>글번호</th>
-						<th>글제목</th>
 						<th>작성자</th>
+						<th>글제목</th>
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
 							<td>${vo.num }</td>
-							<td>
-								<a href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&email=${email }&flag=${flag}&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
-							</td>
 							<td>${vo.name }</td>
+							<td><a
+								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&email=${email }&flag=${flag}&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
+							</td>
 							<td>${vo.hit }</td>
 						</tr>
 					</c:forEach>
 				</table>
-				<div class="pagination">
+				<div>
 					<c:choose>
 						<c:when test="${pageNum>10}">
-							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }" class="prev">이전</a>
+							<a
+								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${startPage-1 }">[이전]</a>
 						</c:when>
 						<c:otherwise>
-							<a href="javascript:;" class="prev">이전</a>
-						</c:otherwise>
+			[이전]
+		</c:otherwise>
 					</c:choose>
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">
 						<c:choose>
 							<c:when test="${pageNum==i }">
-								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }" class="on">${i }</a>
+								<a
+									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"><span
+									style="color: red">[${i }]</span></a>
 							</c:when>
 							<c:otherwise>
-								<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }">${i }</a>
+								<a
+									href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${i }"><span
+									style="color: #555">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${endPage<pageCount}">
-							<a href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }" class="next">다음</a>
+							<a
+								href="/semi_project/reviewBoard.do?cmd=list&email=${email }&pageNum=${endPage+1 }">[다음]</a>
 						</c:when>
 						<c:otherwise>
-							<a href="javascript:;" class="next">다음</a>
-						</c:otherwise>
+			[다음]
+		</c:otherwise>
 					</c:choose>
 				</div>
 			</c:if>
