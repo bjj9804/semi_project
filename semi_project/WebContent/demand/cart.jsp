@@ -15,7 +15,16 @@
 			<form name="cart" action="/semi_project/jh/demand.do?cmd=showOrderForm" method="post">
 			
 			<h3>담긴 상품</h3>	
-				<table border="1" width="800" align="center">
+				<table class="board_list">
+					<colgroup>
+						<col style="width:5%;">
+						<col style="width:10%;">
+						<col>
+						<col style="width:10%;">
+						<col style="width:10%;">
+						<col style="width:10%;">
+						<col style="width:10%;">
+					</colgroup>
 					<tr>					
 						<c:choose>
 							<c:when test="${!empty list }">
@@ -31,7 +40,7 @@
 					</tr>					
 					<c:choose>
 						<c:when test="${empty list }">
-							<tr><td colspan="5">등록된 상품이 없습니다.</td></tr>							
+							<tr><td colspan="6">등록된 상품이 없습니다.</td></tr>							
 						</c:when>					
 						<c:otherwise>
 							<c:forEach var="vo" items="${list }">						
@@ -52,7 +61,7 @@
 				
 				<c:choose>
 					<c:when test="${!empty list }">
-						<input type="button" value="내보내기" onclick="delete1('${email}')">
+						<input type="button" value="내보내기" onclick="delete1('${email}')" class="btn_del">
 						<br><br>
 						
 						결제예정금액<div id="totalPrice1"></div>
