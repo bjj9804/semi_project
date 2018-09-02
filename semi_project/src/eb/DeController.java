@@ -312,7 +312,7 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
          throws ServletException, IOException {
 	   String sizeList = request.getParameter("sizeList");
 	   String buyList = request.getParameter("buyList");
-
+	   
 	   String[] sizeArr = sizeList.split("/"); //[치마,s] / [바지,m] 이렇게 /로 잘라줌
 	   String[] buyArr = buyList.split(", ");
 
