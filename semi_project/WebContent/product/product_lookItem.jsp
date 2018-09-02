@@ -14,15 +14,19 @@
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
-		<div class="inner">
-			<c:if test="${lvo.lookCode!=null }">
-				${lvo.lookCode }
-				<img src="/semi_project/itemFile/${lvo.lookFront }" onmouseover="this.src='/semi_project/itemFile/${lvo.lookBack }'" onmouseout="this.src='/semi_project/itemFile/${lvo.lookFront }'">
-			</c:if>
-			<c:forEach var="ob" items="${list }">
-				${ob[0] }
-				<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][0] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][1] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'">
-			</c:forEach>
+		<div class="inner" style="overflow:hidden;">
+			<div style="float:left; width:400px;">
+				<c:if test="${lvo.lookCode!=null }">
+					<img src="/semi_project/itemFile/${lvo.lookFront }" onmouseover="this.src='/semi_project/itemFile/${lvo.lookBack }'" onmouseout="this.src='/semi_project/itemFile/${lvo.lookFront }'" style="width:100%;">
+				</c:if>
+			</div>
+			<ul style="float:right;width:400px;">
+				<li>
+					<c:forEach var="ob" items="${list }">
+						<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][0] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][1] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'" style="width:100%;">
+					</c:forEach>
+				</li>
+			</ul>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
