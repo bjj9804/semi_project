@@ -10,16 +10,23 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
-			<h1>나의 주문내역</h1>
-			<tr>
+			<h2>나의주문내역</h2>
+			<table class="board_list">
+				<colgroup>
+					<col style="width:15%;">
+					<col>
+					<col style="width:15%;">
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col style="width:10%;">
+				</colgroup>
+				<tr>
 			<td>주문일시</td>
 			<td>주문번호</td>
 			<td>배송지</td>
 			<td>총가격</td>
 			<td>실결제가</td>
 			<td>배송상태</td>
-			<td>   </td>
 			</tr>
 			<c:forEach var="vo" items="${list }">
 			<tr>
@@ -28,16 +35,16 @@
 			<td>${vo.addr }</td>
 			<td>${vo.totalPrice }</td>
 			<td>${vo.payMoney }</td>
-			<td>${vo.state }</td>
+			<td>${vo.state }
 			<!-- 배송준비중상태에서는 바로 취소가 가능한 취소버튼이 보인다. -->
 			<c:if test="${vo.state=='배송준비중' }">
-			<td><input type="button" value="구매취소" onclick="javascript:location.href='demand.do?cmd=cancel&num=${vo.orderNum}'"></td>
+			<input type="button" value="구매취소" onclick="javascript:location.href='demand.do?cmd=cancel&num=${vo.orderNum}'"></td>
 			</c:if>
 			<!-- 판매자가 배송을 완료하여 배송중상태여야지 구매확정버튼이 보인다. -->
 			<c:if test="${vo.state=='배송중' }">
-			<td><input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm&num=${vo.orderNum}'"></td>
-			<td><input type="button" value="교환" onclick="javascript:location.href='demand.do?cmd=buychange&num=${vo.orderNum}'"></td>
-			<td><input type="button" value="반품" onclick="javascript:location.href='demand.do?cmd=refund&num=${vo.orderNum}'"></td>
+			<input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm&num=${vo.orderNum}'">
+			<input type="button" value="교환" onclick="javascript:location.href='demand.do?cmd=buychange&num=${vo.orderNum}'">
+			<input type="button" value="반품" onclick="javascript:location.href='demand.do?cmd=refund&num=${vo.orderNum}'"></td>
 			</c:if>
 			<!--<c:if test="${vo.state=='교환신청중' }">
 			<td><input type="button" value="반품" onclick="javascript:location.href='demand.do?cmd=refund&num=${vo.orderNum}'"></td>

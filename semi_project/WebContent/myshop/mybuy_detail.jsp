@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
@@ -10,8 +10,16 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
-			<h1>상세주문서</h1>
+			<h2>상세주문서</h2>
+			<table class="board_list">
+				<colgroup>
+					<col style="width:15%;">
+					<col>
+					<col style="width:15%;">
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col style="width:10%;">
+				</colgroup>
 			<tr>
 			<td>주문번호</td>
 			<td>상품코드</td>
@@ -28,8 +36,8 @@
 			<td>${vo.isize }</td>
 			<td>${vo.orderAmount }</td>
 			<td>${vo.price }</td>
-			<td>${vo.state }</td>
-			<td>
+			<td>${vo.state }
+			
 			<c:if test="${vo.state=='구매완료' || vo.state=='교환완료'}">
 			<a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br>
 			</c:if>
