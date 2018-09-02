@@ -1,6 +1,7 @@
 package jh;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import ms.ItemImgVo;
+import ms.ReviewBoardDao;
+import ms.ReviewBoardVo;
 @WebServlet("/jh/product.do")
 public class ProductController extends HttpServlet{
 	@Override
@@ -26,6 +32,8 @@ public class ProductController extends HttpServlet{
 			itemDetail(request,response);
 		}else if(cmd!=null && cmd.equals("showItem")) {
 			showItem(request,response);
+		}else if(cmd!=null && cmd.equals("itemDetailSearch")) {
+			itemDetailSearch(request,response);
 		}
 		
 	}
@@ -65,18 +73,64 @@ public class ProductController extends HttpServlet{
 	}
 	private void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");
+		System.out.println(code);
 		ItemDao dao=ItemDao.getInstance();
 		ItemVo itemVo=dao.getItem(code);
 		ArrayList<ItemImgVo> imgList=dao.getItemImg(code);
 		ArrayList<ItemsizeVo> sizeList=dao.getItemsize(code);
 		
-		
+		request.setAttribute("code", code);
 		request.setAttribute("item", itemVo);
 		request.setAttribute("img", imgList);
 		request.setAttribute("size", sizeList);
 		
-		
 		request.getRequestDispatcher("/product/product_view.jsp").forward(request, response);
+		
+	
+	}
+	private void itemDetailSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String sheight = request.getParameter("height");
+		String sweight = request.getParameter("weight");
+		int height = 0;
+		int weight = 0;
+		if(sheight!=null || sweight!=null) {
+			height = Integer.parseInt(sheight);
+			weight = Integer.parseInt(sweight);
+		}
+		if(request.getParameter("height") == null || request.getParameter("weight") == null) {
+		height = 0;
+		weight = 0;
+		} else if (Integer.parseInt(request.getParameter("height")) != 0 || Integer.parseInt(request.getParameter("weight")) != 0) {
+			height = Integer.parseInt(request.getParameter("height"));
+			weight = Integer.parseInt(request.getParameter("weight"));
+			request.getSession().setAttribute("height", height);
+			request.getSession().setAttribute("weight", weight);
+		}
+		String code=request.getParameter("code");
+		System.out.println(code + " " + height +" " + weight);
+		ReviewBoardDao redao = ReviewBoardDao.getInstance();
+		ArrayList<ReviewBoardVo> list = redao.searchlist(1, 10, height, weight, code);
+		JSONArray arr = new JSONArray();
+		for(ReviewBoardVo vo : list){
+			JSONObject obj = new JSONObject();
+			obj.put("num", vo.getNum());
+			obj.put("name", vo.getName());
+			obj.put("title", vo.getTitle());
+			obj.put("content", vo.getContent());
+			obj.put("height", vo.getHeight());
+			obj.put("weight", vo.getWeight());
+			obj.put("hit", vo.getHit());
+			obj.put("regdate", vo.getRegdate());
+			obj.put("img", vo.getImg());
+			obj.put("itemImg", vo.getItemImg());
+			obj.put("code", vo.getCode());
+			arr.add(obj);
+		}
+		response.setContentType("text/plain;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		pw.println(arr.toString());
+		pw.close();
+	
 	}
 	private void showItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mark=request.getParameter("mark");

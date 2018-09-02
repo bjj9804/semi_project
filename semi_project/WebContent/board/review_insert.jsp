@@ -14,7 +14,7 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<form action="/semi_project/reviewBoard.do?cmd=update&cmd2=myshop&email=${email }&num=${vo.num}" method="post" enctype="multipart/form-data">
+			<form action="/semi_project/reviewBoard.do?cmd=insert&cmd2=myshop&email=${email }&code=<%=code %>" method="post" enctype="multipart/form-data">
 				<table class="board_write">
 					<colgroup>
 						<col style="width:20%">

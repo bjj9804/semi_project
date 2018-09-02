@@ -32,9 +32,9 @@ public class ReviewBoardController extends HttpServlet {
 			list(request, response);
 		} else if (cmd != null && cmd.equals("detail")) {
 			detail(request, response);
-		} else if (cmd != null && cmd.equals("searchlist")) {
+		} /*else if (cmd != null && cmd.equals("searchlist")) {
 			searchlist(request, response);
-		} else if (cmd != null && cmd.equals("update")) {
+		}*/ else if (cmd != null && cmd.equals("update")) {
 			update(request, response);
 		} else if (cmd != null && cmd.equals("delete")) {
 			delete(request, response);
@@ -147,7 +147,7 @@ public class ReviewBoardController extends HttpServlet {
 		request.getRequestDispatcher("/board/review_list.jsp").forward(request, response);
 	}
 
-	public void searchlist(HttpServletRequest request, HttpServletResponse response)
+	/*public void searchlist(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int height = 0;
 		int weight = 0;
@@ -157,11 +157,7 @@ public class ReviewBoardController extends HttpServlet {
 			weight = Integer.parseInt(request.getParameter("weight"));
 			request.getSession().setAttribute("height", height);
 			request.getSession().setAttribute("weight", weight);
-		} else if (Integer.parseInt(request.getParameter("height")) != 0
-				|| Integer.parseInt(request.getParameter("height")) != 0) {
-			height = (Integer) request.getSession().getAttribute("height");
-			weight = (Integer) request.getSession().getAttribute("weight");
-		}
+		} 7
 		System.out.println(height + " " + weight);
 		String spageNum = request.getParameter("pageNum");
 		int pageNum = 1;
@@ -188,8 +184,8 @@ public class ReviewBoardController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageNum", pageNum);
-		request.getRequestDispatcher("/product_lookItem/.jsp").forward(request, response);
-	}
+		request.getRequestDispatcher("/product/product_view.jsp").forward(request, response);
+	}*/
 
 	public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));

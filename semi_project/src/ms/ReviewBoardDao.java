@@ -264,18 +264,19 @@ public class ReviewBoardDao {
 		}
 	}
 	
-	public ArrayList<ReviewBoardVo> searchlist(int startRow, int endRow, int height, int weight) {
+	public ArrayList<ReviewBoardVo> searchlist(int startRow, int endRow, int height, int weight, String code) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where height between " +(height-10)+" and "+height 
+			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where code= ? and height between " +(height-10)+" and "+height 
 					    + " and " + "weight between " +(weight-10)+" and "+weight+ "order by num desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, code);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int num = rs.getInt("num");
@@ -287,8 +288,7 @@ public class ReviewBoardDao {
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
 				String itemImg = rs.getString("itemImg");
-				String code = rs.getString("code");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, code, code);
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
 				list.add(vo);
 			}
 			return list;

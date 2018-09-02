@@ -16,6 +16,43 @@
 			frm.submit();
 		}
 	}
+	
+	var xhr1 = null;
+	function getList() {
+		//var height = document.height;
+		//var weight = document.weight;
+		var frm1 = document.frm1;
+		frm1.submit();
+		xhr1 = new XMLHttpRequest();
+		xhr1.onreadystatechange = listOk;
+		xhr1.open('get', '/semi_project/jh/product.do?cmd=itemDetailSearch', true);
+		xhr1.send();
+	}
+	
+	function listOk() {
+		if(xhr1.readyState==4 && xhr1.status==200){
+			removeAll();
+			var txt = xhr1.responseText;
+			var json = JSON.parse(txt);
+			var searchlist = document.getElementById("searchlist");
+			for(var i=0;i<json.length;i++){
+				var mm  = json[i];
+				var div = document.createElement("div");
+				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "작성자: " + mm.name +"제목: " +mm.title+"<br>"
+							+ "내용:" + mm.content;
+			    div.innerHTML = html;
+				searchlist.appendChild(div);
+			}
+		}
+	}
+	function removeAll() { 
+		var searchlist = document.getElementById("searchlist");
+		var nodes = searchist.childNodes;
+		for(var i=nodes.length-1;i>=0;i--){
+			var child = nodes.item(i);
+			searchist.removeChild(child);
+		}
+	}
 
 </script>
 <body>
@@ -69,9 +106,32 @@
 			<br><input type="button" value="상품담기" onclick="cart()">
 		</form>
 		
-		
-		
-		
+		<form action="/semi_project/jh/product.do?cmd=itemDetail"
+				method="post" name="frm1">
+				height <select name="height">
+					<option value="">입력안함</option>
+					<option value="140">~140</option>
+					<option value=150>140~150</option>
+					<option value=160>150~160</option>
+					<option value=170>160~170</option>
+					<option value=180>170~180</option>
+					<option value=190>180~190</option>
+					<option value=200>190~200</option>
+					<option value=210>200~</option>
+				</select> &nbsp; &nbsp; weight <select name="weight">
+					<option value="">입력안함</option>
+					<option value="40">~40kg</option>
+					<option value=50>40kg~50kg</option>
+					<option value=60>50kg~60kg</option>
+					<option value=70>60kg~70kg</option>
+					<option value=80>70kg~80kg</option>
+					<option value=90>80kg~90kg</option>
+					<option value=100>90kg~</option>
+				</select> <input type="button" value="리뷰보기" onclick="getList()">
+				<input type="hidden" name="code" value="${item.code }">
+				<>
+			</form><br>
+		<div id="searchlist"></div>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
