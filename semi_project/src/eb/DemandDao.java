@@ -713,7 +713,7 @@ public class DemandDao {
           PreparedStatement pstmt=null;
           try {
              con=DBConnection.getConnection();
-             String sql="update pay set state=? where buyNum=?";
+             String sql="update pay set state=? where orderNum=?";
              pstmt=con.prepareStatement(sql);
              pstmt.setString(1, "교환신청중");
              pstmt.setInt(2, num);

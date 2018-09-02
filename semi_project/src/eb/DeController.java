@@ -79,6 +79,7 @@ public class DeController extends HttpServlet {
       int orderNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
       int n = dao.update(orderNum);
+      System.out.println(n);
       request.setAttribute("n", n);
       paylist(request, response);
    }
@@ -332,16 +333,25 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
 			String name1=nsArr[1]; //두번째 값을 name배열에 넣는다
 			   name.add(name1);
 			   size.add(nsArr[0]); //첫번째 값을 size배열에 넣는다
+			   System.out.println(nsArr[0]);
+			   System.out.println(nsArr[1]);
+			   
 	   }
 	   PayVo vo=null;
+	   int n=0;
 	   for(int b=0; b<size.size(); b++) { //size를 이용해서 buy테이블의 isize와 배송상태를 업데이트 시킨다.
-		   int n=dao.resize(size.get(b), buyNumList.get(b));
+		   n=dao.resize(size.get(b), buyNumList.get(b));
+		   System.out.println(size.get(b)+"//"+buyNumList.get(b));
 		   buyNum=buyNumList.get(b);
-		   int a=dao.refundup3(buyNum);
 		   vo=dao.ordernumselect(buyNum);
+		   System.out.println(buyNum+"//");
+		   System.out.println(vo.getAddr()+vo.getState());
 	   }
 	   ArrayList<BuyVo> list1 = dao.detail(vo.getOrderNum());
+	   int a=dao.refundup3(vo.getOrderNum());
 	   request.setAttribute("list", list1);
+	   request.setAttribute("a", a);
+	   request.setAttribute("n", n);
 	   request.getRequestDispatcher("/myshop/mybuy_detail.jsp").forward(request, response);
    }
    
