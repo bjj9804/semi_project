@@ -59,7 +59,7 @@
 		var nodes = searchlist.childNodes;
 		for(var i=nodes.length-1;i>=0;i--){
 			var child = nodes.item(i);
-			searchist.removeChild(child);
+			searchlist.removeChild(child);
 		}
 	}
 
@@ -114,8 +114,8 @@
 			<input type="hidden" name="email" value="${email }">
 			<br><input type="button" value="상품담기" onclick="cart()">
 		</form>
-				height <select id="height">
-					<option value="">입력안함</option>
+				Height <select id="height">
+					<option value="0">Height</option>
 					<option value="140">~140</option>
 					<option value=150>140~150</option>
 					<option value=160>150~160</option>
@@ -124,8 +124,8 @@
 					<option value=190>180~190</option>
 					<option value=200>190~200</option>
 					<option value=210>200~</option>
-				</select> &nbsp; &nbsp; weight <select id="weight">
-					<option value="">입력안함</option>
+				</select> &nbsp; &nbsp; Weight <select id="weight">
+					<option value="0">Weight</option>
 					<option value="40">~40kg</option>
 					<option value=50>40kg~50kg</option>
 					<option value=60>50kg~60kg</option>

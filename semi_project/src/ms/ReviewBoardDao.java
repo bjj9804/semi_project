@@ -12,99 +12,110 @@ import javax.naming.NamingException;
 import semi.db.DBConnection;
 
 public class ReviewBoardDao {
-	
+
 	private static ReviewBoardDao instance = new ReviewBoardDao();
-	private ReviewBoardDao() {}
+
+	private ReviewBoardDao() {
+	}
+
 	public static ReviewBoardDao getInstance() {
 		return instance;
 	}
-	
+
 	public int getMaxNum() {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="select NVL(max(num),0) maxnum from reviewboard";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			String sql = "select NVL(max(num),0) maxnum from reviewboard";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				return rs.getInt("maxnum");
-			}else {
+			} else {
 				return 0;
 			}
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return -1;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public int getCount() {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="select NVL(count(num),0) cnt from reviewboard";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			String sql = "select NVL(count(num),0) cnt from reviewboard";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				return rs.getInt("cnt");
-			}else {
+			} else {
 				return 0;
 			}
-		}catch(SQLException | ClassNotFoundException | NamingException se) {
+		} catch (SQLException | ClassNotFoundException | NamingException se) {
 			System.out.println(se.getMessage());
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
+
 	public int getSearchCount(int height, int weight) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="select NVL(count(num),0) cnt from reviewboard where height between" + 
-						(height-10) +" and " + height + " and weight between "+(weight-10)+" and "+ weight;
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			String sql = "select NVL(count(num),0) cnt from reviewboard where height between" + (height - 10) + " and "
+					+ height + " and weight between " + (weight - 10) + " and " + weight;
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				return rs.getInt("cnt");
-			}else {
+			} else {
 				return 0;
 			}
-		}catch(SQLException | ClassNotFoundException | NamingException se) {
+		} catch (SQLException | ClassNotFoundException | NamingException se) {
 			System.out.println(se.getMessage());
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
+
 	public ItemImgVo getItemImg(String code) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -116,30 +127,33 @@ public class ReviewBoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				String imgType = rs.getString("imgtype");
 				String imgScr = rs.getString("imgscr");
 				vo = new ItemImgVo(imgType, code, imgScr);
 			}
 			return vo;
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
+
 	public int insert(ReviewBoardVo vo) {
 		int maxNum = getMaxNum();
 		Connection con = null;
@@ -148,7 +162,7 @@ public class ReviewBoardDao {
 			con = DBConnection.getConnection();
 			String sql = "insert into reviewboard values(?, ?, ?, ?, ?, ?, ?, 0, sysdate, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, maxNum+1);
+			pstmt.setInt(1, maxNum + 1);
 			pstmt.setString(2, vo.getName());
 			pstmt.setString(3, vo.getEmail());
 			pstmt.setString(4, vo.getTitle());
@@ -159,7 +173,7 @@ public class ReviewBoardDao {
 			pstmt.setString(9, vo.getItemImg());
 			pstmt.setString(10, vo.getCode());
 			return pstmt.executeUpdate();
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			se.printStackTrace();
 			return -1;
 		} catch (ClassNotFoundException e) {
@@ -168,31 +182,33 @@ public class ReviewBoardDao {
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public int getSearchCount1(String search, String keyword) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
-			con=DBConnection.getConnection();
-			String sql="select NVL(count(num),0) cnt from reviewboard where "+ search +" like '%"+keyword+"%'";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			con = DBConnection.getConnection();
+			String sql = "select NVL(count(num),0) cnt from reviewboard where " + search + " like '%" + keyword + "%'";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				return rs.getInt("cnt");
-			}else {
+			} else {
 				return 0;
 			}
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
 		} catch (ClassNotFoundException e) {
@@ -201,34 +217,39 @@ public class ReviewBoardDao {
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
+
 	public ArrayList<ReviewBoardVo> list(int startRow, int endRow, String search, String keyword) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
-		if(search!=null) {
-			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where "+search+ " like '%"+keyword+"%'" +" order by num desc) AA) where rnum>=? and rnum<=?";
-		}else {
+		if (search != null) {
+			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where " + search
+					+ " like '%" + keyword + "%'" + " order by num desc) AA) where rnum>=? and rnum<=?";
+		} else {
 			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
 		}
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
 		try {
 			con = DBConnection.getConnection();
-			//String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
+			// String sql = "select * from( select AA.*, rownum rnum from ( select * from
+			// reviewboard order by num desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				int num = rs.getInt("num");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
@@ -241,44 +262,58 @@ public class ReviewBoardDao {
 				String img = rs.getString("img");
 				String itemImg = rs.getString("itemImg");
 				String code = rs.getString("code");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate,
+						img, itemImg, code);
 				list.add(vo);
 			}
 			return list;
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public ArrayList<ReviewBoardVo> searchlist(int startRow, int endRow, int height, int weight, String code) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ReviewBoardVo> list = new ArrayList<>();
+		String sql = "";
+		if (height == 0 && weight == 0) {
+			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where code= ?" 
+					+ "order by num desc) AA) where rnum>=? and rnum<=?";
+		}else {
+			sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where code= ? and height between "
+					+ (height - 10) + " and " + height + " and " + "weight between " + (weight - 10) + " and " + weight
+					+ "order by num desc) AA) where rnum>=? and rnum<=?";
+		}
 		try {
 			con = DBConnection.getConnection();
-			String sql = "select * from( select AA.*, rownum rnum from ( select * from reviewboard where code= ? and height between " +(height-10)+" and "+height 
-					    + " and " + "weight between " +(weight-10)+" and "+weight+ "order by num desc) AA) where rnum>=? and rnum<=?";
+			// String sql = "select * from( select AA.*, rownum rnum from ( select * from
+			// reviewboard where code= ? and height between " +(height-10)+" and "+height
+			// + " and " + "weight between " +(weight-10)+" and "+weight+ "order by num
+			// desc) AA) where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, code);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				int num = rs.getInt("num");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
@@ -288,29 +323,32 @@ public class ReviewBoardDao {
 				Date regdate = rs.getDate("regdate");
 				String img = rs.getString("img");
 				String itemImg = rs.getString("itemImg");
-				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
+				ReviewBoardVo vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate,
+						img, itemImg, code);
 				list.add(vo);
 			}
 			return list;
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public ReviewBoardVo detail(int num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -322,7 +360,7 @@ public class ReviewBoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				String title = rs.getString("title");
 				String content = rs.getString("content");
 				int height = rs.getInt("height");
@@ -334,110 +372,119 @@ public class ReviewBoardDao {
 				String img = rs.getString("img");
 				String itemImg = rs.getString("itemImg");
 				String code = rs.getString("code");
-				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg, code);
+				vo = new ReviewBoardVo(num, name, email, title, content, height, weight, hit, regdate, img, itemImg,
+						code);
 			}
 			return vo;
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			se.printStackTrace();
 			return null;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public int hitup(int num) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="update reviewboard set hit = hit+1 where num = ?";
-			pstmt=con.prepareStatement(sql);
+			String sql = "update reviewboard set hit = hit+1 where num = ?";
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			return pstmt.executeUpdate();
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return -1;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public int delete(int num) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="delete from reviewboard where num = ?";
-			pstmt=con.prepareStatement(sql);
+			String sql = "delete from reviewboard where num = ?";
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			return pstmt.executeUpdate();
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return -1;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
 	}
-	
+
 	public int update(ReviewBoardVo vo) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConnection();
-			String sql="update reviewboard set title = ?, content = ?, img = ? where num = ?";
-			pstmt=con.prepareStatement(sql);
+			String sql = "update reviewboard set title = ?, content = ?, img = ? where num = ?";
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getImg());
 			pstmt.setInt(4, vo.getNum());
 			return pstmt.executeUpdate();
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
-		}catch(ClassNotFoundException clfe) {
+		} catch (ClassNotFoundException clfe) {
 			clfe.printStackTrace();
 			return -1;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return -1;
-		}finally {
+		} finally {
 			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}

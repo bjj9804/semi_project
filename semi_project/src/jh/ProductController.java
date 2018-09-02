@@ -93,13 +93,13 @@ public class ProductController extends HttpServlet{
 		String sweight = request.getParameter("weight");
 		int height = 0;
 		int weight = 0;
-		if(sheight!=null || sweight!=null) {
+		if (sheight != null || sweight != null) {
 			height = Integer.parseInt(sheight);
 			weight = Integer.parseInt(sweight);
 		}
-		if(request.getParameter("height") == null || request.getParameter("weight") == null) {
-		height = 0;
-		weight = 0;
+		if (request.getParameter("height") == null || request.getParameter("weight") == null) {
+			height = 0;
+			weight = 0;
 		} else if (Integer.parseInt(request.getParameter("height")) != 0 || Integer.parseInt(request.getParameter("weight")) != 0) {
 			height = Integer.parseInt(request.getParameter("height"));
 			weight = Integer.parseInt(request.getParameter("weight"));
