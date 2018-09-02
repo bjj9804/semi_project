@@ -25,7 +25,7 @@
 					<tr>
 						<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 						<th></th>
-						<th>작성자11</th>
+						<th>작성자</th>
 						<th>글제목</th>
 						<th>조회수</th>
 					</tr>
@@ -96,16 +96,15 @@
 					<tr>
 						<th></th>
 						<th>작성자</th>
-						<th>글제목11</th>
+						<th>글제목</th>
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
 							<td><img src="/semi_project/itemFile/${vo.itemImg}" class="review_img"></td>
 							<td>${vo.name }</td>
-							<td>${vo.title }</td>
-							<td><a
-								href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&email=${email }&flag=${flag}&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
+							<td>
+								<a href="/semi_project/reviewBoard.do?cmd=detail&cmd1=det&email=${email }&flag=${flag}&num=${vo.num }&pageNum=${pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.hit }</td>
 						</tr>
