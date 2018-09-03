@@ -122,7 +122,7 @@
 			</table>
 			<br>
 			<h2>상세이미지</h2>
-			<ul class="product_list ">
+			<ul class="product_list">
 				<c:forEach var="imgvo" items="${img }">
 					<li>
 						<img src="/semi_project/itemFile/${imgvo.imgScr }">	
