@@ -23,7 +23,7 @@
 			<ul style="float:right;width:400px;">
 				<li>
 					<c:forEach var="ob" items="${list }">
-						<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][0] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][1] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'" style="width:100%;">
+						<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][1] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][0] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'" style="width:100%;">
 					</c:forEach>
 				</li>
 			</ul>

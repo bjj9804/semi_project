@@ -5,6 +5,16 @@
 <html lang="ko">
 <head>
 	<jsp:include page="/inc/header.jsp"/>
+	<style>
+		#searchlist div{
+		    border: 1px solid #ccc;
+		    padding: 20px;
+		    background: #fff;
+		    margin: 15px 0;		
+		}
+		#searchlist div img{display:inline-block; vertical-align:middle; width: 150px;}
+		#searchlist div div{display:inline-block; vertical-align:middle; padding-left:20px;}
+	</style>
 </head>
 <script type="text/javascript">
 	function cart(){
@@ -47,8 +57,8 @@
 			for(var i=0;i<json.length;i++){
 				var mm  = json[i];
 				var div = document.createElement("div");
-				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "<br>" + "<div>작성자:  " + mm.name +"제목: " +mm.title
-							+ "내용:" + mm.content + "</div>";
+				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "<div><p>작성자:  " + mm.name +"</p> <p>제목: " +mm.title
+							+ "</p> <p>내용:" + mm.content + "</p></div>";
 			    div.innerHTML = html;
 				searchlist.appendChild(div);
 			}
