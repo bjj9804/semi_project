@@ -210,7 +210,7 @@
 		#joinWrap input[type=submit]{border: 1px solid #333; height: 40px; width: 161px; color: #fff; background-color:#333; vertical-align: middle;}
 		#joinWrap input[type=button]{border: 1px solid #333; height: 40px; width: 150px; color: #fff; background-color:#aaa; vertical-align: middle;}
 		#joinWrap input[type=reset]{border: 1px solid #333; height: 40px; width: 150px; color: #fff; background-color:#aaa; vertical-align: middle;}
-	</style>
+	</style> 
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/> 
