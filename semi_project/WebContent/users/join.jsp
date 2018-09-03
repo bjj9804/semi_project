@@ -213,7 +213,7 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/inc/gnb.jsp"/>
+	<jsp:include page="/inc/gnb.jsp"/> 
 	<div id="content">
 		<div class="inner">
 			<div id="joinWrap"><br><br>
