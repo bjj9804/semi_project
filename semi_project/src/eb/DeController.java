@@ -105,6 +105,7 @@ public class DeController extends HttpServlet {
       DemandDao dao = DemandDao.getInstance();
       int n = dao.payconfirm(orderNum); 
       int a = 0;
+      
       ArrayList<BuyVo> list=dao.detail(orderNum);
       for(int i=0; i<list.size(); i++) {
     	  String isize = list.get(i).getIsize();

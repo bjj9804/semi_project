@@ -1025,7 +1025,6 @@ public class DemandDao {
              con=DBConnection.getConnection();
              String sql="update itemsize set amount=? where code=?, isize=?";
              pstmt=con.prepareStatement(sql);
-       
              pstmt.setInt(1, amount);
              pstmt.setString(2, code);
              pstmt.setString(3, isize);
