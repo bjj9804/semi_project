@@ -37,21 +37,21 @@
 	<div id="section2" class="section">
 		<ul>
 			<li>
-				<a href="#">
+				<a href="/semi_project/jh/product.do?cmd=showItem&mark=bg">
 					<img src="../images/main/item1.jpg">
 					<span class="sub_tit">BAG</span>
 					<span class="tit">The Performers: Hiroshi Ishiguro </span>
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="/semi_project/jh/product.do?cmd=showItem&mark=ac">
 					<img src="../images/main/item2.jpg">
 					<span class="sub_tit">ACCESSORIES</span>
 					<span class="tit">Engraved leaf and snake motif with Interlocking G</span>
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="/semi_project/jh/product.do?cmd=showItem&mark=wskirts">
 					<img src="../images/main/item3.jpg">
 					<span class="sub_tit">SKIRTS</span>
 					<span class="tit">Blue Boudoir print silk twill</span>
