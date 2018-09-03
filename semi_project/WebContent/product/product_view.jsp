@@ -122,9 +122,13 @@
 			</table>
 			<br>
 			<h2>상세이미지</h2>
-			<c:forEach var="imgvo" items="${img }">
-				<img src="/semi_project/itemFile/${imgvo.imgScr }" style="width:500px;">	<br>	
-			</c:forEach>
+			<ul class="product_list">
+				<li>
+					<c:forEach var="imgvo" items="${img }">
+						<img src="/semi_project/itemFile/${imgvo.imgScr }" style="width:500px;">	<br>	
+					</c:forEach>
+				</li>
+			</ul>
 			
 			
 			<input type="hidden" name="code" value="${item.code }">
