@@ -53,13 +53,13 @@
 }
 #section1 .main_content{text-align:center;}
 
-#section2 {z-index:2;}
+#section2 {z-index:2; padding-top:100px;}
 
 #section3 {
   z-index: 1;
 }
 
-#section4 { background: #111; min-height:30%;}
+#section4 { background: #111; min-height:0; padding:50px 0;}
 
 #header{
     color: #fff;
@@ -107,6 +107,18 @@
 #content .inner .admin_menu li a:hover{background-color:#222; color:#fff;}
 
 .section .main_content{width:1000px; margin:0 auto;}
+.section .main_content a{display:block; width:400px; margin:0 auto; text-align:center;} 
+.section .main_content a img{display:block; width:100%;}
+.section .main_content a span.tit{font-size:20px; color:#333; display:block;}
+.section .main_content a span.sub_tit{font-size:14px; color:#333; display:block; margin-top:-20px;}
+#section1 .main_content{padding-bottom:40px;}
+
+#section2 ul{font-size:0; text-align:center;}
+#section2 ul li{display:inline-block; vertical-align:middle; width:25%; margin:0 20px}
+#section2 ul li img{display:block; width:80%; margin:0 auto;}
+#section2 ul li a span.tit{font-size:18px; color:#333; display:block; letter-spacing:-1px;}
+#section2 ul li a span.sub_tit{font-size:14px; color:#333; display:block;}
+
 
 #header .sub_bg{display:none; position:absolute; top:120px; left:0; width:100%; height:300px; background-color:rgba(255,255,255,0.7); z-index:3}
 #header.change .sub_bg{top:50px;}
@@ -116,3 +128,6 @@
 #header .gnb .sub_menu li a{display:block; font-size:13px; color:#222;}
 
 #header .gnb .sub_menu.sub1{left:20px;}
+
+#footer-main{text-align:left;}
+.content-inner{width:1000px; margin:0 auto;}

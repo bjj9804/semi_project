@@ -1,7 +1,6 @@
 $(function(){
     $("body").scroll(function(){
-        var scroll = $("body").scrollTop();
-        console.log(scroll);
+        var scroll = $("body").scrollTop();;
         if (scroll >= 50) {
             $("#header").addClass("change");
         } else {
