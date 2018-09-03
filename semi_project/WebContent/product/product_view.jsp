@@ -123,11 +123,11 @@
 			<br>
 			<h2>상세이미지</h2>
 			<ul class="product_list">
-				<li>
-					<c:forEach var="imgvo" items="${img }">
+				<c:forEach var="imgvo" items="${img }">
+					<li>
 						<img src="/semi_project/itemFile/${imgvo.imgScr }">	
-					</c:forEach>
-				</li>
+					</li>
+				</c:forEach>
 			</ul>
 			
 			
