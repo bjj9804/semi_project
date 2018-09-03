@@ -47,7 +47,7 @@
 			for(var i=0;i<json.length;i++){
 				var mm  = json[i];
 				var div = document.createElement("div");
-				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "<br>" + "<div>작성자: " + mm.name +"제목: " +mm.title
+				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "<br>" + "<div>작성자 : " + mm.name +"제목: " +mm.title
 							+ "내용:" + mm.content + "</div>";
 			    div.innerHTML = html;
 				searchlist.appendChild(div);
