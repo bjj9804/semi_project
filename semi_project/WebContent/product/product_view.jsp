@@ -47,8 +47,8 @@
 			for(var i=0;i<json.length;i++){
 				var mm  = json[i];
 				var div = document.createElement("div");
-				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "작성자: " + mm.name +"제목: " +mm.title+"<br>"
-							+ "내용:" + mm.content;
+				var html =  "<img src='/semi_project/Upload/"+mm.img+"'>" + "<br>" + "<div>작성자: " + mm.name +"제목: " +mm.title
+							+ "내용:" + mm.content + "</div>";
 			    div.innerHTML = html;
 				searchlist.appendChild(div);
 			}
@@ -71,6 +71,13 @@
 		<%String sessionE=(String)session.getAttribute("email"); %>
 		<form name="frm" action="/semi_project/jh/demand.do?cmd=cart" method="post">
 			<table class="board_list">
+				<colgroup>
+					<col style="width:20%">
+					<col style="width:10%">
+					<col>
+					<col style="width:10%">
+					<col style="width:10%">
+				</colgroup>
 				<tr>
 					<th>상품명</th>
 					<th>가격</th>
