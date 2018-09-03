@@ -82,3 +82,7 @@
 .product_list{font-size:0}
 .product_list li{display:inline-block; vertical-align:middle; width:25%; padding:0 15px;}
 .product_list li img{display:block; width:100%;}
+
+.category{font-size:0; text-align:center;}
+.category li{display:inline-block; vertical-align:middle; width:30%; margin:0 20px;}
+.category li img{display:block; width:100%; cursor:pointer;}

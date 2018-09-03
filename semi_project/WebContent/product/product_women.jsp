@@ -10,11 +10,17 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<img src="/semi_project/itemFile/2.png" onclick="location.href='/semi_project/jh/product.do?cmd=showItem&mark=w'">
-			
-			
-			
-			
+			<ul class="category">
+				<li>
+					<img src="/semi_project/images/main/women1.jpg" onclick="location.href='/semi_project/jh/product.do?cmd=showItem&mark=w'">
+				</li>
+				<li>
+					<img src="/semi_project/images/main/women2.jpg" onclick="location.href='/semi_project/jh/product.do?cmd=showItem&mark=w'">
+				</li>
+				<li>
+					<img src="/semi_project/images/main/women3.jpg" onclick="location.href='/semi_project/jh/product.do?cmd=showItem&mark=w'">
+				</li>
+			</ul>
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp"/>
