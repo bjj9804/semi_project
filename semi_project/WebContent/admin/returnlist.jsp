@@ -42,6 +42,7 @@
 			<td>${realist[status.index].reason }
 			<c:if test="${vo.state == '교환신청중' }">
 			<input type="button" value="교환완료" onclick="javascript:location.href='demand.do?cmd=refundcon2&num=${vo.buyNum}'"></td>
+			console.log(realist[status.index].reason);
 			</c:if>
 			<c:if test="${vo.state == '반품신청중' }">
 			<br><input type="button" value="반품완료" onclick="javascript:location.href='demand.do?cmd=refundcon&num=${vo.buyNum}'"></td>

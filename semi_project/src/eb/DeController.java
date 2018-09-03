@@ -368,6 +368,8 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
    protected void refundcon2(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
       int buyNum = Integer.parseInt(request.getParameter("num"));
+      
+      String reason = request.getParameter("reason");
       DemandDao dao = DemandDao.getInstance();
       PayVo vo1 = dao.ordernumselect(buyNum);
       int orderNum = vo1.getOrderNum();
@@ -387,10 +389,19 @@ protected void returnlist(HttpServletRequest request, HttpServletResponse respon
       if(x=true) {//만약 같은 ordernum의 buy들이 전부 교환완료나 구매완료라면 pay테이블의상태도 구매완료로바꿔준다.
     	  int a = dao.payconfirm2(orderNum);
       }
-      
       ArrayList<BuyVo> list = dao.refundlist();
+      ArrayList<Return_buyVo> realist=new ArrayList<>();
+      for(int i=0; i<list.size(); i++){
+    	  BuyVo vo2=list.get(i);
+    	  int buynum = vo2.getBuyNum();
+    		Return_buyVo vo=dao.reason(buynum);
+    		realist.add(vo);
+      }
+      
+      //ArrayList<BuyVo> list = dao.refundlist();
       request.setAttribute("list", list);
       request.setAttribute("b", b);
+      request.setAttribute("realist", realist);
       request.getRequestDispatcher("/admin/returnlist.jsp").forward(request, response);
    }
  //구매자가 배송상태 업데이트(구매확정)-buy만//그리구 pay도 구매완료
