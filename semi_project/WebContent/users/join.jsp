@@ -91,7 +91,7 @@
 			}
 			for(var i=0; i<pwd.length; i++){
 				if(!(pwd.charAt(i)>= 'a' && pwd.charAt(i) <= 'z') && !(pwd.charAt(i)>= 'a' && pwd.charAt(i) <= 'z') && !(pwd.charAt(i)>= '0' && pwd.charAt(i) <= '9')){
-					span.innerHTML = "대소문자나 숫자로만 작성";
+					span.innerHTML = "";
 				}
 			}
 			for(var i=0; i<pwd.length; i++){
