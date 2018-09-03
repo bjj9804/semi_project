@@ -1023,7 +1023,7 @@ public class DemandDao {
           PreparedStatement pstmt=null;
           try {
              con=DBConnection.getConnection();
-             String sql="update itemsize set amount=? where code=?, isize=?";
+             String sql="update itemsize set amount=amount-? where code=? and isize=?";
              pstmt=con.prepareStatement(sql);
              pstmt.setInt(1, amount);
              pstmt.setString(2, code);
