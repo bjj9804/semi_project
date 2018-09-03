@@ -1017,6 +1017,32 @@ public class DemandDao {
             }
          }
       }
+      //구매완료되면 수량빼주기
+      public int amt(int amount, String code, String isize) {
+          Connection con=null;
+          PreparedStatement pstmt=null;
+          try {
+             con=DBConnection.getConnection();
+             String sql="update itemsize set amount=? where code=?, isize=?";
+             pstmt=con.prepareStatement(sql);
+       
+             pstmt.setInt(1, amount);
+             pstmt.setString(2, code);
+             pstmt.setString(3, isize);
+             int n=pstmt.executeUpdate();
+             return n ;
+          }catch(Exception e) {
+             e.printStackTrace();
+             return -1;
+          }finally {
+             try {
+                if(pstmt!=null) pstmt.close();
+                if(con!=null) con.close();      
+             }catch(SQLException se) {
+                se.printStackTrace();
+             }
+          }
+       }
       
 }
    

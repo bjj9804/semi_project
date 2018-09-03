@@ -103,8 +103,18 @@ public class DeController extends HttpServlet {
          throws ServletException, IOException {
       int orderNum = Integer.parseInt(request.getParameter("num"));
       DemandDao dao = DemandDao.getInstance();
-      int n = dao.payconfirm(orderNum);   
+      int n = dao.payconfirm(orderNum); 
+      int a = 0;
+      ArrayList<BuyVo> list=dao.detail(orderNum);
+      for(int i=0; i<list.size(); i++) {
+    	  String isize = list.get(i).getIsize();
+    	  String code = list.get(i).getCode();
+    	  int amount= list.get(i).getOrderAmount();
+    	  a=dao.amt(amount, code, isize);
+      }
+      //여기서 수량을 빼준다
       request.setAttribute("n", n);
+      request.setAttribute("a", a);
       request.getRequestDispatcher("demand.do?cmd=mylist").forward(request, response);
    }
 
