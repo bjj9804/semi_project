@@ -52,8 +52,6 @@ public class ModifyController extends HttpServlet{
 		}else {
 			request.setAttribute("deleteMsg", "fail");
 		}
-		HttpSession session = request.getSession();
-		session.invalidate();
 		String contextPath = getServletContext().getContextPath();
 		request.getRequestDispatcher("../mh/users.do?cmd=userslist").forward(request, response);
 	}
