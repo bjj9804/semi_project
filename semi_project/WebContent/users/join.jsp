@@ -230,7 +230,7 @@
 						</colgroup>
 						<tr>
 							<th rowspan="11">계정 세부 정보</th>
-							<td colspan="4">이메일 주소</td>
+							<td colspan="4">이메일 주소&nbsp;&nbsp;<span id="echeck" style="color:red"> </span></td>
 						</tr>
 						<tr>
 							<td>
@@ -260,11 +260,10 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<span id="echeck" style="color:red"> </span>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">이메일 주소 다시 입력</td>
+							<td colspan="4">이메일 주소 다시 입력&nbsp;&nbsp;<span id="echeck2" style="color:red"> </span></td>
 						</tr>
 						<tr>
 							<td>
@@ -293,16 +292,15 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<span id="echeck2" style="color:red"> </span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								비밀번호
+								비밀번호&nbsp;&nbsp;<span id="pwdcheck" style="color:red"></span>
 							</td>
 							<td> </td>
 							<td>
-								비밀번호 다시 입력
+								비밀번호 다시 입력&nbsp;&nbsp;<span id="pwdcheck2" style="color:red"></span>
 							</td>
 							<td> </td>
 						</tr>
@@ -314,11 +312,11 @@
 						</tr>
 						<tr>
 							<td>
-								<span id="pwdcheck" style="color:red"></span>
+								
 							</td>
 							<td></td>
 							<td>
-								<span id="pwdcheck2" style="color:red"></span>
+								
 							</td>
 							<td></td>
 						</tr>
