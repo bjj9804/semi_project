@@ -21,11 +21,11 @@
 				</c:if>
 			</div>
 			<ul style="float:right;width:400px;">
-				<li>
-					<c:forEach var="ob" items="${list }">
+				<c:forEach var="ob" items="${list }">
+					<li>
 						<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][1] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][0] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'" style="width:100%;">
-					</c:forEach>
-				</li>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
