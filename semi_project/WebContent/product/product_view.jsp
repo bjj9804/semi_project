@@ -6,7 +6,7 @@
 <head>
 	<jsp:include page="/inc/header.jsp"/>
 	<style>
-		#searchlist div{
+		#searchlist > div{
 		    border: 1px solid #ccc;
 		    padding: 20px;
 		    background: #fff;
