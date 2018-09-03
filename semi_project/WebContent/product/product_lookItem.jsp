@@ -20,7 +20,7 @@
 					<img src="/semi_project/itemFile/${lvo.lookFront }" onmouseover="this.src='/semi_project/itemFile/${lvo.lookBack }'" onmouseout="this.src='/semi_project/itemFile/${lvo.lookFront }'" style="width:100%;">
 				</c:if>
 			</div>
-			<ul style="float:right;width:400px;">
+			<ul style="float:right;width:400px; margin-right:400px;">
 				<c:forEach var="ob" items="${list }">
 					<li>
 						<img src="/semi_project/itemFile/${ob[1][0] }" onmouseover="this.src='/semi_project/itemFile/${ob[1][1] }'" onmouseout="this.src='/semi_project/itemFile/${ob[1][0] }'" onclick="location.href='/semi_project/jh/product.do?cmd=itemDetail&code=${ob[0] }'" style="width:100%;">
