@@ -7,6 +7,7 @@
 	<jsp:include page="/inc/header.jsp"/>
 	<style>
 		#joinConWrap{margin: auto; width: 60%; padding: 20px; border: solid 1px #ccc; background: #fff; text-align: center;}
+		#joinConWrap a{padding: 8px; border: solid 1px #333; color: #fff; background: #333}
 	</style>
 </head>
 <body>
@@ -16,12 +17,13 @@
 			<div id="joinConWrap">
 				<c:choose>
 					<c:when test="${requestScope.code == 'success'}">
-						<h2>회원가입 성공</h2>
-						<a href="<c:url value='/mh/users.do?cmd=loginform'/>">로그인하기</a>
+						<br><br>
+						<h2>PABAL에 가입하신것을 축하드립니다!</h2><br>
+						<a href="<c:url value='/mh/users.do?cmd=loginform'/>">로그인하기</a><br><br><br>
 					</c:when>
-					<c:otherwise>
-						<h2>회원가입 실패</h2>
-						<a href="<c:url value='../users/join.jsp'/>">다시 회원 가입</a>
+					<c:otherwise><br><br>
+						<h2>회원가입에 실패하셨습니다</h2><br>
+						<a href="<c:url value='../users/join.jsp'/>">다시 회원 가입</a><br><br><br>
 					</c:otherwise>
 				</c:choose>
 			</div>

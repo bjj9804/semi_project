@@ -105,17 +105,17 @@
 			<div id="loginWrap">
 				<table id="tableWrap">
 					<tr>
-						<th colspan="2"><h1>로그인</h1></th>
+						<th colspan="2"><h1>로그인</h1><br><br></th>
 					</tr>
 					<tr>
 						<td style="width: 40%; padding: 20px; padding-left: 60px;">
-							<h3>신규고객</h3>
+							<h3>신규고객</h3><br>
 							<h4>PABAL 온라인 서비스 이용을 위해 회원가입을 해주시기 바랍니다.</h4>
 							<ul>
 								<li>상품 배송 현황 및 반품 내역 확인</li>
 								<li>나만을 위한 구찌의 상품 추천</li>
 								<li>관심 상품 편집</li>
-							</ul>
+							</ul><br>
 							<input type="button" value="신규 회원 가입" onclick = "location.href = '/semi_project/users/join.jsp'"><br>
 							<a href="javascript:getid()">아이디찾기</a>
 						</td>

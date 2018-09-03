@@ -200,22 +200,33 @@
 	<style>
 		#joinWrap{margin: auto; width: 80%; padding: 20px; border: solid 1px #ccc; background: #fff; margin-bottom: 30px;}
 		#joinWrap h1{text-align: center;}
-		#joinWrap table{margin: 20px auto; width: 800px; border: solid 1px #ccc;}
-		#joinWrap table tr td{padding: 10px; }
-		#joinwrap table tr th{width: 300px;}
+		#joinWrap table{margin: 10px auto; width: 700px;}
+		#joinWrap table tr td{padding: 0 10px 0 10px;}
+		#joinWrap table tr th{border-right: solid 1px #ccc;}
+		.joinDiv{border: solid 1px #ccc; margin: 10px auto; padding: 0px; width: 800px;}
+		#joinWrap select{margin: 10px 0 10px 0; border: 1px solid #333; height: 38px; color: #333; width: 160px; padding-left: 10px; vertical-align: middle;}
+		#joinWrap input[type=text]{margin: 10px 0 10px 0;margin-right: 10px; border: 1px solid #333; height: 35px; width: 150px; color: #333; padding-left: 10px; vertical-align: middle;}
+		#joinWrap input[type=password]{border: 1px solid #333; height: 35px; width: 150px; color: #333; padding-left: 10px; vertical-align: middle;}
+		#joinWrap input[type=submit]{border: 1px solid #333; height: 40px; width: 161px; color: #fff; background-color:#333; vertical-align: middle;}
+		#joinWrap input[type=button]{border: 1px solid #333; height: 40px; width: 150px; color: #fff; background-color:#aaa; vertical-align: middle;}
+		#joinWrap input[type=reset]{border: 1px solid #333; height: 40px; width: 150px; color: #fff; background-color:#aaa; vertical-align: middle;}
 	</style>
 </head>
 <body>
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<div id="joinWrap">
-				<h1>회원가입</h1>
+			<div id="joinWrap"><br><br>
+				<h1>회원가입</h1><br><br>
 				<form action="/semi_project/mh/users.do?cmd=joinform" method="post" onsubmit="return check();">
 					<!-- 계정 세부정보 email,pwd 확인 -->
+					<div class="joinDiv">
 					<table>
 						<colgroup>
-							<col style="">
+							<col style="width: 150px;">
+							<col style="width: 200px;">
+							<col style="width: 50px;">
+							<col style="width: 200px;">
 						</colgroup>
 						<tr>
 							<th rowspan="11">계정 세부 정보</th>
@@ -245,6 +256,7 @@
 									<option value="@paran.com">paran.com</option>
 								</select>
 							<td>
+							<td></td>
 						</tr>
 						<tr>
 							<td colspan="4">
@@ -289,36 +301,36 @@
 								비밀번호
 							</td>
 							<td> </td>
-							<td> </td>
 							<td>
 								비밀번호 다시 입력
 							</td>
+							<td> </td>
 						</tr>
 						<tr>
 							<td><input type="password" name="pwd" id="pwd" onkeyup="pwdcheck()" placeholder="PASSWORD"> </td>
 							<td> </td>
-							<td> </td>
 							<td><input type="password" name="pwdok" id="pwdok" onkeyup="pwdcheck2()" placeholder="PASSWORD"></td>
+							<td> </td>
 						</tr>
 						<tr>
 							<td>
 								<span id="pwdcheck" style="color:red"></span>
 							</td>
 							<td></td>
-							<td></td>
 							<td>
 								<span id="pwdcheck2" style="color:red"></span>
 							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>
 								이메일/비밀번호 찾기 질문
 							</td>
 							<td></td>
-							<td></td>
 							<td>
 								답변
 							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>
@@ -339,29 +351,37 @@
 								</select>
 							</td>
 							<td> </td>
-							<td> </td>
 							<td><input type="text" name="answer" placeholder="ANSWER"></td>
+							<td> </td>
 						</tr>
 					</table>
+					</div>
 					<!-- 필수 동의 -->
+					<div class="joinDiv">
 					<table>
+						<colgroup>
+							<col style="width: 150px;">
+						</colgroup>
 						<tr>
 							<th>
 								필수 동의
 							</th>
 							<td>
-								<input type="checkbox" name="ckb"><label>GUCCI공식 온라인 스토어 이용약관</label><br>
-								<input type="checkbox" name="ckb"><label>개인정보 수집/이용에 관한 동의</label><br>
-								<input type="checkbox" name="ckb"><label>개인정도 국외 이전에 관한 동의</label><br>
+								<input type="checkbox" name="ckb"><label>&nbsp;&nbsp;GUCCI공식 온라인 스토어 이용약관</label><br>
+								<input type="checkbox" name="ckb"><label>&nbsp;&nbsp;개인정보 수집/이용에 관한 동의</label><br>
+								<input type="checkbox" name="ckb"><label>&nbsp;&nbsp;개인정도 국외 이전에 관한 동의</label><br>
 							</td>
 						</tr>
 					</table>
+					</div>
 					<!-- 정보 -->
+					<div class="joinDiv">
 					<table>
+						<colgroup>
+							<col style="width: 150px;">
+						</colgroup>
 						<tr>
-							<th rowspan="10">정보</th>
-						</tr>
-						<tr>
+							<th rowspan="9">정보</th>
 							<td>성</td>
 							<td>이름</td>
 						</tr>
@@ -375,7 +395,7 @@
 						</tr>
 						<tr>
 							<td>연락처</td>
-							<td> </td>
+							<td></td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -383,8 +403,8 @@
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="070">070</option>
-								</select>-
-								<input type="text" name="phone2" placeholder="0000">-
+								</select>&nbsp;-&nbsp;
+								<input type="text" name="phone2" placeholder="0000">&nbsp;-&nbsp;
 								<input type="text" name="phone3" placeholder="0000">
 							</td>
 						</tr>
@@ -396,17 +416,18 @@
 							<td colspan="2">
 								<input type="text" id="sample6_postcode" name="addr" placeholder="우편번호">
 								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text" id="sample6_address" name="addr1" placeholder="주소">
-								<input type="text" id="sample6_address2" name="addr2" placeholder="상세주소">
+								<input type="text" id="sample6_address" name="addr1" placeholder="주소" style="width: 315px"><br>
+								<input type="text" id="sample6_address2" name="addr2" placeholder="상세주소" style="width: 315px">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="submit" value="저장">
+								<input type="submit" value="가입하기">&nbsp;&nbsp;&nbsp;
 								<input type="reset" value="취소">
 							</td>
 						</tr>
 					</table>
+					</div>
 				</form>
 			</div>
 		</div>	
