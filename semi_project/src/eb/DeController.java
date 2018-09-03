@@ -112,6 +112,7 @@ public class DeController extends HttpServlet {
     	  String code = list.get(i).getCode();
     	  int amount= list.get(i).getOrderAmount();
     	  a=dao.amt(amount, code, isize);
+    	  System.out.println(amount+","+ code+","+ isize);
       }
       //여기서 수량을 빼준다
       request.setAttribute("n", n);
