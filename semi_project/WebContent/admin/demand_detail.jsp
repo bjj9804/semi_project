@@ -10,8 +10,17 @@
 	<jsp:include page="/inc/gnb.jsp"/>
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
 			<h1>상세주문서</h1>
+			<table class="board_list">
+						<colgroup>
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+				<col style="10%">
+			</colgroup>
 			<tr>
 			<td>주문번호</td>
 			<td>상품코드</td>

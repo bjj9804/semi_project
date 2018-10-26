@@ -11,7 +11,7 @@
 	<div id="content">
 		<div class="inner">
 		<h1>교환</h1>
-			<table border="1" width=900px bordercolor="black">
+			<table class="board_list">
 				<form action="demand.do?cmd=buychange2" method="post" border="1" bordercolor="black">
 				<tr>
 					<td><input type="checkbox" class="chk" id="chk_all" name="chk"/></td>
@@ -29,14 +29,14 @@
 				
 				</tr>
 				</c:forEach>
-				<tr>
+
 				
-				<td colspan=3>
-				<input type="button" value="교환신청" onclick="change(${orderNum })">
-				</td>
-				</tr>
 				</form>
 			</table>
+			<br>
+			<br>
+			<br>
+			<input type="button" value="교환신청" onclick="change(${orderNum })" class="btn_write">
 		</div>
 	</div>.
 	

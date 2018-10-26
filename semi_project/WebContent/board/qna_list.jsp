@@ -17,15 +17,15 @@
 			</c:if>
 			<table class="board_list">
 				<colgroup>
-					<col style="width:5%">
 					<col style="width:10%">
-					<col>
-					<col style="width:15%">
-					<col style="width:15%">
+					<col style="width:10%">
+					<col style="width:40%">
+					<col style="width:30%">
+					<col style="width:10%">
 				</colgroup>
 				<tr>
 				<c:if test="${flag==0}">	
-					<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')">
+				<%-- 	<input type="button" value="삭제" onclick="delete1('${email}', '${pageNum }')"> --%>
 					<th><input type="checkbox" name="check" onclick="checkAll()"></th>
 				</c:if>
 					<th>글번호</th>

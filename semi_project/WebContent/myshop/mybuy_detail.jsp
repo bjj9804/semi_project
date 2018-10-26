@@ -40,7 +40,7 @@
 			
 			<c:if test="${vo.state=='구매완료' || vo.state=='교환완료'}">
 			<!-- <a href="/semi_project/board/review_insert.jsp?code=${vo.code }">리뷰</a><br> -->
-			<br><input type="button" value="리뷰작성" onclick="javascript:location.href='/semi_project/board/review_insert.jsp?code=${vo.code }'">
+			<br><input type="button" value="리뷰작성" onclick="javascript:location.href='/semi_project/board/review_insert.jsp?code=${vo.code }'" >
 			</c:if>
 			<c:if test="${vo.state=='배송중' }">
 			<input type="button" value="구매확정" onclick="javascript:location.href='demand.do?cmd=stateconfirm2&num=${vo.buyNum}'">
@@ -52,7 +52,8 @@
 			</table>
 			<br>
 			<c:if test="${flag==0 }">
-			<a href="/semi_project/demand.do?cmd=paylist">목록으로</a><br>
+			<input type="button" value="목록으로" onclick="/semi_project/demand.do?cmd=paylist" class="btn_write">
+<!-- 			<a href="/semi_project/demand.do?cmd=paylist" class="btn_write">목록으로</a><br> -->
 			</c:if>
 			<c:if test="${flag==1 }">
 			<a href="/semi_project/demand.do?cmd=mylist&email=${email }">목록으로</a><br>

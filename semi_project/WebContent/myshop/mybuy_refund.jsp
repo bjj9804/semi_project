@@ -11,7 +11,7 @@
 	<jsp:include page="/inc/gnb.jsp" />
 	<div id="content">
 		<div class="inner">
-			<table border="1" width=900px bordercolor="black">
+			<table class="board_list">
 				<h1>반품</h1>
 				<form action="demand.do?cmd=refund2" method="post" border="1" bordercolor="black">
 				<tr>
@@ -41,14 +41,13 @@
 				</c:if>
 				</c:forEach>
 				</tr>
-				<tr>
-				<td colspan=3>
-				<input type="button" value="반품신청" onclick="refund(${orderNum })">
-				
-				</td>
-				</tr>
 				</form>
 			</table>
+			<br>
+			<br>
+			<br>
+							<input type="button" value="반품신청" onclick="refund(${orderNum })" class="btn_write">
+				
 		</div>
 	</div>
 	<jsp:include page="/inc/footer.jsp" />
